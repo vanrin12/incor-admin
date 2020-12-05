@@ -46,7 +46,38 @@ export const headCustomer = [
     name: 'Ghi chú',
   },
 ];
+export const headPost = [
+  {
+    id: 0,
+    name: '',
+  },
+  {
+    id: 1,
+    name: 'Tiêu đề',
+  },
+  {
+    id: 2,
+    name: 'Người viết',
+  },
+  {
+    id: 3,
+    name: 'Chuyên mục',
+  },
+  {
+    id: 4,
+    name: 'Thời gian',
+  },
+  {
+    id: 5,
+    name: 'Thumbnail',
+  },
+  {
+    id: 6,
+    name: 'SEO Score',
+  },
+];
 export default {
   headPartner,
   headCustomer,
+  headPost,
 };

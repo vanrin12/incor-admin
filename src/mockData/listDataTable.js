@@ -87,7 +87,55 @@ export const listDataCustomer = [
     Lề chân tường: 200mm`,
   },
 ];
+export const listDataPost = [
+  {
+    id: 1,
+    title: 'NHỮNG XU HƯỚNG XÂY DỰNG NHÀ TRONG NĂM 2021',
+    writer: 'Incor',
+    category: 'Tư vấn Xây dựng',
+    time: `13:00 11/11/2020`,
+    Thumbnail: 'Có',
+    score: 99,
+  },
+  {
+    id: 2,
+    title: 'NHỮNG XU HƯỚNG XÂY DỰNG NHÀ TRONG NĂM 2021',
+    writer: 'Incor',
+    category: 'Tư vấn Xây dựng',
+    time: `13:00 11/11/2020`,
+    Thumbnail: 'Có',
+    score: 99,
+  },
+  {
+    id: 3,
+    title: 'NHỮNG XU HƯỚNG XÂY DỰNG NHÀ TRONG NĂM 2021',
+    writer: 'Incor',
+    category: 'Tư vấn Xây dựng',
+    time: `13:00 11/11/2020`,
+    Thumbnail: 'Có',
+    score: 99,
+  },
+  {
+    id: 4,
+    title: 'NHỮNG XU HƯỚNG XÂY DỰNG NHÀ TRONG NĂM 2021',
+    writer: 'Incor',
+    category: 'Tư vấn Xây dựng',
+    time: `13:00 11/11/2020`,
+    Thumbnail: 'Có',
+    score: 99,
+  },
+  {
+    id: 5,
+    title: 'NHỮNG XU HƯỚNG XÂY DỰNG NHÀ TRONG NĂM 2021',
+    writer: 'Incor',
+    category: 'Tư vấn Xây dựng',
+    time: `13:00 11/11/2020`,
+    Thumbnail: 'Có',
+    score: 99,
+  },
+];
 export default {
   listDataPartner,
   listDataCustomer,
+  listDataPost,
 };

@@ -1,0 +1,17 @@
+.page-post{
+  button.button.btn{
+    height: pxToVW(47);
+    font-size: pxToVW(20);
+    padding-left: pxToVW(17);
+    padding-right: pxToVW(17);
+    &:first-child{
+      margin-right: pxToVW(40);
+    }
+  }
+  .action-delete{
+    button.button.btn{
+      margin-right: 0;
+      font-size: pxToVW(15);
+    }
+  }
+}
