@@ -1,0 +1,36 @@
+.table{
+  font-size: pxToVW(18);
+  color: $color-table;
+  thead{
+    background-color: $color_primary;
+    tr{
+      th{
+        border: 0;
+        color: $color-head;
+        font-size: pxToVW(18);
+        padding: pxToVW(15) pxToVW(10);
+      }
+    }
+  }
+  tbody{
+    tr:nth-of-type(odd){
+      background-color:$white;
+    }
+    tr:nth-of-type(even){
+      background-color:$bg-even-table;
+    }
+    tr{
+      td{
+        border: 0;
+        padding: pxToVW(25) pxToVW(10);
+        p{
+          color: $color-link-table;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+.table-responsive{
+  border-radius: pxToVW(10);
+}

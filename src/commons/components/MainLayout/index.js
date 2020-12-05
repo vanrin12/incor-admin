@@ -7,16 +7,17 @@ import Menu from 'commons/components/Menu';
 
 type Props = {
   children: any,
+  activeMenu: number,
   // customClass?: string,
 };
 
-const MainLayout = ({ children }: Props) => {
+const MainLayout = ({ children, activeMenu }: Props) => {
   return (
     <Container fluid>
       <Row className="main-layout">
         <div className="main-layout__profile">profile</div>
         <Col xs={12} md={2}>
-          <Menu />
+          <Menu activeMenu={activeMenu} />
         </Col>
         <Col xs={12} md={10}>
           {children}
@@ -26,7 +27,7 @@ const MainLayout = ({ children }: Props) => {
   );
 };
 
-MainLayout.defaultProps = {
-  customClass: '',
-};
+// MainLayout.defaultProps = {
+//   customClass: '',
+// };
 export default memo<Props>(MainLayout);
