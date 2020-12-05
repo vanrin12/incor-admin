@@ -1,0 +1,18 @@
+button.button.btn {
+  height: pxToRem(55);
+  background: rgb(42, 82, 153);
+  background: linear-gradient(-90deg, rgba(42, 82, 153, 1) 0%, rgba(21, 41, 77, 1) 100%);
+  border-radius: pxToRem(15);
+  box-shadow: 0 pxToRem(3) pxToRem(6) 0 rgba(0, 0, 0, 0.16);
+  border: 0;
+  min-width: pxToRem(100);
+  letter-spacing: pxToRem(0.5);
+  color: $white;
+  font-size: pxToRem(22);
+
+  &.big {
+    width: pxToRem(390);
+    font-size: pxToRem(25);
+    min-height: 60px;
+  }
+}

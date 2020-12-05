@@ -1,0 +1,8 @@
+.main-layout {
+  position: relative;
+  &__profile {
+    position: absolute;
+    top: pxToRem(60);
+    right: pxToRem(80);
+  }
+}

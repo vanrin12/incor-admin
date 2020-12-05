@@ -1,0 +1,25 @@
+@import './styles/reset';
+@import './styles/function';
+@import './styles/mixin';
+@import './styles/fonts';
+@import './styles/variables';
+@import './styles/core';
+@import './styles/theme';
+
+// Header
+@import './commons/components/Header/styles';
+
+// Footer
+@import './commons/components/Footer/styles';
+
+// button
+@import './commons/components/Button/styles';
+//Main
+@import './modules/home/components/styles';
+
+//menu
+@import './commons/components/Menu/style';
+
+// select
+@import './commons/components/Select/styles';
+@import './commons/components/MainLayout/styles';

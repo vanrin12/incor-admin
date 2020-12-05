@@ -1,0 +1,66 @@
+.modal {
+  z-index: 9999;
+
+  &.index-9998 {
+    z-index: 9998;
+  }
+
+  .modal-dialog {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 pxToRem(30);
+    margin: 0;
+    max-width: pxToRem(500);
+  }
+}
+
+.modal-backdrop {
+  &.show {
+    opacity: 0.4;
+  }
+}
+
+.modal-content {
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  color: $popup-txt;
+  padding: 0;
+  border: none;
+  @include radius(#{pxToRem(39)});
+
+  &__iconClose {
+    position: absolute;
+    right: pxToRem(30);
+    top: pxToRem(20);
+    width: pxToRem(20);
+    height: pxToRem(18);
+
+    &:focus {
+      outline: none;
+    }
+
+    img {
+      width: pxToRem(19);
+      height: pxToRem(19);
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .modal-body {
+    width: 100%;
+    white-space: pre-line;
+    padding: 0 pxToRem(50);
+    margin: 0;
+  }
+}

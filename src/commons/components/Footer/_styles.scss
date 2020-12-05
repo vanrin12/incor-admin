@@ -1,0 +1,89 @@
+.footer {
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.16);
+  background: rgb(42, 82, 153);
+  background: linear-gradient(-90deg, rgba(42, 82, 153, 1) 0%, rgba(21, 41, 77, 1) 100%);
+  padding: pxToRem(75) pxToRem(58) pxToRem(40) pxToRem(58);
+
+  .logo-footer {
+    max-width: pxToRem(331);
+    text-align: center;
+    margin: auto;
+
+    a {
+      display: block;
+    }
+
+    img {
+      margin: auto;
+      width: 100%;
+    }
+  }
+
+  .logo-copyright {
+    margin: auto;
+    text-align: center;
+  }
+
+  .info-company {
+    h3 {
+      font-size: pxToRem(35);
+      font-weight: bold;
+      line-height: 1.2;
+      text-align: left;
+      color: $white;
+      margin-bottom: pxToRem(15);
+    }
+
+    .company-desc {
+      opacity: 0.9;
+      margin-bottom: pxToRem(30);
+      font-size: pxToRem(20);
+      font-style: italic;
+      line-height: 1.5;
+      text-align: left;
+      color: $white;
+    }
+
+    .address {
+      color: $white;
+      margin-bottom: pxToRem(20);
+    }
+
+    .address-title {
+      font-size: pxToRem(30);
+      font-weight: 500;
+      line-height: 1.23;
+      margin-bottom: pxToRem(10);
+    }
+
+    .address-name {
+      font-size: pxToRem(20);
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    .address-company {
+      color: $white;
+
+      ul {
+        width: 100%;
+
+        li {
+          width: 100%;
+
+          img {
+            margin-right: pxToRem(10);
+          }
+        }
+      }
+    }
+
+    .copyright {
+      margin-top: pxToRem(60);
+      font-size: pxToRem(25);
+      opacity: 0.9;
+      color: $white;
+      line-height: 1.2;
+    }
+  }
+}

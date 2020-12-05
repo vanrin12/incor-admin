@@ -1,0 +1,44 @@
+.wrapper-menu {
+  flex-direction: column;
+  padding: 0 pxToRem(96) 0 pxToRem(40);
+  background: $white;
+
+  .logo {
+    background-image: url('../../../assets/imgs/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: pxToRem(204);
+    height: pxToRem(136);
+    margin-bottom: pxToRem(59);
+    margin-left: pxToRem(-10);
+  }
+  .menu {
+    &__item {
+      font-weight: bold;
+      padding-bottom: pxToRem(55);
+      cursor: pointer;
+
+      svg {
+        vertical-align: initial;
+      }
+      a {
+        color: $color-black;
+        text-transform: uppercase;
+        font-size: pxToRem(20);
+        margin-left: pxToRem(14);
+      }
+      
+      &--active {
+        a {
+          color: $color_primary;
+        }
+
+        svg {
+          path {
+            fill: $color_primary;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,114 @@
+.input {
+  &__error-msg {
+    margin-top: pxToRem(10);
+    font-size: pxToRem(13);
+  }
+
+  &__label {
+    font-size: pxToRem(14);
+    font-weight: $medium;
+    line-height: pxToRem(19);
+    color: $black-active;
+    margin-bottom: pxToRem(5);
+    display: flex;
+  }
+
+  &__box {
+    position: relative;
+    display: block;
+
+    &.left {
+      .input {
+        padding-left: pxToRem(30);
+      }
+    }
+
+    &__icon {
+      position: absolute;
+      @include transform-translateY(-50%);
+      width: pxToRem(19);
+      height: pxToRem(19);
+      display: inline-block;
+      z-index: 2;
+
+      &__right {
+        right: pxToRem(15);
+        top: 50%;
+
+        &:focus {
+          outline: none;
+        }
+
+        img {
+          width: pxToRem(19);
+          height: pxToRem(19);
+        }
+      }
+
+      &.left {
+        left: pxToRem(15);
+      }
+    }
+
+    input {
+      border: pxToRem(1) solid $color-border;
+      height: pxToRem(49);
+      display: block;
+      font-size: pxToRem(16);
+      padding: pxToRem(15);
+      color: $color-input;
+      width: 100%;
+      letter-spacing: pxToRem(-0.25);
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: $regular;
+
+      &::-webkit-input-placeholder {
+        color: $color-placeholder;
+        font-weight: $regular;
+        font-size: pxToRem(14);
+        letter-spacing: pxToRem(-0.25);
+      }
+
+      &::placeholder {
+        color: $color-placeholder;
+        font-weight: $regular;
+        font-size: pxToRem(14);
+        letter-spacing: pxToRem(-0.25);
+      }
+
+      &::-moz-placeholder {
+        color: $color-placeholder;
+        font-weight: $regular;
+        font-size: pxToRem(14);
+        letter-spacing: pxToRem(-0.25);
+      }
+
+      &:-ms-input-placeholder {
+        color: $color-placeholder;
+        font-weight: $regular;
+        font-size: pxToRem(14);
+        letter-spacing: pxToRem(-0.25);
+      }
+    }
+
+    &__custom {
+      input {
+        padding-right: pxToRem(35);
+      }
+    }
+  }
+}
+
+input,
+textarea {
+  -webkit-appearance: none;
+  font-family: $Noto-Sans-Font;
+
+  &:focus {
+    border: pxToRem(1) solid $color-border-active;
+    outline: none;
+  }
+}
