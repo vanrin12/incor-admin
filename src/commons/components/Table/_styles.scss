@@ -23,6 +23,8 @@
       td{
         border: 0;
         padding: pxToVW(25) pxToVW(10);
+        white-space: pre-line;
+        vertical-align: middle;
         p{
           color: $color-link-table;
           text-decoration: underline;

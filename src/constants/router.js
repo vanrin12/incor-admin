@@ -3,6 +3,7 @@ const ROUTERS = {
   LOGIN: `/login`,
   SIGN_UP: '/sign-up',
   PARTNER: '/partner',
+  CUSTOMER: '/customer',
 };
 
 export default ROUTERS;
