@@ -1,17 +1,14 @@
 // @flow
-import React, { useState } from 'react';
+import React, { memo } from 'react';
 import InlineSVG from 'svg-inline-react';
 import { Row } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 import menuItems from 'constants/menuItems';
 
-const Menu = () => {
-  const [activeMenu, setacTiveMenu] = useState(0);
-
-  const handleChangeActiveMenu = (key) => {
-    setacTiveMenu(key);
-  };
-
+type Props = {
+  activeMenu: number,
+};
+const Menu = ({ activeMenu }: Props) => {
   const renderItemMenu = menuItems.map((item) => {
     const isActive = activeMenu === item.id;
 
@@ -19,10 +16,6 @@ const Menu = () => {
       <div
         key={item.id}
         className={`menu__item ${isActive ? 'menu__item--active' : ''}`}
-        onClick={() => handleChangeActiveMenu(item.id)}
-        role="button"
-        tabIndex="0"
-        onKeyPress={() => {}}
       >
         <InlineSVG src={item.icon} />
 
@@ -45,4 +38,4 @@ const Menu = () => {
   );
 };
 
-export default withRouter(Menu);
+export default withRouter(memo<Props>(Menu));

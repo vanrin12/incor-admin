@@ -1,6 +1,6 @@
 // @flow
 
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import {
   XAxis,
@@ -22,13 +22,7 @@ import hashtags from 'mockData/hashtags';
 // install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
-type Props = {
-  history: {
-    push: Function,
-  },
-};
-
-const HomeMain = ({ history }: Props) => {
+const HomeMain = () => {
   const [filterChart, setFilterChart] = useState({
     id: 0,
     value: 0,
@@ -82,7 +76,7 @@ const HomeMain = ({ history }: Props) => {
     </div>
   ));
   return (
-    <MainLayout>
+    <MainLayout activeMenu={0}>
       <Container fluid>
         <Row className="content-wrapper">
           <Col xs={12} md={8} className="content-wrapper__chart box-content">
@@ -171,4 +165,4 @@ const HomeMain = ({ history }: Props) => {
   );
 };
 
-export default memo<Props>(HomeMain);
+export default HomeMain;

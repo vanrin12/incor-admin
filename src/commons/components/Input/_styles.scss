@@ -8,7 +8,7 @@
     font-size: pxToVW(14);
     font-weight: $medium;
     line-height: pxToVW(19);
-    color: $black-active;
+    // color: $black-active;
     margin-bottom: pxToVW(5);
     display: flex;
   }
@@ -52,14 +52,16 @@
 
     input {
       border: pxToVW(1) solid $color-border;
-      height: pxToVW(49);
+      line-height: pxToVW(36);
       display: block;
       font-size: pxToVW(16);
-      padding: pxToVW(15);
-      color: $color-input;
+      padding-left: pxToVW(10);
+      // padding: pxToVW(15);
+      // color: $color-input;
+      background-color: rgba(209, 209, 209, 0.87);
+      border-radius: pxToVW(5);
       width: 100%;
       letter-spacing: pxToVW(-0.25);
-      width: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -105,10 +107,9 @@
 input,
 textarea {
   -webkit-appearance: none;
-  font-family: $Noto-Sans-Font;
 
   &:focus {
-    border: pxToVW(1) solid $color-border-active;
+    // border: pxToVW(1) solid $color-border-active;
     outline: none;
   }
 }

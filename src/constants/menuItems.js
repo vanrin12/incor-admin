@@ -1,8 +1,10 @@
+import ROUTERS from './router';
+
 const menuItems = [
   {
     id: 0,
     name: 'tổng Quan',
-    url: '/',
+    url: ROUTERS.MAIN_PAGE,
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
       <path class="home" id="ic_home_24px" d="M10,20V14h4v6h5V12h3L12,3,2,12H5v8Z" transform="translate(-2 -3)"/>
     </svg>`,
@@ -31,7 +33,7 @@ const menuItems = [
     <path id="ic_account_circle_24px" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,3A3,3,0,1,1,9,8,3,3,0,0,1,12,5Zm0,14.2a7.2,7.2,0,0,1-6-3.22c.03-1.99,4-3.08,6-3.08s5.97,1.09,6,3.08A7.2,7.2,0,0,1,12,19.2Z" transform="translate(-2 -2)"/>
   </svg>
   `,
-    url: '/doitac',
+    url: ROUTERS.PARTNER,
   },
   {
     id: 4,
