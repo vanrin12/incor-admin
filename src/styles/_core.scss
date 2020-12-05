@@ -13,9 +13,9 @@
 
 .box-content {
   @include boxShadow(
-    pxToRem(10),
-    pxToRem(10),
-    pxToRem(20),
+    pxToVW(10),
+    pxToVW(10),
+    pxToVW(20),
     0,
     rgba(50, 50, 50, 0.28)
   );

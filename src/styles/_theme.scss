@@ -34,11 +34,11 @@ body {
 }
 
 .heading-title {
-  font-size: pxToRem(40);
+  font-size: pxToVW(40);
   font-weight: bold;
   line-height: 1.2;
   color: $color_primary;
-  margin-bottom: pxToRem(15);
+  margin-bottom: pxToVW(15);
 }
 
 .swiper-button-prev,

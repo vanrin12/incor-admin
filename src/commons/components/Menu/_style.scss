@@ -1,21 +1,21 @@
 .wrapper-menu {
   flex-direction: column;
-  padding: 0 pxToRem(96) 0 pxToRem(40);
+  padding: 0 pxToVW(96) 0 pxToVW(40);
   background: $white;
 
   .logo {
     background-image: url('../../../assets/imgs/logo.png');
     background-repeat: no-repeat;
     background-size: cover;
-    width: pxToRem(204);
-    height: pxToRem(136);
-    margin-bottom: pxToRem(59);
-    margin-left: pxToRem(-10);
+    width: pxToVW(204);
+    height: pxToVW(136);
+    margin-bottom: pxToVW(59);
+    margin-left: pxToVW(-10);
   }
   .menu {
     &__item {
       font-weight: bold;
-      padding-bottom: pxToRem(55);
+      padding-bottom: pxToVW(55);
       cursor: pointer;
 
       svg {
@@ -24,8 +24,8 @@
       a {
         color: $color-black;
         text-transform: uppercase;
-        font-size: pxToRem(20);
-        margin-left: pxToRem(14);
+        font-size: pxToVW(20);
+        margin-left: pxToVW(14);
       }
       
       &--active {

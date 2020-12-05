@@ -12,9 +12,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 0 pxToRem(30);
+    padding: 0 pxToVW(30);
     margin: 0;
-    max-width: pxToRem(500);
+    max-width: pxToVW(500);
   }
 }
 
@@ -34,22 +34,22 @@
   color: $popup-txt;
   padding: 0;
   border: none;
-  @include radius(#{pxToRem(39)});
+  @include radius(#{pxToVW(39)});
 
   &__iconClose {
     position: absolute;
-    right: pxToRem(30);
-    top: pxToRem(20);
-    width: pxToRem(20);
-    height: pxToRem(18);
+    right: pxToVW(30);
+    top: pxToVW(20);
+    width: pxToVW(20);
+    height: pxToVW(18);
 
     &:focus {
       outline: none;
     }
 
     img {
-      width: pxToRem(19);
-      height: pxToRem(19);
+      width: pxToVW(19);
+      height: pxToVW(19);
 
       &:focus {
         outline: none;
@@ -60,7 +60,7 @@
   .modal-body {
     width: 100%;
     white-space: pre-line;
-    padding: 0 pxToRem(50);
+    padding: 0 pxToVW(50);
     margin: 0;
   }
 }

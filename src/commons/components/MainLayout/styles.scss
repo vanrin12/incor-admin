@@ -2,7 +2,7 @@
   position: relative;
   &__profile {
     position: absolute;
-    top: pxToRem(60);
-    right: pxToRem(80);
+    top: pxToVW(60);
+    right: pxToVW(80);
   }
 }

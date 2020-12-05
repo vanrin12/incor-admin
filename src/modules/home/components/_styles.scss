@@ -1,18 +1,18 @@
 .content-wrapper {
-  margin-top: pxToRem(150);
-  margin-left: pxToRem(40);
+  margin-top: pxToVW(150);
+  margin-left: pxToVW(40);
   font-family: $Roboto-Font;
-  margin-bottom: pxToRem(82);
+  margin-bottom: pxToVW(82);
   font-weight: $medium;
 
   &__chart {
-    // max-height: pxToRem(436);
+    // max-height: pxToVW(436);
 
     &__title {
       text-align: left;
-      padding-left: pxToRem(20);
-      padding-top: pxToRem(20);
-      font-size: pxToRem(18);
+      padding-left: pxToVW(20);
+      padding-top: pxToVW(20);
+      font-size: pxToVW(18);
       color: $color-text;
       text-transform: capitalize;
     }
@@ -20,144 +20,144 @@
     &__option {
       display: flex;
       justify-content: flex-end;
-      margin-top: pxToRem(20);
+      margin-top: pxToVW(20);
       
       &__select {
-        margin-right: pxToRem(30);
-        width: pxToRem(150);
-        height: pxToRem(35);
+        margin-right: pxToVW(30);
+        width: pxToVW(150);
+        height: pxToVW(35);
 
         .css-1uccc91-singleValue {
-          font-size: pxToRem(13);
+          font-size: pxToVW(13);
         }
       }
     }
     
     &__body {
-      padding: pxToRem(34) pxToRem(21) pxToRem(84) pxToRem(20);
+      padding: pxToVW(34) pxToVW(21) pxToVW(84) pxToVW(20);
     }
   }
 
   &__form-suggest {
-    margin-left: pxToRem(39);
+    margin-left: pxToVW(39);
     background: $white;
-    // max-height: pxToRem(450);
-    // padding-bottom: pxToRem(30);
+    // max-height: pxToVW(450);
+    // padding-bottom: pxToVW(30);
     
     &__list {
       overflow-y: scroll;
-      max-height: pxToRem(350);
+      max-height: pxToVW(350);
       @include scrollbars(3px, rgba(0,0,0,0.3), '');
     }
 
     &__title {
-      margin-top: pxToRem(20);
-      margin-bottom: pxToRem(20);
+      margin-top: pxToVW(20);
+      margin-bottom: pxToVW(20);
       text-transform: capitalize;
     }
 
     &__list-all {
-      font-size: pxToRem(12);
+      font-size: pxToVW(12);
       color: $blue-light;
       text-align: center;
-      padding: pxToRem(17) 0;
+      padding: pxToVW(17) 0;
       cursor: pointer;
     }
 
     &__item {
-      font-size: pxToRem(13);
+      font-size: pxToVW(13);
       color: #4d565c;
-      padding: pxToRem(13) 0;
-      border-top:  solid pxToRem(1) $color-border;
-      border-bottom:  solid pxToRem(1) $color-border;
+      padding: pxToVW(13) 0;
+      border-top:  solid pxToVW(1) $color-border;
+      border-bottom:  solid pxToVW(1) $color-border;
       &__username{
         font-weight: $bold;
       }
 
       &__info{
-        margin-left: pxToRem(2);
+        margin-left: pxToVW(2);
         font-weight: $regular;
       }
 
       &__time {
-        font-size: pxToRem(11);
+        font-size: pxToVW(11);
         font-weight: $regular;
-        margin-top: pxToRem(5);
+        margin-top: pxToVW(5);
       }
     }
   }
 
   &__post {
-    margin-top: pxToRem(18);
-    padding: pxToRem(20);
-    margin-top: pxToRem(51);
+    margin-top: pxToVW(18);
+    padding: pxToVW(20);
+    margin-top: pxToVW(51);
 
     &__list {
       overflow-y: scroll;
-      max-height: pxToRem(245);
+      max-height: pxToVW(245);
       @include scrollbars(3px, rgba(0,0,0,0.3), '');
     }
     &__item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: pxToRem(12) 0;
+      padding: pxToVW(12) 0;
 
       &__title {
-        font-size: pxToRem(13);
+        font-size: pxToVW(13);
         font-weight: $bold;
         color: $color-text;
         text-transform: uppercase;
       }
 
       &__time {
-        font-size: pxToRem(11);
+        font-size: pxToVW(11);
         font-weight: $regular;
-        margin-top: pxToRem(5);
+        margin-top: pxToVW(5);
       }
 
       &__category {
-        font-size: pxToRem(13);
+        font-size: pxToVW(13);
         font-weight: $medium;
       }
       
       &__username {
-        font-size: pxToRem(13);
+        font-size: pxToVW(13);
         font-weight: $medium;
       }
     }
   }
   &__hashtag {
-    margin-left: pxToRem(39);
-    margin-top: pxToRem(51);  
+    margin-left: pxToVW(39);
+    margin-top: pxToVW(51);  
 
     &__title {
-      padding: pxToRem(20) 0;
+      padding: pxToVW(20) 0;
     }
     &__list {
-      margin-top: pxToRem(11);
-      min-height: pxToRem(215);
+      margin-top: pxToVW(11);
+      min-height: pxToVW(215);
     }
 
     &__item {
       display: inline-block;
-      border-radius: pxToRem(20);
+      border-radius: pxToVW(20);
       background-color: #ff8a8a;
-      height: pxToRem(30);
-      margin-left: pxToRem(3);
-      padding: pxToRem(5);
-      margin-bottom: pxToRem(22);
-      font-size: pxToRem(15);
+      height: pxToVW(30);
+      margin-left: pxToVW(3);
+      padding: pxToVW(5);
+      margin-bottom: pxToVW(22);
+      font-size: pxToVW(15);
       line-height: 1.4;
       font-weight: $bold;
       color: $white ;
     }
 
     &__list-all{
-      font-size: pxToRem(12);
+      font-size: pxToVW(12);
       color: $blue-light;
       text-align: center;
-      padding: pxToRem(17) 0;
+      padding: pxToVW(17) 0;
       cursor: pointer;
     }
   }

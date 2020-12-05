@@ -15,22 +15,22 @@
 }
 
 .css-tlfecz-indicatorContainer {
-  max-height: pxToRem(35);
+  max-height: pxToVW(35);
 }
 
 .css-4ljt47-MenuList {
   padding: 0 !important;
-  font-size: pxToRem(16) !important;
+  font-size: pxToVW(16) !important;
 }
 
 .css-9gakcf-option {
   // background-color: $athens-gray-2 !important;
   // color: $color-border-active !important;
-  border-top: pxToRem(1) solid $color-border;
-  border-bottom: pxToRem(1) solid $color-border;
+  border-top: pxToVW(1) solid $color-border;
+  border-bottom: pxToVW(1) solid $color-border;
   font-weight: $medium;
-  padding: pxToRem(8) pxToRem(17) !important;
-  letter-spacing: pxToRem(-0.33);
+  padding: pxToVW(8) pxToVW(17) !important;
+  letter-spacing: pxToVW(-0.33);
 
   &:nth-child(1) {
     border-top: 0;
@@ -43,8 +43,8 @@
 
 .css-yt9ioa-option,
 .css-1n7v3ny-option {
-  padding: pxToRem(8) pxToRem(17) !important;
-  letter-spacing: pxToRem(-0.33);
+  padding: pxToVW(8) pxToVW(17) !important;
+  letter-spacing: pxToVW(-0.33);
 }
 
 .css-1n7v3ny-option {
@@ -52,7 +52,7 @@
 }
 
 .css-4ljt47-MenuList {
-  max-height: pxToRem(220) !important;
+  max-height: pxToVW(220) !important;
 }
 
 .customer-select {
@@ -61,18 +61,18 @@
   .css-1wa3eu0-placeholder {
     color: $color-placeholder;
     font-weight: $regular;
-    font-size: pxToRem(15);
-    letter-spacing: pxToRem(-0.25);
+    font-size: pxToVW(15);
+    letter-spacing: pxToVW(-0.25);
     font-style: italic;
   }
 
   .css-1uccc91-singleValue {
     overflow: initial;
     cursor: pointer;
-    font-size: pxToRem(20);
+    font-size: pxToVW(20);
     font-weight: 500;
     line-height: 1.2;
-    letter-spacing: pxToRem(0.4);
+    letter-spacing: pxToVW(0.4);
     text-align: left;
     color: $color-light4;
 
@@ -83,18 +83,18 @@
 
   .input__box,
   .css-2b097c-container {
-    height: pxToRem(44);
+    height: pxToVW(44);
   }
 
   &:after {
     position: absolute;
-    right: pxToRem(15);
+    right: pxToVW(15);
     content: "";
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url("../../../assets/imgs/arrow-up.png");
-    width: pxToRem(15);
-    height: pxToRem(15);
+    width: pxToVW(15);
+    height: pxToVW(15);
     background-position: center center;
     cursor: pointer;
     top: 55%;
@@ -118,37 +118,37 @@
   }
 
   .css-g1d714-ValueContainer {
-    height: pxToRem(44);
+    height: pxToVW(44);
     outline: none;
     border: 0;
 
     &:focus {
       outline: none;
-      border: pxToRem(1) solid $bg-main;
+      border: pxToVW(1) solid $bg-main;
     }
   }
 
   .css-26l3qy-menu {
     margin: 0;
-    padding: pxToRem(8) pxToRem(0) pxToRem(8) pxToRem(12);
-    border-radius: pxToRem(10);
-    box-shadow: pxToRem(10) pxToRem(10) pxToRem(30) 0 rgba(0, 0, 0, 0.16);
+    padding: pxToVW(8) pxToVW(0) pxToVW(8) pxToVW(12);
+    border-radius: pxToVW(10);
+    box-shadow: pxToVW(10) pxToVW(10) pxToVW(30) 0 rgba(0, 0, 0, 0.16);
     cursor: pointer;
-    font-size: pxToRem(20);
+    font-size: pxToVW(20);
     font-weight: 500;
     line-height: 1.2;
-    letter-spacing: pxToRem(0.4);
+    letter-spacing: pxToVW(0.4);
     text-align: left;
     color: $color-light4;
 
     >div>div {
-      padding: pxToRem(5) !important;
+      padding: pxToVW(5) !important;
       background-color: transparent;
       cursor: pointer;
-      font-size: pxToRem(20);
+      font-size: pxToVW(20);
       font-weight: 500;
       line-height: 1.2;
-      letter-spacing: pxToRem(0.4);
+      letter-spacing: pxToVW(0.4);
       text-align: left;
       color: $color-light4;
 
@@ -178,16 +178,16 @@
     background-color: transparent;
 
     >div {
-      border: pxToRem(1) solid $color-border;
-      height: pxToRem(44);
+      border: pxToVW(1) solid $color-border;
+      height: pxToVW(44);
       display: block;
-      font-size: pxToRem(16);
-      padding: pxToRem(5);
+      font-size: pxToVW(16);
+      padding: pxToVW(5);
       color: $color-black;
       width: 100%;
-      letter-spacing: pxToRem(-0.25);
+      letter-spacing: pxToVW(-0.25);
       width: 100%;
-      border-radius: pxToRem(10);
+      border-radius: pxToVW(10);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -196,29 +196,29 @@
       &::-webkit-input-placeholder {
         color: $color-placeholder;
         font-weight: $regular;
-        font-size: pxToRem(14);
-        letter-spacing: pxToRem(-0.25);
+        font-size: pxToVW(14);
+        letter-spacing: pxToVW(-0.25);
       }
 
       &::placeholder {
         color: $color-placeholder;
         font-weight: $regular;
-        font-size: pxToRem(14);
-        letter-spacing: pxToRem(-0.25);
+        font-size: pxToVW(14);
+        letter-spacing: pxToVW(-0.25);
       }
 
       &::-moz-placeholder {
         color: $color-placeholder;
         font-weight: $regular;
-        font-size: pxToRem(14);
-        letter-spacing: pxToRem(-0.25);
+        font-size: pxToVW(14);
+        letter-spacing: pxToVW(-0.25);
       }
 
       &:-ms-input-placeholder {
         color: $color-placeholder;
         font-weight: $regular;
-        font-size: pxToRem(14);
-        letter-spacing: pxToRem(-0.25);
+        font-size: pxToVW(14);
+        letter-spacing: pxToVW(-0.25);
       }
     }
   }
