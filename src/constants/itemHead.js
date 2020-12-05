@@ -1,29 +1,52 @@
 export const headPartner = [
   {
     id: 0,
-    name: ''
+    name: '',
   },
   {
     id: 1,
-    name: 'Tên đối tác'
+    name: 'Tên đối tác',
   },
   {
     id: 2,
-    name: 'Ngành nghề'
+    name: 'Ngành nghề',
   },
   {
     id: 3,
-    name: 'Trụ sở'
+    name: 'Trụ sở',
   },
   {
     id: 4,
-    name: 'Đánh giá'
+    name: 'Đánh giá',
   },
   {
     id: 5,
-    name: 'Quản lý Đối tác'
+    name: 'Quản lý Đối tác',
+  },
+];
+export const headCustomer = [
+  {
+    id: 0,
+    name: 'Tên hạng mục',
+  },
+  {
+    id: 1,
+    name: 'Mô tả kỹ thuật',
+  },
+  {
+    id: 2,
+    name: 'Số lượng',
+  },
+  {
+    id: 3,
+    name: 'ĐVT',
+  },
+  {
+    id: 4,
+    name: 'Ghi chú',
   },
 ];
 export default {
   headPartner,
+  headCustomer,
 };
