@@ -76,8 +76,27 @@ export const headPost = [
     name: 'SEO Score',
   },
 ];
+export const headCategory = [
+  {
+    id: 0,
+    name: '',
+  },
+  {
+    id: 1,
+    name: 'Tên chuyên mục',
+  },
+  {
+    id: 2,
+    name: 'Slug',
+  },
+  {
+    id: 3,
+    name: 'Count',
+  },
+];
 export default {
   headPartner,
   headCustomer,
   headPost,
+  headCategory,
 };

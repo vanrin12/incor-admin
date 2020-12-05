@@ -15,6 +15,7 @@ const HomeMain = lazy(() => import('modules/home/components'));
 const Partner = lazy(() => import('modules/partner/components'));
 const Customer = lazy(() => import('modules/customer/components'));
 const Post = lazy(() => import('modules/post/components'));
+const RegisterPost = lazy(() => import('modules/post/components/register'));
 
 const Router = () => {
   // const history = createBrowserHistory();
@@ -33,6 +34,7 @@ const Router = () => {
           <Route exact path={ROUTERS.PARTNER} component={Partner} />
           <Route exact path={ROUTERS.CUSTOMER} component={Customer} />
           <Route exact path={ROUTERS.POST} component={Post} />
+          <Route exact path={ROUTERS.REGISTER_POST} component={RegisterPost} />
         </Switch>
       </Suspense>
     </BrowserRouter>

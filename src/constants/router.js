@@ -5,6 +5,7 @@ const ROUTERS = {
   PARTNER: '/partner',
   CUSTOMER: '/customer',
   POST: '/post',
+  REGISTER_POST: '/post/add',
 };
 
 export default ROUTERS;
