@@ -8,11 +8,11 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
-import { headPartner } from 'constants/itemHead';
+import { headPost } from 'constants/itemHead';
 import { headquarters, job, vote } from '../../../mockData/dataSelect';
-import { listDataPartner } from '../../../mockData/listDataTable';
+import { listDataPost } from '../../../mockData/listDataTable';
 
-const Partner = () => {
+const Post = () => {
   const [listId, setListId] = useState([]);
   const handleCheckBox = (id) => {
     let dataSubmit = [];
@@ -39,16 +39,21 @@ const Partner = () => {
     setKeySearch(value);
   };
   return (
-    <MainLayout activeMenu={3}>
+    <MainLayout activeMenu={2}>
       <Container fluid>
-        <Row className="content-wrapper page-partner">
+        <Row className="content-wrapper page-partner page-post">
           <Col xs={12} md={12}>
-            <h2 className="title-page">Danh sách Đối tác</h2>
+            <Button customClass="button--primary" onClick={() => {}}>
+              VIẾT BÀI MỚI
+            </Button>
+            <Button customClass="button--primary" onClick={() => {}}>
+              QUẢN LÝ CHUYÊN MỤC
+            </Button>
           </Col>
           <Col xs={12} md={6} className="form-search">
             <div className="form-search__left">
               <SelectDropdown
-                placeholder="Trụ sở"
+                placeholder="All Date"
                 listItem={headquarters}
                 onChange={(e) => {
                   handleChange(e, 'headquarters');
@@ -57,7 +62,7 @@ const Partner = () => {
                 customClass="select-headquarters"
               />
               <SelectDropdown
-                placeholder="Ngành nghề"
+                placeholder="All Catergory"
                 listItem={job}
                 onChange={(e) => {
                   handleChange(e, 'job');
@@ -66,7 +71,7 @@ const Partner = () => {
                 customClass="select-job"
               />
               <SelectDropdown
-                placeholder="Đánh giá"
+                placeholder="All SEO Title"
                 listItem={vote}
                 onChange={(e) => {
                   handleChange(e, 'vote');
@@ -101,16 +106,13 @@ const Partner = () => {
           </Col>
           <Col xs={12} md={12} className="table-page table-partner">
             <Table
-              tableHeads={headPartner}
-              tableBody={listDataPartner}
+              tableHeads={headPost}
+              tableBody={listDataPost}
               showLabel
               isShowId
               isShowColumnCheck
-              isShowColumnBtn
-              nameBtn2="Quản lý"
               handleCheckBox={handleCheckBox}
               listId={listId}
-              isShowRating
               isShowColumnBtnStatus
             />
           </Col>
@@ -142,4 +144,4 @@ const Partner = () => {
   );
 };
 
-export default Partner;
+export default Post;
