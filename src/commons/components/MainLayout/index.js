@@ -15,7 +15,7 @@ const MainLayout = ({ children, activeMenu }: Props) => {
   return (
     <Container fluid>
       <Row className="main-layout">
-        <div className="main-layout__profile">profile</div>
+        <div className="main-layout__profile">ADMIN INCOR</div>
         <Col xs={12} md={2} className="menu-left">
           <Menu activeMenu={activeMenu} />
         </Col>

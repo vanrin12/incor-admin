@@ -20,8 +20,6 @@
     padding-bottom: pxToVW(38);
   }
   .input{
-    padding-bottom: pxToVW(28);
-    
     &__label{
       font-size: pxToVW(20);
       line-height: pxToVW(24);
@@ -46,7 +44,7 @@
     }
   }
   .customer-select {
-    padding-top: pxToVW(28);
+    padding-top: pxToVW(38);
     .input__label{
       font-size: pxToVW(20);
       line-height: pxToVW(24);
@@ -57,6 +55,13 @@
     .input__box {
       background-color: $white;
     }
+  }
+  h4{
+    font-size: pxToVW(10);
+    line-height: pxToVW(13);
+    color: $color-table;
+    margin-bottom: pxToVW(28);
+    padding-top: pxToVW(14);
   }
   p{
     font-size: pxToVW(20);

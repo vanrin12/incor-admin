@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
@@ -8,10 +8,16 @@ import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
 import { headCategory } from 'constants/itemHead';
+import ROUTERS from 'constants/router';
 import { vote } from '../../../mockData/dataSelect';
 import { listDataCategory } from '../../../mockData/listDataTable';
 
-const Post = () => {
+type Props = {
+  history: {
+    push: Function,
+  },
+};
+const RegisterPost = ({ history }: Props) => {
   const [dataRegister, setRegister] = useState({
     category: '',
     slug: '',
@@ -35,6 +41,10 @@ const Post = () => {
     });
   };
 
+  const handleViewDetail = (item) => {
+    history.push(`${ROUTERS.UPDATE_CATEGORY}/${item.id}`);
+  };
+
   return (
     <MainLayout activeMenu={2}>
       <Container fluid>
@@ -42,7 +52,7 @@ const Post = () => {
           <Col xs={12} md={12}>
             <h2 className="title-page">Thêm chuyên mục</h2>
           </Col>
-          <Col xs={12} md={12} className="action-delete mb-4">
+          <Col xs={12} md={12} className="action-delete mb-4 ">
             <Button customClass="button--primary" onClick={() => {}}>
               <p>XÓA</p>
             </Button>
@@ -59,7 +69,7 @@ const Post = () => {
                 value={dataRegister.category}
                 placeholder="Nhập tên chuyên mục"
               />
-
+              <h4>Tên chuyên mục sẽ xuất hiện trên web</h4>
               <Input
                 label="Slug"
                 type="text"
@@ -70,6 +80,7 @@ const Post = () => {
                 value={dataRegister.slug}
                 placeholder="Nhập tên chuyên mục"
               />
+              <h4>Phần hiển thị chuyên mục trên URL</h4>
               <p>Mô tả</p>
               <textarea
                 placeholder="Nhập tên chuyên mục"
@@ -92,7 +103,7 @@ const Post = () => {
             </Col>
             <Col xs={12} md={12} className="action-register">
               <Button customClass="button--primary" onClick={() => {}}>
-                <p> TẠO CHUYÊN MỤC</p>
+                <p>TẠO CHUYÊN MỤC</p>
               </Button>
             </Col>
           </Col>
@@ -106,6 +117,7 @@ const Post = () => {
               handleCheckBox={handleCheckBox}
               listId={listId}
               isShowColumnBtnStatus
+              onClickRow={handleViewDetail}
             />
           </Col>
         </Row>
@@ -114,4 +126,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default memo<Props>(RegisterPost);
