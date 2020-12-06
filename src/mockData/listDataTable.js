@@ -134,8 +134,41 @@ export const listDataPost = [
     score: 99,
   },
 ];
+export const listDataCategory = [
+  {
+    id: 1,
+    title: 'THÔNG TIN CÔNG TY',
+    category: 'Incor',
+    score: 99,
+  },
+  {
+    id: 2,
+    title: 'THÔNG TIN CÔNG TY',
+    category: 'Incor',
+    score: 99,
+  },
+  {
+    id: 3,
+    title: 'THÔNG TIN CÔNG TY',
+    category: 'Incor',
+    score: 99,
+  },
+  {
+    id: 4,
+    title: 'THÔNG TIN CÔNG TY',
+    category: 'Incor',
+    score: 99,
+  },
+  {
+    id: 5,
+    title: 'THÔNG TIN CÔNG TY',
+    category: 'Incor',
+    score: 99,
+  },
+];
 export default {
   listDataPartner,
   listDataCustomer,
   listDataPost,
+  listDataCategory,
 };

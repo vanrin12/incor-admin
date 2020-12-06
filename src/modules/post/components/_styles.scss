@@ -15,3 +15,80 @@
     }
   }
 }
+.page-register-post{
+  .title-page{
+    padding-bottom: pxToVW(38);
+  }
+  .input{
+    &__label{
+      font-size: pxToVW(20);
+      line-height: pxToVW(24);
+      font-weight: $medium;
+      color: $color-black;
+      margin-bottom: pxToVW(8);
+    }
+    &__box{
+      input{
+        background-color: $white;
+      }
+    }
+  }
+  textarea{
+    background-color: $white;
+    width: 100%;
+    border: pxToVW(1) solid #e8e9ec;
+    font-size: pxToVW(15);
+    padding: pxToVW(10) pxToVW(7);
+    &::placeholder{
+      font-size: pxToVW(15);
+    }
+  }
+  .customer-select {
+    padding-top: pxToVW(38);
+    .input__label{
+      font-size: pxToVW(20);
+      line-height: pxToVW(24);
+      font-weight: $medium;
+      color: $color-black;
+      margin-bottom: pxToVW(8);
+    }
+    .input__box {
+      background-color: $white;
+    }
+  }
+  h4{
+    font-size: pxToVW(10);
+    line-height: pxToVW(13);
+    color: $color-table;
+    margin-bottom: pxToVW(28);
+    padding-top: pxToVW(14);
+  }
+  p{
+    font-size: pxToVW(20);
+    line-height: pxToVW(24);
+    font-weight: $medium;
+    color: $color-black;
+    margin-bottom: pxToVW(8);
+  }
+  .action-register{
+    padding-top: pxToVW(100);
+    button.button.btn{
+      height: pxToVW(47);
+      padding-left: pxToVW(17);
+      padding-right: pxToVW(17);
+      p{
+        color: $white;
+        font-size: pxToVW(20);
+        margin-bottom: 0;
+      }
+    }
+  }
+  .action-delete{
+    button.button.btn{
+      p{
+        color: $white;
+        font-size: pxToVW(15);
+      }
+    }
+  }
+}

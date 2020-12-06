@@ -53,7 +53,7 @@ const TableRow = ({
   };
   return (
     <tr
-      onClick={() => onClickTableRow && onClickTableRow(rowItem)}
+      // onClick={() => onClickTableRow && onClickTableRow(rowItem)}
       className={`${onClickTableRow ? 'row-cursor-pointer' : ''} ${
         rowActive && rowActive.id === rowItem.id ? 'row-active' : ''
       }`}
@@ -80,6 +80,8 @@ const TableRow = ({
                 ? 'd-none'
                 : ''
             }`}
+            onClick={() => onClickTableRow && onClickTableRow(rowItem)}
+            role="presentation"
           >
             {isShowRating && index === 4 ? (
               <Rating numberStar={rowItem[item]} />

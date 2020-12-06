@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import SelectDropdown from 'commons/components/Select';
@@ -8,11 +8,17 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
+import ROUTERS from 'constants/router';
 import { headPost } from 'constants/itemHead';
 import { headquarters, job, vote } from '../../../mockData/dataSelect';
 import { listDataPost } from '../../../mockData/listDataTable';
 
-const Post = () => {
+type Props = {
+  history: {
+    push: Function,
+  },
+};
+const Post = ({ history }: Props) => {
   const [listId, setListId] = useState([]);
   const handleCheckBox = (id) => {
     let dataSubmit = [];
@@ -46,7 +52,10 @@ const Post = () => {
             <Button customClass="button--primary" onClick={() => {}}>
               VIẾT BÀI MỚI
             </Button>
-            <Button customClass="button--primary" onClick={() => {}}>
+            <Button
+              customClass="button--primary"
+              onClick={() => history.push(ROUTERS.REGISTER_CATEGORY_POST)}
+            >
               QUẢN LÝ CHUYÊN MỤC
             </Button>
           </Col>
@@ -144,4 +153,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default memo<Props>(Post);
