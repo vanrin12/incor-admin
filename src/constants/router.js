@@ -9,6 +9,7 @@ const ROUTERS = {
   REGISTER_CATEGORY_POST: '/post/category/add',
   UPDATE_CATEGORY: '/post/category/update',
   UPDATE_CATEGORY_POST: '/post/category/update/:id',
+  ACCOUNTS: '/accounts',
 };
 
 export default ROUTERS;

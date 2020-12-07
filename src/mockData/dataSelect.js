@@ -56,5 +56,27 @@ const vote = [
     label: 'good',
   },
 ];
+const role = [
+  {
+    id: 0,
+    value: 'Khách hàng',
+    label: 'Khách hàng',
+  },
+  {
+    id: 1,
+    value: 'Đối tác',
+    label: 'Đối tác',
+  },
+  {
+    id: 3,
+    value: 'Sale Admin',
+    label: 'Sale Admin',
+  },
+  {
+    id: 4,
+    value: 'Content',
+    label: 'Content',
+  },
+];
 
-export { headquarters, job, vote };
+export { headquarters, job, vote, role };

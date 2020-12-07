@@ -120,10 +120,33 @@ export const headCategory = [
     name: 'Count',
   },
 ];
+export const headAccount = [
+  {
+    id: 0,
+    name: '',
+  },
+  {
+    id: 1,
+    name: 'Tên tài khoản',
+  },
+  {
+    id: 2,
+    name: 'Vai trò',
+  },
+  {
+    id: 3,
+    name: 'Thời gian tạo',
+  },
+  {
+    id: 4,
+    name: 'Mật khẩu',
+  },
+];
 export default {
   headPartner,
   headCustomer,
   headCustomerInfo,
   headPost,
   headCategory,
+  headAccount,
 };
