@@ -142,6 +142,32 @@ export const headAccount = [
     name: 'Mật khẩu',
   },
 ];
+export const headPartnerManagement = [
+  {
+    id: 0,
+    name: 'Thời gian',
+  },
+  {
+    id: 1,
+    name: 'Tên khách hàng',
+  },
+  {
+    id: 2,
+    name: 'Hạng mục báo giá',
+  },
+  {
+    id: 3,
+    name: 'Khu vực',
+  },
+  {
+    id: 4,
+    name: 'Chi tiết \n nhu cầu',
+  },
+  {
+    id: 5,
+    name: 'Báo giá',
+  },
+];
 export default {
   headPartner,
   headCustomer,
@@ -149,4 +175,5 @@ export default {
   headPost,
   headCategory,
   headAccount,
+  headPartnerManagement,
 };

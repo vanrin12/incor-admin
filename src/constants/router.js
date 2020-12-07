@@ -10,6 +10,8 @@ const ROUTERS = {
   UPDATE_CATEGORY: '/post/category/update',
   UPDATE_CATEGORY_POST: '/post/category/update/:id',
   ACCOUNTS: '/accounts',
+  ROUTERS_PARTNER_MANAGEMENT: '/partner/management',
+  PARTNER_MANAGEMENT: '/partner/management/:id',
 };
 
 export default ROUTERS;
