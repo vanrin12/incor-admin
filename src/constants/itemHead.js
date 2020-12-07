@@ -27,6 +27,32 @@ export const headPartner = [
 export const headCustomer = [
   {
     id: 0,
+    name: 'Ngày tạo',
+  },
+  {
+    id: 1,
+    name: 'Tên khách hàng',
+  },
+  {
+    id: 2,
+    name: 'Kinh doanh phụ trách',
+  },
+  {
+    id: 3,
+    name: 'Khu vực',
+  },
+  {
+    id: 4,
+    name: 'Thông tin nhu cầu',
+  },
+  {
+    id: 5,
+    name: 'Quản lý tiến độ',
+  },
+];
+export const headCustomerInfo = [
+  {
+    id: 0,
     name: 'Tên hạng mục',
   },
   {
@@ -97,6 +123,7 @@ export const headCategory = [
 export default {
   headPartner,
   headCustomer,
+  headCustomerInfo,
   headPost,
   headCategory,
 };

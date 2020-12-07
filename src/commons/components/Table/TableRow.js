@@ -15,7 +15,7 @@ type Props = {
   isShowColumnBtn1?: boolean,
   isShowColumnCheck?: boolean,
   isShowId?: boolean,
-  nameBtn1?: String,
+  nameBtn1?: string,
   nameBtn2?: string,
   listId?: Array<{}>,
   handleCheckBox?: Function,

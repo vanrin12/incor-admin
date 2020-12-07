@@ -38,6 +38,43 @@ export const listDataPartner = [
 export const listDataCustomer = [
   {
     id: 1,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    total: 'Toàn Incor',
+    dvt: 'Đà Nẵng',
+  },
+  {
+    id: 2,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    total: 'Toàn Incor',
+    dvt: 'Đà Nẵng',
+  },
+  {
+    id: 3,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    total: 'Toàn Incor',
+    dvt: 'Đà Nẵng',
+  },
+  {
+    id: 4,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    total: 'Toàn Incor',
+    dvt: 'Đà Nẵng',
+  },
+  {
+    id: 5,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    total: 'Toàn Incor',
+    dvt: 'Đà Nẵng',
+  },
+];
+export const listDataCustomerInfo = [
+  {
+    id: 1,
     name: 'SƠN CHỐNG THẤM',
     description: `- Sơn chống thấm Dulux Aquatech flex
     - Sơn kiềm WeatherGard Sealer`,
@@ -169,6 +206,7 @@ export const listDataCategory = [
 export default {
   listDataPartner,
   listDataCustomer,
+  listDataCustomerInfo,
   listDataPost,
   listDataCategory,
 };

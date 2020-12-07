@@ -4,6 +4,7 @@ const ROUTERS = {
   SIGN_UP: '/sign-up',
   PARTNER: '/partner',
   CUSTOMER: '/customer',
+  CUSTOMER_INFORMATION: '/customer/info',
   POST: '/post',
   REGISTER_CATEGORY_POST: '/post/category/add',
   UPDATE_CATEGORY: '/post/category/update',
