@@ -203,10 +203,43 @@ export const listDataCategory = [
     score: 99,
   },
 ];
+export const listDataAccount = [
+  {
+    id: 1,
+    name: 'NGUYỄN VĂN TOÀN',
+    role: 'Admin',
+    date: '13:00 11/11/2020',
+  },
+  {
+    id: 2,
+    name: 'TRẦN ĐÌNH BẢO ÂN',
+    role: 'Sale Admin',
+    date: '13:00 11/11/2020',
+  },
+  {
+    id: 3,
+    name: 'HOÀNG KIM KHẢI',
+    role: 'Content',
+    date: '13:00 11/11/2020',
+  },
+  {
+    id: 4,
+    name: 'ADOOR VIỆT NAM',
+    role: 'Đối tác',
+    date: '13:00 11/11/2020',
+  },
+  {
+    id: 5,
+    name: 'PHẠM TRỌNG HƯNG',
+    role: 'Khách hàng',
+    date: '13:00 11/11/2020',
+  },
+];
 export default {
   listDataPartner,
   listDataCustomer,
   listDataCustomerInfo,
   listDataPost,
   listDataCategory,
+  listDataAccount,
 };
