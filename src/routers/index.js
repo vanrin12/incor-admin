@@ -14,6 +14,9 @@ import ROUTERS from 'constants/router';
 const HomeMain = lazy(() => import('modules/home/components'));
 const Partner = lazy(() => import('modules/partner/components'));
 const Customer = lazy(() => import('modules/customer/components'));
+const CustomerInfo = lazy(() =>
+  import('modules/customer/components/informationNeeds')
+);
 const Post = lazy(() => import('modules/post/components'));
 const RegisterCategoryPost = lazy(() =>
   import('modules/post/components/registerCategory')
@@ -38,6 +41,11 @@ const Router = () => {
           <Route exact path={ROUTERS.MAIN_PAGE} component={HomeMain} />
           <Route exact path={ROUTERS.PARTNER} component={Partner} />
           <Route exact path={ROUTERS.CUSTOMER} component={Customer} />
+          <Route
+            exact
+            path={ROUTERS.CUSTOMER_INFORMATION}
+            component={CustomerInfo}
+          />
           <Route exact path={ROUTERS.POST} component={Post} />
           <Route
             exact
