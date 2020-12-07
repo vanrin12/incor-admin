@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import SelectDropdown from 'commons/components/Select';
@@ -9,10 +9,17 @@ import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
 import { headPartner } from 'constants/itemHead';
+import ROUTERS from 'constants/router';
 import { headquarters, job, vote } from '../../../mockData/dataSelect';
 import { listDataPartner } from '../../../mockData/listDataTable';
 
-const Partner = () => {
+type Props = {
+  history: {
+    push: Function,
+  },
+};
+
+const Partner = ({ history }: Props) => {
   const [listId, setListId] = useState([]);
   const handleCheckBox = (id) => {
     let dataSubmit = [];
@@ -37,6 +44,9 @@ const Partner = () => {
   };
   const handleKeySearch = (value) => {
     setKeySearch(value);
+  };
+  const handleManagement = (item) => {
+    history.push(`${ROUTERS.ROUTERS_PARTNER_MANAGEMENT}/${item?.id}`);
   };
   return (
     <MainLayout activeMenu={3}>
@@ -112,6 +122,7 @@ const Partner = () => {
               listId={listId}
               isShowRating
               isShowColumnBtnStatus
+              handleClickBtnDetail={handleManagement}
             />
           </Col>
           <Col sm={12} className="wrapper-pagination">
@@ -142,4 +153,4 @@ const Partner = () => {
   );
 };
 
-export default Partner;
+export default memo<Props>(Partner);

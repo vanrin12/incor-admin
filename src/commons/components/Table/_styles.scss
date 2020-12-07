@@ -9,6 +9,8 @@
         color: $color-head;
         font-size: pxToVW(18);
         padding: pxToVW(15) pxToVW(10);
+        white-space: pre-line;
+        vertical-align: middle;
       }
     }
   }
@@ -25,6 +27,7 @@
         padding: pxToVW(25) pxToVW(10);
         white-space: pre-line;
         vertical-align: middle;
+        font-size: pxToVW(18);
         p{
           color: $color-link-table;
           text-decoration: underline;

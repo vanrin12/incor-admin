@@ -86,7 +86,7 @@ const TableRow = ({
             {isShowRating && index === 4 ? (
               <Rating numberStar={rowItem[item]} />
             ) : (
-              rowItem[item]
+              <span>{rowItem[item]}</span>
             )}
           </td>
         );

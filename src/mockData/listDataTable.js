@@ -235,6 +235,43 @@ export const listDataAccount = [
     date: '13:00 11/11/2020',
   },
 ];
+export const listDataCustomerManagement = [
+  {
+    id: 1,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    tag: '#Sofa',
+    dvt: 'Đà Nẵng',
+  },
+  {
+    id: 2,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    tag: '#Giường ngủ',
+    dvt: 'Đà Nẵng',
+  },
+  {
+    id: 3,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    tag: '#Thạch cao',
+    dvt: 'Đà Nẵng',
+  },
+  {
+    id: 4,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    tag: '#Sofa',
+    dvt: 'Đà Nẵng',
+  },
+  {
+    id: 5,
+    date: '13:00 - 11/11/2020',
+    nameCustomer: `NGUYỄN VĂN A`,
+    tag: '#Sofa',
+    dvt: 'Đà Nẵng',
+  },
+];
 export default {
   listDataPartner,
   listDataCustomer,
@@ -242,4 +279,5 @@ export default {
   listDataPost,
   listDataCategory,
   listDataAccount,
+  listDataCustomerManagement,
 };

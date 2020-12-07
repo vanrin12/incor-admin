@@ -25,6 +25,9 @@ const UpdateCategoryPost = lazy(() =>
   import('modules/post/components/editCategory')
 );
 const accountComponents = lazy(() => import('modules/accounts/components'));
+const partnerManagement = lazy(() =>
+  import('modules/partner/components/partnerManagement')
+);
 
 const Router = () => {
   // const history = createBrowserHistory();
@@ -59,6 +62,11 @@ const Router = () => {
             component={UpdateCategoryPost}
           />
           <Route exact path={ROUTERS.ACCOUNTS} component={accountComponents} />
+          <Route
+            exact
+            path={ROUTERS.PARTNER_MANAGEMENT}
+            component={partnerManagement}
+          />
         </Switch>
       </Suspense>
     </BrowserRouter>
