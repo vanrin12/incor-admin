@@ -24,6 +24,15 @@
   }
 }
 
+.modal-title{
+  font-size: pxToVW(25);
+  line-height: pxToVW(30);
+  font-weight: $bold;
+  color: $color_primary;
+  text-align: center;
+  padding-bottom: pxToVW(25);
+}
+
 .modal-content {
   -ms-flex-align: center;
   align-items: center;
@@ -31,10 +40,11 @@
   top: 50%;
   transform: translateY(-50%);
   text-align: center;
-  color: $popup-txt;
+  // color: $popup-txt;
   padding: 0;
   border: none;
-  @include radius(#{pxToVW(39)});
+  @include radius(#{pxToVW(20)});
+  padding: pxToVW(25) pxToVW(40);
 
   &__iconClose {
     position: absolute;
@@ -60,7 +70,24 @@
   .modal-body {
     width: 100%;
     white-space: pre-line;
-    padding: 0 pxToVW(50);
     margin: 0;
+    .title-content{
+      .input {
+        &__box{
+          width: pxToVW(317);
+        }
+      }
+    }
+  }
+  .modal-footer{
+    border-top: none;
+    .button.button.btn{
+      height: pxToVW(40) !important;
+      padding: pxToVW(7) pxToVW(4) pxToVW(6);
+      font-size: pxToVW(15);
+      line-height: pxToVW(18);
+      background:$color_primary;
+      border-radius: 0;
+    }
   }
 }

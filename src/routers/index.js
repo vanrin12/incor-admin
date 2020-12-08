@@ -28,6 +28,9 @@ const accountComponents = lazy(() => import('modules/accounts/components'));
 const partnerManagement = lazy(() =>
   import('modules/partner/components/partnerManagement')
 );
+const informationNeeds = lazy(() =>
+  import('modules/customer/components/infomationNeeds')
+);
 
 const Router = () => {
   // const history = createBrowserHistory();
@@ -66,6 +69,11 @@ const Router = () => {
             exact
             path={ROUTERS.PARTNER_MANAGEMENT}
             component={partnerManagement}
+          />
+          <Route
+            exact
+            path={ROUTERS.INFORMATION_NEEDS}
+            component={informationNeeds}
           />
         </Switch>
       </Suspense>
