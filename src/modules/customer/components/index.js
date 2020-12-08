@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import SelectDropdown from 'commons/components/Select';
 import ReactPaginate from 'react-paginate';
@@ -8,11 +8,18 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Table from 'commons/components/Table';
 import Input from 'commons/components/Input';
+import ROUTERS from 'constants/router';
 import { headCustomer } from 'constants/itemHead';
 import { listDataCustomer } from '../../../mockData/listDataTable';
 import { headquarters, job, vote } from '../../../mockData/dataSelect';
 
-const Customer = () => {
+type Props = {
+  history: {
+    push: Function,
+  },
+};
+
+const Customer = ({ history }: Props) => {
   const [dataFilter, setDataFilter] = useState({
     headquarters: null,
     job: null,
@@ -27,6 +34,9 @@ const Customer = () => {
   };
   const handleKeySearch = (value) => {
     setKeySearch(value);
+  };
+  const handleViewInformation = (item) => {
+    history.push(`${ROUTERS.INFORMATION}/${item?.id}`);
   };
   return (
     <MainLayout activeMenu={4}>
@@ -94,6 +104,7 @@ const Customer = () => {
               nameBtn1="Quản lý"
               isShowColumnBtn
               nameBtn2="Quản lý"
+              handleClickBtnView={handleViewInformation}
             />
           </Col>
           <Col sm={12} className="wrapper-pagination">
@@ -124,4 +135,4 @@ const Customer = () => {
   );
 };
 
-export default Customer;
+export default memo<Props>(Customer);

@@ -8,11 +8,17 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Table from 'commons/components/Table';
 import Input from 'commons/components/Input';
+import Modal from 'commons/components/Modal';
+import IMAGES from 'themes/images';
 import { headPartnerManagement } from 'constants/itemHead';
 import { listDataCustomerManagement } from '../../../mockData/listDataTable';
 import { headquarters, job, vote } from '../../../mockData/dataSelect';
 
 const Customer = () => {
+  const [isOpenAddConstruction, setIsOpenAddConstruction] = useState(false);
+  const [isShowDetailConstruction, setIsShowDetailConstruction] = useState(
+    false
+  );
   const [dataFilter, setDataFilter] = useState({
     headquarters: null,
     job: null,
@@ -20,6 +26,7 @@ const Customer = () => {
     name: '',
   });
   const [keySearch, setKeySearch] = useState('');
+  const [construction, setConstruction] = useState('');
   const handleChange = (value, name) => {
     setDataFilter({
       ...dataFilter,
@@ -28,6 +35,9 @@ const Customer = () => {
   };
   const handleKeySearch = (value) => {
     setKeySearch(value);
+  };
+  const getDetailConstruction = () => {
+    setIsShowDetailConstruction(true);
   };
   return (
     <MainLayout activeMenu={4}>
@@ -106,6 +116,30 @@ const Customer = () => {
               </Col>
             </Row>
           </Col>
+          {/* <Col xs={12} md={4} className="box-info-partner">
+            <h2>Tên doanh nghiệp</h2>
+            <h1>CÔNG TY CỬA ĐẸP ADOOR</h1>
+            <Row>
+              <Col xs={12} md={6}>
+                <h2>Quy mô nhân sự</h2>
+                <p>100 - 500 người</p>
+              </Col>
+              <Col xs={12} md={6}>
+                <h2>Quy mô nhân sự</h2>
+                <p>100 - 500 người</p>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs={12} md={4} className="box-info-partner">
+            <h2>Trụ sở</h2>
+            <h4>83 Tô Hiệu, Hòa Minh, Liên Chiểu, TP. Đà Nẵng</h4>
+            <h2>Ngành nghề</h2>
+            <div className='list-tag'>
+              <span>#Sofa</span>
+              <span>#Giường ngủ</span>
+              <span>#Thạch cao</span>
+            </div>
+          </Col> */}
           <Col xs={12} md={2}>
             <Button customClass="button--primary" onClick={() => {}}>
               <p>LƯU THAY ĐỔI</p>
@@ -184,39 +218,11 @@ const Customer = () => {
                   </Button>
                 </div>
               </Col>
-              <Col xs={12} md={12} className="table-page table-partner">
-                <Table
-                  tableHeads={headPartnerManagement}
-                  tableBody={listDataCustomerManagement}
-                  showLabel
-                  isShowId
-                  isShowColumnBtn1
-                  nameBtn1="Xem"
-                  isShowColumnBtn
-                  nameBtn2="Báo giá"
-                />
-              </Col>
-              <Col sm={12} className="wrapper-pagination">
-                <ReactPaginate
-                  previousLabel="Previous"
-                  nextLabel="Next"
-                  breakLabel={<span className="gap">...</span>}
-                  // pageCount={Math.ceil(totalRows / params.pageSize)}
-                  // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-                  forcePage={0}
-                  containerClassName="pagination"
-                  disabledClassName="disabled"
-                  activeClassName="active"
-                  breakClassName="page-item"
-                  breakLinkClassName="page-link"
-                  pageClassName="page-item"
-                  pageLinkClassName="page-link"
-                  previousClassName="page-item"
-                  previousLinkClassName="page-link"
-                  nextClassName="page-item"
-                  marginPagesDisplayed={1}
-                  nextLinkClassName="page-link"
-                />
+              <Col xs={12} md={12} className="list-product">
+                <div className="product">
+                  <p>CỬA NHÔM ADOOR HỆ XINGFA</p>
+                </div>
+                <div className="add-product">+</div>
               </Col>
             </Tab>
             <Tab eventKey="tab3" title="Công trình">
@@ -235,44 +241,84 @@ const Customer = () => {
                   </Button>
                 </div>
               </Col>
-              <Col xs={12} md={12} className="table-page table-partner">
-                <Table
-                  tableHeads={headPartnerManagement}
-                  tableBody={listDataCustomerManagement}
-                  showLabel
-                  isShowId
-                  isShowColumnBtn1
-                  nameBtn1="Xem"
-                  isShowColumnBtn
-                  nameBtn2="Báo giá"
-                />
-              </Col>
-              <Col sm={12} className="wrapper-pagination">
-                <ReactPaginate
-                  previousLabel="Previous"
-                  nextLabel="Next"
-                  breakLabel={<span className="gap">...</span>}
-                  // pageCount={Math.ceil(totalRows / params.pageSize)}
-                  // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-                  forcePage={0}
-                  containerClassName="pagination"
-                  disabledClassName="disabled"
-                  activeClassName="active"
-                  breakClassName="page-item"
-                  breakLinkClassName="page-link"
-                  pageClassName="page-item"
-                  pageLinkClassName="page-link"
-                  previousClassName="page-item"
-                  previousLinkClassName="page-link"
-                  nextClassName="page-item"
-                  marginPagesDisplayed={1}
-                  nextLinkClassName="page-link"
-                />
-              </Col>
+              {!isShowDetailConstruction ? (
+                <Col xs={12} md={12} className="list-product">
+                  <div
+                    className="product"
+                    onClick={getDetailConstruction}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={() => {}}
+                  >
+                    <p>SUNRISE VILLA - ĐÀ NẴNG</p>
+                  </div>
+                  <div
+                    className="add-product"
+                    onClick={() => setIsOpenAddConstruction(true)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={() => {}}
+                  >
+                    +
+                  </div>
+                </Col>
+              ) : (
+                <>
+                  <Col xs={12} md={12} className="list-product__back">
+                    <img
+                      src={IMAGES.iconBack}
+                      alt=""
+                      onClick={() => setIsShowDetailConstruction(false)}
+                      role="presentation"
+                    />
+                    <p className="list-product__back__title">
+                      SUNRISE VILLA - ĐÀ NẴNG
+                    </p>
+                  </Col>
+                  <Col xs={12} md={12} className="list-product">
+                    <div className="product">
+                      <p>CỬA NHÔM ADOOR MÀU NÂU</p>
+                    </div>
+                    <div
+                      className="add-product"
+                      onClick={() => setIsOpenAddConstruction(true)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={() => {}}
+                    >
+                      +
+                    </div>
+                  </Col>
+                </>
+              )}
             </Tab>
           </Tabs>
         </Row>
       </Container>
+      <Modal
+        isOpen={isOpenAddConstruction}
+        isShowFooter
+        handleClose={() => {
+          setIsOpenAddConstruction(false);
+        }}
+        customClassButton="w-100"
+        textBtnRight="THÊM"
+        isShowHeader
+        title="TẠO CÔNG TRÌNH"
+        classNameBtnLeft="btn-left"
+      >
+        <div className="title-content">
+          <Input
+            type="text"
+            onChange={(e) => {
+              setConstruction(e.target.value);
+            }}
+            maxLength="20"
+            value={construction}
+            placeholder="Nhập tên công trình"
+          />
+        </div>
+      </Modal>
     </MainLayout>
   );
 };

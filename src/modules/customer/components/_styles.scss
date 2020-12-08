@@ -60,3 +60,69 @@
     }
   }
 }
+.page-information{
+  .title-page{
+    font-size: pxToVW(30);
+    line-height: pxToVW(20);
+    font-weight: $medium;
+    padding-bottom: pxToVW(38);
+  }
+  .title-project{
+    font-size: pxToVW(20);
+    line-height: pxToVW(30);
+    font-weight: $medium;
+    padding-bottom: pxToVW(22);
+    color: $color-black;
+  }
+  .input {
+    padding-bottom: pxToVW(30);
+    &__label{
+      font-size: pxToVW(20);
+      line-height: pxToVW(30);
+    }
+    &__box{
+      input{
+        background-color: $white;
+      }
+    }
+  }
+  .customer-select{
+    .input {
+      &__label{
+        font-size: pxToVW(20);
+        line-height: pxToVW(30);
+      }
+      &__box{
+        background-color: $white;
+      }
+    }
+  }
+  .box-project{
+    display: flex;
+    padding: pxToVW(19) pxToVW(45) pxToVW(15);
+    border: pxToVW(1) solid $color-border-box;
+    background-color: $white;
+    margin-bottom: pxToVW(3);
+    p{
+      margin-right: auto;
+    }
+    h3{
+      font-size: pxToVW(18);
+      line-height: pxToVW(22);
+      font-weight: bold;
+      text-decoration: underline;
+      color: $color_primary;
+    }
+    h4{
+      font-size: pxToVW(18);
+      line-height: pxToVW(22);
+      font-weight: bold;
+      text-decoration: underline;
+      color: $color-delete;
+      padding-left: pxToVW(20);
+    }
+  }
+  .button.button.btn{
+    border-radius: pxToVW(5);
+  }
+}

@@ -12,6 +12,8 @@ const ROUTERS = {
   ACCOUNTS: '/accounts',
   ROUTERS_PARTNER_MANAGEMENT: '/partner/management',
   PARTNER_MANAGEMENT: '/partner/management/:id',
+  INFORMATION: '/customer/information',
+  INFORMATION_NEEDS: '/customer/information/:id',
 };
 
 export default ROUTERS;
