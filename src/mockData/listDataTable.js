@@ -272,6 +272,97 @@ export const listDataCustomerManagement = [
     dvt: 'Đà Nẵng',
   },
 ];
+export const listDataTableCategories = [
+  {
+    id: 1,
+    categories: 'SƠN CHỐNG THẤM',
+    description: `- Sơn chống thấm Dulux Aquatech flex \n
+    - Sơn kiềm WeatherGard Sealer`,
+    total: 1,
+    dvt: 'Gói',
+    note: `Diện tích: 3350x4400mm \n  Lề chân tường: 200mm`,
+  },
+  {
+    id: 2,
+    categories: 'SƠN CHỐNG THẤM',
+    description: `- Sơn chống thấm Dulux Aquatech flex \n
+    - Sơn kiềm WeatherGard Sealer`,
+    total: 1,
+    dvt: 'Gói',
+    note: `Diện tích: 3350x4400mm \n  Lề chân tường: 200mm`,
+  },
+  {
+    id: 3,
+    categories: 'SƠN CHỐNG THẤM',
+    description: `- Sơn chống thấm Dulux Aquatech flex \n
+    - Sơn kiềm WeatherGard Sealer`,
+    total: 1,
+    dvt: 'Gói',
+    note: `Diện tích: 3350x4400mm \n  Lề chân tường: 200mm`,
+  },
+  {
+    id: 4,
+    categories: 'SƠN CHỐNG THẤM',
+    description: `- Sơn chống thấm Dulux Aquatech flex \n
+    - Sơn kiềm WeatherGard Sealer`,
+    total: 1,
+    dvt: 'Gói',
+    note: `Diện tích: 3350x4400mm \n  Lề chân tường: 200mm`,
+  },
+  {
+    id: 5,
+    categories: 'SƠN CHỐNG THẤM',
+    description: `- Sơn chống thấm Dulux Aquatech flex \n
+    - Sơn kiềm WeatherGard Sealer`,
+    total: 1,
+    dvt: 'Gói',
+    note: `Diện tích: 3350x4400mm \n  Lề chân tường: 200mm`,
+  },
+];
+export const listDataTableProgress = [
+  {
+    id: 1,
+    categories: 'GIA PHÁT THỊNH \n Sơn Dulux',
+    description: `- Sơn chống thấm Dulux Aquatech flex \n
+    - Sơn kiềm WeatherGard Sealer`,
+    total: 30000000,
+    time: '3 THÁNG',
+    progress: `1/3`,
+    price: 15000000,
+    prices: 15000000,
+    note: `Đã hoàn thanh
+    30% tiến độ nhưng 
+    chưa thanh toán`,
+  },
+  {
+    id: 2,
+    categories: 'GIA PHÁT THỊNH \n Sơn Dulux',
+    description: `- Sơn chống thấm Dulux Aquatech flex \n
+    - Sơn kiềm WeatherGard Sealer`,
+    total: 30000000,
+    time: '3 THÁNG',
+    progress: `1/3`,
+    price: 15000000,
+    prices: 15000000,
+    note: `Đã hoàn thanh
+    30% tiến độ nhưng 
+    chưa thanh toán`,
+  },
+  {
+    id: 3,
+    categories: 'GIA PHÁT THỊNH \n Sơn Dulux',
+    description: `- Sơn chống thấm Dulux Aquatech flex \n
+    - Sơn kiềm WeatherGard Sealer`,
+    total: 30000000,
+    time: '3 THÁNG',
+    progress: `1/3`,
+    price: 15000000,
+    prices: 15000000,
+    note: `Đã hoàn thanh
+    30% tiến độ nhưng 
+    chưa thanh toán`,
+  },
+];
 export default {
   listDataPartner,
   listDataCustomer,
@@ -280,4 +371,6 @@ export default {
   listDataCategory,
   listDataAccount,
   listDataCustomerManagement,
+  listDataTableCategories,
+  listDataTableProgress,
 };
