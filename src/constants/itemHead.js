@@ -168,6 +168,44 @@ export const headPartnerManagement = [
     name: 'Báo giá',
   },
 ];
+export const headProgress = [
+  {
+    id: 0,
+    name: 'HẠNG MỤC / ĐƠN VỊ',
+  },
+  {
+    id: 1,
+    name: 'MÔ TẢ KỸ THUẬT',
+  },
+  {
+    id: 2,
+    name: 'DỰ TOÁN',
+  },
+  {
+    id: 3,
+    name: 'THỜI GIAN \nTHI CÔNG',
+  },
+  {
+    id: 4,
+    name: 'TIẾN ĐỘ',
+  },
+  {
+    id: 5,
+    name: 'SỐ TIỀN \n ĐÃ THANH TOÁN',
+  },
+  {
+    id: 6,
+    name: 'SỐ TIỀN \n CÒN LẠI',
+  },
+  {
+    id: 7,
+    name: 'GHI CHÚ',
+  },
+  {
+    id: 8,
+    name: 'PHẢN HỒI',
+  },
+];
 export default {
   headPartner,
   headCustomer,
@@ -176,4 +214,5 @@ export default {
   headCategory,
   headAccount,
   headPartnerManagement,
+  headProgress,
 };

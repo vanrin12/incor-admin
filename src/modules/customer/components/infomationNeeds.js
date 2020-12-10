@@ -1,14 +1,21 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
+import ROUTERS from 'constants/router';
 import { headquarters } from '../../../mockData/dataSelect';
 
-const InformationNeeds = () => {
+type Props = {
+  history: {
+    push: Function,
+  },
+};
+
+const InformationNeeds = ({ history }: Props) => {
   const [dataSubmit, setDataSubmit] = useState({
     nameCustomer: '',
     phone: '',
@@ -116,7 +123,10 @@ const InformationNeeds = () => {
             </div>
           </Col>
           <Col xs={12} md={12} className="action-delete">
-            <Button customClass="button--primary" onClick={() => {}}>
+            <Button
+              customClass="button--primary"
+              onClick={() => history.push(ROUTERS.PROGRESS_PROJECT)}
+            >
               <p>THÊM DỰ ÁN</p>
             </Button>
           </Col>
@@ -126,4 +136,4 @@ const InformationNeeds = () => {
   );
 };
 
-export default InformationNeeds;
+export default memo<Props>(InformationNeeds);

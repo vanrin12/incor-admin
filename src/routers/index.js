@@ -15,7 +15,7 @@ const HomeMain = lazy(() => import('modules/home/components'));
 const Partner = lazy(() => import('modules/partner/components'));
 const Customer = lazy(() => import('modules/customer/components'));
 const CustomerInfo = lazy(() =>
-  import('modules/customer/components/informationNeeds')
+  import('modules/customer/components/informationNeedsProject')
 );
 const Post = lazy(() => import('modules/post/components'));
 const RegisterCategoryPost = lazy(() =>
@@ -30,6 +30,12 @@ const partnerManagement = lazy(() =>
 );
 const informationNeeds = lazy(() =>
   import('modules/customer/components/infomationNeeds')
+);
+const informationProjectRegister = lazy(() =>
+  import('modules/customer/components/informationProjectRegister')
+);
+const progressProject = lazy(() =>
+  import('modules/customer/components/progressProject')
 );
 
 const Router = () => {
@@ -74,6 +80,16 @@ const Router = () => {
             exact
             path={ROUTERS.INFORMATION_NEEDS}
             component={informationNeeds}
+          />
+          <Route
+            exact
+            path={ROUTERS.INFORMATION_PROJECT_REGISTER}
+            component={informationProjectRegister}
+          />
+          <Route
+            exact
+            path={ROUTERS.PROGRESS_PROJECT}
+            component={progressProject}
           />
         </Switch>
       </Suspense>

@@ -78,5 +78,22 @@ const role = [
     label: 'Content',
   },
 ];
+const timeProject = [
+  {
+    id: 0,
+    value: 'NGÀY',
+    label: 'NGÀY',
+  },
+  {
+    id: 1,
+    value: 'THÁNG',
+    label: 'THÁNG',
+  },
+  {
+    id: 3,
+    value: 'NĂM',
+    label: 'NĂM',
+  },
+];
 
-export { headquarters, job, vote, role };
+export { headquarters, job, vote, role, timeProject };
