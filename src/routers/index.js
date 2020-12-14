@@ -18,6 +18,7 @@ const CustomerInfo = lazy(() =>
   import('modules/customer/components/informationNeedsProject')
 );
 const Post = lazy(() => import('modules/post/components'));
+const RegisterPost = lazy(() => import('modules/post/components/registerPost'));
 const RegisterCategoryPost = lazy(() =>
   import('modules/post/components/registerCategory')
 );
@@ -60,6 +61,7 @@ const Router = () => {
             component={CustomerInfo}
           />
           <Route exact path={ROUTERS.POST} component={Post} />
+          <Route exact path={ROUTERS.POST_REGISTER} component={RegisterPost} />
           <Route
             exact
             path={ROUTERS.REGISTER_CATEGORY_POST}

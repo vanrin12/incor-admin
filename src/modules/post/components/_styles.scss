@@ -45,6 +45,7 @@
   }
   .customer-select {
     padding-top: pxToVW(38);
+    
     .input__label{
       font-size: pxToVW(20);
       line-height: pxToVW(24);
@@ -90,5 +91,17 @@
         font-size: pxToVW(15);
       }
     }
+  }
+}
+
+.page-register{
+  .input{
+    padding-bottom: pxToVW(20);
+  }
+  .customer-select{
+    padding-bottom: pxToVW(20);
+  }
+  .ck-editor{
+    margin-bottom: pxToVW(20) !important;
   }
 }

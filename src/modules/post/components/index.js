@@ -49,7 +49,10 @@ const Post = ({ history }: Props) => {
       <Container fluid>
         <Row className="content-wrapper page-partner page-post">
           <Col xs={12} md={12}>
-            <Button customClass="button--primary" onClick={() => {}}>
+            <Button
+              customClass="button--primary"
+              onClick={() => history.push(ROUTERS.POST_REGISTER)}
+            >
               VIẾT BÀI MỚI
             </Button>
             <Button

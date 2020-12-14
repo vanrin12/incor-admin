@@ -8,7 +8,11 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import images from 'themes/images';
 import Input from 'commons/components/Input';
-import { headquarters } from '../../../mockData/dataSelect';
+import {
+  headquarters,
+  listSpace,
+  listTypeSpace,
+} from '../../../mockData/dataSelect';
 import { listDataTableCategories } from '../../../mockData/listDataTable';
 
 const InformationNeeds = () => {
@@ -17,6 +21,8 @@ const InformationNeeds = () => {
     nameProject: '',
     address: '',
     area: null,
+    space: null,
+    typeSpace: null,
   });
   const [dataAddCategories, setDataAddCategories] = useState({
     nameCategories: '',
@@ -97,31 +103,31 @@ const InformationNeeds = () => {
               }}
               option={dataSubmit.area}
               customClass="select-headquarters"
-              label="Loại hình không gian"
+              label="khu vực"
             />
           </Col>
           <Col xs={12} md={6}>
             <SelectDropdown
-              placeholder="Chọn tỉnh/thành phố"
-              listItem={headquarters}
+              placeholder=""
+              listItem={listSpace}
               onChange={(e) => {
-                handleChange(e, 'area');
+                handleChange(e, 'space');
               }}
-              option={dataSubmit.area}
+              option={dataSubmit.space}
               customClass="select-headquarters"
               label="Phân chia không gian"
             />
           </Col>
           <Col xs={12} md={6}>
             <SelectDropdown
-              placeholder="Chọn tỉnh/thành phố"
-              listItem={headquarters}
+              placeholder=""
+              listItem={listTypeSpace}
               onChange={(e) => {
-                handleChange(e, 'area');
+                handleChange(e, 'typeSpace');
               }}
-              option={dataSubmit.area}
+              option={dataSubmit.typeSpace}
               customClass="select-headquarters"
-              label="Khu vực"
+              label="Loại hình không gian"
             />
           </Col>
           <Col xs={12} md={12} className="action-delete">
