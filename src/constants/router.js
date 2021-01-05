@@ -17,6 +17,9 @@ const ROUTERS = {
   INFORMATION_NEEDS: '/customer/information/:id',
   INFORMATION_PROJECT_REGISTER: '/customer/information/project/register',
   PROGRESS_PROJECT: '/customer/progress/project',
+  DISPLAY: '/display',
+  DISPLAY_IDENTIFIED: '/display/identified',
+  DISPLAY_MAIN: '/display/main',
 };
 
 export default ROUTERS;

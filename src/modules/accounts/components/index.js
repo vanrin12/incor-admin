@@ -30,25 +30,24 @@ const Post = ({ history }: Props) => {
   const [createDate, setCreateDate] = useState(null);
   const [listId, setListId] = useState([]);
   const [dataFilter, setDataFilter] = useState({
-    roleFilter: '',
+    roleFilter: null,
     dateCreate: '',
   });
-
+  console.log(dataFilter);
   const [dataSubmit, setDataSubmit] = useState({});
   const handleCheckBox = (id) => {
-    let dataSubmit = [];
+    let dataCheckBox = [];
     if (listId.includes({ ...id }[0])) {
-      dataSubmit = listId.filter((item) => item !== { ...id }[0]);
+      dataCheckBox = listId.filter((item) => item !== { ...id }[0]);
     } else {
-      dataSubmit = [...listId, ...id];
+      dataCheckBox = [...listId, ...id];
     }
-    setListId(dataSubmit);
+    setListId(dataCheckBox);
   };
 
   const [keySearch, setKeySearch] = useState('');
 
   const handleChange = (value, name) => {
-    console.log(value);
     switch (name) {
       case 'roleFilter':
         setDataFilter({
@@ -105,12 +104,15 @@ const Post = ({ history }: Props) => {
   console.log(dataFilter);
   console.log('data submit', dataSubmit);
 
-  const dataUserFormat = userList?.data?.map((item) => ({
-    id: item.id,
-    name: item.name,
-    role_name: item.role_name,
-    created_at: moment(item.created_at).format('HH:SS MM/DD/YYYY'),
-  }));
+  const dataUserFormat =
+    userList &&
+    userList.data &&
+    userList.data.map((item) => ({
+      id: item.id,
+      name: item.name,
+      role_name: item.role_name,
+      created_at: moment(item.created_at).format('HH:SS MM/DD/YYYY'),
+    }));
 
   return (
     <MainLayout activeMenu={5}>

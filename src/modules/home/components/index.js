@@ -39,11 +39,16 @@ const HomeMain = () => {
     setFilterChart(option);
   };
   console.log(dataMain);
-  const hashtags = dataMain?.hashtag?.hashtag?.split(',');
+  const hashtags =
+    dataMain &&
+    dataMain.hashtag &&
+    dataMain.hashtag.hashtag &&
+    dataMain.hashtag.hashtag.split(',');
   const posts = dataMain?.posts?.data;
 
   useEffect(() => {
     dispatch(getDataMain());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderHashtags =

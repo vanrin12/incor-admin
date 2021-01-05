@@ -58,7 +58,7 @@ const menuItems = [
     <path id="ic_dashboard_24px" d="M3,13h8V3H3Zm0,8h8V15H3Zm10,0h8V11H13ZM13,3V9h8V3Z" transform="translate(-3 -3)"/>
   </svg>
   `,
-    url: '/giaodien',
+    url: ROUTERS.DISPLAY,
   },
   {
     id: 7,
