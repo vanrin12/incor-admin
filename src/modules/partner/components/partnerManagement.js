@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Row, Col, Container, Tabs, Tab } from 'react-bootstrap';
 import SelectDropdown from 'commons/components/Select';
 import ReactPaginate from 'react-paginate';
@@ -25,11 +25,24 @@ const Customer = () => {
     vote: null,
     name: '',
   });
+  const [dataAddProduct, setDataAddProduct] = useState({
+    name: '',
+    description: '',
+    hashtag: '',
+    image: null,
+  });
   const [keySearch, setKeySearch] = useState('');
   const [construction, setConstruction] = useState('');
+  const [isShow, setIsShow] = useState(false);
+  const [fileName, setFileName] = useState('');
+  const inputFile = useRef({});
   const handleChange = (value, name) => {
     setDataFilter({
       ...dataFilter,
+      [name]: value,
+    });
+    setDataAddProduct({
+      ...dataAddProduct,
       [name]: value,
     });
   };
@@ -38,6 +51,19 @@ const Customer = () => {
   };
   const getDetailConstruction = () => {
     setIsShowDetailConstruction(true);
+  };
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+    // eslint-disable-next-line no-unused-expressions
+    const inputRefCurrent =
+      inputFile && inputFile.current ? inputFile.current : null;
+    // eslint-disable-next-line no-unused-expressions
+    inputRefCurrent && inputRefCurrent.click();
+  };
+
+  const getFileName = async (e) => {
+    setDataAddProduct({ ...dataAddProduct, favicon: e.files[0] });
+    setFileName(e.files[0].name);
   };
   return (
     <MainLayout activeMenu={4}>
@@ -222,7 +248,15 @@ const Customer = () => {
                 <div className="product">
                   <p>CỬA NHÔM ADOOR HỆ XINGFA</p>
                 </div>
-                <div className="add-product">+</div>
+                <div
+                  className="add-product"
+                  onClick={() => setIsShow(true)}
+                  role="button"
+                  onKeyDown={() => {}}
+                  tabIndex={0}
+                >
+                  +
+                </div>
               </Col>
             </Tab>
             <Tab eventKey="tab3" title="Công trình">
@@ -317,6 +351,75 @@ const Customer = () => {
             value={construction}
             placeholder="Nhập tên công trình"
           />
+        </div>
+      </Modal>
+      <Modal
+        isOpen={isShow}
+        handleClose={() => {
+          setIsShow(false);
+        }}
+        customClassButton="w-100"
+        classNameBtnLeft="btn-left"
+        customClass="popup-add-product"
+        isShowIconClose
+      >
+        <div className="title-content">
+          <div className="popup-add-product__left">
+            <div
+              className="box__input"
+              onClick={onButtonClick}
+              onKeyDown={() => {}}
+              tabIndex={0}
+              role="button"
+            >
+              <input
+                className="box__file"
+                type="file"
+                multiple
+                ref={inputFile}
+                accept="image/jpg, image/png, image/gif, capture=camera"
+                onChange={(e) => getFileName(e.target)}
+              />
+              <label>
+                <strong>{fileName || 'Kéo thả tập tin vào đây or'}</strong>
+                <Button
+                  customClass="button--primary add-file mt-0"
+                  onClick={() => {}}
+                >
+                  <p>CHỌN TỆP</p>
+                </Button>
+              </label>
+            </div>
+          </div>
+          <div className="popup-add-product__right">
+            <Input
+              type="text"
+              onChange={(e) => {
+                handleChange(e.target.value, 'name');
+              }}
+              value={dataAddProduct.name}
+              label="Tên"
+            />
+            <p>Mô tả</p>
+            <textarea
+              onChange={(e) => {
+                handleChange(e.target.value, 'description');
+              }}
+              value={dataAddProduct.description}
+              rows={5}
+            />
+            <Input
+              type="text"
+              onChange={(e) => {
+                handleChange(e.target.value, 'hashtag');
+              }}
+              value={dataAddProduct.hashtag}
+              label="Hashtag"
+            />
+            <Button customClass="button--primary mt-0" onClick={() => {}}>
+              <p>Thêm</p>
+            </Button>
+          </div>
         </div>
       </Modal>
     </MainLayout>

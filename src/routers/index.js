@@ -38,6 +38,13 @@ const informationProjectRegister = lazy(() =>
 const progressProject = lazy(() =>
   import('modules/customer/components/progressProject')
 );
+const displayContainer = lazy(() => import('modules/display/components'));
+const displayIdentifiedContainer = lazy(() =>
+  import('modules/display/components/identified')
+);
+const displayMainContainer = lazy(() =>
+  import('modules/display/components/main')
+);
 
 const Router = () => {
   // const history = createBrowserHistory();
@@ -92,6 +99,17 @@ const Router = () => {
             exact
             path={ROUTERS.PROGRESS_PROJECT}
             component={progressProject}
+          />
+          <Route exact path={ROUTERS.DISPLAY} component={displayContainer} />
+          <Route
+            exact
+            path={ROUTERS.DISPLAY_IDENTIFIED}
+            component={displayIdentifiedContainer}
+          />
+          <Route
+            exact
+            path={ROUTERS.DISPLAY_MAIN}
+            component={displayMainContainer}
           />
         </Switch>
       </Suspense>
