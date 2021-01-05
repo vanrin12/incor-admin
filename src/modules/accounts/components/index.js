@@ -1,8 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // @flow
 
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
+import { useDispatch, useSelector } from 'react-redux';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
 import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
@@ -10,8 +15,9 @@ import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
 import ROUTERS from 'constants/router';
 import { headAccount } from 'constants/itemHead';
-import { headquarters, vote, role } from '../../../mockData/dataSelect';
-import { listDataAccount } from '../../../mockData/listDataTable';
+// import { headquarters, vote, role } from '../../../mockData/dataSelect';
+// import { listDataAccount } from '../../../mockData/listDataTable';
+import { getListUser, getUserRoles } from '../redux';
 
 type Props = {
   history: {
@@ -19,7 +25,16 @@ type Props = {
   },
 };
 const Post = ({ history }: Props) => {
+  const dispatch = useDispatch();
+  const { userList, listRoles } = useSelector((state) => state?.account);
+  const [createDate, setCreateDate] = useState(null);
   const [listId, setListId] = useState([]);
+  const [dataFilter, setDataFilter] = useState({
+    roleFilter: '',
+    dateCreate: '',
+  });
+
+  const [dataSubmit, setDataSubmit] = useState({});
   const handleCheckBox = (id) => {
     let dataSubmit = [];
     if (listId.includes({ ...id }[0])) {
@@ -29,20 +44,23 @@ const Post = ({ history }: Props) => {
     }
     setListId(dataSubmit);
   };
-  const [dataFilter, setDataFilter] = useState({
-    headquarters: null,
-    vote: null,
-  });
-  const [dataSubmit, setDataSubmit] = useState({
-    role: null,
-    name: '',
-  });
+
   const [keySearch, setKeySearch] = useState('');
+
   const handleChange = (value, name) => {
-    setDataFilter({
-      ...dataFilter,
-      [name]: value,
-    });
+    console.log(value);
+    switch (name) {
+      case 'roleFilter':
+        setDataFilter({
+          ...dataFilter,
+          [name]: value,
+        });
+        break;
+
+      default:
+        break;
+    }
+
     setDataSubmit({
       ...dataSubmit,
       [name]: value,
@@ -51,6 +69,49 @@ const Post = ({ history }: Props) => {
   const handleKeySearch = (value) => {
     setKeySearch(value);
   };
+
+  useEffect(() => {
+    dispatch(
+      getListUser({
+        role_id: '',
+        keywords: '',
+        date: '',
+        page: 1,
+        pageSize: 10,
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    dispatch(getUserRoles());
+  }, []);
+
+  const handleDateChange = (date) => {
+    setCreateDate(date);
+  };
+
+  const handleFilter = () => {
+    dispatch(
+      getListUser({
+        role_id: dataFilter?.roleFilter?.id,
+        keywords: '',
+        date: createDate ? moment(createDate).format('YYYY-MM-DD') : '',
+        page: 1,
+        pageSize: 10,
+      })
+    );
+  };
+  console.log(listRoles);
+  console.log(dataFilter);
+  console.log('data submit', dataSubmit);
+
+  const dataUserFormat = userList?.data?.map((item) => ({
+    id: item.id,
+    name: item.name,
+    role_name: item.role_name,
+    created_at: moment(item.created_at).format('HH:SS MM/DD/YYYY'),
+  }));
+
   return (
     <MainLayout activeMenu={5}>
       <Container fluid>
@@ -88,7 +149,7 @@ const Post = ({ history }: Props) => {
             <p className="suggestions">Viết in hoa, tiếng việt có dấu</p>
             <SelectDropdown
               placeholder="Chọn vai trò"
-              listItem={role}
+              listItem={listRoles}
               onChange={(e) => {
                 handleChange(e, 'role');
               }}
@@ -108,14 +169,19 @@ const Post = ({ history }: Props) => {
               <div className="form-search__left">
                 <SelectDropdown
                   placeholder="Vai trò"
-                  listItem={headquarters}
+                  listItem={listRoles}
                   onChange={(e) => {
-                    handleChange(e, 'headquarters');
+                    handleChange(e, 'roleFilter');
                   }}
-                  option={dataFilter.headquarters}
+                  option={dataFilter.roleFilter}
                   customClass="select-headquarters"
                 />
-                <SelectDropdown
+                <DatePicker
+                  selected={createDate}
+                  // onSelect={handleDateSelect} //when day is clicked
+                  onChange={(date) => handleDateChange(date)}
+                />
+                {/* <SelectDropdown
                   placeholder="Thời gian tạo"
                   listItem={vote}
                   onChange={(e) => {
@@ -123,8 +189,8 @@ const Post = ({ history }: Props) => {
                   }}
                   option={dataFilter.vote}
                   customClass="select-vote"
-                />
-                <Button customClass="button--primary" onClick={() => {}}>
+                /> */}
+                <Button customClass="button--primary" onClick={handleFilter}>
                   FILTER
                 </Button>
               </div>
@@ -137,7 +203,7 @@ const Post = ({ history }: Props) => {
             <Col xs={12} md={12} className="table-page table-account">
               <Table
                 tableHeads={headAccount}
-                tableBody={listDataAccount}
+                tableBody={dataUserFormat}
                 showLabel
                 isShowId
                 isShowColumnCheck
@@ -153,7 +219,7 @@ const Post = ({ history }: Props) => {
                 previousLabel="Previous"
                 nextLabel="Next"
                 breakLabel={<span className="gap">...</span>}
-                // pageCount={Math.ceil(totalRows / params.pageSize)}
+                pageCount={Math.ceil(userList?.users?.total / 10)}
                 // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
                 forcePage={0}
                 containerClassName="pagination"

@@ -2,33 +2,33 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   userInfo: {},
-  isProcessing: false,
-  type: '',
-  token: '',
-  checkEmailResponse: {},
-  point: '',
-  loginCount: '',
-  errorLogin: '',
-  validate: 0,
-  statusCode: null,
-  errorMessageEmail: '',
-  resendEmailResponse: {},
-  dateLogin: null,
-  findPasswordResponse: {},
-  errorSignUp: '',
-  dataLogin: {},
-  mesgLogedUser: '',
-  errorExistEmail: '',
+  dataMain: {},
 };
 
-const accountSlice = createSlice({
-  name: 'accounts',
+const mainSlice = createSlice({
+  name: 'main',
   initialState,
-  reducers: {},
+  reducers: {
+    getDataMain: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = true;
+    },
+
+    getDataMainSuccess: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = false;
+      state.dataMain = action.data;
+    },
+
+    getDataMainFailed: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = false;
+    },
+  },
 });
 
-const { actions, reducer } = accountSlice;
+const { actions, reducer } = mainSlice;
 
-export const {} = actions;
+export const { getDataMain, getDataMainSuccess, getDataMainFailed } = actions;
 
 export default reducer;

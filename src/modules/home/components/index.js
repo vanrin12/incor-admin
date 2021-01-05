@@ -1,6 +1,7 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Container } from 'react-bootstrap';
 import {
   XAxis,
@@ -17,35 +18,49 @@ import MainLayout from 'commons/components/MainLayout';
 import dataCharts from 'mockData/dataCharts';
 import formFillInfo from 'mockData/formFillInfo';
 import post from 'mockData/post';
-import hashtags from 'mockData/hashtags';
+// import hashtags from 'mockData/hashtags';
+import { getDataMain } from 'modules/home/redux';
 
 // install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const HomeMain = () => {
+  const dispatch = useDispatch();
+
   const [filterChart, setFilterChart] = useState({
     id: 0,
     value: 0,
     label: 'Last Week',
   });
 
+  const { dataMain } = useSelector((state) => state.main);
+
   const handleSelectChange = (option) => {
     setFilterChart(option);
   };
+  console.log(dataMain);
+  const hashtags = dataMain?.hashtag?.hashtag?.split(',');
+  const posts = dataMain?.posts?.data;
 
-  const renderHashtags = hashtags.map((item) => {
-    const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-    return (
-      <span
-        className="content-wrapper__hashtag__item"
-        style={{
-          background: `#${randomColor}`,
-        }}
-      >
-        {item.name}
-      </span>
-    );
-  });
+  useEffect(() => {
+    dispatch(getDataMain());
+  }, []);
+
+  const renderHashtags =
+    hashtags &&
+    hashtags.map((item) => {
+      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+      return (
+        <span
+          className="content-wrapper__hashtag__item"
+          style={{
+            background: `#${randomColor}`,
+          }}
+        >
+          {item}
+        </span>
+      );
+    });
 
   const renderFormFillInfo = formFillInfo.map((item) => (
     <div className="content-wrapper__form-suggest__item">
@@ -60,12 +75,12 @@ const HomeMain = () => {
       <p className="content-wrapper__form-suggest__item__time">{item.time}</p>
     </div>
   ));
-
+  console.log(posts);
   const renderPost = post.map((item) => (
     <div className="content-wrapper__post__item">
       <div>
-        <p className="content-wrapper__post__item__title">{item.title}</p>
-        <p className="content-wrapper__form-suggest__item__time">{item.time}</p>
+        <p className="content-wrapper__post__item__title">{item.seo_title}</p>
+        <p className="content-wrapper__form-suggest__item__time">{item.name}</p>
       </div>
       <div className="content-wrapper__post__item__category">
         {item.category}
