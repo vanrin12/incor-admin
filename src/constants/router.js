@@ -20,6 +20,7 @@ const ROUTERS = {
   DISPLAY: '/display',
   DISPLAY_IDENTIFIED: '/display/identified',
   DISPLAY_MAIN: '/display/main',
+  SALE: '/display/sale',
 };
 
 export default ROUTERS;

@@ -69,6 +69,32 @@
       color: $color-placeholder;
     }
   }
+  textarea{
+    width: 100%;
+    border: pxToVW(1) solid $color-border;
+    line-height: pxToVW(36);
+    display: block;
+    font-size: pxToVW(16);
+    padding-left: pxToVW(10);
+    // padding: pxToVW(15);
+    // color: $color-input;
+    background-color: $white;
+    border-radius: pxToVW(5);
+    width: 100%;
+    letter-spacing: pxToVW(-0.25);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: $regular;
+    margin-bottom: pxToVW(30);
+    &::placeholder{
+      color: $color-placeholder;
+      font-weight: $regular;
+      font-size: pxToVW(14);
+      letter-spacing: pxToVW(-0.25);
+      font-style: italic;
+    }
+  }
   .companent{
     font-size: pxToVW(20);
     line-height: pxToVW(30);
@@ -88,12 +114,21 @@
       width: 48%;
       display: inline-block;
       box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+      background-color: $white;
       &:nth-of-type(2n){
         margin-left: pxToVW(53);
       }
       &.active{
         border: pxToVW(1) solid $color_primary;
       }
+    }
+  }
+  .form-customer{
+    .box__input{
+      margin-bottom: pxToVW(15);
+    }
+    input{
+      margin-bottom: pxToVW(10);
     }
   }
 }

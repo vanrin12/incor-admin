@@ -45,6 +45,9 @@ const displayIdentifiedContainer = lazy(() =>
 const displayMainContainer = lazy(() =>
   import('modules/display/components/main')
 );
+const displaySaleContainer = lazy(() =>
+  import('modules/display/components/sale')
+);
 
 const Router = () => {
   // const history = createBrowserHistory();
@@ -110,6 +113,11 @@ const Router = () => {
             exact
             path={ROUTERS.DISPLAY_MAIN}
             component={displayMainContainer}
+          />
+          <Route
+            exact
+            path={ROUTERS.DISPLAY_SALE}
+            component={displaySaleContainer}
           />
         </Switch>
       </Suspense>
