@@ -6,6 +6,7 @@ import MainLayout from 'commons/components/MainLayout';
 import images from 'themes/images';
 import Input from 'commons/components/Input';
 import Button from 'commons/components/Button';
+import ROUTERS from 'constants/router';
 import { listComponent } from 'constants/listData';
 
 type Props = {
@@ -54,6 +55,10 @@ const Display = ({ history }: Props) => {
           }`}
           onClick={() => {
             setDataSubmit({ ...dataSubmit, component: item.id });
+            history.push({
+              pathname: history.push(ROUTERS.SALE),
+              state: { type: item },
+            });
           }}
           onKeyDown={() => {}}
           tabIndex={0}
