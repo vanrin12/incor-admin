@@ -20,6 +20,10 @@
       .select-vote{
         width: pxToVW(137);
       }
+      .select-action{
+        width: pxToRem(95);
+        font-size: pxToRem(15);
+      }
       button.button.btn{
         height: pxToVW(40) !important;
         padding: pxToVW(7) pxToVW(4) pxToVW(6);

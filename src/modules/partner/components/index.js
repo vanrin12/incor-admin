@@ -1,7 +1,8 @@
 // @flow
 
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
+import Immutable from 'seamless-immutable';
 import ReactPaginate from 'react-paginate';
 import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
@@ -10,17 +11,53 @@ import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
 import { headPartner } from 'constants/itemHead';
 import ROUTERS from 'constants/router';
-import { headquarters, job, vote } from '../../../mockData/dataSelect';
+import { vote } from '../../../mockData/dataSelect';
 import { listDataPartner } from '../../../mockData/listDataTable';
 
 type Props = {
   history: {
     push: Function,
   },
+  getListAreas: Function,
+  dataAreas: Array<{}>,
+  getListScales: Function,
+  dataScales: Array<{}>,
+  getListPartner: Function,
 };
 
-const Partner = ({ history }: Props) => {
+const Partner = ({
+  history,
+  getListAreas,
+  dataAreas,
+  getListScales,
+  dataScales,
+  getListPartner,
+}: Props) => {
+  const [dataFilter, setDataFilter] = useState({
+    headquarters: null,
+    job: null,
+    vote: null,
+  });
+  const [keySearch, setKeySearch] = useState('');
   const [listId, setListId] = useState([]);
+  // call api get list areas
+  useEffect(() => {
+    getListAreas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // call api get list scales
+  useEffect(() => {
+    getListScales();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    getListPartner({
+      career: dataFilter?.headquarters?.value,
+      rate: dataFilter?.vote?.value,
+    });
+  }, [dataFilter, getListPartner]);
+
   const handleCheckBox = (id) => {
     let dataSubmit = [];
     if (listId.includes({ ...id }[0])) {
@@ -30,12 +67,7 @@ const Partner = ({ history }: Props) => {
     }
     setListId(dataSubmit);
   };
-  const [dataFilter, setDataFilter] = useState({
-    headquarters: null,
-    job: null,
-    vote: null,
-  });
-  const [keySearch, setKeySearch] = useState('');
+
   const handleChange = (value, name) => {
     setDataFilter({
       ...dataFilter,
@@ -57,9 +89,21 @@ const Partner = ({ history }: Props) => {
           </Col>
           <Col xs={12} md={6} className="form-search">
             <div className="form-search__left">
+              {/* <SelectDropdown
+                placeholder="Action"
+                listItem={headquarters}
+                onChange={(e) => {
+                  handleChange(e, 'headquarters');
+                }}
+                option={dataFilter.headquarters}
+                customClass="select-action"
+              />
+              <Button customClass="button--primary mr-3" onClick={() => {}}>
+                APPLY
+              </Button> */}
               <SelectDropdown
                 placeholder="Trụ sở"
-                listItem={headquarters}
+                listItem={dataAreas && Immutable.asMutable(dataAreas)}
                 onChange={(e) => {
                   handleChange(e, 'headquarters');
                 }}
@@ -68,7 +112,7 @@ const Partner = ({ history }: Props) => {
               />
               <SelectDropdown
                 placeholder="Ngành nghề"
-                listItem={job}
+                listItem={dataScales && Immutable.asMutable(dataScales)}
                 onChange={(e) => {
                   handleChange(e, 'job');
                 }}
