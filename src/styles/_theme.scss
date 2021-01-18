@@ -1,0 +1,53 @@
+[role='button'] {
+  &:focus {
+    outline: none;
+  }
+}
+
+.input__box .css-1wa3eu0-placeholder {
+  // color: $color-placeholder;
+  font-size: pxToVW(16);
+}
+
+a,
+button {
+  outline: none;
+  @include transition(0.3s all);
+
+  &:focus {
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+img {
+  height: auto;
+  @include transition(0.3s all)
+}
+
+body p {
+  line-height: 1.2;
+}
+
+body {
+  background: rgba(227, 227, 227, 0.61);;
+}
+
+.heading-title {
+  font-size: pxToVW(40);
+  font-weight: bold;
+  line-height: 1.2;
+  color: $color_primary;
+  margin-bottom: pxToVW(15);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  font-weight: 900;
+  color: $color-light2;
+  @include transition(0.3s all);
+
+  &:hover {
+    color: $color_primary;
+  }
+}

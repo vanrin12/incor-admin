@@ -1,0 +1,119 @@
+.input {
+  &__error-msg {
+    margin-top: pxToVW(10);
+    font-size: pxToVW(13);
+  }
+
+  &__label {
+    font-size: pxToVW(14);
+    font-weight: $medium;
+    line-height: pxToVW(19);
+    // color: $black-active;
+    margin-bottom: pxToVW(5);
+    display: flex;
+  }
+
+  &__box {
+    position: relative;
+    display: block;
+
+    &.left {
+      .input {
+        padding-left: pxToVW(30);
+      }
+    }
+
+    &__icon {
+      position: absolute;
+      @include transform-translateY(-50%);
+      width: pxToVW(19);
+      height: pxToVW(19);
+      display: inline-block;
+      z-index: 2;
+
+      &__right {
+        right: pxToVW(15);
+        top: 50%;
+
+        &:focus {
+          outline: none;
+        }
+
+        img {
+          width: pxToVW(19);
+          height: pxToVW(19);
+        }
+      }
+
+      &.left {
+        left: pxToVW(15);
+      }
+    }
+
+    input {
+      border: pxToVW(1) solid $color-border;
+      line-height: pxToVW(36);
+      display: block;
+      font-size: pxToVW(16);
+      padding-left: pxToVW(10);
+      // padding: pxToVW(15);
+      // color: $color-input;
+      background-color: rgba(209, 209, 209, 0.87);
+      border-radius: pxToVW(5);
+      width: 100%;
+      letter-spacing: pxToVW(-0.25);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: $regular;
+
+      &::-webkit-input-placeholder {
+        color: $color-placeholder;
+        font-weight: $regular;
+        font-size: pxToVW(14);
+        letter-spacing: pxToVW(-0.25);
+        font-style: italic;
+      }
+
+      &::placeholder {
+        color: $color-placeholder;
+        font-weight: $regular;
+        font-size: pxToVW(14);
+        letter-spacing: pxToVW(-0.25);
+        font-style: italic;
+      }
+
+      &::-moz-placeholder {
+        color: $color-placeholder;
+        font-weight: $regular;
+        font-size: pxToVW(14);
+        letter-spacing: pxToVW(-0.25);
+        font-style: italic;
+      }
+
+      &:-ms-input-placeholder {
+        color: $color-placeholder;
+        font-weight: $regular;
+        font-size: pxToVW(14);
+        letter-spacing: pxToVW(-0.25);
+        font-style: italic;
+      }
+    }
+
+    &__custom {
+      input {
+        padding-right: pxToVW(35);
+      }
+    }
+  }
+}
+
+input,
+textarea {
+  -webkit-appearance: none;
+
+  &:focus {
+    // border: pxToVW(1) solid $color-border-active;
+    outline: none;
+  }
+}

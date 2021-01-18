@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "baseUrl": "./src",
+      "paths": {
+        "modules/*": ["./src/modules"],
+        "assets/*": ["./src/assets"],
+        "constants/*": ["./src/constants"],
+        "thems/*": ["./src/themes"],
+        "commons/*": ["./src/commons/"],
+        "helpers/*": ["./src/helpers/"]
+      }
+    },
+    "include": ["src"]
+  }
+  

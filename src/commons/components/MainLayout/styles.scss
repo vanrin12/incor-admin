@@ -1,0 +1,15 @@
+.main-layout {
+  position: relative;
+  &__profile {
+    position: absolute;
+    top: pxToVW(60);
+    right: pxToVW(40);
+    color: $color_primary;
+    font-size: pxToVW(20);
+    line-height: pxToVW(24);
+    font-weight: $medium;
+  }
+  .menu-left{
+    background-color: $white;
+  }
+}

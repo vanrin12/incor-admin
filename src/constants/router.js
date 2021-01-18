@@ -1,0 +1,26 @@
+const ROUTERS = {
+  MAIN_PAGE: `/`,
+  LOGIN: `/login`,
+  SIGN_UP: '/sign-up',
+  PARTNER: '/partner',
+  CUSTOMER: '/customer',
+  CUSTOMER_INFORMATION: '/customer/info',
+  POST: '/post',
+  POST_REGISTER: '/post/add',
+  REGISTER_CATEGORY_POST: '/post/category/add',
+  UPDATE_CATEGORY: '/post/category/update',
+  UPDATE_CATEGORY_POST: '/post/category/update/:id',
+  ACCOUNTS: '/accounts',
+  ROUTERS_PARTNER_MANAGEMENT: '/partner/management',
+  PARTNER_MANAGEMENT: '/partner/management/:id',
+  INFORMATION: '/customer/information',
+  INFORMATION_NEEDS: '/customer/information/:id',
+  INFORMATION_PROJECT_REGISTER: '/customer/information/project/register',
+  PROGRESS_PROJECT: '/customer/progress/project',
+  DISPLAY: '/display',
+  DISPLAY_IDENTIFIED: '/display/identified',
+  DISPLAY_MAIN: '/display/main',
+  SALE: '/display/sale',
+};
+
+export default ROUTERS;

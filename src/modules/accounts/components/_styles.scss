@@ -1,0 +1,34 @@
+.page-account{
+  &__form-register{
+    padding-top: pxToVW(80);
+    .input__label{
+      font-size: pxToVW(20) !important;
+    }
+    .name-account{
+      background-color: $white;
+      color: $color-black;
+      border: pxToVW(2) solid $color-border;
+    }
+    .select-role{
+      color: $color-black;
+      .input__box{
+        background-color: $white;
+      }
+    }
+    .suggestions{
+      font-size: pxToVW(10);
+      line-height: pxToVW(13);
+      color: $color-table;
+      opacity: 0.8;
+      padding-top: pxToVW(5);
+      padding-bottom: pxToVW(24);
+      font-style: italic;
+    }
+    .button.button.btn{
+      margin-top: pxToVW(80);
+    }
+  }
+  .table-account{
+    padding-top: pxToVW(30);
+  }
+}

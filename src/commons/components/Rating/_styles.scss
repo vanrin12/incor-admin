@@ -1,0 +1,14 @@
+.rating {
+  .bold {
+    color: $color-yellow;
+  }
+
+  .svg-inline--fa {
+    width: pxToRem(18);
+    margin: pxToRem(2);
+  }
+
+  .line {
+    color: $color-border
+  }
+}

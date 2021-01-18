@@ -1,0 +1,23 @@
+.error-msg {
+  font-size: pxToVW(13);
+  font-weight: $medium;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: left;
+  margin-top: pxToVW(5);
+}
+
+.pt-7 {
+  padding-top: pxToVW(50);
+}
+
+.box-content {
+  @include boxShadow(
+    pxToVW(10),
+    pxToVW(10),
+    pxToVW(20),
+    0,
+    rgba(50, 50, 50, 0.28)
+  );
+  background: $white;
+}
