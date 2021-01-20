@@ -5,6 +5,7 @@ import { create } from 'apisauce';
 const API_URI = process.env.REACT_APP_API_URL;
 
 export const ROUTES = {
+  LOGIN: `/api/v1/auth/login`,
   GET_PARTNER: 'api/v1/admin/partners',
   GET_AREAS: 'api/v1/site/areas',
   GET_SCALES: 'api/v1/site/scales',

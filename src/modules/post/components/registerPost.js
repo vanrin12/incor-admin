@@ -119,33 +119,8 @@ const RegisterPost = ({
     formData.append('calendar', createDate);
     formData.append('type', 'Y');
     registerPost(formData);
-    // formData.append('image', objFile);
-    // registerPost({
-    //   name: dataRegister.title,
-    //   content,
-    //   seo_title: dataRegister.titleSeo,
-    //   comment: dataRegister.description,
-    //   category_id: dataRegister?.category?.id,
-    //   image: objFile,
-    //   status,
-    //   show,
-    //   calendar: createDate,
-    //   type: 'Y',
-    // });
   };
   const handleDraft = () => {
-    // registerPost({
-    //   name: dataRegister.title,
-    //   content,
-    //   seo_title: dataRegister.titleSeo,
-    //   comment: dataRegister.description,
-    //   category_id: dataRegister?.category?.id,
-    //   image: objFile,
-    //   status,
-    //   show,
-    //   calendar: createDate,
-    //   type: 'N',
-    // });
     const formData = new window.FormData();
     formData.append('name', dataRegister.title);
     formData.append('content', content);

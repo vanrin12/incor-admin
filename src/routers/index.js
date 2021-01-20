@@ -1,7 +1,8 @@
 // @flow
 
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, memo } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 // import { useDispatch, useSelector } from 'react-redux';
 
 // import { createBrowserHistory } from 'history';
@@ -9,9 +10,14 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ROUTERS from 'constants/router';
 
 import { API } from '../utils/Apis';
-// import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './PrivateRoute';
+
+const loginContainer = lazy(() =>
+  import('modules/authen/containers/loginContainer')
+);
 
 const HomeMain = lazy(() => import('modules/home/components'));
+
 const Partner = lazy(() =>
   import('modules/partner/containers/partnerContainer')
 );
@@ -56,75 +62,129 @@ const displaySaleContainer = lazy(() =>
   import('modules/display/components/sale')
 );
 
-const Router = () => {
-  // const history = createBrowserHistory();
-  // const token = useSelector((state) => state.account.token);
-  // const isAuthenticated = token !== '';
-  const token =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiM2E5MDAwMGE0NTM3MTJlNmE1NzI3M2I4ZGQxM2Q5ODk0ZGI4NGZhYjE0ZjdkODUyZGVjOTIzNmZmZTExNDU4ODQ4NWIwZDQ2MjU1ZWNhNzAiLCJpYXQiOjE2MTEwNjMyMzIsIm5iZiI6MTYxMTA2MzIzMiwiZXhwIjoxNjQyNTk5MjMyLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.m2RWFI80w3C_xl2JXW9iyw3vwKTZyPOmczpzONaKIVspiCSB5PE58_tU2GYCodZCQBhJCh_Jc9ahnnkWogxsrtfm1USOC7XpSfMe74xbt16jXvY_cv1X0eAKXWU83zUIh4a6tcUOqKesqs8ScL8KBW4RGdEn-UTnAVM2RSZAiNlkrzpXie5zEIIYyWADpR_GTSQwlQ0RYHONeKSPjFSokKN75rYvWfwZGvCxuiu-kSGByD_6DMmGijLcWOATCOOT-T2lo1UJ8bxZmx50NDBggKtW3SnP8PbSBt8jo7qfYhdpMSFDLWv6a0nXb6nxmBY14dJYq-_tZoeUB03UPme3P9G2PdEuAs_JQUJvVpmTMfW_iztr_aaeb9fEC---kx3IcwZ2iYcepheCqlhfLIBdbe3sVmEW2VlEnfGA4G_VTWhqlsNEhG3tfQFpfrzjTqA1dQrwOiH5Xlwnq3o01FJ2zBAJVnD2a8WxnTnne1xwtmNgd2fcAgr4SmP8VgJGtXQ_RyX6k3fVpN3ru9enU9esgrL5rcdjh0oAfkY4SZLOQMtB85AVMD390Sfond03S4p7bckVMtC9cjDPguDBzpzNdxTTYmbdADdGFi4FoSpfb5QIspdL6NSjxGvOv3tEqw53SGSg1pFL3Vq_rFDhVOqjZtWpbXgtE9fhpXW9mDb4ZHQ';
-  // if (token) {
-  API.setHeader('Authorization', `Bearer ${token}`);
+type Props = {
+  token: string,
+};
+
+const Router = ({ token }: Props) => {
+  const isAuthenticated = token !== '';
+
+  if (token) {
+    API.setHeader('Authorization', `Bearer ${token}`);
+  }
+
   return (
     <BrowserRouter>
       <Suspense>
         <Switch>
-          <Route exact path={ROUTERS.MAIN_PAGE} component={HomeMain} />
-          <Route exact path={ROUTERS.PARTNER} component={Partner} />
-          <Route exact path={ROUTERS.CUSTOMER} component={Customer} />
-          <Route
+          <Route exact path={ROUTERS.LOGIN} component={loginContainer} />
+          <PrivateRoute
+            exact
+            path={ROUTERS.MAIN_PAGE}
+            component={HomeMain}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.PARTNER}
+            component={Partner}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.CUSTOMER}
+            component={Customer}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
             exact
             path={ROUTERS.CUSTOMER_INFORMATION}
             component={CustomerInfo}
+            isAuthenticated={isAuthenticated}
           />
-          <Route exact path={ROUTERS.POST} component={Post} />
-          <Route exact path={ROUTERS.POST_REGISTER} component={RegisterPost} />
-          <Route exact path={ROUTERS.DETAIL_POST} component={DetailPost} />
-          <Route
+          <PrivateRoute
+            exact
+            path={ROUTERS.POST}
+            component={Post}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.POST_REGISTER}
+            component={RegisterPost}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.DETAIL_POST}
+            component={DetailPost}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
             exact
             path={ROUTERS.REGISTER_CATEGORY_POST}
             component={RegisterCategoryPost}
+            isAuthenticated={isAuthenticated}
           />
-          <Route
+          <PrivateRoute
             exact
             path={ROUTERS.UPDATE_CATEGORY_POST}
             component={UpdateCategoryPost}
+            isAuthenticated={isAuthenticated}
           />
-          <Route exact path={ROUTERS.ACCOUNTS} component={accountComponents} />
-          <Route
+          <PrivateRoute
+            exact
+            path={ROUTERS.ACCOUNTS}
+            component={accountComponents}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
             exact
             path={ROUTERS.PARTNER_MANAGEMENT}
             component={partnerManagement}
+            isAuthenticated={isAuthenticated}
           />
-          <Route
+          <PrivateRoute
             exact
             path={ROUTERS.INFORMATION_NEEDS}
             component={informationNeeds}
+            isAuthenticated={isAuthenticated}
           />
-          <Route
+          <PrivateRoute
             exact
             path={ROUTERS.INFORMATION_PROJECT_REGISTER}
             component={informationProjectRegister}
+            isAuthenticated={isAuthenticated}
           />
-          <Route
+          <PrivateRoute
             exact
             path={ROUTERS.PROGRESS_PROJECT}
             component={progressProject}
+            isAuthenticated={isAuthenticated}
           />
-          <Route exact path={ROUTERS.DISPLAY} component={displayContainer} />
-          <Route
+          <PrivateRoute
+            exact
+            path={ROUTERS.DISPLAY}
+            component={displayContainer}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
             exact
             path={ROUTERS.DISPLAY_IDENTIFIED}
             component={displayIdentifiedContainer}
+            isAuthenticated={isAuthenticated}
           />
-          <Route
+          <PrivateRoute
             exact
             path={ROUTERS.DISPLAY_MAIN}
             component={displayMainContainer}
+            isAuthenticated={isAuthenticated}
           />
-          <Route
+          <PrivateRoute
             exact
             path={ROUTERS.DISPLAY_SALE}
             component={displaySaleContainer}
+            isAuthenticated={isAuthenticated}
           />
         </Switch>
       </Suspense>
@@ -132,4 +192,10 @@ const Router = () => {
   );
 };
 
-export default Router;
+const mapStateToProps = (state) => {
+  return {
+    token: state.authReducer.token,
+  };
+};
+
+export default connect(mapStateToProps)(memo<Props>(Router));

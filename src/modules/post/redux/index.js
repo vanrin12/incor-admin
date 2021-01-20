@@ -213,15 +213,14 @@ const getListPost = (state, action) => {
 const getListPostSuccess = (state, action) => {
   const dataListPost =
     action.data.post &&
-    action.data.post.data &&
-    action.data.post.data.map((item) => ({
+    action.data.post.map((item) => ({
       id: item.id,
       title: item.seo_title,
       writer: item.user.name,
       category: item.category.name,
       time: moment(item.created_at).format('HH:mm YYYY-MM-DD'),
       Thumbnail: item.image ? 'Có' : 'Không',
-      score: 99,
+      score: item.seo_score,
     }));
   return state.merge({
     isProcessing: false,
