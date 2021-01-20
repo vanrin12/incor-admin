@@ -14,7 +14,7 @@ export default () => {
     key: 'root',
     storage,
     stateReconciler: seamlessImmutableReconciler,
-    whitelist: ['partnerReducer', 'postReducer'],
+    whitelist: ['partnerReducer', 'postReducer', 'authReducer'],
   };
 
   /* ------------- Saga Middleware ------------- */

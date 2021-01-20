@@ -18,6 +18,7 @@ import registerPostSaga from 'modules/post/sagas/registerPostSaga';
 import getListAllSeoTitleSaga from 'modules/post/sagas/getListSeoTitleSaga';
 import deletePostSaga from 'modules/post/sagas/deletePostSaga';
 import getPostDetailSaga from 'modules/post/sagas/getDetailPostSaga';
+import loginSaga from 'modules/authen/sagas/loginSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -39,5 +40,6 @@ export default function* RootSagas() {
     getListAllSeoTitleSaga(),
     deletePostSaga(),
     getPostDetailSaga(),
+    loginSaga(),
   ]);
 }
