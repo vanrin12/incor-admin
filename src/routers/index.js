@@ -12,7 +12,9 @@ import ROUTERS from 'constants/router';
 // import PrivateRoute from './PrivateRoute';
 
 const HomeMain = lazy(() => import('modules/home/components'));
-const Partner = lazy(() => import('modules/partner/components'));
+const Partner = lazy(() =>
+  import('modules/partner/containers/partnerContainer')
+);
 const Customer = lazy(() => import('modules/customer/components'));
 const CustomerInfo = lazy(() =>
   import('modules/customer/components/informationNeedsProject')
@@ -20,10 +22,10 @@ const CustomerInfo = lazy(() =>
 const Post = lazy(() => import('modules/post/components'));
 const RegisterPost = lazy(() => import('modules/post/components/registerPost'));
 const RegisterCategoryPost = lazy(() =>
-  import('modules/post/components/registerCategory')
+  import('modules/post/containers/registerCategoryContainer')
 );
 const UpdateCategoryPost = lazy(() =>
-  import('modules/post/components/editCategory')
+  import('modules/post/containers/editCategoryContainer')
 );
 const accountComponents = lazy(() => import('modules/accounts/components'));
 const partnerManagement = lazy(() =>
