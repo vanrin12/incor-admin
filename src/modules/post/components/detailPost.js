@@ -22,6 +22,12 @@ type Props = {
   history: {
     push: Function,
   },
+  match: {
+    params: {
+      id: string,
+    },
+  },
+  getPostDetail: Function,
 };
 
 const RegisterPost = ({
@@ -31,7 +37,10 @@ const RegisterPost = ({
   errorMsg,
   type,
   history,
+  match,
+  getPostDetail,
 }: Props) => {
+  const postId = match.params.id;
   const thumbnailFile = useRef({});
   const [content, setContent] = useState('');
   const [createDate, setCreateDate] = useState(null);
@@ -53,6 +62,11 @@ const RegisterPost = ({
     status: '',
     show: '',
   });
+
+  useEffect(() => {
+    getPostDetail(postId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postId]);
   const handleChange = (value, name) => {
     setRegister({
       ...dataRegister,

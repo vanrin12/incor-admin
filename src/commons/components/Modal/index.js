@@ -8,7 +8,7 @@ import images from 'themes/images';
 
 type Props = {
   title?: string,
-  children: any,
+  children?: any,
   animation?: boolean,
   isOpen: boolean,
   size?: string,
@@ -127,5 +127,6 @@ ModalPopup.defaultProps = {
   textBtnRight: 'OK',
   handleSubmit: () => {},
   isDisabledButton: false,
+  children: '',
 };
 export default memo<Props>(ModalPopup);
