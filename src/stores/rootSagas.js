@@ -12,6 +12,12 @@ import registerCategoriesSaga from 'modules/post/sagas/registerCategoriesSaga';
 import getListParentSaga from 'modules/post/sagas/getListParentSaga';
 import getCategoriesDetailSaga from 'modules/post/sagas/getCategoriesDetailSaga';
 import updateCategoriesSaga from 'modules/post/sagas/updateCategorySaga';
+import getListPostSaga from 'modules/post/sagas/getListPostSaga';
+import getListAllCategoriesSaga from 'modules/post/sagas/getListAllCategorySaga';
+import registerPostSaga from 'modules/post/sagas/registerPostSaga';
+import getListAllSeoTitleSaga from 'modules/post/sagas/getListSeoTitleSaga';
+import deletePostSaga from 'modules/post/sagas/deletePostSaga';
+import getPostDetailSaga from 'modules/post/sagas/getDetailPostSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -27,5 +33,11 @@ export default function* RootSagas() {
     getListParentSaga(),
     getCategoriesDetailSaga(),
     updateCategoriesSaga(),
+    getListPostSaga(),
+    getListAllCategoriesSaga(),
+    registerPostSaga(),
+    getListAllSeoTitleSaga(),
+    deletePostSaga(),
+    getPostDetailSaga(),
   ]);
 }

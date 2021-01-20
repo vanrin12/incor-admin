@@ -14,6 +14,12 @@ export const ROUTES = {
   GET_PARENT: 'api/v1/admin/categories/parent',
   GET_CATEGORIES_DETAIL: (id) => `api/v1/admin/categories/${id}`,
   UPDATE_CATEGORIES: (id) => `api/v1/admin/categories/${id}`,
+  GET_LIST_POST: 'api/v1/admin/posts',
+  GET_ALL_CATEGORIES: 'api/v1/site/categories',
+  REGISTER_POST: 'api/v1/admin/posts',
+  GET_ALL_SEO_TITLE: 'api/v1/admin/posts/seo-title',
+  DELETE_POST: 'api/v1/admin/posts',
+  GET_POST_DETAIL: (id) => `api/v1/admin/posts/${id}`,
 };
 
 export const API = create({
