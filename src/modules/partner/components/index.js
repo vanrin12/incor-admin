@@ -20,26 +20,34 @@ type Props = {
   },
   getListAreas: Function,
   dataAreas: Array<{}>,
-  getListScales: Function,
-  dataScales: Array<{}>,
+  getListConstant: Function,
+  dataConstant: Array<{}>,
   getListPartner: Function,
+  totalPartner: number,
 };
 
 const Partner = ({
   history,
   getListAreas,
   dataAreas,
-  getListScales,
-  dataScales,
+  getListConstant,
+  dataConstant,
   getListPartner,
+  totalPartner,
 }: Props) => {
   const [dataFilter, setDataFilter] = useState({
-    headquarters: null,
-    job: null,
+    areas: null,
+    constant: null,
     vote: null,
   });
   const [keySearch, setKeySearch] = useState('');
   const [listId, setListId] = useState([]);
+  const [params, setParams] = useState({
+    paged: 1,
+    career: dataFilter?.constant?.value,
+    scale_id: dataFilter?.areas?.id,
+    rate: dataFilter?.vote?.value,
+  });
   // call api get list areas
   useEffect(() => {
     getListAreas();
@@ -48,16 +56,21 @@ const Partner = ({
 
   // call api get list scales
   useEffect(() => {
-    getListScales();
+    getListConstant({ name: 'hashtag' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     getListPartner({
-      career: dataFilter?.headquarters?.value,
+      career: dataFilter?.constant?.value,
       rate: dataFilter?.vote?.value,
     });
-  }, [dataFilter, getListPartner]);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const handleSelectPagination = (eventKey) => {
+    setParams({ ...params, paged: eventKey.selected + 1 });
+    const paramsRequest = { ...params, paged: eventKey.selected + 1 };
+    getListPartner(paramsRequest);
+  };
   const handleCheckBox = (id) => {
     let dataSubmit = [];
     if (listId.includes({ ...id }[0])) {
@@ -80,6 +93,17 @@ const Partner = ({
   const handleManagement = (item) => {
     history.push(`${ROUTERS.ROUTERS_PARTNER_MANAGEMENT}/${item?.id}`);
   };
+
+  const handleFilter = () => {
+    getListPartner({
+      paged: 1,
+      career: dataFilter?.constant?.value,
+      scale_id: dataFilter?.areas?.id,
+      rate: dataFilter?.vote?.value,
+      keywords: keySearch,
+    });
+  };
+
   return (
     <MainLayout activeMenu={3}>
       <Container fluid>
@@ -105,18 +129,18 @@ const Partner = ({
                 placeholder="Trụ sở"
                 listItem={dataAreas && Immutable.asMutable(dataAreas)}
                 onChange={(e) => {
-                  handleChange(e, 'headquarters');
+                  handleChange(e, 'areas');
                 }}
-                option={dataFilter.headquarters}
+                option={dataFilter.areas}
                 customClass="select-headquarters"
               />
               <SelectDropdown
                 placeholder="Ngành nghề"
-                listItem={dataScales && Immutable.asMutable(dataScales)}
+                listItem={dataConstant && Immutable.asMutable(dataConstant)}
                 onChange={(e) => {
-                  handleChange(e, 'job');
+                  handleChange(e, 'constant');
                 }}
-                option={dataFilter.job}
+                option={dataFilter.constant}
                 customClass="select-job"
               />
               <SelectDropdown
@@ -128,7 +152,7 @@ const Partner = ({
                 option={dataFilter.vote}
                 customClass="select-vote"
               />
-              <Button customClass="button--primary" onClick={() => {}}>
+              <Button customClass="button--primary" onClick={handleFilter}>
                 FILTER
               </Button>
             </div>
@@ -143,13 +167,21 @@ const Partner = ({
                 maxLength="20"
                 value={keySearch}
               />
-              <Button customClass="button--primary" onClick={() => {}}>
+              <Button
+                customClass="button--primary"
+                onClick={handleFilter}
+                isDisabled={keySearch.length === 0}
+              >
                 <p>TÌM</p>
               </Button>
             </div>
           </Col>
           <Col xs={12} md={12} className="action-delete">
-            <Button customClass="button--primary" onClick={() => {}}>
+            <Button
+              customClass="button--primary"
+              onClick={() => {}}
+              isDisabled={listId.length === 0}
+            >
               <p>XÓA</p>
             </Button>
           </Col>
@@ -174,8 +206,8 @@ const Partner = ({
               previousLabel="Previous"
               nextLabel="Next"
               breakLabel={<span className="gap">...</span>}
-              // pageCount={Math.ceil(totalRows / params.pageSize)}
-              // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
+              pageCount={Math.ceil(totalPartner / 10)}
+              onPageChange={(eventKey) => handleSelectPagination(eventKey)}
               forcePage={0}
               containerClassName="pagination"
               disabledClassName="disabled"

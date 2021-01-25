@@ -41,6 +41,9 @@ export const { Types, Creators } = createActions({
   getPostDetail: ['id'],
   getPostDetailSuccess: null,
   getPostDetailFailed: null,
+  updatePost: ['id', 'data'],
+  updatePostSuccess: null,
+  updatePostFailed: null,
 });
 
 // Initial state
@@ -55,6 +58,7 @@ export const INITIAL_STATE = Immutable({
   listAllSeoTitle: [],
   errorMsg: '',
   dataPostDetail: {},
+  listCategoryPost: {},
 });
 
 const getListCategories = (state, action) => {
@@ -350,7 +354,12 @@ const getPostDetailSuccess = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
-    dataPostDetail: action.data.category,
+    dataPostDetail: action.data.post,
+    listCategoryPost: {
+      id: action.data.post.category.id,
+      value: action.data.post.category.name,
+      label: action.data.post.category.name,
+    },
   });
 };
 
@@ -358,6 +367,28 @@ const getPostDetailFailed = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
+  });
+};
+
+const updatePost = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const updatePostSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updatePostFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
   });
 };
 
@@ -410,6 +441,10 @@ const HANDLERS = {
   [Types.GET_POST_DETAIL]: getPostDetail,
   [Types.GET_POST_DETAIL_SUCCESS]: getPostDetailSuccess,
   [Types.GET_POST_DETAIL_FAILED]: getPostDetailFailed,
+
+  [Types.UPDATE_POST]: updatePost,
+  [Types.UPDATE_POST_SUCCESS]: updatePostSuccess,
+  [Types.UPDATE_POST_FAILED]: updatePostFailed,
 };
 
 // Create reducers by pass state and handlers
