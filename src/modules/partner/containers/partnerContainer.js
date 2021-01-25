@@ -9,8 +9,9 @@ const mapStateToProps = (state) => {
     type: state.partnerReducer.type,
     isProcessing: state.partnerReducer.isProcessing,
     dataAreas: state.partnerReducer.dataAreas,
-    dataScales: state.partnerReducer.dataScales,
+    dataConstant: state.partnerReducer.dataConstant,
     dataPartner: state.partnerReducer.dataPartner,
+    totalPartner: state.partnerReducer.totalPartner,
   };
 };
 
@@ -19,7 +20,7 @@ const mapDispatchToProps = (dispatch) =>
     {
       ...Creators,
       getListAreas: Creators.getListAreas,
-      getListScales: Creators.getListScales,
+      getListConstant: Creators.getListConstant,
       getListPartner: Creators.getListPartner,
     },
     dispatch

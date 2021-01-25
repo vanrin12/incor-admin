@@ -10,9 +10,9 @@ export const { Types, Creators } = createActions({
   getListAreas: null,
   getListAreasSuccess: null,
   getListAreasFailed: null,
-  getListScales: null,
-  getListScalesSuccess: null,
-  getListScalesFailed: null,
+  getListConstant: ['data'],
+  getListConstantSuccess: null,
+  getListConstantFailed: null,
 });
 
 // Initial state
@@ -20,7 +20,8 @@ export const INITIAL_STATE = Immutable({
   isProcessing: false,
   dataPartner: [],
   dataAreas: [],
-  dataScales: [],
+  dataConstant: [],
+  totalPartner: '',
 });
 
 const getListPartner = (state, action) => {
@@ -35,6 +36,7 @@ const getListPartnerSuccess = (state, action) => {
     isProcessing: false,
     type: action.type,
     dataPartner: action.data.partner,
+    totalPartner: action.data.partner.total,
   });
 };
 
@@ -72,27 +74,27 @@ const getListAreasFailed = (state, action) => {
   });
 };
 
-const getListScales = (state, action) => {
+const getListConstant = (state, action) => {
   return state.merge({
     isProcessing: true,
     type: action.type,
   });
 };
 
-const getListScalesSuccess = (state, action) => {
+const getListConstantSuccess = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
-    dataScales:
+    dataConstant:
       action.data.data &&
-      action.data.data.areas &&
-      action.data.data.areas.map((item) => {
-        return { id: item.id, value: item.name, label: item.name };
+      action.data.data.constant &&
+      action.data.data.constant.split(',').map((item, index) => {
+        return { id: index, value: item, label: item };
       }),
   });
 };
 
-const getListScalesFailed = (state, action) => {
+const getListConstantFailed = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
@@ -109,9 +111,9 @@ const HANDLERS = {
   [Types.GET_LIST_AREAS_SUCCESS]: getListAreasSuccess,
   [Types.GET_LIST_AREAS_FAILED]: getListAreasFailed,
 
-  [Types.GET_LIST_SCALES]: getListScales,
-  [Types.GET_LIST_SCALES_SUCCESS]: getListScalesSuccess,
-  [Types.GET_LIST_SCALES_FAILED]: getListScalesFailed,
+  [Types.GET_LIST_CONSTANT]: getListConstant,
+  [Types.GET_LIST_CONSTANT_SUCCESS]: getListConstantSuccess,
+  [Types.GET_LIST_CONSTANT_FAILED]: getListConstantFailed,
 };
 
 // Create reducers by pass state and handlers

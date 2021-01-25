@@ -6,6 +6,7 @@ const ROUTERS = {
   CUSTOMER: '/customer',
   CUSTOMER_INFORMATION: '/customer/info',
   POST: '/post',
+  DETAIL_POST: '/post/:id',
   POST_REGISTER: '/post/add',
   REGISTER_CATEGORY_POST: '/post/category/add',
   UPDATE_CATEGORY: '/post/category/update',

@@ -17,7 +17,7 @@ type Props = {
 };
 
 const Sale = ({ history }: Props) => {
-  const typePage = history.location.state.type;
+  const typePage = history?.location?.state?.type;
   const [fileName, setFileName] = useState('');
   const inputFile = useRef({});
   const [dataSubmit, setDataSubmit] = useState({
@@ -65,7 +65,7 @@ const Sale = ({ history }: Props) => {
             </Button>
           </Col>
           <Col xs={12} md={12}>
-            <h1>{typePage.name}</h1>
+            <h1>{typePage?.name}</h1>
             <Input
               type="text"
               onChange={(e) => {
@@ -78,7 +78,7 @@ const Sale = ({ history }: Props) => {
             <p className="suggestions">
               Dòng tiêu đề của chuyên mục tại trang chủ
             </p>
-            {(typePage.id === 1 || typePage.id === 3) && (
+            {(typePage?.id === 1 || typePage?.id === 3) && (
               <>
                 <Input
                   type="text"
@@ -94,7 +94,7 @@ const Sale = ({ history }: Props) => {
                 </p>
               </>
             )}
-            {typePage.id === 4 && (
+            {typePage?.id === 4 && (
               <>
                 <div className="favicon">Tagline</div>
                 <textarea
@@ -127,7 +127,7 @@ const Sale = ({ history }: Props) => {
                 </div>
               </>
             )}
-            {typePage.id === 2 && (
+            {typePage?.id === 2 && (
               <div className="form-customer">
                 <div className="favicon">Khách hàng 1</div>
                 <div
