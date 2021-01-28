@@ -20,6 +20,8 @@ import deletePostSaga from 'modules/post/sagas/deletePostSaga';
 import getPostDetailSaga from 'modules/post/sagas/getDetailPostSaga';
 import loginSaga from 'modules/authen/sagas/loginSaga';
 import updatePostSaga from 'modules/post/sagas/updatePostSaga';
+import logoutSaga from 'modules/authen/sagas/logoutSaga';
+import getListPartnerManagementSaga from 'modules/partner/sagas/getListPartnerManagementSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -43,5 +45,7 @@ export default function* RootSagas() {
     getPostDetailSaga(),
     loginSaga(),
     updatePostSaga(),
+    logoutSaga(),
+    getListPartnerManagementSaga(),
   ]);
 }
