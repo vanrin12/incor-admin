@@ -4,7 +4,6 @@
 import React, { memo } from 'react';
 import { Modal } from 'react-bootstrap';
 import Button from 'commons/components/Button';
-import images from 'themes/images';
 
 type Props = {
   title?: string,
@@ -64,7 +63,7 @@ export const ModalPopup = ({
         tabIndex={0}
         onKeyUp={handleClose}
       >
-        <img src={images.icon_close} alt="" />
+        x
       </div>
     )}
 

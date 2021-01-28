@@ -8,8 +8,24 @@
     font-size: pxToVW(20);
     line-height: pxToVW(24);
     font-weight: $medium;
+    z-index: 999;
   }
   .menu-left{
     background-color: $white;
+  }
+  .popup-logout{
+    position: absolute;
+    top: pxToVW(100);
+    right: pxToVW(40);
+    background-color: $white;
+    padding: pxToVW(20) pxToVW(40);
+    border-radius: pxToVW(15);
+    z-index: 999;
+    &__item-logout{
+      font-size: pxToVW(20);
+      line-height: pxToVW(30);
+      color: $red;
+      font-weight: $medium;
+    }
   }
 }

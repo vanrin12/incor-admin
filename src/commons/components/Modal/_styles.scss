@@ -50,9 +50,15 @@
     position: absolute;
     right: pxToVW(30);
     top: pxToVW(20);
-    width: pxToVW(20);
-    height: pxToVW(18);
-
+    width: pxToVW(33);
+    height: pxToVW(33);
+    color: $color-button-close;
+    border: pxToVW(1) solid $color-button-close;
+    border-radius: 50%;
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &:focus {
       outline: none;
     }

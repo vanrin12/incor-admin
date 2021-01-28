@@ -9,10 +9,10 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
+import Loading from 'commons/components/Loading';
 import { headPartner } from 'constants/itemHead';
 import ROUTERS from 'constants/router';
 import { vote } from '../../../mockData/dataSelect';
-import { listDataPartner } from '../../../mockData/listDataTable';
 
 type Props = {
   history: {
@@ -24,6 +24,10 @@ type Props = {
   dataConstant: Array<{}>,
   getListPartner: Function,
   totalPartner: number,
+  dataPartner: Array<{
+    id: number,
+  }>,
+  isProcessing: boolean,
 };
 
 const Partner = ({
@@ -34,6 +38,8 @@ const Partner = ({
   dataConstant,
   getListPartner,
   totalPartner,
+  dataPartner,
+  isProcessing,
 }: Props) => {
   const [dataFilter, setDataFilter] = useState({
     areas: null,
@@ -66,6 +72,7 @@ const Partner = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const handleSelectPagination = (eventKey) => {
     setParams({ ...params, paged: eventKey.selected + 1 });
     const paramsRequest = { ...params, paged: eventKey.selected + 1 };
@@ -106,14 +113,17 @@ const Partner = ({
 
   return (
     <MainLayout activeMenu={3}>
-      <Container fluid>
-        <Row className="content-wrapper page-partner">
-          <Col xs={12} md={12}>
-            <h2 className="title-page">Danh sách Đối tác</h2>
-          </Col>
-          <Col xs={12} md={6} className="form-search">
-            <div className="form-search__left">
-              {/* <SelectDropdown
+      {isProcessing ? (
+        <Loading />
+      ) : (
+        <Container fluid>
+          <Row className="content-wrapper page-partner">
+            <Col xs={12} md={12}>
+              <h2 className="title-page">Danh sách Đối tác</h2>
+            </Col>
+            <Col xs={12} md={6} className="form-search">
+              <div className="form-search__left">
+                {/* <SelectDropdown
                 placeholder="Action"
                 listItem={headquarters}
                 onChange={(e) => {
@@ -125,106 +135,107 @@ const Partner = ({
               <Button customClass="button--primary mr-3" onClick={() => {}}>
                 APPLY
               </Button> */}
-              <SelectDropdown
-                placeholder="Trụ sở"
-                listItem={dataAreas && Immutable.asMutable(dataAreas)}
-                onChange={(e) => {
-                  handleChange(e, 'areas');
-                }}
-                option={dataFilter.areas}
-                customClass="select-headquarters"
-              />
-              <SelectDropdown
-                placeholder="Ngành nghề"
-                listItem={dataConstant && Immutable.asMutable(dataConstant)}
-                onChange={(e) => {
-                  handleChange(e, 'constant');
-                }}
-                option={dataFilter.constant}
-                customClass="select-job"
-              />
-              <SelectDropdown
-                placeholder="Đánh giá"
-                listItem={vote}
-                onChange={(e) => {
-                  handleChange(e, 'vote');
-                }}
-                option={dataFilter.vote}
-                customClass="select-vote"
-              />
-              <Button customClass="button--primary" onClick={handleFilter}>
-                FILTER
-              </Button>
-            </div>
-          </Col>
-          <Col xs={12} md={6} className="form-search">
-            <div className="form-search__right">
-              <Input
-                type="text"
-                onChange={(e) => {
-                  handleKeySearch(e.target.value);
-                }}
-                maxLength="20"
-                value={keySearch}
-              />
+                <SelectDropdown
+                  placeholder="Trụ sở"
+                  listItem={dataAreas && Immutable.asMutable(dataAreas)}
+                  onChange={(e) => {
+                    handleChange(e, 'areas');
+                  }}
+                  option={dataFilter.areas}
+                  customClass="select-headquarters"
+                />
+                <SelectDropdown
+                  placeholder="Ngành nghề"
+                  listItem={dataConstant && Immutable.asMutable(dataConstant)}
+                  onChange={(e) => {
+                    handleChange(e, 'constant');
+                  }}
+                  option={dataFilter.constant}
+                  customClass="select-job"
+                />
+                <SelectDropdown
+                  placeholder="Đánh giá"
+                  listItem={vote}
+                  onChange={(e) => {
+                    handleChange(e, 'vote');
+                  }}
+                  option={dataFilter.vote}
+                  customClass="select-vote"
+                />
+                <Button customClass="button--primary" onClick={handleFilter}>
+                  FILTER
+                </Button>
+              </div>
+            </Col>
+            <Col xs={12} md={6} className="form-search">
+              <div className="form-search__right">
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    handleKeySearch(e.target.value);
+                  }}
+                  maxLength="20"
+                  value={keySearch}
+                />
+                <Button
+                  customClass="button--primary"
+                  onClick={handleFilter}
+                  isDisabled={keySearch.length === 0}
+                >
+                  <p>TÌM</p>
+                </Button>
+              </div>
+            </Col>
+            <Col xs={12} md={12} className="action-delete">
               <Button
                 customClass="button--primary"
-                onClick={handleFilter}
-                isDisabled={keySearch.length === 0}
+                onClick={() => {}}
+                isDisabled={listId.length === 0}
               >
-                <p>TÌM</p>
+                <p>XÓA</p>
               </Button>
-            </div>
-          </Col>
-          <Col xs={12} md={12} className="action-delete">
-            <Button
-              customClass="button--primary"
-              onClick={() => {}}
-              isDisabled={listId.length === 0}
-            >
-              <p>XÓA</p>
-            </Button>
-          </Col>
-          <Col xs={12} md={12} className="table-page table-partner">
-            <Table
-              tableHeads={headPartner}
-              tableBody={listDataPartner}
-              showLabel
-              isShowId
-              isShowColumnCheck
-              isShowColumnBtn
-              nameBtn2="Quản lý"
-              handleCheckBox={handleCheckBox}
-              listId={listId}
-              isShowRating
-              isShowColumnBtnStatus
-              handleClickBtnDetail={handleManagement}
-            />
-          </Col>
-          <Col sm={12} className="wrapper-pagination">
-            <ReactPaginate
-              previousLabel="Previous"
-              nextLabel="Next"
-              breakLabel={<span className="gap">...</span>}
-              pageCount={Math.ceil(totalPartner / 10)}
-              onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-              forcePage={0}
-              containerClassName="pagination"
-              disabledClassName="disabled"
-              activeClassName="active"
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              marginPagesDisplayed={1}
-              nextLinkClassName="page-link"
-            />
-          </Col>
-        </Row>
-      </Container>
+            </Col>
+            <Col xs={12} md={12} className="table-page table-partner">
+              <Table
+                tableHeads={headPartner}
+                tableBody={dataPartner}
+                showLabel
+                isShowId
+                isShowColumnCheck
+                isShowColumnBtn
+                nameBtn2="Quản lý"
+                handleCheckBox={handleCheckBox}
+                listId={listId}
+                isShowRating
+                isShowColumnBtnStatus
+                handleClickBtnDetail={handleManagement}
+              />
+            </Col>
+            <Col sm={12} className="wrapper-pagination">
+              <ReactPaginate
+                previousLabel="Previous"
+                nextLabel="Next"
+                breakLabel={<span className="gap">...</span>}
+                pageCount={Math.ceil(totalPartner / 10)}
+                onPageChange={(eventKey) => handleSelectPagination(eventKey)}
+                forcePage={0}
+                containerClassName="pagination"
+                disabledClassName="disabled"
+                activeClassName="active"
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                marginPagesDisplayed={1}
+                nextLinkClassName="page-link"
+              />
+            </Col>
+          </Row>
+        </Container>
+      )}
     </MainLayout>
   );
 };

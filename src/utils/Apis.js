@@ -23,6 +23,8 @@ export const ROUTES = {
   GET_POST_DETAIL: (id) => `api/v1/admin/posts/${id}`,
   UPDATE_POST: (id) => `api/v1/admin/posts/${id}`,
   GET_LIST_CONSTANT: `api/v1/site/constants`,
+  LOG_OUT: `api/v1/auth/logout`,
+  GET_PARTNER_MANAGEMENT: (id) => `api/v1/admin/partners/${id}`,
 };
 
 export const API = create({
