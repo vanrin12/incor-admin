@@ -4,17 +4,19 @@ import React, { useState, useRef, memo, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import Immutable from 'seamless-immutable';
+import moment from 'moment';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
+import Loading from 'commons/components/Loading';
 import Input from 'commons/components/Input';
 import Modal from 'commons/components/Modal';
 import ROUTERS from 'constants/router';
 
 type Props = {
-  registerPost: Function,
+  updatePost: Function,
   getListAllCategories: Function,
   listAllCategories: Array<{}>,
   errorMsg: string,
@@ -28,10 +30,13 @@ type Props = {
     },
   },
   getPostDetail: Function,
+  dataPostDetail: Object,
+  listCategoryPost: Object,
+  isProcessing: boolean,
 };
 
-const RegisterPost = ({
-  registerPost,
+const DetailPost = ({
+  updatePost,
   getListAllCategories,
   listAllCategories,
   errorMsg,
@@ -39,10 +44,13 @@ const RegisterPost = ({
   history,
   match,
   getPostDetail,
+  dataPostDetail,
+  listCategoryPost,
+  isProcessing,
 }: Props) => {
   const postId = match.params.id;
   const thumbnailFile = useRef({});
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(dataPostDetail.content);
   const [createDate, setCreateDate] = useState(null);
   const [isStatus, setIsStatus] = useState(false);
   const [isShow, setIsShow] = useState(false);
@@ -51,18 +59,29 @@ const RegisterPost = ({
     content: '',
   });
   const [objFile, setObjFile] = useState(null);
-  const [file, setFile] = useState('');
+  const [file, setFile] = useState(dataPostDetail.image);
   const [status, setStatus] = useState('N');
   const [show, setShow] = useState('N');
   const [dataRegister, setRegister] = useState({
-    title: '',
-    titleSeo: '',
-    description: '',
-    category: null,
-    status: '',
-    show: '',
+    title: dataPostDetail.name,
+    titleSeo: dataPostDetail.seo_title,
+    description: dataPostDetail.description,
+    category: listCategoryPost,
+    status: dataPostDetail.status,
+    show: dataPostDetail.show,
   });
-
+  useEffect(() => {
+    setRegister({
+      title: dataPostDetail.name,
+      titleSeo: dataPostDetail.seo_title,
+      description: dataPostDetail.description,
+      category: listCategoryPost,
+      status: dataPostDetail.status,
+      show: dataPostDetail.show,
+    });
+    setFile(dataPostDetail.image);
+    setContent(dataPostDetail.content);
+  }, [dataPostDetail, listCategoryPost]);
   useEffect(() => {
     getPostDetail(postId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,10 +98,10 @@ const RegisterPost = ({
   };
 
   useEffect(() => {
-    if (type === 'REGISTER_POST_FAILED') {
+    if (type === 'UPDATE_POST_FAILED') {
       setIsShowError({ isOpen: true, content: errorMsg });
     }
-    if (type === 'REGISTER_POST_SUCCESS') {
+    if (type === 'UPDATE_POST_SUCCESS') {
       history.push(ROUTERS.POST);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,36 +149,15 @@ const RegisterPost = ({
     formData.append('image', objFile);
     formData.append('status', status);
     formData.append('show', show);
-    formData.append('calendar', createDate);
+    formData.append(
+      'calendar',
+      createDate && moment(createDate).format('YYYY-MM-DD HH:mm:ss')
+    );
     formData.append('type', 'Y');
-    registerPost(formData);
-    // formData.append('image', objFile);
-    // registerPost({
-    //   name: dataRegister.title,
-    //   content,
-    //   seo_title: dataRegister.titleSeo,
-    //   comment: dataRegister.description,
-    //   category_id: dataRegister?.category?.id,
-    //   image: objFile,
-    //   status,
-    //   show,
-    //   calendar: createDate,
-    //   type: 'Y',
-    // });
+    formData.append('_method', 'put');
+    updatePost(postId, formData);
   };
   const handleDraft = () => {
-    // registerPost({
-    //   name: dataRegister.title,
-    //   content,
-    //   seo_title: dataRegister.titleSeo,
-    //   comment: dataRegister.description,
-    //   category_id: dataRegister?.category?.id,
-    //   image: objFile,
-    //   status,
-    //   show,
-    //   calendar: createDate,
-    //   type: 'N',
-    // });
     const formData = new window.FormData();
     formData.append('name', dataRegister.title);
     formData.append('content', content);
@@ -169,146 +167,155 @@ const RegisterPost = ({
     formData.append('image', objFile);
     formData.append('status', status);
     formData.append('show', show);
-    formData.append('calendar', createDate);
+    formData.append(
+      'calendar',
+      createDate && moment(createDate).format('YYYY-MM-DD HH:mm:ss')
+    );
     formData.append('type', 'N');
-    registerPost(formData);
+    formData.append('_method', 'put');
+    updatePost(postId, formData);
   };
   return (
     <MainLayout activeMenu={2}>
-      <Container fluid>
-        <Row className="content-wrapper page-register-post page-register">
-          <Col xs={12} md={7}>
-            <Input
-              label="TIÊU ĐỀ"
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'title');
-              }}
-              maxLength="20"
-              value={dataRegister.title}
-              placeholder="Nhập tiêu đề tại đây"
-            />
-            <Col
-              xs={12}
-              md={12}
-              className="action-delete text-left pl-0 pt-0 pb-3"
-            >
-              <Button customClass="button--primary" onClick={() => {}}>
-                <p>THÊM MEDIA</p>
-              </Button>
-            </Col>
-            <CKEditor
-              editor={ClassicEditor}
-              data=""
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setContent(data);
-              }}
-            />
-            <Input
-              label="SEO TITLE"
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'titleSeo');
-              }}
-              maxLength="20"
-              value={dataRegister.titleSeo}
-              placeholder="Nhập tiêu đề không quá 70 từ"
-            />
-            <p>MÔ TẢ</p>
-            <textarea
-              placeholder="Nhập mô tả cho bài viết"
-              rows={5}
-              onChange={(e) => {
-                handleChange(e.target.value, 'description');
-              }}
-              value={dataRegister.description}
-            />
-          </Col>
-          <Col xs={12} md={5}>
-            <SelectDropdown
-              label="CHUYÊN MỤC"
-              placeholder="KHÁCH HÀNG"
-              listItem={
-                listAllCategories && Immutable.asMutable(listAllCategories)
-              }
-              onChange={(e) => {
-                handleChange(e, 'category');
-              }}
-              option={dataRegister.category}
-              customClass="select-category"
-            />
-            <div className="thumbnail">
-              <p>THUMBNAIL</p>
-              {objFile && (
-                <img src={file} alt="thumbnail" className="image-thumbnail" />
-              )}
-              <Col xs={12} md={12} className="action-delete pl-0 pt-0">
-                {!objFile && <div className="box-image" />}
-
-                <Button customClass="button--primary" onClick={onButtonClick}>
-                  <p>CHỌN ẢNH</p>
+      {isProcessing ? (
+        <Loading />
+      ) : (
+        <Container fluid>
+          <Row className="content-wrapper page-register-post page-register">
+            <Col xs={12} md={7}>
+              <Input
+                label="TIÊU ĐỀ"
+                type="text"
+                onChange={(e) => {
+                  handleChange(e.target.value, 'title');
+                }}
+                maxLength="20"
+                value={dataRegister.title}
+                placeholder="Nhập tiêu đề tại đây"
+              />
+              <Col
+                xs={12}
+                md={12}
+                className="action-delete text-left pl-0 pt-0 pb-3"
+              >
+                <Button customClass="button--primary" onClick={() => {}}>
+                  <p>THÊM MEDIA</p>
                 </Button>
-                <input
-                  type="file"
-                  id="file"
-                  style={{ display: 'none' }}
-                  ref={thumbnailFile}
-                  accept="image/jpg, image/jpeg, image/png, capture=camera"
-                  onChange={(e) => getFileName(e.target)}
-                />
               </Col>
-            </div>
-            <div className="box-status">
-              <p>
-                Trạng thái: Đã xuất bản
-                <span
-                  onClick={() => {
-                    setIsStatus(true);
-                  }}
-                  role="presentation"
-                >
-                  Edit
-                </span>
-              </p>
-              <p>
-                Hiển thị: Hiện bài viết
-                <span
-                  onClick={() => {
-                    setIsShow(true);
-                  }}
-                  role="presentation"
-                >
-                  Edit
-                </span>
-              </p>
-              <p>
-                Lên lịch:
-                <DatePicker
-                  selected={createDate}
-                  // onSelect={handleDateSelect} //when day is clicked
-                  onChange={(date) => handleDateChange(date)}
-                />
-              </p>
-              <div className="group-action">
-                <p className="mr-auto view-post">Xem bài viết</p>
-                <div
-                  className="draft"
-                  onClick={handleDraft}
-                  onKeyDown={() => {}}
-                  role="button"
-                  tabIndex={0}
-                >
-                  Lưu nháp
-                </div>
-                <Button customClass="button--primary" onClick={handleSubmit}>
-                  <p>ĐĂNG BÀI</p>
-                </Button>
+              <CKEditor
+                editor={ClassicEditor}
+                data={content}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  setContent(data);
+                }}
+              />
+              <Input
+                label="SEO TITLE"
+                type="text"
+                onChange={(e) => {
+                  handleChange(e.target.value, 'titleSeo');
+                }}
+                maxLength="20"
+                value={dataRegister.titleSeo}
+                placeholder="Nhập tiêu đề không quá 70 từ"
+              />
+              <p>MÔ TẢ</p>
+              <textarea
+                placeholder="Nhập mô tả cho bài viết"
+                rows={5}
+                onChange={(e) => {
+                  handleChange(e.target.value, 'description');
+                }}
+                value={dataRegister.description}
+              />
+            </Col>
+            <Col xs={12} md={5}>
+              <SelectDropdown
+                label="CHUYÊN MỤC"
+                placeholder="KHÁCH HÀNG"
+                listItem={
+                  listAllCategories && Immutable.asMutable(listAllCategories)
+                }
+                onChange={(e) => {
+                  handleChange(e, 'category');
+                }}
+                option={dataRegister.category}
+                customClass="select-category"
+              />
+              <div className="thumbnail">
+                <p>THUMBNAIL</p>
+                {file && (
+                  <img src={file} alt="thumbnail" className="image-thumbnail" />
+                )}
+                <Col xs={12} md={12} className="action-delete pl-0 pt-0">
+                  {!file && <div className="box-image" />}
+
+                  <Button customClass="button--primary" onClick={onButtonClick}>
+                    <p>CHỌN ẢNH</p>
+                  </Button>
+                  <input
+                    type="file"
+                    id="file"
+                    style={{ display: 'none' }}
+                    ref={thumbnailFile}
+                    accept="image/jpg, image/jpeg, image/png, capture=camera"
+                    onChange={(e) => getFileName(e.target)}
+                  />
+                </Col>
               </div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+              <div className="box-status">
+                <p>
+                  Trạng thái: Đã xuất bản
+                  <span
+                    onClick={() => {
+                      setIsStatus(true);
+                    }}
+                    role="presentation"
+                  >
+                    Edit
+                  </span>
+                </p>
+                <p>
+                  Hiển thị: {show === 'Y' ? 'Hiện bài viết' : 'Ẩn bài viết'}
+                  <span
+                    onClick={() => {
+                      setIsShow(true);
+                    }}
+                    role="presentation"
+                  >
+                    Edit
+                  </span>
+                </p>
+                <p>
+                  Lên lịch:
+                  <DatePicker
+                    selected={createDate}
+                    // onSelect={handleDateSelect} //when day is clicked
+                    onChange={(date) => handleDateChange(date)}
+                  />
+                </p>
+                <div className="group-action">
+                  <p className="mr-auto view-post">Xem bài viết</p>
+                  <div
+                    className="draft"
+                    onClick={handleDraft}
+                    onKeyDown={() => {}}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    Lưu nháp
+                  </div>
+                  <Button customClass="button--primary" onClick={handleSubmit}>
+                    <p>ĐĂNG BÀI</p>
+                  </Button>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      )}
+
       <Modal
         isOpen={isStatus}
         isShowFooter
@@ -356,4 +363,4 @@ const RegisterPost = ({
   );
 };
 
-export default memo<Props>(RegisterPost);
+export default memo<Props>(DetailPost);

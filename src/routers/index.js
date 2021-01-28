@@ -2,6 +2,7 @@
 
 import React, { lazy, Suspense, memo } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { useDispatch, useSelector } from 'react-redux';
 
@@ -21,7 +22,9 @@ const HomeMain = lazy(() => import('modules/home/components'));
 const Partner = lazy(() =>
   import('modules/partner/containers/partnerContainer')
 );
-const Customer = lazy(() => import('modules/customer/components'));
+const Customer = lazy(() =>
+  import('modules/customer/containers/customerContainer')
+);
 const CustomerInfo = lazy(() =>
   import('modules/customer/components/informationNeedsProject')
 );
@@ -40,7 +43,7 @@ const UpdateCategoryPost = lazy(() =>
 );
 const accountComponents = lazy(() => import('modules/accounts/components'));
 const partnerManagement = lazy(() =>
-  import('modules/partner/components/partnerManagement')
+  import('modules/partner/containers/partnerManagementContainer')
 );
 const informationNeeds = lazy(() =>
   import('modules/customer/components/infomationNeeds')
@@ -197,5 +200,10 @@ const mapStateToProps = (state) => {
     token: state.authReducer.token,
   };
 };
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
 
-export default connect(mapStateToProps)(memo<Props>(Router));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null
+)(memo<Props>(Router));

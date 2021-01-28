@@ -10,6 +10,8 @@ const mapStateToProps = (state) => {
     isProcessing: state.postReducer.isProcessing,
     listAllCategories: state.postReducer.listAllCategories,
     errorMsg: state.postReducer.errorMsg,
+    dataPostDetail: state.postReducer.dataPostDetail,
+    listCategoryPost: state.postReducer.listCategoryPost,
   };
 };
 
@@ -18,7 +20,7 @@ const mapDispatchToProps = (dispatch) =>
     {
       ...Creators,
       getListAllCategories: Creators.getListAllCategories,
-      registerPost: Creators.registerPost,
+      updatePost: Creators.updatePost,
       getPostDetail: Creators.getPostDetail,
     },
     dispatch

@@ -3,6 +3,7 @@
 import React, { useState, useRef, memo, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import Immutable from 'seamless-immutable';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -116,7 +117,10 @@ const RegisterPost = ({
     formData.append('image', objFile);
     formData.append('status', status);
     formData.append('show', show);
-    formData.append('calendar', createDate);
+    formData.append(
+      'calendar',
+      createDate && moment(createDate).format('YYYY-MM-DD HH:mm:ss')
+    );
     formData.append('type', 'Y');
     registerPost(formData);
   };
@@ -130,7 +134,10 @@ const RegisterPost = ({
     formData.append('image', objFile);
     formData.append('status', status);
     formData.append('show', show);
-    formData.append('calendar', createDate);
+    formData.append(
+      'calendar',
+      createDate && moment(createDate).format('YYYY-MM-DD HH:mm:ss')
+    );
     formData.append('type', 'N');
     registerPost(formData);
   };
@@ -233,7 +240,7 @@ const RegisterPost = ({
                 </span>
               </p>
               <p>
-                Hiển thị: Hiện bài viết
+                Hiển thị: {show === 'Y' ? 'Hiện bài viết' : 'Ẩn bài viết'}
                 <span
                   onClick={() => {
                     setIsShow(true);

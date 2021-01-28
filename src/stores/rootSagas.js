@@ -5,7 +5,7 @@ import getListUserSaga from 'modules/accounts/sagas/getListUserSaga';
 import getListRolesSaga from 'modules/accounts/sagas/getListRolesSaga';
 import getListPartnerSaga from 'modules/partner/sagas/getListPartnerSaga';
 import getListAreasSaga from 'modules/partner/sagas/getListAreasSaga';
-import getListScalesSaga from 'modules/partner/sagas/getListScalesSaga';
+import getListConstantSaga from 'modules/partner/sagas/getListScalesSaga';
 import getListCategoriesSaga from 'modules/post/sagas/getListCategoriesSaga';
 import deleteCategoriesSaga from 'modules/post/sagas/deleteCategoriesSaga';
 import registerCategoriesSaga from 'modules/post/sagas/registerCategoriesSaga';
@@ -19,6 +19,9 @@ import getListAllSeoTitleSaga from 'modules/post/sagas/getListSeoTitleSaga';
 import deletePostSaga from 'modules/post/sagas/deletePostSaga';
 import getPostDetailSaga from 'modules/post/sagas/getDetailPostSaga';
 import loginSaga from 'modules/authen/sagas/loginSaga';
+import updatePostSaga from 'modules/post/sagas/updatePostSaga';
+import logoutSaga from 'modules/authen/sagas/logoutSaga';
+import getListPartnerManagementSaga from 'modules/partner/sagas/getListPartnerManagementSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -27,7 +30,7 @@ export default function* RootSagas() {
     getListRolesSaga(),
     getListPartnerSaga(),
     getListAreasSaga(),
-    getListScalesSaga(),
+    getListConstantSaga(),
     getListCategoriesSaga(),
     deleteCategoriesSaga(),
     registerCategoriesSaga(),
@@ -41,5 +44,8 @@ export default function* RootSagas() {
     deletePostSaga(),
     getPostDetailSaga(),
     loginSaga(),
+    updatePostSaga(),
+    logoutSaga(),
+    getListPartnerManagementSaga(),
   ]);
 }

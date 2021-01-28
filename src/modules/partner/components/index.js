@@ -9,10 +9,10 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
+import Loading from 'commons/components/Loading';
 import { headPartner } from 'constants/itemHead';
 import ROUTERS from 'constants/router';
 import { vote } from '../../../mockData/dataSelect';
-import { listDataPartner } from '../../../mockData/listDataTable';
 
 type Props = {
   history: {
@@ -20,26 +20,40 @@ type Props = {
   },
   getListAreas: Function,
   dataAreas: Array<{}>,
-  getListScales: Function,
-  dataScales: Array<{}>,
+  getListConstant: Function,
+  dataConstant: Array<{}>,
   getListPartner: Function,
+  totalPartner: number,
+  dataPartner: Array<{
+    id: number,
+  }>,
+  isProcessing: boolean,
 };
 
 const Partner = ({
   history,
   getListAreas,
   dataAreas,
-  getListScales,
-  dataScales,
+  getListConstant,
+  dataConstant,
   getListPartner,
+  totalPartner,
+  dataPartner,
+  isProcessing,
 }: Props) => {
   const [dataFilter, setDataFilter] = useState({
-    headquarters: null,
-    job: null,
+    areas: null,
+    constant: null,
     vote: null,
   });
   const [keySearch, setKeySearch] = useState('');
   const [listId, setListId] = useState([]);
+  const [params, setParams] = useState({
+    paged: 1,
+    career: dataFilter?.constant?.value,
+    scale_id: dataFilter?.areas?.id,
+    rate: dataFilter?.vote?.value,
+  });
   // call api get list areas
   useEffect(() => {
     getListAreas();
@@ -48,16 +62,22 @@ const Partner = ({
 
   // call api get list scales
   useEffect(() => {
-    getListScales();
+    getListConstant({ name: 'hashtag' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     getListPartner({
-      career: dataFilter?.headquarters?.value,
+      career: dataFilter?.constant?.value,
       rate: dataFilter?.vote?.value,
     });
-  }, [dataFilter, getListPartner]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  const handleSelectPagination = (eventKey) => {
+    setParams({ ...params, paged: eventKey.selected + 1 });
+    const paramsRequest = { ...params, paged: eventKey.selected + 1 };
+    getListPartner(paramsRequest);
+  };
   const handleCheckBox = (id) => {
     let dataSubmit = [];
     if (listId.includes({ ...id }[0])) {
@@ -80,16 +100,30 @@ const Partner = ({
   const handleManagement = (item) => {
     history.push(`${ROUTERS.ROUTERS_PARTNER_MANAGEMENT}/${item?.id}`);
   };
+
+  const handleFilter = () => {
+    getListPartner({
+      paged: 1,
+      career: dataFilter?.constant?.value,
+      scale_id: dataFilter?.areas?.id,
+      rate: dataFilter?.vote?.value,
+      keywords: keySearch,
+    });
+  };
+
   return (
     <MainLayout activeMenu={3}>
-      <Container fluid>
-        <Row className="content-wrapper page-partner">
-          <Col xs={12} md={12}>
-            <h2 className="title-page">Danh sách Đối tác</h2>
-          </Col>
-          <Col xs={12} md={6} className="form-search">
-            <div className="form-search__left">
-              {/* <SelectDropdown
+      {isProcessing ? (
+        <Loading />
+      ) : (
+        <Container fluid>
+          <Row className="content-wrapper page-partner">
+            <Col xs={12} md={12}>
+              <h2 className="title-page">Danh sách Đối tác</h2>
+            </Col>
+            <Col xs={12} md={6} className="form-search">
+              <div className="form-search__left">
+                {/* <SelectDropdown
                 placeholder="Action"
                 listItem={headquarters}
                 onChange={(e) => {
@@ -101,98 +135,107 @@ const Partner = ({
               <Button customClass="button--primary mr-3" onClick={() => {}}>
                 APPLY
               </Button> */}
-              <SelectDropdown
-                placeholder="Trụ sở"
-                listItem={dataAreas && Immutable.asMutable(dataAreas)}
-                onChange={(e) => {
-                  handleChange(e, 'headquarters');
-                }}
-                option={dataFilter.headquarters}
-                customClass="select-headquarters"
-              />
-              <SelectDropdown
-                placeholder="Ngành nghề"
-                listItem={dataScales && Immutable.asMutable(dataScales)}
-                onChange={(e) => {
-                  handleChange(e, 'job');
-                }}
-                option={dataFilter.job}
-                customClass="select-job"
-              />
-              <SelectDropdown
-                placeholder="Đánh giá"
-                listItem={vote}
-                onChange={(e) => {
-                  handleChange(e, 'vote');
-                }}
-                option={dataFilter.vote}
-                customClass="select-vote"
-              />
-              <Button customClass="button--primary" onClick={() => {}}>
-                FILTER
+                <SelectDropdown
+                  placeholder="Trụ sở"
+                  listItem={dataAreas && Immutable.asMutable(dataAreas)}
+                  onChange={(e) => {
+                    handleChange(e, 'areas');
+                  }}
+                  option={dataFilter.areas}
+                  customClass="select-headquarters"
+                />
+                <SelectDropdown
+                  placeholder="Ngành nghề"
+                  listItem={dataConstant && Immutable.asMutable(dataConstant)}
+                  onChange={(e) => {
+                    handleChange(e, 'constant');
+                  }}
+                  option={dataFilter.constant}
+                  customClass="select-job"
+                />
+                <SelectDropdown
+                  placeholder="Đánh giá"
+                  listItem={vote}
+                  onChange={(e) => {
+                    handleChange(e, 'vote');
+                  }}
+                  option={dataFilter.vote}
+                  customClass="select-vote"
+                />
+                <Button customClass="button--primary" onClick={handleFilter}>
+                  FILTER
+                </Button>
+              </div>
+            </Col>
+            <Col xs={12} md={6} className="form-search">
+              <div className="form-search__right">
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    handleKeySearch(e.target.value);
+                  }}
+                  maxLength="20"
+                  value={keySearch}
+                />
+                <Button
+                  customClass="button--primary"
+                  onClick={handleFilter}
+                  isDisabled={keySearch.length === 0}
+                >
+                  <p>TÌM</p>
+                </Button>
+              </div>
+            </Col>
+            <Col xs={12} md={12} className="action-delete">
+              <Button
+                customClass="button--primary"
+                onClick={() => {}}
+                isDisabled={listId.length === 0}
+              >
+                <p>XÓA</p>
               </Button>
-            </div>
-          </Col>
-          <Col xs={12} md={6} className="form-search">
-            <div className="form-search__right">
-              <Input
-                type="text"
-                onChange={(e) => {
-                  handleKeySearch(e.target.value);
-                }}
-                maxLength="20"
-                value={keySearch}
+            </Col>
+            <Col xs={12} md={12} className="table-page table-partner">
+              <Table
+                tableHeads={headPartner}
+                tableBody={dataPartner}
+                showLabel
+                isShowId
+                isShowColumnCheck
+                isShowColumnBtn
+                nameBtn2="Quản lý"
+                handleCheckBox={handleCheckBox}
+                listId={listId}
+                isShowRating
+                isShowColumnBtnStatus
+                handleClickBtnDetail={handleManagement}
               />
-              <Button customClass="button--primary" onClick={() => {}}>
-                <p>TÌM</p>
-              </Button>
-            </div>
-          </Col>
-          <Col xs={12} md={12} className="action-delete">
-            <Button customClass="button--primary" onClick={() => {}}>
-              <p>XÓA</p>
-            </Button>
-          </Col>
-          <Col xs={12} md={12} className="table-page table-partner">
-            <Table
-              tableHeads={headPartner}
-              tableBody={listDataPartner}
-              showLabel
-              isShowId
-              isShowColumnCheck
-              isShowColumnBtn
-              nameBtn2="Quản lý"
-              handleCheckBox={handleCheckBox}
-              listId={listId}
-              isShowRating
-              isShowColumnBtnStatus
-              handleClickBtnDetail={handleManagement}
-            />
-          </Col>
-          <Col sm={12} className="wrapper-pagination">
-            <ReactPaginate
-              previousLabel="Previous"
-              nextLabel="Next"
-              breakLabel={<span className="gap">...</span>}
-              // pageCount={Math.ceil(totalRows / params.pageSize)}
-              // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-              forcePage={0}
-              containerClassName="pagination"
-              disabledClassName="disabled"
-              activeClassName="active"
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              marginPagesDisplayed={1}
-              nextLinkClassName="page-link"
-            />
-          </Col>
-        </Row>
-      </Container>
+            </Col>
+            <Col sm={12} className="wrapper-pagination">
+              <ReactPaginate
+                previousLabel="Previous"
+                nextLabel="Next"
+                breakLabel={<span className="gap">...</span>}
+                pageCount={Math.ceil(totalPartner / 10)}
+                onPageChange={(eventKey) => handleSelectPagination(eventKey)}
+                forcePage={0}
+                containerClassName="pagination"
+                disabledClassName="disabled"
+                activeClassName="active"
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                marginPagesDisplayed={1}
+                nextLinkClassName="page-link"
+              />
+            </Col>
+          </Row>
+        </Container>
+      )}
     </MainLayout>
   );
 };

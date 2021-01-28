@@ -21,6 +21,10 @@ export const ROUTES = {
   GET_ALL_SEO_TITLE: 'api/v1/admin/posts/seo-title',
   DELETE_POST: 'api/v1/admin/posts',
   GET_POST_DETAIL: (id) => `api/v1/admin/posts/${id}`,
+  UPDATE_POST: (id) => `api/v1/admin/posts/${id}`,
+  GET_LIST_CONSTANT: `api/v1/site/constants`,
+  LOG_OUT: `api/v1/auth/logout`,
+  GET_PARTNER_MANAGEMENT: (id) => `api/v1/admin/partners/${id}`,
 };
 
 export const API = create({
