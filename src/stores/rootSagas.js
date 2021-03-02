@@ -5,7 +5,8 @@ import getListUserSaga from 'modules/accounts/sagas/getListUserSaga';
 import getListRolesSaga from 'modules/accounts/sagas/getListRolesSaga';
 import getListPartnerSaga from 'modules/partner/sagas/getListPartnerSaga';
 import getListAreasSaga from 'modules/partner/sagas/getListAreasSaga';
-import getListConstantSaga from 'modules/partner/sagas/getListScalesSaga';
+import getListConstantSaga from 'modules/partner/sagas/getListConstantSaga';
+import getListScalesSaga from 'modules/partner/sagas/getListScalesSaga';
 import getListCategoriesSaga from 'modules/post/sagas/getListCategoriesSaga';
 import deleteCategoriesSaga from 'modules/post/sagas/deleteCategoriesSaga';
 import registerCategoriesSaga from 'modules/post/sagas/registerCategoriesSaga';
@@ -22,6 +23,11 @@ import loginSaga from 'modules/authen/sagas/loginSaga';
 import updatePostSaga from 'modules/post/sagas/updatePostSaga';
 import logoutSaga from 'modules/authen/sagas/logoutSaga';
 import getListPartnerManagementSaga from 'modules/partner/sagas/getListPartnerManagementSaga';
+import deletePartnerSaga from 'modules/partner/sagas/deletePartnerSaga';
+import registerPartnerCompanySaga from 'modules/partner/sagas/registerPartnerCompanySaga';
+import getListPartnerProductSaga from 'modules/partner/sagas/getListPartnerProductSaga';
+import getListConstructionSaga from 'modules/partner/sagas/getListConstructionsSaga';
+import registerPartnerProductSaga from 'modules/partner/sagas/registerPartnerProductSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -47,5 +53,11 @@ export default function* RootSagas() {
     updatePostSaga(),
     logoutSaga(),
     getListPartnerManagementSaga(),
+    deletePartnerSaga(),
+    registerPartnerCompanySaga(),
+    getListScalesSaga(),
+    getListPartnerProductSaga(),
+    getListConstructionSaga(),
+    registerPartnerProductSaga(),
   ]);
 }

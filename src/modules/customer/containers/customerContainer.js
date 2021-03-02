@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
     type: state.customerReducer.type,
     isProcessing: state.customerReducer.isProcessing,
     dataAreas: state.partnerReducer.dataAreas,
+    dataConstant: state.partnerReducer.dataConstant,
   };
 };
 
@@ -19,6 +20,7 @@ const mapDispatchToProps = (dispatch) =>
       ...Creators,
       getListPost: Creators.getListPost,
       getListAreas: partnerReducer.getListAreas,
+      getListConstant: partnerReducer.getListConstant,
     },
     dispatch
   );
