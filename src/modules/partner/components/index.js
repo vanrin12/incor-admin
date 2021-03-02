@@ -28,6 +28,8 @@ type Props = {
     id: number,
   }>,
   isProcessing: boolean,
+  deletePartner: Function,
+  type: string,
 };
 
 const Partner = ({
@@ -40,6 +42,8 @@ const Partner = ({
   totalPartner,
   dataPartner,
   isProcessing,
+  deletePartner,
+  type,
 }: Props) => {
   const [dataFilter, setDataFilter] = useState({
     areas: null,
@@ -72,6 +76,16 @@ const Partner = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (type === 'DELETE_PARTNER_SUCCESS') {
+      getListPartner({
+        career: dataFilter?.constant?.value,
+        rate: dataFilter?.vote?.value,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
 
   const handleSelectPagination = (eventKey) => {
     setParams({ ...params, paged: eventKey.selected + 1 });
@@ -109,6 +123,10 @@ const Partner = ({
       rate: dataFilter?.vote?.value,
       keywords: keySearch,
     });
+  };
+
+  const handleDelete = () => {
+    deletePartner({ arrayId: listId && listId.toString() });
   };
 
   return (
@@ -189,7 +207,7 @@ const Partner = ({
             <Col xs={12} md={12} className="action-delete">
               <Button
                 customClass="button--primary"
-                onClick={() => {}}
+                onClick={handleDelete}
                 isDisabled={listId.length === 0}
               >
                 <p>XÓA</p>

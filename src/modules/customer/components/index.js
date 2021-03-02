@@ -13,7 +13,6 @@ import Input from 'commons/components/Input';
 import ROUTERS from 'constants/router';
 import { headCustomer } from 'constants/itemHead';
 import { listDataCustomer } from '../../../mockData/listDataTable';
-import { job } from '../../../mockData/dataSelect';
 
 type Props = {
   history: {
@@ -21,9 +20,17 @@ type Props = {
   },
   getListAreas: Function,
   dataAreas: Array<{}>,
+  getListConstant: Function,
+  dataConstant: Array<{}>,
 };
 
-const Customer = ({ history, getListAreas, dataAreas }: Props) => {
+const Customer = ({
+  history,
+  getListAreas,
+  dataAreas,
+  getListConstant,
+  dataConstant,
+}: Props) => {
   const [createDate, setCreateDate] = useState(null);
   const [dataFilter, setDataFilter] = useState({
     areas: null,
@@ -33,6 +40,10 @@ const Customer = ({ history, getListAreas, dataAreas }: Props) => {
   const [keySearch, setKeySearch] = useState('');
   useEffect(() => {
     getListAreas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    getListConstant({ name: 'hashtag' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleDateChange = (date) => {
@@ -75,7 +86,7 @@ const Customer = ({ history, getListAreas, dataAreas }: Props) => {
               />
               <SelectDropdown
                 placeholder="Kinh doanh"
-                listItem={job}
+                listItem={dataConstant && Immutable.asMutable(dataConstant)}
                 onChange={(e) => {
                   handleChange(e, 'job');
                 }}
