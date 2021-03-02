@@ -4,8 +4,8 @@ import { Types } from '../redux';
 
 // worker Saga: will be fired on SEND_INVITE actions
 function* getListMedia(action) {
-  const { pages, mediaType } = action.data;
-  const params = `${mediaType}?pages=${pages}`;
+  const { page, mediaType } = action.data;
+  const params = `${mediaType}?page=${page}`;
   try {
     const response = yield call(() =>
       API.get(ROUTES.API_GET_LIST_MEDIA(params))

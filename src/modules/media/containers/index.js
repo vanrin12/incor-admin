@@ -5,8 +5,12 @@ import { Creators } from '../redux';
 
 const mapStateToProps = (state) => {
   return {
-    type: state.customerReducer.type,
-    isProcessing: '',
+    type: state.mediaReducer.type,
+    isProcessing: state.mediaReducer.isProcessing,
+    dataListMedia: state.mediaReducer.dataListMedia,
+    statusCode: state.mediaReducer.statusCode,
+    totalRows: state.mediaReducer.totalRows,
+    isProcessingUpload: state.mediaReducer.isProcessingUpload,
   };
 };
 
@@ -15,6 +19,7 @@ const mapDispatchToProps = (dispatch) =>
     {
       ...Creators,
       getListMedia: Creators.getListMedia,
+      uploadMedia: Creators.uploadMedia,
     },
     dispatch
   );

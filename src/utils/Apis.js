@@ -25,13 +25,14 @@ export const ROUTES = {
   GET_LIST_CONSTANT: `api/v1/site/constants`,
   LOG_OUT: `api/v1/auth/logout`,
   GET_PARTNER_MANAGEMENT: (id) => `api/v1/admin/partners/${id}`,
-  API_GET_LIST_MEDIA: (params) => `/admin/media/${params}`,
+  API_GET_LIST_MEDIA: (params) => `/api/v1/admin/media/${params}`,
   API_DELETE_PARTNER: `api/v1/admin/partners`,
   API_REGISTER_PARTNER_COMPANY: `api/v1/admin/partners/company`,
   API_GET_LIST_CONSTRUCTION: (id) =>
     `api/v1/admin/partners/constructions/${id}`,
   API_GET_LIST_PARTNER_PRODUCT: (id) => `api/v1/admin/partners/products/${id}`,
   API_REGISTER_PARTNER_PRODUCT: `api/v1/admin/partners/products`,
+  API_UPLOAD_MEDIA: `/api/v1/admin/media`,
 };
 
 export const API = create({

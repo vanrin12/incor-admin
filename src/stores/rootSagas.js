@@ -30,6 +30,7 @@ import getListConstructionSaga from 'modules/partner/sagas/getListConstructionsS
 import registerPartnerProductSaga from 'modules/partner/sagas/registerPartnerProductSaga';
 
 import getListMediaSaga from 'modules/media/sagas/getListMediaSaga';
+import uploadMediaSaga from 'modules/media/sagas/uploadMediaSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -62,5 +63,6 @@ export default function* RootSagas() {
     getListPartnerProductSaga(),
     getListConstructionSaga(),
     registerPartnerProductSaga(),
+    uploadMediaSaga(),
   ]);
 }
