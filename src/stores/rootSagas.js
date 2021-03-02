@@ -23,6 +23,8 @@ import updatePostSaga from 'modules/post/sagas/updatePostSaga';
 import logoutSaga from 'modules/authen/sagas/logoutSaga';
 import getListPartnerManagementSaga from 'modules/partner/sagas/getListPartnerManagementSaga';
 
+import getListMediaSaga from 'modules/media/sagas/getListMediaSaga';
+
 export default function* RootSagas() {
   yield all([
     getDataMainSaga(),
@@ -47,5 +49,6 @@ export default function* RootSagas() {
     updatePostSaga(),
     logoutSaga(),
     getListPartnerManagementSaga(),
+    getListMediaSaga(),
   ]);
 }

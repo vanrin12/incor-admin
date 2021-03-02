@@ -25,6 +25,7 @@ export const ROUTES = {
   GET_LIST_CONSTANT: `api/v1/site/constants`,
   LOG_OUT: `api/v1/auth/logout`,
   GET_PARTNER_MANAGEMENT: (id) => `api/v1/admin/partners/${id}`,
+  API_GET_LIST_MEDIA: (params) => `/admin/media/${params}`,
 };
 
 export const API = create({
