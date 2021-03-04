@@ -32,3 +32,17 @@
     padding-top: pxToVW(30);
   }
 }
+
+.react-datepicker__input-container {
+  ::-webkit-input-placeholder { /* Edge */
+    color: $color-placeholder !important;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: $color-placeholder !important;
+  }
+  
+  ::placeholder {
+    color: $color-placeholder !important;
+  }
+}
