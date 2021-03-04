@@ -7,18 +7,22 @@ import MainLayout from 'commons/components/MainLayout';
 import Modal from 'commons/components/Modal';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
+import Video from 'commons/components/Video';
 import Loading from 'commons/components/Loading';
 import LoadingSmall from 'commons/components/Loading/LoadingSmall';
+import ItemMedia from './ItemMedia';
 
 type Props = {
   getListMedia: Function,
   dataListMedia: Array<{}>,
   isProcessing: boolean,
   uploadMedia: Function,
-  statusCode: any,
   type: string,
   totalRows: number,
   isProcessingUpload: boolean,
+  deleteMedia: Function,
+  isProcessingDelete: boolean,
+  statusCode: any,
 };
 const Medias = ({
   getListMedia,
@@ -29,6 +33,7 @@ const Medias = ({
   totalRows,
   type,
   isProcessingUpload,
+  deleteMedia,
 }: Props) => {
   const inputFile = useRef({});
   const [isShow, setIsShow] = useState(false);
@@ -36,6 +41,11 @@ const Medias = ({
   const [page, setPage] = useState(1);
   const [paginationIndex, setPaginationIndex] = useState(0);
   const [modalCancel, setModalCancel] = useState({
+    isShow: false,
+    content: '',
+  });
+  const [idDelete, setIdDelete] = useState(null);
+  const [modalDelete, setModalDelete] = useState({
     isShow: false,
     content: '',
   });
@@ -47,7 +57,7 @@ const Medias = ({
     imageView: '',
   });
 
-  // sau khi báo giá thành công
+  // sau khi upload thành công
   useEffect(() => {
     switch (type) {
       case 'UPLOAD_MEDIA_SUCCESS':
@@ -84,6 +94,39 @@ const Medias = ({
           content: 'Upload hình ảnh đang bị lỗi vui lòng thử lại sau.',
         });
         break;
+
+      case 'DELETE_MEDIA_SUCCESS':
+        setModalDelete({
+          ...modalDelete,
+          isShow: false,
+          content: '',
+        });
+        if (statusCode === 200) {
+          getListMedia({
+            page: 1,
+            mediaType,
+          });
+        } else {
+          setModalCancel({
+            ...modalCancel,
+            isShow: true,
+            content: 'Xóa đang bị lỗi vui lòng thử lại sau.',
+          });
+        }
+        break;
+      case 'DELETE_MEDIA_FAILED':
+        setModalDelete({
+          ...modalDelete,
+          isShow: false,
+          content: '',
+        });
+        setModalCancel({
+          ...modalCancel,
+          isShow: true,
+          content: 'Xóa đang bị lỗi vui lòng thử lại sau.',
+        });
+        break;
+
       default:
         break;
     }
@@ -105,19 +148,13 @@ const Medias = ({
           isShow: true,
           content: 'Dung lượng hình ảnh phải lớn hơn 0KB.',
         });
-      } else if (e.target.files[0].size > 5000000) {
+      } else if (e.target.files[0].size > 5000000 && mediaType === 'image') {
         setModalCancel({
           ...modalCancel,
           isShow: true,
-          content: 'Kích thước video được giới hạn ở 5mb',
+          content: 'Kích thước hình ảnh được giới hạn ở 5mb',
         });
-      } else if (
-        (e.target.files[0].type === 'image/jpg' ||
-          e.target.files[0].type === 'image/jpeg' ||
-          e.target.files[0].type === 'image/png' ||
-          e.target.files[0].type === 'image/gif') &&
-        e.target.files[0].name.substr(-5) !== '.jfif'
-      ) {
+      } else {
         setImageUpload({
           ...imageUpload,
           url: e.target.files[0],
@@ -150,7 +187,7 @@ const Medias = ({
     const formData = new window.FormData();
     formData.append('name', (imageUpload && imageUpload.name) || '');
     formData.append('file', (imageUpload && imageUpload.url) || '');
-    formData.append('type', 'image');
+    formData.append('type', mediaType);
     uploadMedia(formData);
   };
 
@@ -159,20 +196,36 @@ const Medias = ({
     setPaginationIndex(value.selected);
   };
 
+  const handleShowDeleteMedia = (idMedia) => {
+    setModalDelete({
+      ...modalDelete,
+      isShow: true,
+      content: 'Bạn có muốn xóa hay không?',
+    });
+    setIdDelete(idMedia);
+  };
+
+  const handleDeleteMedia = () => {
+    deleteMedia(idDelete);
+  };
+
   const renderItemMedia =
     dataListMedia && dataListMedia.length > 0 ? (
-      dataListMedia.map((item) => (
-        <div className="item-media" key={item.id}>
-          <div
-            className="media-content"
-            style={{
-              backgroundImage: `url(${item.url})`,
-            }}
+      dataListMedia
+        .slice(0, 10)
+        .map((item) => (
+          <ItemMedia
+            key={item.id}
+            dataMedia={item}
+            handleDeleteMedia={handleShowDeleteMedia}
           />
-        </div>
-      ))
+        ))
     ) : (
-      <div className="no-data">KHÔNG CÓ HÌNH ẢNH NÀO.</div>
+      <div className="no-data">
+        {mediaType === 'image'
+          ? 'KHÔNG CÓ HÌNH ẢNH NÀO.'
+          : 'KHÔNG CÓ VIDEO NÀO.'}
+      </div>
     );
 
   return (
@@ -182,7 +235,10 @@ const Medias = ({
           <div className="list-type">
             <div
               className={`img ${mediaType === 'image' ? 'active' : ''}`}
-              onClick={() => setMediaType('image')}
+              onClick={() => {
+                setPage(1);
+                setMediaType('image');
+              }}
               tabIndex="0"
               onKeyPress={() => {}}
             >
@@ -190,7 +246,10 @@ const Medias = ({
             </div>
             <div
               className={`video ${mediaType === 'video' ? 'active' : ''}`}
-              onClick={() => setMediaType('video')}
+              onClick={() => {
+                setPage(1);
+                setMediaType('video');
+              }}
               tabIndex="0"
               onKeyPress={() => {}}
             >
@@ -270,20 +329,29 @@ const Medias = ({
               tabIndex={0}
               role="button"
             >
-              <input
-                className="box__file"
-                type="file"
-                multiple
-                ref={inputFile}
-                accept="image/jpg, image/jpeg, image/png, capture=camera"
-                onChange={(e) => handleChangeFile(e)}
-              />
+              {mediaType === 'image' ? (
+                <input
+                  className="box__file"
+                  type="file"
+                  ref={inputFile}
+                  accept="image/jpg, image/jpeg, image/png, capture=camera"
+                  onChange={(e) => handleChangeFile(e)}
+                />
+              ) : (
+                <input
+                  className="box__file"
+                  type="file"
+                  ref={inputFile}
+                  accept="video/mp4,video/x-m4v,video/*"
+                  onChange={(e) => handleChangeFile(e)}
+                />
+              )}
 
               {/* accept="video/mp4,video/x-m4v,video/*" */}
               <label>
                 <strong>
                   {(imageUpload && imageUpload.nameImage) ||
-                    'Kéo thả tập tin vào đây or'}
+                    'Kéo thả tập tin vào đây'}
                 </strong>
                 <Button
                   customClass="button--primary add-file mt-0"
@@ -295,22 +363,30 @@ const Medias = ({
             </div>
           </div>
           <div className="popup-add-product__right">
-            <p className=" input__label">Hình ảnh</p>
-            <div className="image-view">
-              {imageUpload && imageUpload.imageView && (
-                <img
-                  src={imageUpload && imageUpload.imageView}
-                  alt={imageUpload && imageUpload.name}
-                />
-              )}
-            </div>
+            <p className=" input__label">
+              {mediaType === 'image' ? 'Hình ảnh' : 'Video'}
+            </p>
+            {mediaType === 'image' ? (
+              <div className="image-view">
+                {imageUpload && imageUpload.imageView && (
+                  <img
+                    src={imageUpload && imageUpload.imageView}
+                    alt={imageUpload && imageUpload.name}
+                  />
+                )}
+              </div>
+            ) : (
+              <div className="mb-3">
+                <Video src={imageUpload && imageUpload.imageView} />
+              </div>
+            )}
             <Input
               type="text"
               onChange={(e) => {
                 handleChange(e.target.value);
               }}
               value={imageUpload && imageUpload.name}
-              label="Tên hình ảnh"
+              label={mediaType === 'image' ? 'Tên hình ảnh' : 'Tên Video'}
             />
 
             <Button
@@ -340,6 +416,24 @@ const Medias = ({
         textBtnRight="ĐÓNG"
       >
         {modalCancel.content}
+      </Modal>
+
+      <Modal
+        isOpen={modalDelete.isShow}
+        isShowFooter
+        handleClose={() =>
+          setModalDelete({
+            ...modalDelete,
+            isShow: false,
+            content: '',
+          })
+        }
+        handleSubmit={() => handleDeleteMedia()}
+        textBtnRight="KHÔNG"
+        isShowTwoBtn
+        textBtnLeft="CÓ"
+      >
+        {modalDelete.content}
       </Modal>
     </MainLayout>
   );

@@ -8,6 +8,8 @@ const images = {
   facebook: require('../assets/imgs/facebook.png'),
   youtube: require('../assets/imgs/youtube.png'),
   iconBack: require('../assets/imgs/arrow-up.png'),
+  iconLoading: require('../assets/imgs/loading.gif'),
+  iconClose: require('../assets/imgs/ic-close.png'),
 };
 
 export default images;

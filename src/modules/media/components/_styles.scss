@@ -1,6 +1,7 @@
 .media-content {
   margin-top: pxToVW(120);
   padding: 0 pxToVW(20) pxToVW(50) pxToVW(20);
+  height: 80vh;
 
   .media-header {
     align-items: center;
@@ -41,6 +42,24 @@
       width: calc(100%/5);
       height: pxToVW(280);
       display: inline-flex;
+      position: relative;
+
+      .icon-delete {
+        position: absolute;
+        width: pxToRem(30);
+        height: pxToRem(30);
+        top: 0;
+        right: 0;
+        z-index: 99;
+        cursor: pointer;
+        outline: none;
+        background-color: $color-table;
+        border-radius: 50%;
+        text-align: center;
+        line-height: pxToRem(25);
+        font-family: cursive;
+        color: $white;
+      }
 
       .media-content {
         background-color: $white;

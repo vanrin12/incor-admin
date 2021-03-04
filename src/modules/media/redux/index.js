@@ -11,6 +11,10 @@ export const { Types, Creators } = createActions({
   uploadMedia: ['data'],
   uploadMediaSuccess: null,
   uploadMediaFailed: null,
+
+  deleteMedia: ['id'],
+  deleteMediaSuccess: null,
+  deleteMediaFailed: null,
 });
 
 // Initial state
@@ -20,6 +24,7 @@ export const INITIAL_STATE = Immutable({
   statusCode: 0,
   isProcessingUpload: false,
   totalRows: 0,
+  isProcessingDelete: false,
 });
 
 const getListMedia = (state, action) => {
@@ -32,12 +37,13 @@ const getListMedia = (state, action) => {
 
 const getListMediaSuccess = (state, action) => {
   const { medias } = action.data;
+
   const dataListMedia =
     medias &&
     medias.data &&
-    medias.data.map((item, index) => {
+    medias.data.map((item) => {
       return {
-        id: index + 1,
+        id: item.id,
         name: item.name,
         url: item.url,
         type: item.type,
@@ -46,12 +52,7 @@ const getListMediaSuccess = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
-    totalRows:
-      (medias &&
-        medias.meta &&
-        medias.meta.pagination &&
-        medias.meta.pagination.total) ||
-      0,
+    totalRows: (medias && medias.total) || 0,
     dataListMedia,
   });
 };
@@ -80,18 +81,15 @@ const uploadMediaSuccess = (state, action) => {
     statusCode: status && status.code,
     isProcessingUpload: false,
     totalRows: totalRows + 1,
-    dataListMedia:
-      totalRows < 10
-        ? [
-            ...dataListMediaNew,
-            {
-              id: data && data.media && data.media.id,
-              name: data && data.media && data.media.name,
-              url: data && data.media && data.media.url,
-              type: data && data.media && data.media.type,
-            },
-          ]
-        : dataListMediaNew,
+    dataListMedia: [
+      {
+        id: data && data.media && data.media.id,
+        name: data && data.media && data.media.name,
+        url: data && data.media && data.media.url,
+        type: data && data.media && data.media.type,
+      },
+      ...dataListMediaNew,
+    ],
   });
 };
 
@@ -100,6 +98,30 @@ const uploadMediaFailed = (state, action) => {
     type: action.type,
     error: action.error,
     isProcessingUpload: false,
+  });
+};
+
+const deleteMedia = (state, action) => {
+  return state.merge({
+    isProcessingDelete: true,
+    type: action.type,
+  });
+};
+
+const deleteMediaSuccess = (state, action) => {
+  const { status } = action;
+  return state.merge({
+    isProcessingDelete: false,
+    type: action.type,
+    statusCode: status && status.code,
+  });
+};
+
+const deleteMediaFailed = (state, action) => {
+  return state.merge({
+    isProcessingDelete: false,
+    type: action.type,
+    statusCode: '',
   });
 };
 
@@ -112,6 +134,10 @@ const HANDLERS = {
   [Types.UPLOAD_MEDIA]: uploadMedia,
   [Types.UPLOAD_MEDIA_SUCCESS]: uploadMediaSuccess,
   [Types.UPLOAD_MEDIA_FAILED]: uploadMediaFailed,
+
+  [Types.DELETE_MEDIA]: deleteMedia,
+  [Types.DELETE_MEDIA_SUCCESS]: deleteMediaSuccess,
+  [Types.DELETE_MEDIA_FAILED]: deleteMediaFailed,
 };
 
 // Create reducers by pass state and handlers
