@@ -8,9 +8,10 @@ const mapStateToProps = (state) => {
     type: state.mediaReducer.type,
     isProcessing: state.mediaReducer.isProcessing,
     dataListMedia: state.mediaReducer.dataListMedia,
-    statusCode: state.mediaReducer.statusCode,
     totalRows: state.mediaReducer.totalRows,
     isProcessingUpload: state.mediaReducer.isProcessingUpload,
+    isProcessingDelete: state.mediaReducer.isProcessingDelete,
+    statusCode: state.mediaReducer.statusCode,
   };
 };
 
@@ -20,6 +21,7 @@ const mapDispatchToProps = (dispatch) =>
       ...Creators,
       getListMedia: Creators.getListMedia,
       uploadMedia: Creators.uploadMedia,
+      deleteMedia: Creators.deleteMedia,
     },
     dispatch
   );

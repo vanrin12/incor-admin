@@ -32,6 +32,7 @@ import registerPartnerProductSaga from 'modules/partner/sagas/registerPartnerPro
 
 import getListMediaSaga from 'modules/media/sagas/getListMediaSaga';
 import uploadMediaSaga from 'modules/media/sagas/uploadMediaSaga';
+import deleteMediaSaga from 'modules/media/sagas/deleteMediaSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -66,5 +67,6 @@ export default function* RootSagas() {
     getListConstructionSaga(),
     registerPartnerProductSaga(),
     uploadMediaSaga(),
+    deleteMediaSaga(),
   ]);
 }

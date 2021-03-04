@@ -33,6 +33,7 @@ export const ROUTES = {
   API_GET_LIST_PARTNER_PRODUCT: (id) => `api/v1/admin/partners/products/${id}`,
   API_REGISTER_PARTNER_PRODUCT: `api/v1/admin/partners/products`,
   API_UPLOAD_MEDIA: `/api/v1/admin/media`,
+  API_DELETE_MEDIA: (id) => `/api/v1/admin/media/${id}`,
 };
 
 export const API = create({

@@ -55,3 +55,8 @@ body {
     color: $color_primary;
   }
 }
+
+.selection_bubble_root,
+.selection_img_search {
+  display: none !important;
+}
