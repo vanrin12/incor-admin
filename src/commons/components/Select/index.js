@@ -1,6 +1,6 @@
 // @flow
-import React, { useState } from 'react';
-import Select, { components } from 'react-select';
+import React from 'react';
+import Select from 'react-select';
 
 type Props = {
   placeholder?: string,
@@ -22,6 +22,7 @@ type Props = {
   customClass?: string,
   request?: boolean,
   noLabel?: boolean,
+  isMulti?: boolean,
 };
 const SelectDropdown = ({
   placeholder = '',
@@ -39,17 +40,18 @@ const SelectDropdown = ({
   request = false,
   noLabel = false,
   listItem,
+  isMulti = false,
 }: Props) => {
-  const [isActive, setIsActive] = useState(false);
+  // const [isActive, setIsActive] = useState(false);
 
-  const DropdownIndicator = (props) => {
-    setIsActive(props?.selectProps?.menuIsOpen);
-    return (
-      <components.DropdownIndicator {...props}>
-        <div className="d-none" />
-      </components.DropdownIndicator>
-    );
-  };
+  // const DropdownIndicator = (props) => {
+  //   setIsActive(props.selectProps.menuIsOpen);
+  //   return (
+  //     <components.DropdownIndicator {...props}>
+  //       <div className="d-none" />
+  //     </components.DropdownIndicator>
+  //   );
+  // };
 
   return (
     <div
@@ -61,10 +63,10 @@ const SelectDropdown = ({
           {request && <span className="request">*</span>}
         </p>
       )}
-      <div className={`input__box ${isActive ? 'down' : ''}`}>
+      <div className="input__box">
         <Select
           placeholder={placeholder}
-          components={{ DropdownIndicator }}
+          // components={{ DropdownIndicator }}
           ref={innerRef}
           value={option || null}
           onChange={onChange}
@@ -81,6 +83,7 @@ const SelectDropdown = ({
           blurInputOnSelect={onBlur}
           isDisabled={disabled}
           isSearchable={isSearchable}
+          isMulti={isMulti}
         />
       </div>
       {errorMsg && <p className="error-msg">{errorMsg}</p>}
@@ -103,5 +106,6 @@ SelectDropdown.defaultProps = {
   noOptionsMessage: () => {},
   customClass: '',
   request: false,
+  isMulti: false,
 };
 export default SelectDropdown;

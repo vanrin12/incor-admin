@@ -4,6 +4,31 @@ import getDataMainSaga from 'modules/home/sagas/getDataMainSaga';
 import getListUserSaga from 'modules/accounts/sagas/getListUserSaga';
 import getListRolesSaga from 'modules/accounts/sagas/getListRolesSaga';
 import createUserSaga from 'modules//accounts/sagas/createUserSaga';
+import getListPartnerSaga from 'modules/partner/sagas/getListPartnerSaga';
+import getListAreasSaga from 'modules/partner/sagas/getListAreasSaga';
+import getListConstantSaga from 'modules/partner/sagas/getListConstantSaga';
+import getListScalesSaga from 'modules/partner/sagas/getListScalesSaga';
+import getListCategoriesSaga from 'modules/post/sagas/getListCategoriesSaga';
+import deleteCategoriesSaga from 'modules/post/sagas/deleteCategoriesSaga';
+import registerCategoriesSaga from 'modules/post/sagas/registerCategoriesSaga';
+import getListParentSaga from 'modules/post/sagas/getListParentSaga';
+import getCategoriesDetailSaga from 'modules/post/sagas/getCategoriesDetailSaga';
+import updateCategoriesSaga from 'modules/post/sagas/updateCategorySaga';
+import getListPostSaga from 'modules/post/sagas/getListPostSaga';
+import getListAllCategoriesSaga from 'modules/post/sagas/getListAllCategorySaga';
+import registerPostSaga from 'modules/post/sagas/registerPostSaga';
+import getListAllSeoTitleSaga from 'modules/post/sagas/getListSeoTitleSaga';
+import deletePostSaga from 'modules/post/sagas/deletePostSaga';
+import getPostDetailSaga from 'modules/post/sagas/getDetailPostSaga';
+import loginSaga from 'modules/authen/sagas/loginSaga';
+import updatePostSaga from 'modules/post/sagas/updatePostSaga';
+import logoutSaga from 'modules/authen/sagas/logoutSaga';
+import getListPartnerManagementSaga from 'modules/partner/sagas/getListPartnerManagementSaga';
+import deletePartnerSaga from 'modules/partner/sagas/deletePartnerSaga';
+import registerPartnerCompanySaga from 'modules/partner/sagas/registerPartnerCompanySaga';
+import getListPartnerProductSaga from 'modules/partner/sagas/getListPartnerProductSaga';
+import getListConstructionSaga from 'modules/partner/sagas/getListConstructionsSaga';
+import registerPartnerProductSaga from 'modules/partner/sagas/registerPartnerProductSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -11,5 +36,30 @@ export default function* RootSagas() {
     getListUserSaga(),
     getListRolesSaga(),
     createUserSaga(),
+    getListPartnerSaga(),
+    getListAreasSaga(),
+    getListConstantSaga(),
+    getListCategoriesSaga(),
+    deleteCategoriesSaga(),
+    registerCategoriesSaga(),
+    getListParentSaga(),
+    getCategoriesDetailSaga(),
+    updateCategoriesSaga(),
+    getListPostSaga(),
+    getListAllCategoriesSaga(),
+    registerPostSaga(),
+    getListAllSeoTitleSaga(),
+    deletePostSaga(),
+    getPostDetailSaga(),
+    loginSaga(),
+    updatePostSaga(),
+    logoutSaga(),
+    getListPartnerManagementSaga(),
+    deletePartnerSaga(),
+    registerPartnerCompanySaga(),
+    getListScalesSaga(),
+    getListPartnerProductSaga(),
+    getListConstructionSaga(),
+    registerPartnerProductSaga(),
   ]);
 }

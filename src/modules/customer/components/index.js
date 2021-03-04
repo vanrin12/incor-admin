@@ -1,7 +1,9 @@
 // @flow
 
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
+import Immutable from 'seamless-immutable';
+import DatePicker from 'react-datepicker';
 import SelectDropdown from 'commons/components/Select';
 import ReactPaginate from 'react-paginate';
 import MainLayout from 'commons/components/MainLayout';
@@ -11,21 +13,42 @@ import Input from 'commons/components/Input';
 import ROUTERS from 'constants/router';
 import { headCustomer } from 'constants/itemHead';
 import { listDataCustomer } from '../../../mockData/listDataTable';
-import { headquarters, job, vote } from '../../../mockData/dataSelect';
 
 type Props = {
   history: {
     push: Function,
   },
+  getListAreas: Function,
+  dataAreas: Array<{}>,
+  getListConstant: Function,
+  dataConstant: Array<{}>,
 };
 
-const Customer = ({ history }: Props) => {
+const Customer = ({
+  history,
+  getListAreas,
+  dataAreas,
+  getListConstant,
+  dataConstant,
+}: Props) => {
+  const [createDate, setCreateDate] = useState(null);
   const [dataFilter, setDataFilter] = useState({
-    headquarters: null,
+    areas: null,
     job: null,
     vote: null,
   });
   const [keySearch, setKeySearch] = useState('');
+  useEffect(() => {
+    getListAreas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    getListConstant({ name: 'hashtag' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const handleDateChange = (date) => {
+    setCreateDate(date);
+  };
   const handleChange = (value, name) => {
     setDataFilter({
       ...dataFilter,
@@ -47,27 +70,23 @@ const Customer = ({ history }: Props) => {
           </Col>
           <Col xs={12} md={6} className="form-search">
             <div className="form-search__left">
-              <SelectDropdown
-                placeholder="Ngày tạo"
-                listItem={vote}
-                onChange={(e) => {
-                  handleChange(e, 'vote');
-                }}
-                option={dataFilter.vote}
-                customClass="select-vote"
+              <DatePicker
+                selected={createDate}
+                // onSelect={handleDateSelect} //when day is clicked
+                onChange={(date) => handleDateChange(date)}
               />
               <SelectDropdown
                 placeholder="Khu vực"
-                listItem={headquarters}
+                listItem={dataAreas && Immutable.asMutable(dataAreas)}
                 onChange={(e) => {
-                  handleChange(e, 'headquarters');
+                  handleChange(e, 'areas');
                 }}
-                option={dataFilter.headquarters}
+                option={dataFilter.areas}
                 customClass="select-headquarters"
               />
               <SelectDropdown
                 placeholder="Kinh doanh"
-                listItem={job}
+                listItem={dataConstant && Immutable.asMutable(dataConstant)}
                 onChange={(e) => {
                   handleChange(e, 'job');
                 }}
