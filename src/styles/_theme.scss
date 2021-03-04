@@ -30,7 +30,11 @@ body p {
 }
 
 body {
-  background: rgba(227, 227, 227, 0.61);;
+  background: rgba(227, 227, 227, 0.61);
+
+  * {
+    outline: none;
+  }
 }
 
 .heading-title {

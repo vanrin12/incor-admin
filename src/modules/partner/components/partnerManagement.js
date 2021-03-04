@@ -155,11 +155,13 @@ const Customer = ({
   };
 
   const getFileName = async (e) => {
-    setDataAddProduct({ ...dataAddProduct, image: e.files[0] });
-    setObjAvatar(e.files[0]);
-    const image = await fileToBase64(e);
-    setAvatar(image);
-    setFileName(e.files[0].name);
+    if (e && e.files && e.files[0]) {
+      setDataAddProduct({ ...dataAddProduct, image: e.files[0] });
+      setObjAvatar(e.files[0]);
+      const image = await fileToBase64(e);
+      setAvatar(image);
+      setFileName(e.files[0].name);
+    }
   };
 
   const renderProduct =

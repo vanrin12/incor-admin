@@ -30,6 +30,9 @@ import getListPartnerProductSaga from 'modules/partner/sagas/getListPartnerProdu
 import getListConstructionSaga from 'modules/partner/sagas/getListConstructionsSaga';
 import registerPartnerProductSaga from 'modules/partner/sagas/registerPartnerProductSaga';
 
+import getListMediaSaga from 'modules/media/sagas/getListMediaSaga';
+import uploadMediaSaga from 'modules/media/sagas/uploadMediaSaga';
+
 export default function* RootSagas() {
   yield all([
     getDataMainSaga(),
@@ -55,11 +58,13 @@ export default function* RootSagas() {
     updatePostSaga(),
     logoutSaga(),
     getListPartnerManagementSaga(),
+    getListMediaSaga(),
     deletePartnerSaga(),
     registerPartnerCompanySaga(),
     getListScalesSaga(),
     getListPartnerProductSaga(),
     getListConstructionSaga(),
     registerPartnerProductSaga(),
+    uploadMediaSaga(),
   ]);
 }

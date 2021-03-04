@@ -11,7 +11,7 @@
 
 // Footer
 @import './commons/components/Footer/styles';
-
+@import './commons/components/Loading/styles';
 // button
 @import './commons/components/Button/styles';
 //Main
@@ -38,3 +38,5 @@
 @import './modules/accounts/components/styles';
 @import './modules/display/components/styles';
 @import './modules/authen/components/styles';
+
+@import './modules/media/components/styles';
