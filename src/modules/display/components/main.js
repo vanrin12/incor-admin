@@ -41,8 +41,10 @@ const Display = ({ history }: Props) => {
   };
 
   const getFileName = async (e) => {
-    setDataSubmit({ ...dataSubmit, favicon: e.files[0] });
-    setFileName(e.files[0].name);
+    if (e && e.files[0]) {
+      setDataSubmit({ ...dataSubmit, favicon: e.files[0] });
+      setFileName(e.files[0].name);
+    }
   };
 
   const renderComponent =
@@ -54,7 +56,6 @@ const Display = ({ history }: Props) => {
             item.id === dataSubmit.component ? 'active' : ''
           }`}
           onClick={() => {
-            setDataSubmit({ ...dataSubmit, component: item.id });
             history.push({
               pathname: history.push(ROUTERS.SALE),
               state: { type: item },
@@ -74,7 +75,11 @@ const Display = ({ history }: Props) => {
     <MainLayout activeMenu={6}>
       <Container fluid>
         <Row className="content-wrapper page-display">
-          <Col xs={12} md={12} className="d-flex align-items-center mb-4">
+          <Col
+            xs={12}
+            md={12}
+            className="d-flex align-items-center mb-4 justify-content-end"
+          >
             <img
               src={images.iconBack}
               alt=""
@@ -82,7 +87,13 @@ const Display = ({ history }: Props) => {
               onClick={() => history.go(-1)}
               role="presentation"
             />
-            <h2 className="cancel-display">Hủy bỏ</h2>
+            <h2
+              className="cancel-display"
+              onClick={() => history.go(-1)}
+              role="presentation"
+            >
+              Hủy bỏ
+            </h2>
             <Button customClass="button--primary" onClick={() => {}}>
               LƯU
             </Button>
@@ -120,7 +131,7 @@ const Display = ({ history }: Props) => {
               placeholder="Nhập tagline"
             />
             <p className="suggestions">Dòng chữ xuất hiện ở trên slide</p>
-            <div className="companent">Companent</div>
+            <div className="companent">Component</div>
             <div className="list-companent">{renderComponent}</div>
           </Col>
         </Row>

@@ -60,3 +60,14 @@ body {
 .selection_img_search {
   display: none !important;
 }
+
+body {
+  p[role="presentation"] {
+    cursor: pointer;
+  }
+}
+
+.cancel-display,
+.action-increase {
+  cursor: pointer;
+}

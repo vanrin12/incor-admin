@@ -1,60 +1,92 @@
-.page-display{
-  .action-increase{
+.page-display {
+  max-width: pxToRem(500);
+
+  .action-increase {
     transform: rotate(90deg);
-    width: pxToVW(20);
-    padding-top: pxToVW(20);
+    width: pxToRem(20);
+    padding-top: pxToRem(20);
   }
-  .cancel-display{
-    font-size: pxToVW(20);
-    line-height: pxToVW(20);
+
+  .cancel-display {
+    font-size: pxToRem(20);
+    line-height: pxToRem(20);
     color: $color-cancel;
     font-weight: $medium;
-    padding-right: pxToVW(30);
+    padding-right: pxToRem(30);
   }
-  &__item-display{
-    padding: pxToVW(18) pxToVW(24) pxToVW(17);
-    border: pxToVW(1) solid $color_primary;
-    border-radius: pxToVW(5);
+
+  &__item-display {
+    padding: pxToRem(18) pxToRem(24) pxToRem(17);
+    border: pxToRem(1) solid $color_primary;
+    border-radius: pxToRem(5);
     color: $color_primary;
-    font-size: pxToVW(30);
-    line-height: pxToVW(20);
+    font-size: pxToRem(30);
+    line-height: pxToRem(20);
     font-weight: $medium;
-    margin-bottom: pxToVW(19);
+    margin-bottom: pxToRem(19);
+    background-color: $white;
   }
-  h1{
-    font-size: pxToVW(30);
-    line-height: pxToVW(20);
+
+  h1 {
+    font-size: pxToRem(30);
+    line-height: pxToRem(20);
     font-weight: $medium;
-    padding-bottom: pxToVW(28);
+    padding-bottom: pxToRem(28);
   }
+
   .input {
-    &__label{
-      font-size: pxToVW(20);
-      line-height: pxToVW(30);
+    &__label {
+      font-size: pxToRem(20);
+      line-height: pxToRem(30);
     }
-    &__box{
-      input{
+
+    &__box {
+      input {
         background-color: $white;
+        border-radius: pxToRem(6);
+        border: solid pxToRem(1) #707070;
+        height: pxToRem(44);
+        font-size: pxToRem(14);
+
+        &::-webkit-input-placeholder {
+          font-size: pxToRem(14);
+        }
+
+        &::placeholder {
+          font-size: pxToRem(14);
+        }
+
+        &::-moz-placeholder {
+          font-size: pxToRem(14);
+        }
+
+        &:-ms-input-placeholder {
+          font-size: pxToRem(14);
+        }
       }
     }
   }
-  .suggestions{
-    font-size: pxToVW(10);
-    line-height: pxToVW(13);
+
+  .suggestions {
+    font-size: pxToRem(10);
+    line-height: pxToRem(13);
     font-weight: $light;
     color: $color-table;
-    padding-bottom: pxToVW(28);
-    padding-top: pxToVW(10);
+    padding-bottom: pxToRem(28);
+    padding-top: pxToRem(10);
   }
-  .favicon{
-    font-size: pxToVW(20);
-    line-height: pxToVW(30);
-    padding-bottom: pxToVW(5);
+
+  .favicon {
+    font-size: pxToRem(20);
+    line-height: pxToRem(30);
+    padding-bottom: pxToRem(5);
   }
-  .box__input{
-    padding: pxToVW(13);
-    outline: pxToVW(2) dashed $color-border-box;
+
+  .box__input {
+    padding: pxToRem(13);
+    outline: pxToRem(2) dashed $color-border-box;
     text-align: center;
+
     .box__file {
       width: 0.1px;
       height: 0.1px;
@@ -63,72 +95,84 @@
       position: absolute;
       z-index: -1;
     }
-    label{
-      font-size: pxToVW(15);
-      line-height: pxToVW(30);
+
+    label {
+      font-size: pxToRem(15);
+      line-height: pxToRem(30);
       color: $color-placeholder;
     }
   }
-  textarea{
+
+  textarea {
     width: 100%;
-    border: pxToVW(1) solid $color-border;
-    line-height: pxToVW(36);
+    border: pxToRem(1) solid $color-border;
+    line-height: pxToRem(36);
     display: block;
-    font-size: pxToVW(16);
-    padding-left: pxToVW(10);
-    // padding: pxToVW(15);
-    // color: $color-input;
+    font-size: pxToRem(16);
+    padding-left: pxToRem(10);
     background-color: $white;
-    border-radius: pxToVW(5);
+    border-radius: pxToRem(5);
     width: 100%;
-    letter-spacing: pxToVW(-0.25);
+    letter-spacing: pxToRem(-0.25);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: $regular;
-    margin-bottom: pxToVW(30);
-    &::placeholder{
+    margin-bottom: pxToRem(30);
+
+    &::placeholder {
       color: $color-placeholder;
       font-weight: $regular;
-      font-size: pxToVW(14);
-      letter-spacing: pxToVW(-0.25);
+      font-size: pxToRem(14);
+      letter-spacing: pxToRem(-0.25);
       font-style: italic;
     }
   }
-  .companent{
-    font-size: pxToVW(20);
-    line-height: pxToVW(30);
-    padding-bottom: pxToVW(5);
+
+  .companent {
+    font-size: pxToRem(20);
+    line-height: pxToRem(30);
+    padding-bottom: pxToRem(5);
   }
-  .list-companent{
+
+  .list-companent {
     flex-wrap: wrap-reverse;
-    &__item-display{
-      padding: pxToVW(9) pxToVW(12) pxToVW(8);
-      border: pxToVW(1) solid $color-black;
-      border-radius: pxToVW(5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .companent-left {
+      margin-right: pxToRem(30);
+    }
+
+    &__item-display {
+      padding: pxToRem(9) pxToRem(12) pxToRem(8);
+      border: pxToRem(1) solid $color-black;
+      border-radius: pxToRem(5);
       color: $color_primary;
-      font-size: pxToVW(15);
-      line-height: pxToVW(10);
+      height: pxToRem(37);
+      font-size: pxToRem(15);
+      line-height: 1.2;
       font-weight: $medium;
-      margin-bottom: pxToVW(19);
-      width: 48%;
-      display: inline-block;
+      margin-bottom: pxToRem(19);
+      width: pxToRem(196);
+      display: block;
       box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
       background-color: $white;
-      &:nth-of-type(2n){
-        margin-left: pxToVW(53);
-      }
-      &.active{
-        border: pxToVW(1) solid $color_primary;
+
+      &.active {
+        border: pxToRem(1) solid $color_primary;
       }
     }
   }
-  .form-customer{
-    .box__input{
-      margin-bottom: pxToVW(15);
+
+  .form-customer {
+    .box__input {
+      margin-bottom: pxToRem(15);
     }
-    input{
-      margin-bottom: pxToVW(10);
+
+    input {
+      margin-bottom: pxToRem(10);
     }
   }
 }

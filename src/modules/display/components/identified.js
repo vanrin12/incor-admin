@@ -39,15 +39,21 @@ const Display = ({ history }: Props) => {
   };
 
   const getFileName = async (e) => {
-    setDataSubmit({ ...dataSubmit, favicon: e.files[0] });
-    setFileName(e.files[0].name);
+    if (e && e.files[0]) {
+      setDataSubmit({ ...dataSubmit, favicon: e.files[0] });
+      setFileName(e.files[0].name);
+    }
   };
 
   return (
     <MainLayout activeMenu={6}>
       <Container fluid>
         <Row className="content-wrapper page-display">
-          <Col xs={12} md={12} className="d-flex align-items-center mb-4">
+          <Col
+            xs={12}
+            md={12}
+            className="d-flex align-items-center mb-4 justify-content-end"
+          >
             <img
               src={images.iconBack}
               alt=""
@@ -55,7 +61,13 @@ const Display = ({ history }: Props) => {
               onClick={() => history.go(-1)}
               role="presentation"
             />
-            <h2 className="cancel-display">Hủy bỏ</h2>
+            <h2
+              className="cancel-display"
+              onClick={() => history.go(-1)}
+              role="presentation"
+            >
+              Hủy bỏ
+            </h2>
             <Button customClass="button--primary" onClick={() => {}}>
               LƯU
             </Button>
