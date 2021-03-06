@@ -12,7 +12,10 @@ import LoadingSmall from 'commons/components/Loading/LoadingSmall';
 
 type Props = {
   getListMedia: Function,
-  dataListMedia: Array<{}>,
+  dataListMedia: Array<{
+    url: string,
+    id: number,
+  }>,
   isProcessing: boolean,
   uploadMedia: Function,
   statusCode: any,
@@ -185,6 +188,7 @@ const Medias = ({
               onClick={() => setMediaType('image')}
               tabIndex="0"
               onKeyPress={() => {}}
+              role="button"
             >
               HÌNH ẢNH
             </div>
@@ -193,6 +197,7 @@ const Medias = ({
               onClick={() => setMediaType('video')}
               tabIndex="0"
               onKeyPress={() => {}}
+              role="button"
             >
               VIDEO
             </div>

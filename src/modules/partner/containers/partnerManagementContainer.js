@@ -15,6 +15,9 @@ const mapStateToProps = (state) => {
     dataPartnerManagement: state.partnerReducer.dataPartnerManagement,
     dataConstant: state.partnerReducer.dataConstant,
     dataScales: state.partnerReducer.dataScales,
+    dataDetailPartnerProduct: state.partnerReducer.dataDetailPartnerProduct,
+    dataDetailPartnerConstruction:
+      state.partnerReducer.dataDetailPartnerConstruction,
   };
 };
 
@@ -28,6 +31,13 @@ const mapDispatchToProps = (dispatch) =>
       getListPartnerProduct: Creators.getListPartnerProduct,
       getListConstruction: Creators.getListConstruction,
       registerPartnerProduct: Creators.registerPartnerProduct,
+      registerPartnerConstruction: Creators.registerPartnerConstruction,
+      getListPartnerQuote: Creators.getListPartnerQuote,
+      getDetailPartnerProduct: Creators.getDetailPartnerProduct,
+      updatePartnerProduct: Creators.updatePartnerProduct,
+      getDetailPartnerConstruction: Creators.getDetailPartnerConstruction,
+      updatePartnerConstruction: Creators.updatePartnerConstruction,
+      resetType: Creators.resetType,
     },
     dispatch
   );

@@ -1,7 +1,6 @@
 // import libs
 import { createActions, createReducer } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
-import moment from 'moment';
 
 // Define action creators
 export const { Types, Creators } = createActions({
@@ -26,15 +25,34 @@ export const { Types, Creators } = createActions({
   registerPartnerCompany: ['data'],
   registerPartnerCompanySuccess: null,
   registerPartnerCompanyFailed: null,
-  getListConstruction: ['id'],
+  getListConstruction: ['data'],
   getListConstructionSuccess: null,
   getListConstructionFailed: null,
-  getListPartnerProduct: ['id'],
+  getListPartnerProduct: ['data'],
   getListPartnerProductSuccess: null,
   getListPartnerProductFailed: null,
+  getListPartnerQuote: ['id', 'data'],
+  getListPartnerQuoteSuccess: null,
+  getListPartnerQuoteFailed: null,
   registerPartnerProduct: ['data'],
   registerPartnerProductSuccess: null,
   registerPartnerProductFailed: null,
+  registerPartnerConstruction: ['data'],
+  registerPartnerConstructionSuccess: null,
+  registerPartnerConstructionFailed: null,
+  getDetailPartnerProduct: ['id'],
+  getDetailPartnerProductSuccess: null,
+  getDetailPartnerProductFailed: null,
+  updatePartnerProduct: ['id', 'data'],
+  updatePartnerProductSuccess: null,
+  updatePartnerProductFailed: null,
+  getDetailPartnerConstruction: ['id'],
+  getDetailPartnerConstructionSuccess: null,
+  getDetailPartnerConstructionFailed: null,
+  updatePartnerConstruction: ['id', 'data'],
+  updatePartnerConstructionSuccess: null,
+  updatePartnerConstructionFailed: null,
+  resetType: null,
 });
 
 // Initial state
@@ -49,6 +67,8 @@ export const INITIAL_STATE = Immutable({
   dataConstructions: [],
   dataProducts: [],
   dataPartnerManagement: {},
+  dataDetailPartnerProduct: {},
+  dataDetailPartnerConstruction: {},
   totalPartnerManagement: '',
 });
 
@@ -171,18 +191,9 @@ const getListPartnerManagement = (state, action) => {
 };
 
 const getListPartnerManagementSuccess = (state, action) => {
-  const dataQuotes = action.data.partner.quotes.map((item) => ({
-    id: item.id,
-    date:
-      item.created_at && moment(item.created_at).format('HH:MM - DD/MM/YYYY'),
-    name: item.project.partner.name,
-    hashtag: `#sofa`,
-    headquarters: item.project.address,
-  }));
   return state.merge({
     isProcessing: false,
     type: action.type,
-    dataQuotes,
     dataPartnerManagement: action.data.partner,
     totalPartnerManagement: action.data.partner.total,
   });
@@ -246,11 +257,7 @@ const getListConstruction = (state, action) => {
 };
 
 const getListConstructionSuccess = (state, action) => {
-  const dataConstructions = action.data.constructions.map((item) => ({
-    id: item.id,
-    name: item.name,
-    image: item.image,
-  }));
+  const dataConstructions = action.data.product;
   return state.merge({
     isProcessing: false,
     type: action.type,
@@ -288,6 +295,29 @@ const getListPartnerProductFailed = (state, action) => {
   });
 };
 
+const getListPartnerQuote = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const getListPartnerQuoteSuccess = (state, action) => {
+  const dataQuotes = action.data.quotes.data;
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    dataQuotes,
+  });
+};
+
+const getListPartnerQuoteFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
 const registerPartnerProduct = (state, action) => {
   return state.merge({
     isProcessing: true,
@@ -307,6 +337,124 @@ const registerPartnerProductFailed = (state, action) => {
     isProcessing: false,
     type: action.type,
     errorMsg: action.errorMsg,
+  });
+};
+
+const registerPartnerConstruction = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const registerPartnerConstructionSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const registerPartnerConstructionFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
+  });
+};
+
+const getDetailPartnerProduct = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const getDetailPartnerProductSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    dataDetailPartnerProduct: action.data.product,
+  });
+};
+
+const getDetailPartnerProductFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
+  });
+};
+
+const updatePartnerProduct = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const updatePartnerProductSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updatePartnerProductFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
+  });
+};
+
+const getDetailPartnerConstruction = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const getDetailPartnerConstructionSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    dataDetailPartnerConstruction: action.data.construction,
+  });
+};
+
+const getDetailPartnerConstructionFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
+  });
+};
+
+const updatePartnerConstruction = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const updatePartnerConstructionSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updatePartnerConstructionFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
+  });
+};
+
+const resetType = (state) => {
+  return state.merge({
+    type: '',
   });
 };
 
@@ -348,9 +496,35 @@ const HANDLERS = {
   [Types.GET_LIST_PARTNER_PRODUCT_SUCCESS]: getListPartnerProductSuccess,
   [Types.GET_LIST_PARTNER_PRODUCT_FAILED]: getListPartnerProductFailed,
 
+  [Types.GET_LIST_PARTNER_QUOTE]: getListPartnerQuote,
+  [Types.GET_LIST_PARTNER_QUOTE_SUCCESS]: getListPartnerQuoteSuccess,
+  [Types.GET_LIST_PARTNER_QUOTE_FAILED]: getListPartnerQuoteFailed,
+
   [Types.REGISTER_PARTNER_PRODUCT]: registerPartnerProduct,
   [Types.REGISTER_PARTNER_PRODUCT_SUCCESS]: registerPartnerProductSuccess,
   [Types.REGISTER_PARTNER_PRODUCT_FAILED]: registerPartnerProductFailed,
+
+  [Types.REGISTER_PARTNER_CONSTRUCTION]: registerPartnerConstruction,
+  [Types.REGISTER_PARTNER_CONSTRUCTION_SUCCESS]: registerPartnerConstructionSuccess,
+  [Types.REGISTER_PARTNER_CONSTRUCTION_FAILED]: registerPartnerConstructionFailed,
+
+  [Types.GET_DETAIL_PARTNER_PRODUCT]: getDetailPartnerProduct,
+  [Types.GET_DETAIL_PARTNER_PRODUCT_SUCCESS]: getDetailPartnerProductSuccess,
+  [Types.GET_DETAIL_PARTNER_PRODUCT_FAILED]: getDetailPartnerProductFailed,
+
+  [Types.UPDATE_PARTNER_PRODUCT]: updatePartnerProduct,
+  [Types.UPDATE_PARTNER_PRODUCT_SUCCESS]: updatePartnerProductSuccess,
+  [Types.UPDATE_PARTNER_PRODUCT_FAILED]: updatePartnerProductFailed,
+
+  [Types.GET_DETAIL_PARTNER_CONSTRUCTION]: getDetailPartnerConstruction,
+  [Types.GET_DETAIL_PARTNER_CONSTRUCTION_SUCCESS]: getDetailPartnerConstructionSuccess,
+  [Types.GET_DETAIL_PARTNER_CONSTRUCTION_FAILED]: getDetailPartnerConstructionFailed,
+
+  [Types.UPDATE_PARTNER_CONSTRUCTION]: updatePartnerConstruction,
+  [Types.UPDATE_PARTNER_CONSTRUCTION_SUCCESS]: updatePartnerConstructionSuccess,
+  [Types.UPDATE_PARTNER_CONSTRUCTION_FAILED]: updatePartnerConstructionFailed,
+
+  [Types.RESET_TYPE]: resetType,
 };
 
 // Create reducers by pass state and handlers

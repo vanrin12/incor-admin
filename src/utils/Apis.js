@@ -28,11 +28,19 @@ export const ROUTES = {
   API_GET_LIST_MEDIA: (params) => `/api/v1/admin/media/${params}`,
   API_DELETE_PARTNER: `api/v1/admin/partners`,
   API_REGISTER_PARTNER_COMPANY: `api/v1/admin/partners/company`,
-  API_GET_LIST_CONSTRUCTION: (id) =>
-    `api/v1/admin/partners/constructions/${id}`,
-  API_GET_LIST_PARTNER_PRODUCT: (id) => `api/v1/admin/partners/products/${id}`,
+  API_GET_LIST_CONSTRUCTION: `api/v1/admin/partners/constructions`,
+  API_GET_LIST_PARTNER_PRODUCT: `api/v1/admin/partners/products`,
   API_REGISTER_PARTNER_PRODUCT: `api/v1/admin/partners/products`,
   API_UPLOAD_MEDIA: `/api/v1/admin/media`,
+  API_REGISTER_PARTNER_CONSTRUCTION: `api/v1/admin/partners/constructions`,
+  API_GET_LIST_PARTNER_QUOTE: (id) => `api/v1/admin/partners/${id}/quotes`,
+  API_GET_DETAIL_PARTNER_PRODUCT: (id) =>
+    `api/v1/admin/partners/products/${id}`,
+  API_UPDATE_PARTNER_PRODUCT: (id) => `api/v1/admin/partners/products/${id}`,
+  API_GET_DETAIL_PARTNER_CONSTRUCTION: (id) =>
+    `api/v1/admin/partners/constructions/${id}`,
+  API_UPDATE_PARTNER_CONSTRUCTION: (id) =>
+    `api/v1/admin/partners/constructions/${id}`,
 };
 
 export const API = create({
