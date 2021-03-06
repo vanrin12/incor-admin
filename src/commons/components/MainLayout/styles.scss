@@ -1,5 +1,6 @@
 .main-layout {
   position: relative;
+
   &__profile {
     position: absolute;
     top: pxToVW(60);
@@ -10,10 +11,19 @@
     font-weight: $medium;
     z-index: 999;
   }
-  .menu-left{
+
+  .menu-left {
     background-color: $white;
+    position: fixed;
+    z-index: 9;
+    width: pxToRem(250);
   }
-  .popup-logout{
+
+  .layout-right {
+    margin-left: pxToRem(250);
+  }
+
+  .popup-logout {
     position: absolute;
     top: pxToVW(100);
     right: pxToVW(40);
@@ -21,7 +31,8 @@
     padding: pxToVW(20) pxToVW(40);
     border-radius: pxToVW(15);
     z-index: 999;
-    &__item-logout{
+
+    &__item-logout {
       font-size: pxToVW(20);
       line-height: pxToVW(30);
       color: $red;

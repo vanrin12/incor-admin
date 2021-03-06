@@ -41,6 +41,7 @@ export const ROUTES = {
     `api/v1/admin/partners/constructions/${id}`,
   API_UPDATE_PARTNER_CONSTRUCTION: (id) =>
     `api/v1/admin/partners/constructions/${id}`,
+  API_DELETE_MEDIA: (id) => `/api/v1/admin/media/${id}`,
 };
 
 export const API = create({
