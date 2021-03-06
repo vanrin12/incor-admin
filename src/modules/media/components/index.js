@@ -14,14 +14,16 @@ import ItemMedia from './ItemMedia';
 
 type Props = {
   getListMedia: Function,
-  dataListMedia: Array<{}>,
+  dataListMedia: Array<{
+    url: string,
+    id: number,
+  }>,
   isProcessing: boolean,
   uploadMedia: Function,
   type: string,
   totalRows: number,
   isProcessingUpload: boolean,
   deleteMedia: Function,
-  isProcessingDelete: boolean,
   statusCode: any,
 };
 const Medias = ({
@@ -241,6 +243,7 @@ const Medias = ({
               }}
               tabIndex="0"
               onKeyPress={() => {}}
+              role="button"
             >
               HÌNH ẢNH
             </div>
@@ -252,6 +255,7 @@ const Medias = ({
               }}
               tabIndex="0"
               onKeyPress={() => {}}
+              role="button"
             >
               VIDEO
             </div>

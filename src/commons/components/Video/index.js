@@ -7,10 +7,10 @@ import React, { memo, useRef, useState } from 'react';
 
 type Props = {
   src: string,
-  poster: string,
+  poster?: string,
   buttonSize?: 'default' | 'large',
   isLoading?: boolean,
-  handleError?: Function
+  handleError?: Function,
 };
 
 export const Video = ({
@@ -18,7 +18,7 @@ export const Video = ({
   poster,
   buttonSize = 'default',
   isLoading = false,
-  handleError = null
+  handleError = null,
 }: Props) => {
   const videoRef = useRef(null);
   const [visible, setVisible] = useState(true);
@@ -32,7 +32,7 @@ export const Video = ({
       current
         .play()
         .then()
-        .catch(e => {
+        .catch((e) => {
           setVisible(false);
 
           if (handleError) {
@@ -82,7 +82,8 @@ export const Video = ({
 Video.defaultProps = {
   buttonSize: 'default',
   isLoading: false,
-  handleError: null
+  handleError: null,
+  poster: '',
 };
 
 export default memo<Props>(Video);
