@@ -12,63 +12,67 @@ type Props = {
   // history: {
   //   push: Function,
   // },
-  handleDetailProduct: Function,
-  dataProducts: Object,
-  dataDetailPartnerProduct: Object,
-  handleAddPartnerProduct: Function,
-  handleUpdatePartnerProduct: Function,
+  handleDetailConstruction: Function,
+  dataConstructions: Object,
+  dataDetailPartnerConstruction: Object,
+  handleAddPartnerConstruction: Function,
+  handleUpdatePartnerConstruction: Function,
   type: string,
 };
 
-const ItemPartnerProduct = ({
+const ItemPartnerConstruction = ({
   // history,
-  handleDetailProduct,
-  dataProducts,
-  dataDetailPartnerProduct,
-  handleAddPartnerProduct,
-  handleUpdatePartnerProduct,
+  handleDetailConstruction,
+  dataConstructions,
+  dataDetailPartnerConstruction,
+  handleAddPartnerConstruction,
+  handleUpdatePartnerConstruction,
   type,
 }: Props) => {
   const inputFile = useRef({});
-  const [isShow, setIsShow] = useState(false);
-  const [isShowDetailProduct, setIsShowDetailProduct] = useState(false);
+  const [isShowUpdateConstruction, setIsShowUpdateConstruction] = useState(
+    false
+  );
+  const [isOpenAddConstruction, setIsOpenAddConstruction] = useState(false);
+  const [isShowAddConstruction, setIsShowAddConstruction] = useState(false);
   const [fileName, setFileName] = useState('');
-  const [dataAddProduct, setDataAddProduct] = useState({
-    name: '',
+  const [construction, setConstruction] = useState('');
+  const [dataAddConstruction, setDataAddConstruction] = useState({
+    name: construction,
     description: '',
     hashtag: '',
     image: null,
   });
 
   useEffect(() => {
-    if (type === 'GET_DETAIL_PARTNER_CONSTRUCTION_SUCCESS') {
-      setIsShowDetailProduct(true);
+    if (type === 'GET_DETAIL_PARTNER_PRODUCT_SUCCESS') {
+      setIsShowUpdateConstruction(true);
     }
   }, [type]);
 
-  const [dataUpdateProduct, setDataUpdateProduct] = useState({
-    name: dataDetailPartnerProduct?.name || '',
-    description: dataDetailPartnerProduct?.description,
-    hashtag: dataDetailPartnerProduct?.hashtag,
+  const [dataUpdateConstruction, setDataUpdateConstruction] = useState({
+    name: dataDetailPartnerConstruction?.name || '',
+    description: dataDetailPartnerConstruction?.description,
+    hashtag: dataDetailPartnerConstruction?.hashtag,
     image: null,
   });
 
   useEffect(() => {
-    setDataUpdateProduct({
-      name: dataDetailPartnerProduct?.name || '',
-      description: dataDetailPartnerProduct?.description,
-      hashtag: dataDetailPartnerProduct?.hashtag,
+    setDataUpdateConstruction({
+      name: dataDetailPartnerConstruction?.name || '',
+      description: dataDetailPartnerConstruction?.description,
+      hashtag: dataDetailPartnerConstruction?.hashtag,
       image: null,
     });
-  }, [dataDetailPartnerProduct]);
+  }, [dataDetailPartnerConstruction]);
 
   const handleChange = (value, name) => {
-    setDataAddProduct({
-      ...dataAddProduct,
+    setDataAddConstruction({
+      ...dataAddConstruction,
       [name]: value,
     });
-    setDataUpdateProduct({
-      ...dataUpdateProduct,
+    setDataUpdateConstruction({
+      ...dataUpdateConstruction,
       [name]: value,
     });
   };
@@ -82,28 +86,26 @@ const ItemPartnerProduct = ({
   };
 
   const getFileName = async (e) => {
-    setDataAddProduct({ ...dataAddProduct, image: e.files[0] });
-    setDataUpdateProduct({ ...dataUpdateProduct, image: e.files[0] });
+    setDataAddConstruction({ ...dataAddConstruction, image: e.files[0] });
+    setDataUpdateConstruction({ ...dataUpdateConstruction, image: e.files[0] });
     setFileName(e.files[0] && e.files[0].name);
   };
 
-  const renderProduct =
-    dataProducts &&
-    dataProducts.data &&
-    dataProducts.data.map((item) => {
+  const renderConstructions =
+    dataConstructions &&
+    dataConstructions.data &&
+    dataConstructions.data.map((item) => {
       const styleBackground = {
         backgroundImage: `url(${item.image})`,
       };
       return (
         <div
           className="product"
-          style={styleBackground}
-          onClick={() => {
-            handleDetailProduct(item.id);
-          }}
+          onClick={() => handleDetailConstruction(item.id)}
           role="button"
           tabIndex={0}
           onKeyDown={() => {}}
+          style={styleBackground}
         >
           <p>{item.name}</p>
         </div>
@@ -112,10 +114,10 @@ const ItemPartnerProduct = ({
   return (
     <>
       <Col xs={12} md={12} className="list-product">
-        {renderProduct}
+        {renderConstructions}
         <div
           className="add-product"
-          onClick={() => setIsShow(true)}
+          onClick={() => setIsOpenAddConstruction(true)}
           role="button"
           onKeyDown={() => {}}
           tabIndex={0}
@@ -124,9 +126,34 @@ const ItemPartnerProduct = ({
         </div>
       </Col>
       <Modal
-        isOpen={isShow}
+        isOpen={isOpenAddConstruction}
+        isShowFooter
         handleClose={() => {
-          setIsShow(false);
+          setIsOpenAddConstruction(false);
+          setIsShowAddConstruction(true);
+        }}
+        customClassButton="w-100"
+        textBtnRight="THÊM"
+        isShowHeader
+        title="TẠO CÔNG TRÌNH"
+        classNameBtnLeft="btn-left"
+      >
+        <div className="title-content">
+          <Input
+            type="text"
+            onChange={(e) => {
+              setConstruction(e.target.value);
+            }}
+            maxLength="20"
+            value={construction}
+            placeholder="Nhập tên công trình"
+          />
+        </div>
+      </Modal>
+      <Modal
+        isOpen={isShowAddConstruction}
+        handleClose={() => {
+          setIsShowAddConstruction(false);
         }}
         customClassButton="w-100"
         classNameBtnLeft="btn-left"
@@ -167,7 +194,7 @@ const ItemPartnerProduct = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'name');
               }}
-              value={dataAddProduct.name}
+              value={dataAddConstruction.name}
               label="Tên"
             />
             <p>Mô tả</p>
@@ -175,7 +202,7 @@ const ItemPartnerProduct = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'description');
               }}
-              value={dataAddProduct.description}
+              value={dataAddConstruction.description}
               rows={5}
             />
             <Input
@@ -183,23 +210,23 @@ const ItemPartnerProduct = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'hashtag');
               }}
-              value={dataAddProduct.hashtag}
+              value={dataAddConstruction.hashtag}
               label="Hashtag"
             />
             <Button
               customClass="button--primary mt-0"
-              onClick={() => handleAddPartnerProduct(dataAddProduct)}
+              onClick={() => handleAddPartnerConstruction(dataAddConstruction)}
             >
               <p>Thêm</p>
             </Button>
           </div>
         </div>
       </Modal>
+
       <Modal
-        isOpen={isShowDetailProduct}
+        isOpen={isShowUpdateConstruction}
         handleClose={() => {
-          setIsShowDetailProduct(false);
-          // resetType();
+          setIsShowUpdateConstruction(false);
         }}
         customClassButton="w-100"
         classNameBtnLeft="btn-left"
@@ -240,7 +267,7 @@ const ItemPartnerProduct = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'name');
               }}
-              value={dataUpdateProduct.name}
+              value={dataUpdateConstruction.name}
               label="Tên"
             />
             <p>Mô tả</p>
@@ -248,7 +275,7 @@ const ItemPartnerProduct = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'description');
               }}
-              value={dataUpdateProduct.description}
+              value={dataUpdateConstruction.description}
               rows={5}
             />
             <Input
@@ -256,12 +283,14 @@ const ItemPartnerProduct = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'hashtag');
               }}
-              value={dataUpdateProduct.hashtag}
+              value={dataUpdateConstruction.hashtag}
               label="Hashtag"
             />
             <Button
               customClass="button--primary mt-0"
-              onClick={() => handleUpdatePartnerProduct(dataUpdateProduct)}
+              onClick={() =>
+                handleUpdatePartnerConstruction(dataUpdateConstruction)
+              }
             >
               <p>Thêm</p>
             </Button>
@@ -272,4 +301,4 @@ const ItemPartnerProduct = ({
   );
 };
 
-export default memo<Props>(ItemPartnerProduct);
+export default memo<Props>(ItemPartnerConstruction);

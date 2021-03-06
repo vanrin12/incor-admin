@@ -7,11 +7,12 @@ import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
-import Modal from 'commons/components/Modal';
 import IMAGES from 'themes/images';
 import Loading from 'commons/components/Loading';
 import { headPartnerManagement } from 'constants/itemHead';
 import ItemPartnerManagement from './Item/itemPartnerManagement';
+import ItemPartnerProduct from './Item/itemPartnerProduct';
+import ItemPartnerConstruction from './Item/itemPartnerConstruction';
 
 type Props = {
   isProcessing: boolean,
@@ -76,18 +77,11 @@ const Customer = ({
   dataDetailPartnerConstruction,
 }: Props) => {
   const partnerId = match.params.id;
-  const [isOpenAddConstruction, setIsOpenAddConstruction] = useState(false);
-  const [isShowDetailProduct, setIsShowDetailProduct] = useState(false);
-  const [isShowUpdateConstruction, setIsShowUpdateConstruction] = useState(
-    false
-  );
   const [isShowEdit, setIsShowEdit] = useState(false);
   const [isShowDetailConstruction, setIsShowDetailConstruction] = useState(
     false
   );
-  const [isShowAddConstruction, setIsShowAddConstruction] = useState(false);
   const [dataManagement, setDataManagement] = useState(dataPartnerManagement);
-  const [construction, setConstruction] = useState('');
   const scale = dataScales.filter(
     (item) => item.value === dataPartnerManagement.scale_name
   );
@@ -98,34 +92,7 @@ const Customer = ({
     name: dataManagement.company_name || '',
     address: dataManagement.company_address || '',
   });
-  const [dataAddProduct, setDataAddProduct] = useState({
-    name: '',
-    description: '',
-    hashtag: '',
-    image: null,
-  });
-  const [dataAddConstruction, setDataAddConstruction] = useState({
-    name: construction,
-    description: '',
-    hashtag: '',
-    image: null,
-  });
-  const [dataUpdateProduct, setDataUpdateProduct] = useState({
-    name: dataDetailPartnerProduct?.name || '',
-    description: dataDetailPartnerProduct?.description,
-    hashtag: dataDetailPartnerProduct?.hashtag,
-    image: null,
-  });
-  const [dataUpdateConstruction, setDataUpdateConstruction] = useState({
-    name: dataDetailPartnerConstruction?.name || '',
-    description: dataDetailPartnerConstruction?.description,
-    hashtag: dataDetailPartnerConstruction?.hashtag,
-    image: null,
-  });
-
   const [keySearch, setKeySearch] = useState('');
-  const [isShow, setIsShow] = useState(false);
-  const [fileName, setFileName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [objAvatar, setObjAvatar] = useState(null);
   const inputFile = useRef({});
@@ -157,15 +124,6 @@ const Customer = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [partnerId, activeTab]);
-
-  useEffect(() => {
-    setDataUpdateProduct({
-      name: dataDetailPartnerProduct?.name || '',
-      description: dataDetailPartnerProduct?.description,
-      hashtag: dataDetailPartnerProduct?.hashtag,
-      image: null,
-    });
-  }, [dataDetailPartnerProduct]);
 
   const handleSearchCompany = () => {
     getListPartnerManagement({ id: partnerId, keywords: keySearch });
@@ -225,31 +183,12 @@ const Customer = ({
         keywords: keySearch,
       });
     }
-    if (type === 'GET_DETAIL_PARTNER_PRODUCT_SUCCESS') {
-      setIsShowDetailProduct(true);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
   const handleChange = (value, name) => {
     setDataFilter({
       ...dataFilter,
-      [name]: value,
-    });
-    setDataAddProduct({
-      ...dataAddProduct,
-      [name]: value,
-    });
-    setDataAddConstruction({
-      ...dataAddConstruction,
-      [name]: value,
-    });
-    setDataUpdateProduct({
-      ...dataUpdateProduct,
-      [name]: value,
-    });
-    setDataUpdateConstruction({
-      ...dataUpdateConstruction,
       [name]: value,
     });
   };
@@ -281,14 +220,9 @@ const Customer = ({
   };
 
   const getFileName = async (e) => {
-    setDataAddProduct({ ...dataAddProduct, image: e.files[0] });
-    setDataAddConstruction({ ...dataAddConstruction, image: e.files[0] });
-    setDataUpdateProduct({ ...dataUpdateProduct, image: e.files[0] });
-    setDataUpdateConstruction({ ...dataUpdateProduct, image: e.files[0] });
     setObjAvatar(e.files[0]);
     const image = await fileToBase64(e);
     setAvatar(image);
-    setFileName(e.files[0] && e.files[0].name);
   };
 
   const handleDetailProduct = (item) => {
@@ -297,50 +231,7 @@ const Customer = ({
 
   const handleDetailConstruction = (item) => {
     getDetailPartnerConstruction(item);
-    setIsShowUpdateConstruction(true);
   };
-
-  const renderProduct =
-    dataProducts &&
-    dataProducts.data &&
-    dataProducts.data.map((item) => {
-      const styleBackground = {
-        backgroundImage: `url(${item.image})`,
-      };
-      return (
-        <div
-          className="product"
-          style={styleBackground}
-          onClick={() => handleDetailProduct(item.id)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={() => {}}
-        >
-          <p>{item.name}</p>
-        </div>
-      );
-    });
-
-  const renderConstructions =
-    dataConstructions &&
-    dataConstructions.data &&
-    dataConstructions.data.map((item) => {
-      const styleBackground = {
-        backgroundImage: `url(${item.image})`,
-      };
-      return (
-        <div
-          className="product"
-          onClick={() => handleDetailConstruction(item.id)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={() => {}}
-          style={styleBackground}
-        >
-          <p>{item.name}</p>
-        </div>
-      );
-    });
 
   const styleAvatar = {
     backgroundImage: `url(${dataPartnerManagement.company_image || avatar})`,
@@ -365,67 +256,63 @@ const Customer = ({
     registerPartnerCompany(formData);
   };
 
-  const handleAddPartnerProduct = () => {
+  const handleAddPartnerProduct = (item) => {
     const formData = new window.FormData();
     formData.append(
       'company_id',
       parseInt(dataPartnerManagement.company_id, 10)
     );
-    formData.append('image', dataAddProduct.image);
-    formData.append('name', dataAddProduct.name);
-    formData.append('description', dataAddProduct.description);
-    formData.append('hashtag', dataAddProduct?.hashtag);
-    if (dataAddProduct.name.length > 0) {
+    formData.append('image', item.image);
+    formData.append('name', item.name);
+    formData.append('description', item.description);
+    formData.append('hashtag', item?.hashtag);
+    if (item.name.length > 0) {
       registerPartnerProduct(formData);
-      setIsShow(false);
     }
   };
 
-  const handleUpdatePartnerProduct = () => {
+  const handleUpdatePartnerProduct = (item) => {
     const formData = new window.FormData();
     formData.append(
       'company_id',
       parseInt(dataPartnerManagement.company_id, 10)
     );
-    formData.append('image', dataUpdateProduct.image);
-    formData.append('name', dataUpdateProduct.name);
-    formData.append('description', dataUpdateProduct.description);
-    formData.append('hashtag', dataUpdateProduct?.hashtag);
-    if (dataUpdateProduct.name.length > 0) {
+    formData.append('image', item.image);
+    formData.append('name', item.name);
+    formData.append('description', item.description);
+    formData.append('hashtag', item?.hashtag);
+    if (item.name.length > 0) {
       updatePartnerProduct(dataDetailPartnerProduct.id, formData);
-      setIsShowDetailProduct(false);
     }
   };
 
-  const handleUpdatePartnerConstruction = () => {
+  const handleUpdatePartnerConstruction = (item) => {
     const formData = new window.FormData();
     formData.append(
       'company_id',
       parseInt(dataPartnerManagement.company_id, 10)
     );
-    formData.append('image', dataUpdateConstruction.image);
-    formData.append('name', dataUpdateConstruction.name);
-    formData.append('description', dataUpdateConstruction.description);
-    formData.append('hashtag', dataUpdateConstruction?.hashtag);
-    if (dataUpdateConstruction.name.length > 0) {
+    formData.append('image', item.image);
+    formData.append('name', item.name);
+    formData.append('description', item.description);
+    formData.append('hashtag', item?.hashtag);
+    if (item.name.length > 0) {
       updatePartnerConstruction(dataDetailPartnerConstruction.id, formData);
-      setIsShowUpdateConstruction(false);
     }
   };
 
-  const handleAddPartnerConstruction = () => {
+  const handleAddPartnerConstruction = (item) => {
     const formData = new window.FormData();
     formData.append(
       'company_id',
       parseInt(dataPartnerManagement.company_id, 10)
     );
-    formData.append('image', dataAddConstruction.image);
-    formData.append('name', dataAddConstruction.name);
-    formData.append('description', dataAddConstruction.description);
-    formData.append('hashtag', dataAddConstruction?.hashtag);
-    if (dataAddConstruction.name.length > 0) {
+    formData.append('image', item.image);
+    formData.append('name', item.name);
+    formData.append('description', item.description);
+    formData.append('hashtag', item?.hashtag);
+    if (item.name.length > 0) {
       registerPartnerConstruction(formData);
-      setIsShowAddConstruction(false);
     }
   };
 
@@ -616,7 +503,7 @@ const Customer = ({
                     </Button>
                   </div>
                 </Col>
-                <Col xs={12} md={12} className="list-product">
+                {/* <Col xs={12} md={12} className="list-product">
                   {renderProduct}
                   <div
                     className="add-product"
@@ -627,7 +514,15 @@ const Customer = ({
                   >
                     +
                   </div>
-                </Col>
+                </Col> */}
+                <ItemPartnerProduct
+                  dataProducts={dataProducts}
+                  dataDetailPartnerProduct={dataDetailPartnerProduct}
+                  handleDetailProduct={handleDetailProduct}
+                  handleAddPartnerProduct={handleAddPartnerProduct}
+                  handleUpdatePartnerProduct={handleUpdatePartnerProduct}
+                  type={type}
+                />
               </Tab>
               <Tab eventKey="tab3" title="Công trình">
                 <Col xs={12} md={12} className="form-search">
@@ -649,18 +544,18 @@ const Customer = ({
                   </div>
                 </Col>
                 {!isShowDetailConstruction ? (
-                  <Col xs={12} md={12} className="list-product">
-                    {renderConstructions}
-                    <div
-                      className="add-product"
-                      onClick={() => setIsOpenAddConstruction(true)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={() => {}}
-                    >
-                      +
-                    </div>
-                  </Col>
+                  <ItemPartnerConstruction
+                    dataConstructions={dataConstructions}
+                    dataDetailPartnerConstruction={
+                      dataDetailPartnerConstruction
+                    }
+                    handleDetailConstruction={handleDetailConstruction}
+                    handleAddPartnerConstruction={handleAddPartnerConstruction}
+                    handleUpdatePartnerConstruction={
+                      handleUpdatePartnerConstruction
+                    }
+                    type={type}
+                  />
                 ) : (
                   <>
                     <Col xs={12} md={12} className="list-product__back">
@@ -680,7 +575,7 @@ const Customer = ({
                       </div>
                       <div
                         className="add-product"
-                        onClick={() => setIsOpenAddConstruction(true)}
+                        onClick={() => {}}
                         role="button"
                         tabIndex={0}
                         onKeyDown={() => {}}
@@ -695,320 +590,6 @@ const Customer = ({
           </Row>
         </Container>
       )}
-
-      <Modal
-        isOpen={isOpenAddConstruction}
-        isShowFooter
-        handleClose={() => {
-          setIsOpenAddConstruction(false);
-          setIsShowAddConstruction(true);
-        }}
-        customClassButton="w-100"
-        textBtnRight="THÊM"
-        isShowHeader
-        title="TẠO CÔNG TRÌNH"
-        classNameBtnLeft="btn-left"
-      >
-        <div className="title-content">
-          <Input
-            type="text"
-            onChange={(e) => {
-              setConstruction(e.target.value);
-            }}
-            maxLength="20"
-            value={construction}
-            placeholder="Nhập tên công trình"
-          />
-        </div>
-      </Modal>
-      <Modal
-        isOpen={isShow}
-        handleClose={() => {
-          setIsShow(false);
-        }}
-        customClassButton="w-100"
-        classNameBtnLeft="btn-left"
-        customClass="popup-add-product"
-        isShowIconClose
-      >
-        <div className="title-content">
-          <div className="popup-add-product__left">
-            <div
-              className="box__input"
-              onClick={onButtonClick}
-              onKeyDown={() => {}}
-              tabIndex={0}
-              role="button"
-            >
-              <input
-                className="box__file"
-                type="file"
-                multiple
-                ref={inputFile}
-                accept="image/jpg, image/png, image/gif, capture=camera"
-                onChange={(e) => getFileName(e.target)}
-              />
-              <label>
-                <strong>{fileName || 'Kéo thả tập tin vào đây or'}</strong>
-                <Button
-                  customClass="button--primary add-file mt-0"
-                  onClick={() => {}}
-                >
-                  <p>CHỌN TỆP</p>
-                </Button>
-              </label>
-            </div>
-          </div>
-          <div className="popup-add-product__right">
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'name');
-              }}
-              value={dataAddProduct.name}
-              label="Tên"
-            />
-            <p>Mô tả</p>
-            <textarea
-              onChange={(e) => {
-                handleChange(e.target.value, 'description');
-              }}
-              value={dataAddProduct.description}
-              rows={5}
-            />
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'hashtag');
-              }}
-              value={dataAddProduct.hashtag}
-              label="Hashtag"
-            />
-            <Button
-              customClass="button--primary mt-0"
-              onClick={handleAddPartnerProduct}
-            >
-              <p>Thêm</p>
-            </Button>
-          </div>
-        </div>
-      </Modal>
-      <Modal
-        isOpen={isShowAddConstruction}
-        handleClose={() => {
-          setIsShowAddConstruction(false);
-        }}
-        customClassButton="w-100"
-        classNameBtnLeft="btn-left"
-        customClass="popup-add-product"
-        isShowIconClose
-      >
-        <div className="title-content">
-          <div className="popup-add-product__left">
-            <div
-              className="box__input"
-              onClick={onButtonClick}
-              onKeyDown={() => {}}
-              tabIndex={0}
-              role="button"
-            >
-              <input
-                className="box__file"
-                type="file"
-                multiple
-                ref={inputFile}
-                accept="image/jpg, image/png, image/gif, capture=camera"
-                onChange={(e) => getFileName(e.target)}
-              />
-              <label>
-                <strong>{fileName || 'Kéo thả tập tin vào đây or'}</strong>
-                <Button
-                  customClass="button--primary add-file mt-0"
-                  onClick={() => {}}
-                >
-                  <p>CHỌN TỆP</p>
-                </Button>
-              </label>
-            </div>
-          </div>
-          <div className="popup-add-product__right">
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'name');
-              }}
-              value={dataAddConstruction.name}
-              label="Tên"
-            />
-            <p>Mô tả</p>
-            <textarea
-              onChange={(e) => {
-                handleChange(e.target.value, 'description');
-              }}
-              value={dataAddConstruction.description}
-              rows={5}
-            />
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'hashtag');
-              }}
-              value={dataAddConstruction.hashtag}
-              label="Hashtag"
-            />
-            <Button
-              customClass="button--primary mt-0"
-              onClick={handleAddPartnerConstruction}
-            >
-              <p>Thêm</p>
-            </Button>
-          </div>
-        </div>
-      </Modal>
-      <Modal
-        isOpen={isShowDetailProduct}
-        handleClose={() => {
-          setIsShowDetailProduct(false);
-        }}
-        customClassButton="w-100"
-        classNameBtnLeft="btn-left"
-        customClass="popup-add-product"
-        isShowIconClose
-      >
-        <div className="title-content">
-          <div className="popup-add-product__left">
-            <div
-              className="box__input"
-              onClick={onButtonClick}
-              onKeyDown={() => {}}
-              tabIndex={0}
-              role="button"
-            >
-              <input
-                className="box__file"
-                type="file"
-                multiple
-                ref={inputFile}
-                accept="image/jpg, image/png, image/gif, capture=camera"
-                onChange={(e) => getFileName(e.target)}
-              />
-              <label>
-                <strong>{fileName || 'Kéo thả tập tin vào đây or'}</strong>
-                <Button
-                  customClass="button--primary add-file mt-0"
-                  onClick={() => {}}
-                >
-                  <p>CHỌN TỆP</p>
-                </Button>
-              </label>
-            </div>
-          </div>
-          <div className="popup-add-product__right">
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'name');
-              }}
-              value={dataUpdateProduct.name}
-              label="Tên"
-            />
-            <p>Mô tả</p>
-            <textarea
-              onChange={(e) => {
-                handleChange(e.target.value, 'description');
-              }}
-              value={dataUpdateProduct.description}
-              rows={5}
-            />
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'hashtag');
-              }}
-              value={dataUpdateProduct.hashtag}
-              label="Hashtag"
-            />
-            <Button
-              customClass="button--primary mt-0"
-              onClick={handleUpdatePartnerProduct}
-            >
-              <p>Thêm</p>
-            </Button>
-          </div>
-        </div>
-      </Modal>
-      <Modal
-        isOpen={isShowUpdateConstruction}
-        handleClose={() => {
-          setIsShowUpdateConstruction(false);
-        }}
-        customClassButton="w-100"
-        classNameBtnLeft="btn-left"
-        customClass="popup-add-product"
-        isShowIconClose
-      >
-        <div className="title-content">
-          <div className="popup-add-product__left">
-            <div
-              className="box__input"
-              onClick={onButtonClick}
-              onKeyDown={() => {}}
-              tabIndex={0}
-              role="button"
-            >
-              <input
-                className="box__file"
-                type="file"
-                multiple
-                ref={inputFile}
-                accept="image/jpg, image/png, image/gif, capture=camera"
-                onChange={(e) => getFileName(e.target)}
-              />
-              <label>
-                <strong>{fileName || 'Kéo thả tập tin vào đây or'}</strong>
-                <Button
-                  customClass="button--primary add-file mt-0"
-                  onClick={() => {}}
-                >
-                  <p>CHỌN TỆP</p>
-                </Button>
-              </label>
-            </div>
-          </div>
-          <div className="popup-add-product__right">
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'name');
-              }}
-              value={dataUpdateConstruction.name}
-              label="Tên"
-            />
-            <p>Mô tả</p>
-            <textarea
-              onChange={(e) => {
-                handleChange(e.target.value, 'description');
-              }}
-              value={dataUpdateConstruction.description}
-              rows={5}
-            />
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'hashtag');
-              }}
-              value={dataUpdateConstruction.hashtag}
-              label="Hashtag"
-            />
-            <Button
-              customClass="button--primary mt-0"
-              onClick={handleUpdatePartnerConstruction}
-            >
-              <p>Thêm</p>
-            </Button>
-          </div>
-        </div>
-      </Modal>
     </MainLayout>
   );
 };
