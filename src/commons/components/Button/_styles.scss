@@ -2,10 +2,10 @@ button.button.btn {
   height: pxToVW(55);
   background: rgb(42, 82, 153);
   background: linear-gradient(-90deg, rgba(42, 82, 153, 1) 0%, rgba(21, 41, 77, 1) 100%);
-  border-radius: pxToVW(15);
+  border-radius: pxToVW(8);
   box-shadow: 0 pxToVW(3) pxToVW(6) 0 rgba(0, 0, 0, 0.16);
   border: 0;
-  min-width: pxToVW(100);
+  min-width: pxToVW(110);
   letter-spacing: pxToVW(0.5);
   color: $white;
   font-size: pxToVW(22);

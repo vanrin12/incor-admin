@@ -17,7 +17,11 @@ const Display = ({ history }: Props) => {
     <MainLayout activeMenu={6}>
       <Container fluid>
         <Row className="content-wrapper page-display">
-          <Col xs={12} md={12} className="d-flex align-items-center mb-4">
+          <Col
+            xs={12}
+            md={12}
+            className="d-flex align-items-center mb-4 justify-content-end"
+          >
             <h2 className="cancel-display">Hủy bỏ</h2>
             <Button customClass="button--primary" onClick={() => {}}>
               LƯU
