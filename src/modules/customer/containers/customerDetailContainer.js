@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import customerComponent from '../components';
+import customerDetailComponent from '../components/detailCustomer';
 
 import { Creators } from '../redux';
 import { Creators as partnerReducer } from '../../partner/redux';
@@ -9,10 +9,8 @@ const mapStateToProps = (state) => {
   return {
     type: state.customerReducer.type,
     isProcessing: state.customerReducer.isProcessing,
+    dataDetailCustomer: state.customerReducer.dataDetailCustomer,
     dataAreas: state.partnerReducer.dataAreas,
-    listName: state.customerReducer.listName,
-    dataCustomer: state.customerReducer.dataCustomer,
-    totalCustomer: state.customerReducer.totalCustomer,
   };
 };
 
@@ -20,11 +18,14 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       ...Creators,
-      getListCustomer: Creators.getListCustomer,
+      getDetailCustomer: Creators.getDetailCustomer,
       getListAreas: partnerReducer.getListAreas,
-      getListName: Creators.getListName,
+      updateCustomer: Creators.updateCustomer,
     },
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(customerComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(customerDetailComponent);

@@ -236,7 +236,7 @@ const Partner = ({
                 breakLabel={<span className="gap">...</span>}
                 pageCount={Math.ceil(totalPartner / 10)}
                 onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-                forcePage={0}
+                forcePage={params.paged - 1 || 0}
                 containerClassName="pagination"
                 disabledClassName="disabled"
                 activeClassName="active"

@@ -54,7 +54,6 @@ const Post = ({
     seo: null,
   });
   const [params, setParams] = useState({
-    pageSize: 10,
     page: 1,
     date: createDate,
     category_id: dataFilter?.category?.id,
@@ -113,7 +112,6 @@ const Post = ({
 
   const handleFilter = () => {
     getListPost({
-      pageSize: 10,
       page: 1,
       date: createDate && moment(createDate).format('YYYY-MM-DD HH:mm:ss'),
       category_id: dataFilter?.category?.id,
@@ -232,9 +230,9 @@ const Post = ({
                   previousLabel="Previous"
                   nextLabel="Next"
                   breakLabel={<span className="gap">...</span>}
-                  pageCount={Math.ceil(totalPost / params.pageSize)}
+                  pageCount={Math.ceil(totalPost / 10)}
                   onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-                  forcePage={0}
+                  forcePage={params.page - 1 || 0}
                   containerClassName="pagination"
                   disabledClassName="disabled"
                   activeClassName="active"

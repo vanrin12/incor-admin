@@ -42,7 +42,6 @@ const TableRow = ({
 }: Props) => {
   // const isShowId = true;
   const fieldId = 'id';
-
   const [checkedItems, setCheckedItems] = useState({});
   const handleChange = (event) => {
     setCheckedItems({
@@ -86,7 +85,7 @@ const TableRow = ({
             {isShowRating && index === 4 ? (
               <Rating numberStar={rowItem[item]} />
             ) : (
-              <span>{rowItem[item]}</span>
+              <span>{rowItem && rowItem[item]}</span>
             )}
           </td>
         );

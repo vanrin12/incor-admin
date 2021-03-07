@@ -217,7 +217,7 @@ const getListPost = (state, action) => {
 const getListPostSuccess = (state, action) => {
   const dataListPost =
     action.data.post &&
-    action.data.post.map((item) => ({
+    action.data.post.data.map((item) => ({
       id: item.id,
       title: item.seo_title,
       writer: item.user.name,
