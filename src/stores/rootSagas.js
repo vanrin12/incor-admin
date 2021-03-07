@@ -39,6 +39,10 @@ import updatePartnerConstructionSaga from 'modules/partner/sagas/updateConstruct
 import getListMediaSaga from 'modules/media/sagas/getListMediaSaga';
 import uploadMediaSaga from 'modules/media/sagas/uploadMediaSaga';
 import deleteMediaSaga from 'modules/media/sagas/deleteMediaSaga';
+import getListCustomerSaga from 'modules/customer/sagas/getListCustomerSaga';
+import getListNameSaga from 'modules/customer/sagas/getListNameIncorSaga';
+import getDetailCustomerSaga from 'modules/customer/sagas/getDetailCustomerSaga';
+import updateCustomerSaga from 'modules/customer/sagas/updateCustomerSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -80,5 +84,9 @@ export default function* RootSagas() {
     getDetailPartnerConstructionSaga(),
     updatePartnerConstructionSaga(),
     deleteMediaSaga(),
+    getListCustomerSaga(),
+    getListNameSaga(),
+    getDetailCustomerSaga(),
+    updateCustomerSaga(),
   ]);
 }

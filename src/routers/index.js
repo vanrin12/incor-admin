@@ -46,7 +46,7 @@ const partnerManagement = lazy(() =>
   import('modules/partner/containers/partnerManagementContainer')
 );
 const informationNeeds = lazy(() =>
-  import('modules/customer/components/infomationNeeds')
+  import('modules/customer/containers/customerDetailContainer')
 );
 const informationProjectRegister = lazy(() =>
   import('modules/customer/components/informationProjectRegister')
