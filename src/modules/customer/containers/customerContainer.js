@@ -10,7 +10,9 @@ const mapStateToProps = (state) => {
     type: state.customerReducer.type,
     isProcessing: state.customerReducer.isProcessing,
     dataAreas: state.partnerReducer.dataAreas,
-    dataConstant: state.partnerReducer.dataConstant,
+    listName: state.customerReducer.listName,
+    dataCustomer: state.customerReducer.dataCustomer,
+    totalCustomer: state.customerReducer.totalCustomer,
   };
 };
 
@@ -18,9 +20,9 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       ...Creators,
-      getListPost: Creators.getListPost,
+      getListCustomer: Creators.getListCustomer,
       getListAreas: partnerReducer.getListAreas,
-      getListConstant: partnerReducer.getListConstant,
+      getListName: Creators.getListName,
     },
     dispatch
   );

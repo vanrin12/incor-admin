@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // @flow
 
-import React, { useState, memo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,12 +21,7 @@ import listActions from 'constants/actions';
 // import { listDataAccount } from '../../../mockData/listDataTable';
 import { getListUser, getUserRoles, createUser } from '../redux';
 
-type Props = {
-  history: {
-    push: Function,
-  },
-};
-const Post = ({ history }: Props) => {
+const Account = () => {
   const dispatch = useDispatch();
   const { userList, listRoles } = useSelector((state) => state?.account);
   const [createDate, setCreateDate] = useState(null);
@@ -270,4 +265,4 @@ const Post = ({ history }: Props) => {
   );
 };
 
-export default memo<Props>(Post);
+export default Account;

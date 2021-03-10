@@ -46,7 +46,7 @@ const partnerManagement = lazy(() =>
   import('modules/partner/containers/partnerManagementContainer')
 );
 const informationNeeds = lazy(() =>
-  import('modules/customer/components/infomationNeeds')
+  import('modules/customer/containers/customerDetailContainer')
 );
 const informationProjectRegister = lazy(() =>
   import('modules/customer/components/informationProjectRegister')
@@ -65,6 +65,10 @@ const displaySaleContainer = lazy(() =>
   import('modules/display/components/sale')
 );
 
+const displayMediaContainer = lazy(() =>
+  import('modules/media/containers/index')
+);
+
 type Props = {
   token: string,
 };
@@ -80,6 +84,11 @@ const Router = ({ token }: Props) => {
     <BrowserRouter>
       <Suspense>
         <Switch>
+          <Route
+            exact
+            path={ROUTERS.MAIN_MEDIA}
+            component={displayMediaContainer}
+          />
           <Route exact path={ROUTERS.LOGIN} component={loginContainer} />
           <PrivateRoute
             exact

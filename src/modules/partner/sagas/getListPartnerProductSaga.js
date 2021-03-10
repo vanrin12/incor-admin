@@ -10,7 +10,7 @@ function* getListPartnerProduct(action) {
      *
      */
     const response = yield call(() =>
-      API.get(ROUTES.API_GET_LIST_PARTNER_PRODUCT(action.id))
+      API.get(ROUTES.API_GET_LIST_PARTNER_PRODUCT, action.data)
     );
     if (response.ok) {
       const { data } = response.data;

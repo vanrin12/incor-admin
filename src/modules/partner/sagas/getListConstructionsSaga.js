@@ -10,7 +10,7 @@ function* getListConstruction(action) {
      *
      */
     const response = yield call(() =>
-      API.get(ROUTES.API_GET_LIST_CONSTRUCTION(action.id))
+      API.get(ROUTES.API_GET_LIST_CONSTRUCTION, action.data)
     );
     if (response.ok) {
       const { data } = response.data;

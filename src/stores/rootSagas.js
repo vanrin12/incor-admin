@@ -29,6 +29,20 @@ import registerPartnerCompanySaga from 'modules/partner/sagas/registerPartnerCom
 import getListPartnerProductSaga from 'modules/partner/sagas/getListPartnerProductSaga';
 import getListConstructionSaga from 'modules/partner/sagas/getListConstructionsSaga';
 import registerPartnerProductSaga from 'modules/partner/sagas/registerPartnerProductSaga';
+import registerPartnerConstructionSaga from 'modules/partner/sagas/registerPartnerConstructionSaga';
+import getListPartnerQuoteSaga from 'modules/partner/sagas/getListPartnerQuoteSaga';
+import getDetailPartnerProductSaga from 'modules/partner/sagas/getDetailPartnerProductSaga';
+import updatePartnerProductSaga from 'modules/partner/sagas/updatePartnerProductSaga';
+import getDetailPartnerConstructionSaga from 'modules/partner/sagas/getDetailConstructionsSaga';
+import updatePartnerConstructionSaga from 'modules/partner/sagas/updateConstructionsSaga';
+
+import getListMediaSaga from 'modules/media/sagas/getListMediaSaga';
+import uploadMediaSaga from 'modules/media/sagas/uploadMediaSaga';
+import deleteMediaSaga from 'modules/media/sagas/deleteMediaSaga';
+import getListCustomerSaga from 'modules/customer/sagas/getListCustomerSaga';
+import getListNameSaga from 'modules/customer/sagas/getListNameIncorSaga';
+import getDetailCustomerSaga from 'modules/customer/sagas/getDetailCustomerSaga';
+import updateCustomerSaga from 'modules/customer/sagas/updateCustomerSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -55,11 +69,24 @@ export default function* RootSagas() {
     updatePostSaga(),
     logoutSaga(),
     getListPartnerManagementSaga(),
+    getListMediaSaga(),
     deletePartnerSaga(),
     registerPartnerCompanySaga(),
     getListScalesSaga(),
     getListPartnerProductSaga(),
     getListConstructionSaga(),
     registerPartnerProductSaga(),
+    uploadMediaSaga(),
+    registerPartnerConstructionSaga(),
+    getListPartnerQuoteSaga(),
+    getDetailPartnerProductSaga(),
+    updatePartnerProductSaga(),
+    getDetailPartnerConstructionSaga(),
+    updatePartnerConstructionSaga(),
+    deleteMediaSaga(),
+    getListCustomerSaga(),
+    getListNameSaga(),
+    getDetailCustomerSaga(),
+    updateCustomerSaga(),
   ]);
 }

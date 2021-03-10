@@ -25,15 +25,30 @@ export const ROUTES = {
   GET_LIST_CONSTANT: `api/v1/site/constants`,
   LOG_OUT: `api/v1/auth/logout`,
   GET_PARTNER_MANAGEMENT: (id) => `api/v1/admin/partners/${id}`,
+  API_GET_LIST_MEDIA: (params) => `/api/v1/admin/media/${params}`,
   API_DELETE_PARTNER: `api/v1/admin/partners`,
   API_REGISTER_PARTNER_COMPANY: `api/v1/admin/partners/company`,
-  API_GET_LIST_CONSTRUCTION: (id) =>
-    `api/v1/admin/partners/constructions/${id}`,
-  API_GET_LIST_PARTNER_PRODUCT: (id) => `api/v1/admin/partners/products/${id}`,
+  API_GET_LIST_CONSTRUCTION: `api/v1/admin/partners/constructions`,
+  API_GET_LIST_PARTNER_PRODUCT: `api/v1/admin/partners/products`,
   API_REGISTER_PARTNER_PRODUCT: `api/v1/admin/partners/products`,
   GET_DATA_HOME: 'api/v1/admin/main',
   USER_LIST: 'api/v1/admin/users',
   GET_ROLES: 'api/v1/admin/roles',
+  API_UPLOAD_MEDIA: `/api/v1/admin/media`,
+  API_REGISTER_PARTNER_CONSTRUCTION: `api/v1/admin/partners/constructions`,
+  API_GET_LIST_PARTNER_QUOTE: (id) => `api/v1/admin/partners/${id}/quotes`,
+  API_GET_DETAIL_PARTNER_PRODUCT: (id) =>
+    `api/v1/admin/partners/products/${id}`,
+  API_UPDATE_PARTNER_PRODUCT: (id) => `api/v1/admin/partners/products/${id}`,
+  API_GET_DETAIL_PARTNER_CONSTRUCTION: (id) =>
+    `api/v1/admin/partners/constructions/${id}`,
+  API_UPDATE_PARTNER_CONSTRUCTION: (id) =>
+    `api/v1/admin/partners/constructions/${id}`,
+  API_DELETE_MEDIA: (id) => `/api/v1/admin/media/${id}`,
+  API_GET_LIST_CUSTOMER: `/api/v1/admin/customers`,
+  API_GET_LIST_NAME: `/api/v1/admin/customers/name-incor`,
+  API_GET_DETAIL_CUSTOMER: (id) => `/api/v1/admin/customers/${id}`,
+  API_UPDATE_CUSTOMER: (id) => `/api/v1/admin/customers/${id}`,
 };
 
 export const API = create({

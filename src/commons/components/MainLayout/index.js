@@ -43,7 +43,7 @@ const MainLayout = ({ children, activeMenu, logOut }: Props) => {
         <Col xs={12} md={2} className="menu-left">
           <Menu activeMenu={activeMenu} />
         </Col>
-        <Col xs={12} md={10}>
+        <Col xs={12} md={10} className="layout-right">
           {children}
         </Col>
       </Row>

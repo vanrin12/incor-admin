@@ -30,7 +30,11 @@ body p {
 }
 
 body {
-  background: rgba(227, 227, 227, 0.61);;
+  background: rgba(227, 227, 227, 0.61);
+
+  * {
+    outline: none;
+  }
 }
 
 .heading-title {
@@ -50,4 +54,20 @@ body {
   &:hover {
     color: $color_primary;
   }
+}
+
+.selection_bubble_root,
+.selection_img_search {
+  display: none !important;
+}
+
+body {
+  p[role="presentation"] {
+    cursor: pointer;
+  }
+}
+
+.cancel-display,
+.action-increase {
+  cursor: pointer;
 }
