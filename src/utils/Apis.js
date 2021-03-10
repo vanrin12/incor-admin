@@ -31,6 +31,9 @@ export const ROUTES = {
     `api/v1/admin/partners/constructions/${id}`,
   API_GET_LIST_PARTNER_PRODUCT: (id) => `api/v1/admin/partners/products/${id}`,
   API_REGISTER_PARTNER_PRODUCT: `api/v1/admin/partners/products`,
+  GET_DATA_HOME: 'api/v1/admin/main',
+  USER_LIST: 'api/v1/admin/users',
+  GET_ROLES: 'api/v1/admin/roles',
 };
 
 export const API = create({

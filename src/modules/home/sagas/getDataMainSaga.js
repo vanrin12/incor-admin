@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { ROUTES, API } from 'apis';
+import { ROUTES, API } from 'utils/Apis';
 
 // worker Saga: will be fired on GET_LIST_EVENT actions
 function* getDataMain() {
