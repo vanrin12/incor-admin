@@ -49,6 +49,12 @@ export const ROUTES = {
   API_GET_LIST_NAME: `/api/v1/admin/customers/name-incor`,
   API_GET_DETAIL_CUSTOMER: (id) => `/api/v1/admin/customers/${id}`,
   API_UPDATE_CUSTOMER: (id) => `/api/v1/admin/customers/${id}`,
+  API_GET_LIST_SPACE_TYPE: `/api/v1/site/space-type`,
+  API_GET_LIST_DIVISION: `/api/v1/site/space-division`,
+  API_REGISTER_PROJECT: `/api/v1/admin/customers/project`,
+  API_DELETE_PROJECT: (id) => `/api/v1/admin/customers/project/${id}`,
+  API_GET_DETAIL_PROJECT: (id) => `/api/v1/admin/customers/${id}/project`,
+  API_GET_LIST_PROJECT: `/api/v1/site/projects`,
 };
 
 export const API = create({

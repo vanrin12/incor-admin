@@ -42,7 +42,12 @@
 
   .input__box {
     position: relative;
-
+    .css-1fhf3k1-control{
+      min-height: pxToVW(38);
+      .css-g1d714-ValueContainer{
+        padding: 0;
+      }
+    }
     &::before {
       content: "";
       position: absolute;

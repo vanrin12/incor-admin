@@ -28,6 +28,7 @@ type Props = {
   }>,
   updateCustomer: Function,
   type: string,
+  deleteProject: Function,
 };
 
 const InformationNeeds = ({
@@ -40,12 +41,12 @@ const InformationNeeds = ({
   dataAreas,
   updateCustomer,
   type,
+  deleteProject,
 }: Props) => {
   const customerId = match.params.id;
   const areas = dataAreas.filter(
     (item) => item.id === dataDetailCustomer.area_id
   );
-  console.log(areas);
   const [dataSubmit, setDataSubmit] = useState({
     nameCustomer: dataDetailCustomer.name,
     phone: dataDetailCustomer.phone,
@@ -81,6 +82,9 @@ const InformationNeeds = ({
     if (type === 'UPDATE_CUSTOMER_SUCCESS') {
       getDetailCustomer(customerId);
     }
+    if (type === 'DELETE_PROJECT_SUCCESS') {
+      getDetailCustomer(customerId);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
@@ -91,14 +95,30 @@ const InformationNeeds = ({
     });
   };
 
+  const handleDeleteProject = (idProject) => {
+    deleteProject(idProject);
+  };
+
   const renderProject =
     dataDetailCustomer &&
+    dataDetailCustomer.projects &&
     dataDetailCustomer.projects.map((item) => {
       return (
         <div className="box-project" key={item.id}>
           <p>{item.name}</p>
-          <h3>Quản lý</h3>
-          <h4>Kết thúc dự án</h4>
+          <h3
+            onClick={() =>
+              history.push(
+                `${ROUTERS.CUSTOMER_INFORMATION_PROJECT}/${item?.id}`
+              )
+            }
+            role="presentation"
+          >
+            Quản lý
+          </h3>
+          <h4 onClick={() => handleDeleteProject(item.id)} role="presentation">
+            Kết thúc dự án
+          </h4>
         </div>
       );
     });
@@ -205,7 +225,9 @@ const InformationNeeds = ({
             <Col xs={12} md={12} className="action-delete">
               <Button
                 customClass="button--primary"
-                onClick={() => history.push(ROUTERS.PROGRESS_PROJECT)}
+                onClick={() =>
+                  history.push(`${ROUTERS.INFORMATION_PROJECT}/${customerId}`)
+                }
               >
                 <p>THÊM DỰ ÁN</p>
               </Button>

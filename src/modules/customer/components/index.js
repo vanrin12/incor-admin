@@ -88,6 +88,10 @@ const Customer = ({
     history.push(`${ROUTERS.INFORMATION}/${item?.id}`);
   };
 
+  const handleClickBtnDetail = (item) => {
+    history.push(`${ROUTERS.PROGRESS_PROJECT}/${item?.id}`);
+  };
+
   const handleSelectPagination = (eventKey) => {
     setParams({ ...params, page: eventKey.selected + 1 });
     const paramsRequest = { ...params, page: eventKey.selected + 1 };
@@ -176,6 +180,7 @@ const Customer = ({
                   isShowColumnBtn
                   nameBtn2="Quản lý"
                   handleClickBtnView={handleViewInformation}
+                  handleClickBtnDetail={handleClickBtnDetail}
                 />
               </Col>
               <Col sm={12} className="wrapper-pagination">

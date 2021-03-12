@@ -26,7 +26,7 @@ const Customer = lazy(() =>
   import('modules/customer/containers/customerContainer')
 );
 const CustomerInfo = lazy(() =>
-  import('modules/customer/components/informationNeedsProject')
+  import('modules/customer/containers/infomationNeedsProjectContainer')
 );
 const Post = lazy(() => import('modules/post/containers/postContainer'));
 const RegisterPost = lazy(() =>
@@ -49,10 +49,10 @@ const informationNeeds = lazy(() =>
   import('modules/customer/containers/customerDetailContainer')
 );
 const informationProjectRegister = lazy(() =>
-  import('modules/customer/components/informationProjectRegister')
+  import('modules/customer/containers/registerProjectContainer')
 );
 const progressProject = lazy(() =>
-  import('modules/customer/components/progressProject')
+  import('modules/customer/containers/progressProjectContainer')
 );
 const displayContainer = lazy(() => import('modules/display/components'));
 const displayIdentifiedContainer = lazy(() =>
@@ -116,6 +116,24 @@ const Router = ({ token }: Props) => {
           />
           <PrivateRoute
             exact
+            path={ROUTERS.INFORMATION_NEEDS}
+            component={informationNeeds}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.INFORMATION_PROJECT_REGISTER}
+            component={informationProjectRegister}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.PROGRESS_PROJECT_DETAIL}
+            component={progressProject}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
             path={ROUTERS.POST}
             component={Post}
             isAuthenticated={isAuthenticated}
@@ -154,24 +172,6 @@ const Router = ({ token }: Props) => {
             exact
             path={ROUTERS.PARTNER_MANAGEMENT}
             component={partnerManagement}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.INFORMATION_NEEDS}
-            component={informationNeeds}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.INFORMATION_PROJECT_REGISTER}
-            component={informationProjectRegister}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.PROGRESS_PROJECT}
-            component={progressProject}
             isAuthenticated={isAuthenticated}
           />
           <PrivateRoute
