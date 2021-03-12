@@ -1,7 +1,8 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
+import Immutable from 'seamless-immutable';
 import ReactPaginate from 'react-paginate';
 import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
@@ -9,10 +10,14 @@ import Button from 'commons/components/Button';
 import images from 'themes/images';
 import Table from 'commons/components/Table';
 import { headProgress } from 'constants/itemHead';
-import { headquarters, timeProject } from '../../../mockData/dataSelect';
+import { timeProject } from '../../../mockData/dataSelect';
 import { listDataTableProgress } from '../../../mockData/listDataTable';
 
-const InformationNeeds = () => {
+type Props = {
+  getListProject: Function,
+  listProject: Array<{}>,
+};
+const InformationNeeds = ({ getListProject, listProject }: Props) => {
   const [dataSubmit, setDataSubmit] = useState({
     nameProject: '',
     address: '',
@@ -26,6 +31,10 @@ const InformationNeeds = () => {
     prices: '',
     note: '',
   });
+  useEffect(() => {
+    getListProject();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [sttTime, setSttTime] = useState(0);
   const [progressStart, setProgressStart] = useState(0);
   const [progressEnd, setProgressEnd] = useState(0);
@@ -79,7 +88,7 @@ const InformationNeeds = () => {
           <Col xs={12} md={4}>
             <SelectDropdown
               placeholder="Chọn dự án"
-              listItem={headquarters}
+              listItem={listProject && Immutable.asMutable(listProject)}
               onChange={(e) => {
                 handleChange(e, 'area');
               }}

@@ -43,6 +43,12 @@ import getListCustomerSaga from 'modules/customer/sagas/getListCustomerSaga';
 import getListNameSaga from 'modules/customer/sagas/getListNameIncorSaga';
 import getDetailCustomerSaga from 'modules/customer/sagas/getDetailCustomerSaga';
 import updateCustomerSaga from 'modules/customer/sagas/updateCustomerSaga';
+import getListSpaceTypeSaga from 'modules/customer/sagas/getListSpaceTypeSaga';
+import getListDivisionSaga from 'modules/customer/sagas/getListDivisonSaga';
+import registerProjectSaga from 'modules/customer/sagas/registerProjectSaga';
+import deleteProjectSaga from 'modules/customer/sagas/deleteProjectSaga';
+import getDetailProjectSaga from 'modules/customer/sagas/getDetailProjectSaga';
+import getListProjectSaga from 'modules/customer/sagas/getListProjectSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -88,5 +94,11 @@ export default function* RootSagas() {
     getListNameSaga(),
     getDetailCustomerSaga(),
     updateCustomerSaga(),
+    getListSpaceTypeSaga(),
+    getListDivisionSaga(),
+    registerProjectSaga(),
+    deleteProjectSaga(),
+    getDetailProjectSaga(),
+    getListProjectSaga(),
   ]);
 }

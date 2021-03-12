@@ -1,6 +1,7 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Immutable from 'seamless-immutable';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import SelectDropdown from 'commons/components/Select';
@@ -8,14 +9,39 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import images from 'themes/images';
 import Input from 'commons/components/Input';
-import {
-  headquarters,
-  listSpace,
-  listTypeSpace,
-} from '../../../mockData/dataSelect';
 import { listDataTableCategories } from '../../../mockData/listDataTable';
 
-const InformationNeeds = () => {
+type Props = {
+  getListSpaceType: Function,
+  getListAreas: Function,
+  dataAreas: Array<{}>,
+  listSpaceType: Array<{}>,
+  getListDivision: Function,
+  listDivision: Array<{}>,
+  registerProject: Function,
+  match: {
+    params: {
+      id: string,
+    },
+  },
+  type: string,
+  history: {
+    go: Function,
+  },
+};
+const InformationNeeds = ({
+  getListSpaceType,
+  getListAreas,
+  dataAreas,
+  listSpaceType,
+  getListDivision,
+  listDivision,
+  registerProject,
+  match,
+  type,
+  history,
+}: Props) => {
+  const userId = match.params.id;
   const [chooseCategories, setChooseCategories] = useState('');
   const [dataSubmit, setDataSubmit] = useState({
     nameProject: '',
@@ -31,6 +57,32 @@ const InformationNeeds = () => {
     note: '',
   });
   const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    getListSpaceType();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    getListAreas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (type === 'REGISTER_PROJECT_SUCCESS') {
+      history.go(-1);
+    }
+  }, [history, type]);
+
+  useEffect(() => {
+    if (dataSubmit?.space) {
+      getListDivision({
+        space_type_id: dataSubmit?.space?.id,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataSubmit && dataSubmit.space && dataSubmit.space.id]);
+
   const handleChange = (value, name) => {
     setDataSubmit({
       ...dataSubmit,
@@ -41,6 +93,14 @@ const InformationNeeds = () => {
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    setDataSubmit({
+      ...dataSubmit,
+      typeSpace: null,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataSubmit && dataSubmit.space && dataSubmit.space.id]);
 
   const renderTable =
     listDataTableCategories &&
@@ -65,6 +125,17 @@ const InformationNeeds = () => {
         </div>
       </div>
     ));
+
+  const handleRegister = () => {
+    registerProject({
+      name: dataSubmit.nameProject,
+      user_id: userId,
+      address: dataSubmit.address,
+      area_id: dataSubmit?.area?.id,
+      space_type_id: dataSubmit?.space?.id,
+      space_division_id: dataSubmit?.typeSpace?.id,
+    });
+  };
   return (
     <MainLayout activeMenu={4}>
       <Container fluid>
@@ -97,7 +168,7 @@ const InformationNeeds = () => {
           <Col xs={12} md={3}>
             <SelectDropdown
               placeholder="Chọn tỉnh/thành phố"
-              listItem={headquarters}
+              listItem={dataAreas && Immutable.asMutable(dataAreas)}
               onChange={(e) => {
                 handleChange(e, 'area');
               }}
@@ -109,7 +180,7 @@ const InformationNeeds = () => {
           <Col xs={12} md={6}>
             <SelectDropdown
               placeholder=""
-              listItem={listSpace}
+              listItem={listSpaceType && Immutable.asMutable(listSpaceType)}
               onChange={(e) => {
                 handleChange(e, 'space');
               }}
@@ -121,17 +192,18 @@ const InformationNeeds = () => {
           <Col xs={12} md={6}>
             <SelectDropdown
               placeholder=""
-              listItem={listTypeSpace}
+              listItem={listDivision && Immutable.asMutable(listDivision)}
               onChange={(e) => {
                 handleChange(e, 'typeSpace');
               }}
               option={dataSubmit.typeSpace}
               customClass="select-headquarters"
               label="Loại hình không gian"
+              disabled={dataSubmit.space === null}
             />
           </Col>
           <Col xs={12} md={12} className="action-delete">
-            <Button customClass="button--primary" onClick={() => {}}>
+            <Button customClass="button--primary" onClick={handleRegister}>
               <p>LƯU THAY ĐỔI</p>
             </Button>
           </Col>
