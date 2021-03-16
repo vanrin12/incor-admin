@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
     dataDetailPartnerProduct: state.partnerReducer.dataDetailPartnerProduct,
     dataDetailPartnerConstruction:
       state.partnerReducer.dataDetailPartnerConstruction,
+    totalQuotes: state.partnerReducer.totalQuotes,
   };
 };
 

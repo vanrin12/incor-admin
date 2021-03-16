@@ -48,6 +48,7 @@ type Props = {
   getDetailPartnerConstruction: Function,
   updatePartnerConstruction: Function,
   dataDetailPartnerConstruction: Object,
+  totalQuotes: number,
 };
 
 const Customer = ({
@@ -75,6 +76,7 @@ const Customer = ({
   getDetailPartnerConstruction,
   updatePartnerConstruction,
   dataDetailPartnerConstruction,
+  totalQuotes,
 }: Props) => {
   const partnerId = match.params.id;
   const [isShowEdit, setIsShowEdit] = useState(false);
@@ -482,6 +484,7 @@ const Customer = ({
                   headPartnerManagement={headPartnerManagement}
                   dataQuotes={dataQuotes}
                   handleSearchCompany={handleSearchCompany}
+                  totalQuotes={totalQuotes}
                 />
               </Tab>
               <Tab eventKey="tab2" title="Sản phẩm">

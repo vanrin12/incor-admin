@@ -21,6 +21,7 @@ type Props = {
   dataQuotes: Array<{
     id: number,
   }>,
+  totalQuotes: number,
 };
 
 const ItemPartner = ({
@@ -28,6 +29,7 @@ const ItemPartner = ({
   handleSearchCompany,
   headPartnerManagement,
   dataQuotes,
+  totalQuotes,
 }: Props) => {
   const [keySearch, setKeySearch] = useState('');
   return (
@@ -67,7 +69,7 @@ const ItemPartner = ({
           previousLabel="Previous"
           nextLabel="Next"
           breakLabel={<span className="gap">...</span>}
-          // pageCount={Math.ceil(totalRows / params.pageSize)}
+          pageCount={Math.ceil(totalQuotes / 10)}
           // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
           forcePage={0}
           containerClassName="pagination"
