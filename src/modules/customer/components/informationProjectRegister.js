@@ -3,13 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import Immutable from 'seamless-immutable';
 import { Row, Col, Container } from 'react-bootstrap';
-import ReactPaginate from 'react-paginate';
 import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import images from 'themes/images';
 import Input from 'commons/components/Input';
-import { listDataTableCategories } from '../../../mockData/listDataTable';
 
 type Props = {
   getListSpaceType: Function,
@@ -28,6 +26,9 @@ type Props = {
   history: {
     go: Function,
   },
+  registerProjectItem: Function,
+  projectId: any,
+  resetData: Function,
 };
 const InformationNeeds = ({
   getListSpaceType,
@@ -40,9 +41,11 @@ const InformationNeeds = ({
   match,
   type,
   history,
+  registerProjectItem,
+  projectId,
+  resetData,
 }: Props) => {
   const userId = match.params.id;
-  const [chooseCategories, setChooseCategories] = useState('');
   const [dataSubmit, setDataSubmit] = useState({
     nameProject: '',
     address: '',
@@ -59,6 +62,17 @@ const InformationNeeds = ({
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
+    if (
+      window.msPerformance ||
+      window.webkitPerformance ||
+      window.performance
+    ) {
+      resetData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     getListSpaceType();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -69,7 +83,7 @@ const InformationNeeds = ({
   }, []);
 
   useEffect(() => {
-    if (type === 'REGISTER_PROJECT_SUCCESS') {
+    if (type === 'REGISTER_PROJECT_ITEM_SUCCESS') {
       history.go(-1);
     }
   }, [history, type]);
@@ -102,30 +116,6 @@ const InformationNeeds = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataSubmit && dataSubmit.space && dataSubmit.space.id]);
 
-  const renderTable =
-    listDataTableCategories &&
-    listDataTableCategories.map((item) => (
-      <div
-        className={`custom-body ${
-          chooseCategories === item.id ? 'active' : ''
-        }`}
-        onClick={() => setChooseCategories(item.id)}
-        role="button"
-        tabIndex={0}
-        onKeyDown={() => {}}
-      >
-        <div className="custom-body__item">{item.categories}</div>
-        <div className="custom-body__item">{item.description}</div>
-        <div className="custom-body__item">{item.total}</div>
-        <div className="custom-body__item">{item.dvt}</div>
-        <div className="custom-body__item">{item.note}</div>
-        <div className="action-category">
-          <div className="edit-categories">Chỉnh sửa</div>
-          <div className="cancel-categories">Loại bỏ</div>
-        </div>
-      </div>
-    ));
-
   const handleRegister = () => {
     registerProject({
       name: dataSubmit.nameProject,
@@ -134,6 +124,17 @@ const InformationNeeds = ({
       area_id: dataSubmit?.area?.id,
       space_type_id: dataSubmit?.space?.id,
       space_division_id: dataSubmit?.typeSpace?.id,
+    });
+  };
+
+  const handleRegisterProjectItem = () => {
+    registerProjectItem({
+      name: dataSubmit.nameProject,
+      project_id: projectId,
+      description: dataAddCategories.description,
+      amount: total,
+      unit: dataAddCategories?.dvt,
+      note: dataAddCategories?.note,
     });
   };
   return (
@@ -224,6 +225,7 @@ const InformationNeeds = ({
                   }}
                   value={dataAddCategories.nameCategories}
                   placeholder="Nhập tên"
+                  disabled={projectId === ''}
                 />
               </div>
               <div className="custom-body__item">
@@ -233,6 +235,7 @@ const InformationNeeds = ({
                   }}
                   value={dataAddCategories.description}
                   placeholder="Nhập mô tả"
+                  disabled={projectId === ''}
                 />
               </div>
               <div className="custom-body__item action">
@@ -240,7 +243,7 @@ const InformationNeeds = ({
                   src={images.iconBack}
                   alt=""
                   className="action-increase"
-                  onClick={() => setTotal(total + 1)}
+                  onClick={() => projectId !== '' && setTotal(total + 1)}
                   role="presentation"
                 />
                 <p>{total}</p>
@@ -248,7 +251,9 @@ const InformationNeeds = ({
                   src={images.iconBack}
                   alt=""
                   className="action__reduction"
-                  onClick={() => total !== 0 && setTotal(total - 1)}
+                  onClick={() =>
+                    total !== 0 && projectId !== '' && setTotal(total - 1)
+                  }
                   role="presentation"
                 />
               </div>
@@ -259,6 +264,7 @@ const InformationNeeds = ({
                   }}
                   value={dataAddCategories.dvt}
                   placeholder="Nhập đơn vị tính"
+                  disabled={projectId === ''}
                 />
               </div>
               <div className="custom-body__item">
@@ -268,46 +274,24 @@ const InformationNeeds = ({
                   }}
                   value={dataAddCategories.note}
                   placeholder="Nhập Ghi chú"
+                  disabled={projectId === ''}
                 />
               </div>
             </div>
           </Col>
           <Col xs={12} md={12} className="action-delete">
-            <Button customClass="button--primary" onClick={() => {}}>
+            <Button
+              customClass="button--primary"
+              onClick={handleRegisterProjectItem}
+              isDisabled={
+                dataAddCategories.nameCategories.length === 0 ||
+                dataAddCategories.description.length === 0 ||
+                total === 0 ||
+                dataAddCategories.dvt.length === 0
+              }
+            >
               <p>THÊM MỚI</p>
             </Button>
-          </Col>
-          <Col xs={12} md={12} className="table-categories">
-            <div className="custom-head">
-              <p>Tên hạng mục</p>
-              <p>Mô tả kỹ thuật</p>
-              <p>Số lượng</p>
-              <p>ĐVT</p>
-              <p>Ghi chú</p>
-            </div>
-            {renderTable}
-          </Col>
-          <Col sm={12} className="wrapper-pagination">
-            <ReactPaginate
-              previousLabel="Previous"
-              nextLabel="Next"
-              breakLabel={<span className="gap">...</span>}
-              // pageCount={Math.ceil(totalRows / params.pageSize)}
-              // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-              forcePage={0}
-              containerClassName="pagination"
-              disabledClassName="disabled"
-              activeClassName="active"
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              marginPagesDisplayed={1}
-              nextLinkClassName="page-link"
-            />
           </Col>
         </Row>
       </Container>

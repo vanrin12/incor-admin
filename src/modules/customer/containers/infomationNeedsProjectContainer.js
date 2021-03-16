@@ -24,6 +24,7 @@ const mapDispatchToProps = (dispatch) =>
       getListAreas: partnerReducer.getListAreas,
       getListSpaceType: Creators.getListSpaceType,
       getListDivision: Creators.getListDivision,
+      registerProjectItem: Creators.registerProjectItem,
     },
     dispatch
   );

@@ -35,6 +35,19 @@ export const { Types, Creators } = createActions({
   getListProject: null,
   getListProjectSuccess: null,
   getListProjectFailed: null,
+  getListConstructionCustomer: ['id'],
+  getListConstructionCustomerSuccess: null,
+  getListConstructionCustomerFailed: null,
+  registerConstructionCustomer: ['data'],
+  registerConstructionCustomerSuccess: null,
+  registerConstructionCustomerFailed: null,
+  registerProjectItem: ['data'],
+  registerProjectItemSuccess: null,
+  registerProjectItemFailed: null,
+  resetData: null,
+  updateProjectItem: ['id', 'data'],
+  updateProjectItemSuccess: null,
+  updateProjectItemFailed: null,
 });
 
 // Initial state
@@ -48,6 +61,10 @@ export const INITIAL_STATE = Immutable({
   listDivision: [],
   dataDetailProject: {},
   listProject: [],
+  listConstructionCustomer: {},
+  listTableConstruction: [],
+  totalConstruction: 0,
+  projectId: '',
 });
 
 const getListCustomer = (state, action) => {
@@ -216,6 +233,7 @@ const registerProjectSuccess = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
+    projectId: action.data.customer.id,
   });
 };
 
@@ -296,6 +314,114 @@ const getListProjectFailed = (state, action) => {
   });
 };
 
+const getListConstructionCustomer = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const getListConstructionCustomerSuccess = (state, action) => {
+  const listTableConstruction =
+    action.data &&
+    action.data[0] &&
+    action.data[0].item &&
+    action.data[0].item.data.map((item) => ({
+      id: item.id,
+      categories: item.category,
+      description: item.description,
+      total: item.amount,
+      time: `${item.estimate} ${item.unit}`,
+      progress: `${item.progress_begin} / ${item.progress_end}`,
+      price: item.paid,
+      prices: item.amount - item.paid,
+      note: item.note,
+    }));
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    listConstructionCustomer: action.data && action.data[0],
+    listTableConstruction,
+    totalConstruction: action?.data[0]?.item?.total,
+  });
+};
+
+const getListConstructionCustomerFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const registerConstructionCustomer = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const registerConstructionCustomerSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const registerConstructionCustomerFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const registerProjectItem = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const registerProjectItemSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const registerProjectItemFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updateProjectItem = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const updateProjectItemSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updateProjectItemFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const resetData = (state) => {
+  return state.merge({
+    projectId: '',
+  });
+};
+
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_LIST_CUSTOMER]: getListCustomer,
@@ -337,6 +463,24 @@ const HANDLERS = {
   [Types.GET_LIST_PROJECT]: getListProject,
   [Types.GET_LIST_PROJECT_SUCCESS]: getListProjectSuccess,
   [Types.GET_LIST_PROJECT_FAILED]: getListProjectFailed,
+
+  [Types.GET_LIST_CONSTRUCTION_CUSTOMER]: getListConstructionCustomer,
+  [Types.GET_LIST_CONSTRUCTION_CUSTOMER_SUCCESS]: getListConstructionCustomerSuccess,
+  [Types.GET_LIST_CONSTRUCTION_CUSTOMER_FAILED]: getListConstructionCustomerFailed,
+
+  [Types.REGISTER_CONSTRUCTION_CUSTOMER]: registerConstructionCustomer,
+  [Types.REGISTER_CONSTRUCTION_CUSTOMER_SUCCESS]: registerConstructionCustomerSuccess,
+  [Types.REGISTER_CONSTRUCTION_CUSTOMER_FAILED]: registerConstructionCustomerFailed,
+
+  [Types.REGISTER_PROJECT_ITEM]: registerProjectItem,
+  [Types.REGISTER_PROJECT_ITEM_SUCCESS]: registerProjectItemSuccess,
+  [Types.REGISTER_PROJECT_ITEM_FAILED]: registerProjectItemFailed,
+
+  [Types.UPDATE_PROJECT_ITEM]: updateProjectItem,
+  [Types.UPDATE_PROJECT_ITEM_SUCCESS]: updateProjectItemSuccess,
+  [Types.UPDATE_PROJECT_ITEM_FAILED]: updateProjectItemFailed,
+
+  [Types.RESET_DATA]: resetData,
 };
 
 // Create reducers by pass state and handlers

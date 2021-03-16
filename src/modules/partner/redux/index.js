@@ -70,6 +70,7 @@ export const INITIAL_STATE = Immutable({
   dataDetailPartnerProduct: {},
   dataDetailPartnerConstruction: {},
   totalPartnerManagement: '',
+  totalQuotes: '',
 });
 
 const getListPartner = (state, action) => {
@@ -308,6 +309,7 @@ const getListPartnerQuoteSuccess = (state, action) => {
     isProcessing: false,
     type: action.type,
     dataQuotes,
+    totalQuotes: action.data.quotes.total,
   });
 };
 
