@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
     dataAreas: state.partnerReducer.dataAreas,
     listSpaceType: state.customerReducer.listSpaceType,
     listDivision: state.customerReducer.listDivision,
+    projectId: state.customerReducer.projectId,
   };
 };
 
@@ -25,6 +26,8 @@ const mapDispatchToProps = (dispatch) =>
       getListSpaceType: Creators.getListSpaceType,
       getListDivision: Creators.getListDivision,
       registerProject: Creators.registerProject,
+      registerProjectItem: Creators.registerProjectItem,
+      resetData: Creators.resetData,
     },
     dispatch
   );

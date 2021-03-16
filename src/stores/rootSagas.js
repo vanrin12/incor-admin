@@ -49,6 +49,10 @@ import registerProjectSaga from 'modules/customer/sagas/registerProjectSaga';
 import deleteProjectSaga from 'modules/customer/sagas/deleteProjectSaga';
 import getDetailProjectSaga from 'modules/customer/sagas/getDetailProjectSaga';
 import getListProjectSaga from 'modules/customer/sagas/getListProjectSaga';
+import getListConstructionCustomerSaga from 'modules/customer/sagas/getListConstructionSaga';
+import registerConstructionCustomerSaga from 'modules/customer/sagas/registerConstructionCustomerSaga';
+import registerProjectItemSaga from 'modules/customer/sagas/registerProjectItemSaga';
+import updateProjectItemSaga from 'modules/customer/sagas/updateProjectItemSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -100,5 +104,9 @@ export default function* RootSagas() {
     deleteProjectSaga(),
     getDetailProjectSaga(),
     getListProjectSaga(),
+    getListConstructionCustomerSaga(),
+    registerConstructionCustomerSaga(),
+    registerProjectItemSaga(),
+    updateProjectItemSaga(),
   ]);
 }

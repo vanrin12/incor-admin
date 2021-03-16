@@ -52,6 +52,14 @@ export const ROUTES = {
   API_DELETE_PROJECT: (id) => `/api/v1/admin/customers/project/${id}`,
   API_GET_DETAIL_PROJECT: (id) => `/api/v1/admin/customers/${id}/project`,
   API_GET_LIST_PROJECT: `/api/v1/site/projects`,
+  API_GET_LIST_CONSTRUCTION_CUSTOMER: (id) =>
+    `/api/v1/admin/customers/construction-items/${id}`,
+  API_REGISTER_CONSTRUCTION_CUSTOMER: `/api/v1/admin/customers/construction-items`,
+  API_REGISTER_PROJECT_ITEM: `/api/v1/admin/customers/project-items`,
+  API_GET_DETAIL_CONSTRUCTION_CUSTOMER: (id) =>
+    `/api/v1/admin/customers/construction-items/${id}`,
+  API_UPDATE_PROJECT_ITEM: (id) =>
+    `/api/v1/admin/customers/project-items/${id}`,
 };
 
 export const API = create({
