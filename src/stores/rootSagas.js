@@ -54,6 +54,13 @@ import registerConstructionCustomerSaga from 'modules/customer/sagas/registerCon
 import registerProjectItemSaga from 'modules/customer/sagas/registerProjectItemSaga';
 import updateProjectItemSaga from 'modules/customer/sagas/updateProjectItemSaga';
 
+import updateAboutUsSaga from 'modules/display/sagas/updateAboutUsSaga';
+
+import getAboutUsSaga from 'modules/display/sagas/getDataAboutUsSaga';
+
+import getCustomerExperiencesSaga from 'modules/display/sagas/getCustomerSaga';
+import updateCustomerExpSaga from 'modules/display/sagas/updateCustomerSaga';
+
 export default function* RootSagas() {
   yield all([
     getDataMainSaga(),
@@ -108,5 +115,10 @@ export default function* RootSagas() {
     registerConstructionCustomerSaga(),
     registerProjectItemSaga(),
     updateProjectItemSaga(),
+
+    updateAboutUsSaga(),
+    getAboutUsSaga(),
+    getCustomerExperiencesSaga(),
+    updateCustomerExpSaga(),
   ]);
 }

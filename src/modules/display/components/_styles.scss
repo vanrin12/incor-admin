@@ -86,6 +86,8 @@
     padding: pxToRem(13);
     outline: pxToRem(2) dashed $color-border-box;
     text-align: center;
+    background-position: center center;
+    background-size: cover;
 
     .box__file {
       width: 0.1px;
@@ -106,7 +108,7 @@
   textarea {
     width: 100%;
     border: pxToRem(1) solid $color-border;
-    line-height: pxToRem(36);
+    line-height: 1.4;
     display: block;
     font-size: pxToRem(16);
     padding-left: pxToRem(10);
@@ -119,6 +121,7 @@
     text-overflow: ellipsis;
     font-weight: $regular;
     margin-bottom: pxToRem(30);
+    white-space: pre-line;
 
     &::placeholder {
       color: $color-placeholder;
