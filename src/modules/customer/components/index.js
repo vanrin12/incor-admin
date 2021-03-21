@@ -2,6 +2,7 @@
 
 import React, { useState, memo, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
+import moment from 'moment';
 import Immutable from 'seamless-immutable';
 import DatePicker from 'react-datepicker';
 import SelectDropdown from 'commons/components/Select';
@@ -10,10 +11,9 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Table from 'commons/components/Table';
 import Input from 'commons/components/Input';
+import Loading from 'commons/components/Loading';
 import ROUTERS from 'constants/router';
 import { headCustomer } from 'constants/itemHead';
-import { listDataCustomer } from '../../../mockData/listDataTable';
-import { job } from '../../../mockData/dataSelect';
 
 type Props = {
   history: {
@@ -21,9 +21,27 @@ type Props = {
   },
   getListAreas: Function,
   dataAreas: Array<{}>,
+  getListName: Function,
+  listName: Array<{}>,
+  getListCustomer: Function,
+  totalCustomer: number,
+  dataCustomer: Array<{
+    id: number,
+  }>,
+  isProcessing: boolean,
 };
 
-const Customer = ({ history, getListAreas, dataAreas }: Props) => {
+const Customer = ({
+  history,
+  getListAreas,
+  dataAreas,
+  getListName,
+  listName,
+  getListCustomer,
+  totalCustomer,
+  dataCustomer,
+  isProcessing,
+}: Props) => {
   const [createDate, setCreateDate] = useState(null);
   const [dataFilter, setDataFilter] = useState({
     areas: null,
@@ -31,10 +49,29 @@ const Customer = ({ history, getListAreas, dataAreas }: Props) => {
     vote: null,
   });
   const [keySearch, setKeySearch] = useState('');
+  const [params, setParams] = useState({
+    page: 1,
+    area_id: dataFilter?.areas?.id,
+    name_incor: dataFilter?.job?.value,
+    keywords: keySearch,
+    date: createDate,
+  });
   useEffect(() => {
     getListAreas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    getListName();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    getListCustomer({
+      page: 1,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleDateChange = (date) => {
     setCreateDate(date);
   };
@@ -50,6 +87,26 @@ const Customer = ({ history, getListAreas, dataAreas }: Props) => {
   const handleViewInformation = (item) => {
     history.push(`${ROUTERS.INFORMATION}/${item?.id}`);
   };
+
+  const handleClickBtnDetail = (item) => {
+    history.push(`${ROUTERS.PROGRESS_PROJECT}/${item?.id}`);
+  };
+
+  const handleSelectPagination = (eventKey) => {
+    setParams({ ...params, page: eventKey.selected + 1 });
+    const paramsRequest = { ...params, page: eventKey.selected + 1 };
+    getListCustomer(paramsRequest);
+  };
+
+  const handleFilterCustomer = () => {
+    getListCustomer({
+      area_id: dataFilter?.areas?.id,
+      name_incor: dataFilter?.job?.value,
+      keywords: keySearch,
+      date: createDate && moment(createDate).format('YYYY-MM-DD'),
+    });
+  };
+
   return (
     <MainLayout activeMenu={4}>
       <Container fluid>
@@ -75,14 +132,17 @@ const Customer = ({ history, getListAreas, dataAreas }: Props) => {
               />
               <SelectDropdown
                 placeholder="Kinh doanh"
-                listItem={job}
+                listItem={listName && Immutable.asMutable(listName)}
                 onChange={(e) => {
                   handleChange(e, 'job');
                 }}
                 option={dataFilter.job}
                 customClass="select-job"
               />
-              <Button customClass="button--primary" onClick={() => {}}>
+              <Button
+                customClass="button--primary"
+                onClick={handleFilterCustomer}
+              >
                 FILTER
               </Button>
             </div>
@@ -97,46 +157,56 @@ const Customer = ({ history, getListAreas, dataAreas }: Props) => {
                 maxLength="20"
                 value={keySearch}
               />
-              <Button customClass="button--primary" onClick={() => {}}>
+              <Button
+                customClass="button--primary"
+                onClick={handleFilterCustomer}
+              >
                 <p>TÌM</p>
               </Button>
             </div>
           </Col>
-          <Col xs={12} md={12} className="table-page table-partner">
-            <Table
-              tableHeads={headCustomer}
-              tableBody={listDataCustomer}
-              showLabel
-              isShowId
-              isShowColumnBtn1
-              nameBtn1="Quản lý"
-              isShowColumnBtn
-              nameBtn2="Quản lý"
-              handleClickBtnView={handleViewInformation}
-            />
-          </Col>
-          <Col sm={12} className="wrapper-pagination">
-            <ReactPaginate
-              previousLabel="Previous"
-              nextLabel="Next"
-              breakLabel={<span className="gap">...</span>}
-              // pageCount={Math.ceil(totalRows / params.pageSize)}
-              // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-              forcePage={0}
-              containerClassName="pagination"
-              disabledClassName="disabled"
-              activeClassName="active"
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              marginPagesDisplayed={1}
-              nextLinkClassName="page-link"
-            />
-          </Col>
+          {isProcessing ? (
+            <Loading />
+          ) : (
+            <>
+              <Col xs={12} md={12} className="table-page table-partner">
+                <Table
+                  tableHeads={headCustomer}
+                  tableBody={dataCustomer}
+                  showLabel
+                  isShowId
+                  isShowColumnBtn1
+                  nameBtn1="Quản lý"
+                  isShowColumnBtn
+                  nameBtn2="Quản lý"
+                  handleClickBtnView={handleViewInformation}
+                  handleClickBtnDetail={handleClickBtnDetail}
+                />
+              </Col>
+              <Col sm={12} className="wrapper-pagination">
+                <ReactPaginate
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  breakLabel={<span className="gap">...</span>}
+                  pageCount={Math.ceil(totalCustomer / 10)}
+                  onPageChange={(eventKey) => handleSelectPagination(eventKey)}
+                  forcePage={params.page - 1 || 0}
+                  containerClassName="pagination"
+                  disabledClassName="disabled"
+                  activeClassName="active"
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  marginPagesDisplayed={1}
+                  nextLinkClassName="page-link"
+                />
+              </Col>
+            </>
+          )}
         </Row>
       </Container>
     </MainLayout>

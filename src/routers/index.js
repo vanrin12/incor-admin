@@ -26,7 +26,7 @@ const Customer = lazy(() =>
   import('modules/customer/containers/customerContainer')
 );
 const CustomerInfo = lazy(() =>
-  import('modules/customer/components/informationNeedsProject')
+  import('modules/customer/containers/infomationNeedsProjectContainer')
 );
 const Post = lazy(() => import('modules/post/containers/postContainer'));
 const RegisterPost = lazy(() =>
@@ -46,13 +46,13 @@ const partnerManagement = lazy(() =>
   import('modules/partner/containers/partnerManagementContainer')
 );
 const informationNeeds = lazy(() =>
-  import('modules/customer/components/infomationNeeds')
+  import('modules/customer/containers/customerDetailContainer')
 );
 const informationProjectRegister = lazy(() =>
-  import('modules/customer/components/informationProjectRegister')
+  import('modules/customer/containers/registerProjectContainer')
 );
 const progressProject = lazy(() =>
-  import('modules/customer/components/progressProject')
+  import('modules/customer/containers/progressProjectContainer')
 );
 const displayContainer = lazy(() => import('modules/display/components'));
 const displayIdentifiedContainer = lazy(() =>
@@ -62,7 +62,27 @@ const displayMainContainer = lazy(() =>
   import('modules/display/components/main')
 );
 const displaySaleContainer = lazy(() =>
-  import('modules/display/components/sale')
+  import('modules/display/containers/sale')
+);
+const AboutUsContainer = lazy(() => import('modules/display/containers'));
+
+const displayMediaContainer = lazy(() =>
+  import('modules/media/containers/index')
+);
+const CustomerContainer = lazy(() =>
+  import('modules/display/containers/customer')
+);
+
+const displayHeaderContainer = lazy(() =>
+  import('modules/display/containers/displayHeaderContainer')
+);
+
+const displayHeaderIntroduceContainer = lazy(() =>
+  import('modules/display/containers/displayHeaderIntroduceContainer')
+);
+
+const displayFooterContainer = lazy(() =>
+  import('modules/display/containers/displayFooterContainer')
 );
 
 type Props = {
@@ -80,6 +100,11 @@ const Router = ({ token }: Props) => {
     <BrowserRouter>
       <Suspense>
         <Switch>
+          <Route
+            exact
+            path={ROUTERS.MAIN_MEDIA}
+            component={displayMediaContainer}
+          />
           <Route exact path={ROUTERS.LOGIN} component={loginContainer} />
           <PrivateRoute
             exact
@@ -103,6 +128,24 @@ const Router = ({ token }: Props) => {
             exact
             path={ROUTERS.CUSTOMER_INFORMATION}
             component={CustomerInfo}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.INFORMATION_NEEDS}
+            component={informationNeeds}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.INFORMATION_PROJECT_REGISTER}
+            component={informationProjectRegister}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.PROGRESS_PROJECT_DETAIL}
+            component={progressProject}
             isAuthenticated={isAuthenticated}
           />
           <PrivateRoute
@@ -149,26 +192,26 @@ const Router = ({ token }: Props) => {
           />
           <PrivateRoute
             exact
-            path={ROUTERS.INFORMATION_NEEDS}
-            component={informationNeeds}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.INFORMATION_PROJECT_REGISTER}
-            component={informationProjectRegister}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.PROGRESS_PROJECT}
-            component={progressProject}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
             path={ROUTERS.DISPLAY}
             component={displayContainer}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.DISPLAY_HEADER_INTRODUCE}
+            component={displayHeaderIntroduceContainer}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.DISPLAY_HEADER}
+            component={displayHeaderContainer}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.DISPLAY_FOOTER}
+            component={displayFooterContainer}
             isAuthenticated={isAuthenticated}
           />
           <PrivateRoute
@@ -183,6 +226,20 @@ const Router = ({ token }: Props) => {
             component={displayMainContainer}
             isAuthenticated={isAuthenticated}
           />
+          <PrivateRoute
+            exact
+            path={ROUTERS.ABOUT_US}
+            component={AboutUsContainer}
+            isAuthenticated={isAuthenticated}
+          />
+
+          <PrivateRoute
+            exact
+            path={ROUTERS.CUSTOMER_EXP}
+            component={CustomerContainer}
+            isAuthenticated={isAuthenticated}
+          />
+
           <PrivateRoute
             exact
             path={ROUTERS.DISPLAY_SALE}

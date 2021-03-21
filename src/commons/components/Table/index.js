@@ -80,7 +80,7 @@ const TableData = ({
     return (
       <tr className="p-3 text-center table-no-data w-100">
         <td colSpan={tableHeads && tableHeads.length}>
-          <p className="mb-0">데이터가 존재하지 않습니다.</p>
+          <p className="mb-0">KHÔNG CÓ DỮ LIỆU.</p>
         </td>
       </tr>
     );

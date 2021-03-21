@@ -71,7 +71,7 @@
       border-top:  solid pxToVW(1) $color-border;
       border-bottom:  solid pxToVW(1) $color-border;
       &__username{
-        font-weight: $bold;
+        // font-weight: $bold;
       }
 
       &__info{
@@ -161,4 +161,11 @@
       cursor: pointer;
     }
   }
+}
+
+.no-data {
+  font-size: pxToVW(13);
+  font-weight: $medium;
+  margin: 0 auto;
+  text-align: center;
 }

@@ -22,6 +22,7 @@ const mapDispatchToProps = (dispatch) =>
       getListAreas: Creators.getListAreas,
       getListConstant: Creators.getListConstant,
       getListPartner: Creators.getListPartner,
+      deletePartner: Creators.deletePartner,
     },
     dispatch
   );

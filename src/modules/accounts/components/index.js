@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // @flow
 
-import React, { useState, memo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,18 +13,15 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
-import ROUTERS from 'constants/router';
+// import ROUTERS from 'constants/router';
 import { headAccount } from 'constants/itemHead';
+import listActions from 'constants/actions';
+
 // import { headquarters, vote, role } from '../../../mockData/dataSelect';
 // import { listDataAccount } from '../../../mockData/listDataTable';
-import { getListUser, getUserRoles } from '../redux';
+import { getListUser, getUserRoles, createUser } from '../redux';
 
-type Props = {
-  history: {
-    push: Function,
-  },
-};
-const Post = ({ history }: Props) => {
+const Account = () => {
   const dispatch = useDispatch();
   const { userList, listRoles } = useSelector((state) => state?.account);
   const [createDate, setCreateDate] = useState(null);
@@ -100,8 +97,7 @@ const Post = ({ history }: Props) => {
       })
     );
   };
-  console.log(listRoles);
-  console.log(dataFilter);
+
   console.log('data submit', dataSubmit);
 
   const dataUserFormat =
@@ -113,6 +109,16 @@ const Post = ({ history }: Props) => {
       role_name: item.role_name,
       created_at: moment(item.created_at).format('HH:SS MM/DD/YYYY'),
     }));
+
+  const handleCreateUser = () => {
+    dispatch(
+      createUser({
+        name: dataSubmit.name,
+        roleName: dataSubmit?.role?.value,
+        userList,
+      })
+    );
+  };
 
   return (
     <MainLayout activeMenu={5}>
@@ -149,26 +155,39 @@ const Post = ({ history }: Props) => {
               customClass="name-account"
             />
             <p className="suggestions">Viết in hoa, tiếng việt có dấu</p>
+
             <SelectDropdown
               placeholder="Chọn vai trò"
               listItem={listRoles}
               onChange={(e) => {
                 handleChange(e, 'role');
               }}
-              option={dataSubmit.role}
+              option={dataFilter.roleFilter}
               customClass="select-role"
               label="Vai trò"
             />
-            <Button
-              customClass="button--primary"
-              onClick={() => history.push(ROUTERS.REGISTER_CATEGORY_POST)}
-            >
+            <Button customClass="button--primary" onClick={handleCreateUser}>
               TẠO TÀI KHOẢN
             </Button>
           </Col>
           <Col xs={12} md={8}>
             <Col xs={12} md={12} className="form-search">
               <div className="form-search__left">
+                <SelectDropdown
+                  placeholder="Action"
+                  listItem={listActions}
+                  onChange={(e) => {
+                    handleChange(e, 'roleFilter');
+                  }}
+                  option={dataFilter.roleFilter}
+                  customClass="select-headquarters"
+                />
+                <Button
+                  customClass="button--primary mr-5"
+                  onClick={handleFilter}
+                >
+                  APPLY
+                </Button>
                 <SelectDropdown
                   placeholder="Vai trò"
                   listItem={listRoles}
@@ -182,6 +201,7 @@ const Post = ({ history }: Props) => {
                   selected={createDate}
                   // onSelect={handleDateSelect} //when day is clicked
                   onChange={(date) => handleDateChange(date)}
+                  placeholderText="Thời Gian Tạo"
                 />
                 {/* <SelectDropdown
                   placeholder="Thời gian tạo"
@@ -245,4 +265,4 @@ const Post = ({ history }: Props) => {
   );
 };
 
-export default memo<Props>(Post);
+export default Account;

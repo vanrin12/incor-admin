@@ -2,17 +2,17 @@
 
 import React, { useState, useRef, memo, useEffect } from 'react';
 import { Row, Col, Container, Tabs, Tab } from 'react-bootstrap';
+import Immutable from 'seamless-immutable';
 import SelectDropdown from 'commons/components/Select';
-import ReactPaginate from 'react-paginate';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
-import Table from 'commons/components/Table';
 import Input from 'commons/components/Input';
-import Modal from 'commons/components/Modal';
 import IMAGES from 'themes/images';
 import Loading from 'commons/components/Loading';
 import { headPartnerManagement } from 'constants/itemHead';
-import { headquarters, job, vote } from '../../../mockData/dataSelect';
+import ItemPartnerManagement from './Item/itemPartnerManagement';
+import ItemPartnerProduct from './Item/itemPartnerProduct';
+import ItemPartnerConstruction from './Item/itemPartnerConstruction';
 
 type Props = {
   isProcessing: boolean,
@@ -20,14 +20,8 @@ type Props = {
   dataQuotes: Array<{
     id: number,
   }>,
-  dataProducts: Array<{
-    name: string,
-    image: string,
-  }>,
-  dataConstructions: Array<{
-    name: string,
-    image: string,
-  }>,
+  dataProducts: Object,
+  dataConstructions: Object,
   // totalPartnerManagement: number,
   dataPartnerManagement: Object,
   match: {
@@ -35,6 +29,26 @@ type Props = {
       id: string,
     },
   },
+  registerPartnerCompany: Function,
+  dataConstant: Array<{}>,
+  getListScales: Function,
+  dataScales: Array<{
+    id: number,
+    value: string,
+  }>,
+  type: string,
+  getListConstruction: Function,
+  getListPartnerProduct: Function,
+  registerPartnerProduct: Function,
+  registerPartnerConstruction: Function,
+  getListPartnerQuote: Function,
+  getDetailPartnerProduct: Function,
+  dataDetailPartnerProduct: Object,
+  updatePartnerProduct: Function,
+  getDetailPartnerConstruction: Function,
+  updatePartnerConstruction: Function,
+  dataDetailPartnerConstruction: Object,
+  totalQuotes: number,
 };
 
 const Customer = ({
@@ -46,52 +60,146 @@ const Customer = ({
   // totalPartnerManagement,
   dataPartnerManagement,
   match,
+  registerPartnerCompany,
+  dataConstant,
+  getListScales,
+  dataScales,
+  type,
+  getListConstruction,
+  getListPartnerProduct,
+  registerPartnerProduct,
+  registerPartnerConstruction,
+  getListPartnerQuote,
+  getDetailPartnerProduct,
+  dataDetailPartnerProduct,
+  updatePartnerProduct,
+  getDetailPartnerConstruction,
+  updatePartnerConstruction,
+  dataDetailPartnerConstruction,
+  totalQuotes,
 }: Props) => {
   const partnerId = match.params.id;
-  const [isOpenAddConstruction, setIsOpenAddConstruction] = useState(false);
+  const [isShowEdit, setIsShowEdit] = useState(false);
   const [isShowDetailConstruction, setIsShowDetailConstruction] = useState(
     false
   );
+  const [dataManagement, setDataManagement] = useState(dataPartnerManagement);
+  const scale = dataScales.filter(
+    (item) => item.value === dataPartnerManagement.scale_name
+  );
   const [dataFilter, setDataFilter] = useState({
-    headquarters: null,
+    scales: (scale && scale[0]) || null,
     job: null,
-    vote: null,
-    name: '',
-    address: '',
-  });
-  const [dataAddProduct, setDataAddProduct] = useState({
-    name: '',
-    description: '',
-    hashtag: '',
-    image: null,
+    tax_code: dataManagement.company_tax_code || '',
+    name: dataManagement.company_name || '',
+    address: dataManagement.company_address || '',
   });
   const [keySearch, setKeySearch] = useState('');
-  const [construction, setConstruction] = useState('');
-  const [isShow, setIsShow] = useState(false);
-  const [fileName, setFileName] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [objAvatar, setObjAvatar] = useState(null);
   const inputFile = useRef({});
+  const [activeTab, setActiveTab] = useState('tab1');
+
+  const onSelect = (key) => {
+    setActiveTab(key);
+    setKeySearch('');
+  };
 
   // call api get list partner management
   useEffect(() => {
-    getListPartnerManagement(partnerId);
+    if (activeTab === 'tab1') {
+      getListPartnerManagement(partnerId);
+      getListPartnerQuote(partnerId, {
+        keywords: keySearch,
+        page: 0,
+      });
+    } else if (activeTab === 'tab2') {
+      getListPartnerProduct({
+        id: dataPartnerManagement.company_id,
+        keywords: keySearch,
+      });
+    } else {
+      getListConstruction({
+        id: dataPartnerManagement.company_id,
+        keywords: keySearch,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [partnerId]);
+  }, [partnerId, activeTab]);
+
+  const handleSearchCompany = () => {
+    getListPartnerManagement({ id: partnerId, keywords: keySearch });
+  };
+
+  const handleSearchPartnerProduct = () => {
+    getListPartnerProduct({
+      id: dataPartnerManagement.company_id,
+      keywords: keySearch,
+    });
+  };
+
+  const handleSearchConstruction = () => {
+    getListConstruction({
+      id: dataPartnerManagement.company_id,
+      keywords: keySearch,
+    });
+  };
+  // call api get list scales
+  useEffect(() => {
+    getListScales();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (type === 'GET_LIST_PARTNER_MANAGEMENT_SUCCESS') {
+      setDataManagement(dataPartnerManagement);
+      setDataFilter({
+        scales: (scale && scale[0]) || null,
+        job: null,
+        tax_code: dataPartnerManagement.company_tax_code || '',
+        name: dataPartnerManagement.company_name || '',
+        address: dataPartnerManagement.company_address || '',
+      });
+    }
+    if (type === 'REGISTER_PARTNER_PRODUCT_SUCCESS') {
+      getListPartnerProduct({
+        id: dataPartnerManagement.company_id,
+        keywords: keySearch,
+      });
+    }
+    if (type === 'REGISTER_PARTNER_CONSTRUCTION_SUCCESS') {
+      getListConstruction({
+        id: dataPartnerManagement.company_id,
+        keywords: keySearch,
+      });
+    }
+    if (type === 'UPDATE_PARTNER_PRODUCT_SUCCESS') {
+      getListPartnerProduct({
+        id: dataPartnerManagement.company_id,
+        keywords: keySearch,
+      });
+    }
+    if (type === 'UPDATE_PARTNER_CONSTRUCTION_SUCCESS') {
+      getListConstruction({
+        id: dataPartnerManagement.company_id,
+        keywords: keySearch,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
+
   const handleChange = (value, name) => {
     setDataFilter({
       ...dataFilter,
-      [name]: value,
-    });
-    setDataAddProduct({
-      ...dataAddProduct,
       [name]: value,
     });
   };
   const handleKeySearch = (value) => {
     setKeySearch(value);
   };
-  const getDetailConstruction = () => {
-    setIsShowDetailConstruction(true);
-  };
+  // const getDetailConstruction = () => {
+  //   setIsShowDetailConstruction(true);
+  // };
   const onButtonClick = () => {
     // `current` points to the mounted file input element
     // eslint-disable-next-line no-unused-expressions
@@ -101,44 +209,115 @@ const Customer = ({
     inputRefCurrent && inputRefCurrent.click();
   };
 
+  const fileToBase64 = (inputFileName) => {
+    const fileNames = inputFileName.files[0];
+    if (fileNames === undefined) return null;
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event && (event.target: window.HTMLInputElement).result);
+      };
+      reader.readAsDataURL(fileNames);
+    });
+  };
+
   const getFileName = async (e) => {
-    setDataAddProduct({ ...dataAddProduct, favicon: e.files[0] });
-    setFileName(e.files[0].name);
+    setObjAvatar(e.files[0]);
+    const image = await fileToBase64(e);
+    setAvatar(image);
   };
-  const renderProduct =
-    dataProducts &&
-    dataProducts.map((item) => {
-      const styleBackground = {
-        backgroundImage: `url(${item.image})`,
-      };
-      return (
-        <div className="product" style={styleBackground}>
-          <p>{item.name}</p>
-        </div>
-      );
-    });
-  const renderConstructions =
-    dataConstructions &&
-    dataConstructions.map((item) => {
-      const styleBackground = {
-        backgroundImage: `url(${item.image})`,
-      };
-      return (
-        <div
-          className="product"
-          onClick={getDetailConstruction}
-          role="button"
-          tabIndex={0}
-          onKeyDown={() => {}}
-          style={styleBackground}
-        >
-          <p>{item.name}</p>
-        </div>
-      );
-    });
+
+  const handleDetailProduct = (item) => {
+    getDetailPartnerProduct(item);
+  };
+
+  const handleDetailConstruction = (item) => {
+    getDetailPartnerConstruction(item);
+  };
+
   const styleAvatar = {
-    backgroundImage: `url(${dataPartnerManagement.company_image})`,
+    backgroundImage: `url(${dataPartnerManagement.company_image || avatar})`,
   };
+
+  const dataJob =
+    dataFilter &&
+    dataFilter.job &&
+    dataFilter.job.map((item) => {
+      return item.value;
+    });
+
+  const handleSubmit = () => {
+    const formData = new window.FormData();
+    formData.append('user_id', partnerId);
+    formData.append('avatar', objAvatar);
+    formData.append('name', dataFilter.name);
+    formData.append('address', dataFilter.address);
+    formData.append('scale_id', dataFilter?.scales?.id);
+    formData.append('tax_code', dataFilter.tax_code);
+    formData.append('career', dataJob && dataJob.toString());
+    registerPartnerCompany(formData);
+  };
+
+  const handleAddPartnerProduct = (item) => {
+    const formData = new window.FormData();
+    formData.append(
+      'company_id',
+      parseInt(dataPartnerManagement.company_id, 10)
+    );
+    formData.append('image', item.image);
+    formData.append('name', item.name);
+    formData.append('description', item.description);
+    formData.append('hashtag', item?.hashtag);
+    if (item.name.length > 0) {
+      registerPartnerProduct(formData);
+    }
+  };
+
+  const handleUpdatePartnerProduct = (item) => {
+    const formData = new window.FormData();
+    formData.append(
+      'company_id',
+      parseInt(dataPartnerManagement.company_id, 10)
+    );
+    formData.append('image', item.image);
+    formData.append('name', item.name);
+    formData.append('description', item.description);
+    formData.append('hashtag', item?.hashtag);
+    if (item.name.length > 0) {
+      updatePartnerProduct(dataDetailPartnerProduct.id, formData);
+    }
+  };
+
+  const handleUpdatePartnerConstruction = (item) => {
+    const formData = new window.FormData();
+    formData.append(
+      'company_id',
+      parseInt(dataPartnerManagement.company_id, 10)
+    );
+    formData.append('image', item.image);
+    formData.append('name', item.name);
+    formData.append('description', item.description);
+    formData.append('hashtag', item?.hashtag);
+    if (item.name.length > 0) {
+      updatePartnerConstruction(dataDetailPartnerConstruction.id, formData);
+    }
+  };
+
+  const handleAddPartnerConstruction = (item) => {
+    const formData = new window.FormData();
+    formData.append(
+      'company_id',
+      parseInt(dataPartnerManagement.company_id, 10)
+    );
+    formData.append('image', item.image);
+    formData.append('name', item.name);
+    formData.append('description', item.description);
+    formData.append('hashtag', item?.hashtag);
+    if (item.name.length > 0) {
+      registerPartnerConstruction(formData);
+    }
+  };
+
   return (
     <MainLayout activeMenu={3}>
       {isProcessing ? (
@@ -148,10 +327,20 @@ const Customer = ({
           <Row className="content-wrapper page-partner page-post page-partner-management">
             <Col xs={12} md={2}>
               <div className="avatar" style={styleAvatar}>
-                <p>THAY ẢNH</p>
+                <p onClick={onButtonClick} role="presentation">
+                  THAY ẢNH
+                  <input
+                    className="d-none"
+                    type="file"
+                    multiple
+                    ref={inputFile}
+                    accept="image/jpg, image/png, image/gif, capture=camera"
+                    onChange={(e) => getFileName(e.target)}
+                  />
+                </p>
               </div>
             </Col>
-            {dataPartnerManagement.company_name ? (
+            {!isShowEdit && dataPartnerManagement.company_name ? (
               <>
                 <Col xs={12} md={4} className="box-info-partner">
                   <h2>Tên doanh nghiệp</h2>
@@ -202,25 +391,25 @@ const Customer = ({
                     <Col xs={12} md={6}>
                       <SelectDropdown
                         placeholder="Chọn quy mô"
-                        listItem={headquarters}
+                        listItem={dataScales && Immutable.asMutable(dataScales)}
                         onChange={(e) => {
-                          handleChange(e, 'headquarters');
+                          handleChange(e, 'scales');
                         }}
-                        option={dataFilter.headquarters}
+                        option={dataFilter.scales}
                         customClass="select-headquarters"
                         label="Quy mô nhân sự"
                       />
                     </Col>
                     <Col xs={12} md={6}>
-                      <SelectDropdown
-                        placeholder="Nhập mã số thuế"
-                        listItem={job}
+                      <Input
+                        type="text"
                         onChange={(e) => {
-                          handleChange(e, 'job');
+                          handleChange(e.target.value, 'tax_code');
                         }}
-                        option={dataFilter.job}
-                        customClass="select-headquarters"
+                        value={dataFilter.tax_code}
+                        placeholder="Nhập mã số thuế"
                         label="Mã số thuế"
+                        customClass="name-account"
                       />
                     </Col>
                   </Row>
@@ -231,7 +420,7 @@ const Customer = ({
                       <Input
                         type="text"
                         onChange={(e) => {
-                          handleChange(e.target.value, 'name');
+                          handleChange(e.target.value, 'address');
                         }}
                         maxLength="20"
                         value={dataFilter.address}
@@ -243,11 +432,13 @@ const Customer = ({
                     <Col xs={12} md={12}>
                       <SelectDropdown
                         placeholder="Chọn hashtag"
-                        listItem={vote}
+                        listItem={
+                          dataConstant && Immutable.asMutable(dataConstant)
+                        }
                         onChange={(e) => {
-                          handleChange(e, 'vote');
+                          handleChange(e, 'job');
                         }}
-                        option={dataFilter.vote}
+                        option={dataFilter.job}
                         customClass="select-vote"
                         label="Ngành nghề"
                         isMulti
@@ -259,75 +450,42 @@ const Customer = ({
             )}
 
             <Col xs={12} md={2}>
-              {dataPartnerManagement.company_name ? (
-                <Button customClass="button--primary" onClick={() => {}}>
+              {!isShowEdit && dataPartnerManagement.company_name ? (
+                <Button
+                  customClass="button--primary"
+                  onClick={() => setIsShowEdit(true)}
+                >
                   <p>CHỈNH SỬA</p>
                 </Button>
               ) : (
-                <Button customClass="button--primary" onClick={() => {}}>
+                <Button
+                  customClass="button--primary"
+                  onClick={handleSubmit}
+                  isDisabled={
+                    dataFilter.address.length === 0 &&
+                    dataFilter.name.length === 0 &&
+                    !dataFilter.scales &&
+                    !dataFilter.job &&
+                    dataFilter.tax_code.length === 0
+                  }
+                >
                   <p>LƯU THAY ĐỔI</p>
                 </Button>
               )}
             </Col>
 
             <Tabs
-              defaultActiveKey="tab1"
+              defaultActiveKey={activeTab}
               className="partner__tab col-12"
-              // onSelect={(eventKey) => onSelect(eventKey)}
+              onSelect={(eventKey) => onSelect(eventKey)}
             >
               <Tab eventKey="tab1" title="Báo giá">
-                <Col xs={12} md={12} className="form-search">
-                  <div className="form-search__right">
-                    <Input
-                      type="text"
-                      onChange={(e) => {
-                        handleKeySearch(e.target.value);
-                      }}
-                      maxLength="20"
-                      value={keySearch}
-                    />
-                    <Button
-                      customClass="button--primary mt-0"
-                      onClick={() => {}}
-                    >
-                      <p>TÌM</p>
-                    </Button>
-                  </div>
-                </Col>
-                <Col xs={12} md={12} className="table-page table-partner">
-                  <Table
-                    tableHeads={headPartnerManagement}
-                    tableBody={dataQuotes}
-                    showLabel
-                    isShowId
-                    isShowColumnBtn1
-                    nameBtn1="Xem"
-                    isShowColumnBtn
-                    nameBtn2="Báo giá"
-                  />
-                </Col>
-                <Col sm={12} className="wrapper-pagination">
-                  <ReactPaginate
-                    previousLabel="Previous"
-                    nextLabel="Next"
-                    breakLabel={<span className="gap">...</span>}
-                    // pageCount={Math.ceil(totalRows / params.pageSize)}
-                    // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-                    forcePage={0}
-                    containerClassName="pagination"
-                    disabledClassName="disabled"
-                    activeClassName="active"
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    marginPagesDisplayed={1}
-                    nextLinkClassName="page-link"
-                  />
-                </Col>
+                <ItemPartnerManagement
+                  headPartnerManagement={headPartnerManagement}
+                  dataQuotes={dataQuotes}
+                  handleSearchCompany={handleSearchCompany}
+                  totalQuotes={totalQuotes}
+                />
               </Tab>
               <Tab eventKey="tab2" title="Sản phẩm">
                 <Col xs={12} md={12} className="form-search">
@@ -342,13 +500,13 @@ const Customer = ({
                     />
                     <Button
                       customClass="button--primary mt-0"
-                      onClick={() => {}}
+                      onClick={handleSearchPartnerProduct}
                     >
                       <p>TÌM</p>
                     </Button>
                   </div>
                 </Col>
-                <Col xs={12} md={12} className="list-product">
+                {/* <Col xs={12} md={12} className="list-product">
                   {renderProduct}
                   <div
                     className="add-product"
@@ -359,7 +517,15 @@ const Customer = ({
                   >
                     +
                   </div>
-                </Col>
+                </Col> */}
+                <ItemPartnerProduct
+                  dataProducts={dataProducts}
+                  dataDetailPartnerProduct={dataDetailPartnerProduct}
+                  handleDetailProduct={handleDetailProduct}
+                  handleAddPartnerProduct={handleAddPartnerProduct}
+                  handleUpdatePartnerProduct={handleUpdatePartnerProduct}
+                  type={type}
+                />
               </Tab>
               <Tab eventKey="tab3" title="Công trình">
                 <Col xs={12} md={12} className="form-search">
@@ -374,25 +540,25 @@ const Customer = ({
                     />
                     <Button
                       customClass="button--primary mt-0"
-                      onClick={() => {}}
+                      onClick={handleSearchConstruction}
                     >
                       <p>TÌM</p>
                     </Button>
                   </div>
                 </Col>
                 {!isShowDetailConstruction ? (
-                  <Col xs={12} md={12} className="list-product">
-                    {renderConstructions}
-                    <div
-                      className="add-product"
-                      onClick={() => setIsOpenAddConstruction(true)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={() => {}}
-                    >
-                      +
-                    </div>
-                  </Col>
+                  <ItemPartnerConstruction
+                    dataConstructions={dataConstructions}
+                    dataDetailPartnerConstruction={
+                      dataDetailPartnerConstruction
+                    }
+                    handleDetailConstruction={handleDetailConstruction}
+                    handleAddPartnerConstruction={handleAddPartnerConstruction}
+                    handleUpdatePartnerConstruction={
+                      handleUpdatePartnerConstruction
+                    }
+                    type={type}
+                  />
                 ) : (
                   <>
                     <Col xs={12} md={12} className="list-product__back">
@@ -412,7 +578,7 @@ const Customer = ({
                       </div>
                       <div
                         className="add-product"
-                        onClick={() => setIsOpenAddConstruction(true)}
+                        onClick={() => {}}
                         role="button"
                         tabIndex={0}
                         onKeyDown={() => {}}
@@ -427,100 +593,6 @@ const Customer = ({
           </Row>
         </Container>
       )}
-
-      <Modal
-        isOpen={isOpenAddConstruction}
-        isShowFooter
-        handleClose={() => {
-          setIsOpenAddConstruction(false);
-        }}
-        customClassButton="w-100"
-        textBtnRight="THÊM"
-        isShowHeader
-        title="TẠO CÔNG TRÌNH"
-        classNameBtnLeft="btn-left"
-      >
-        <div className="title-content">
-          <Input
-            type="text"
-            onChange={(e) => {
-              setConstruction(e.target.value);
-            }}
-            maxLength="20"
-            value={construction}
-            placeholder="Nhập tên công trình"
-          />
-        </div>
-      </Modal>
-      <Modal
-        isOpen={isShow}
-        handleClose={() => {
-          setIsShow(false);
-        }}
-        customClassButton="w-100"
-        classNameBtnLeft="btn-left"
-        customClass="popup-add-product"
-        isShowIconClose
-      >
-        <div className="title-content">
-          <div className="popup-add-product__left">
-            <div
-              className="box__input"
-              onClick={onButtonClick}
-              onKeyDown={() => {}}
-              tabIndex={0}
-              role="button"
-            >
-              <input
-                className="box__file"
-                type="file"
-                multiple
-                ref={inputFile}
-                accept="image/jpg, image/png, image/gif, capture=camera"
-                onChange={(e) => getFileName(e.target)}
-              />
-              <label>
-                <strong>{fileName || 'Kéo thả tập tin vào đây or'}</strong>
-                <Button
-                  customClass="button--primary add-file mt-0"
-                  onClick={() => {}}
-                >
-                  <p>CHỌN TỆP</p>
-                </Button>
-              </label>
-            </div>
-          </div>
-          <div className="popup-add-product__right">
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'name');
-              }}
-              value={dataAddProduct.name}
-              label="Tên"
-            />
-            <p>Mô tả</p>
-            <textarea
-              onChange={(e) => {
-                handleChange(e.target.value, 'description');
-              }}
-              value={dataAddProduct.description}
-              rows={5}
-            />
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'hashtag');
-              }}
-              value={dataAddProduct.hashtag}
-              label="Hashtag"
-            />
-            <Button customClass="button--primary mt-0" onClick={() => {}}>
-              <p>Thêm</p>
-            </Button>
-          </div>
-        </div>
-      </Modal>
     </MainLayout>
   );
 };

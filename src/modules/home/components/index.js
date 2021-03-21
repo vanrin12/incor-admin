@@ -16,8 +16,8 @@ import Select from 'react-select';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import MainLayout from 'commons/components/MainLayout';
 import dataCharts from 'mockData/dataCharts';
-import formFillInfo from 'mockData/formFillInfo';
-import post from 'mockData/post';
+// import formFillInfo from 'mockData/formFillInfo';
+// import post from 'mockData/post';
 // import hashtags from 'mockData/hashtags';
 import { getDataMain } from 'modules/home/redux';
 
@@ -42,9 +42,9 @@ const HomeMain = () => {
   const hashtags =
     dataMain &&
     dataMain.hashtag &&
-    dataMain.hashtag.hashtag &&
-    dataMain.hashtag.hashtag.split(',');
-  const posts = dataMain?.posts?.data;
+    dataMain.hashtag &&
+    dataMain.hashtag.split(',');
+  // const posts = dataMain?.posts?.data;
 
   useEffect(() => {
     dispatch(getDataMain());
@@ -67,34 +67,46 @@ const HomeMain = () => {
       );
     });
 
-  const renderFormFillInfo = formFillInfo.map((item) => (
-    <div className="content-wrapper__form-suggest__item">
-      <p>
-        <span className="content-wrapper__form-suggest__item__username">
-          {item.userName}
-        </span>
-        <span className="content-wrapper__form-suggest__item__info">
-          đã điền form tư vấn
-        </span>
-      </p>
-      <p className="content-wrapper__form-suggest__item__time">{item.time}</p>
-    </div>
-  ));
-  console.log(posts);
-  const renderPost = post.map((item) => (
-    <div className="content-wrapper__post__item">
-      <div>
-        <p className="content-wrapper__post__item__title">{item.seo_title}</p>
-        <p className="content-wrapper__form-suggest__item__time">{item.name}</p>
-      </div>
-      <div className="content-wrapper__post__item__category">
-        {item.category}
-      </div>
-      <div className="content-wrapper__post__item__username">
-        {item.userName}
-      </div>
-    </div>
-  ));
+  const renderFormFillInfo =
+    dataMain && dataMain.histories && dataMain.histories.length > 0 ? (
+      dataMain.histories.map((item) => (
+        <div className="content-wrapper__form-suggest__item">
+          <p>
+            <span
+              className="content-wrapper__form-suggest__item__username"
+              dangerouslySetInnerHTML={{ __html: item.name }}
+            />
+            <span
+              className="content-wrapper__form-suggest__item__username"
+              dangerouslySetInnerHTML={{ __html: ` ${item.created_custom}` }}
+            />
+          </p>
+        </div>
+      ))
+    ) : (
+      <p className="no-data">Không có lượt điền form</p>
+    );
+  const renderPost =
+    dataMain && dataMain.posts && dataMain.posts.length > 0 ? (
+      dataMain.posts.map((item) => (
+        <div className="content-wrapper__post__item">
+          <div className="col-6">
+            <p className="content-wrapper__post__item__title">{item.name}</p>
+            <p className="content-wrapper__form-suggest__item__time">
+              {item.created_custom}
+            </p>
+          </div>
+          <div className="content-wrapper__post__item__category col-2">
+            {item?.category?.name}
+          </div>
+          <div className="content-wrapper__post__item__username col-2">
+            {item?.user?.name}
+          </div>
+        </div>
+      ))
+    ) : (
+      <p className="no-data">Chưa Có bài Post</p>
+    );
   return (
     <MainLayout activeMenu={0}>
       <Container fluid>
@@ -168,16 +180,22 @@ const HomeMain = () => {
           <Col xs={12} md={8} className="content-wrapper__post box-content">
             <p className="content-wrapper__post__title">Bài viết gần đây</p>
             <div className="content-wrapper__post__list">{renderPost}</div>
-            <div className="content-wrapper__form-suggest__list-all">
-              xem tat ca
-            </div>
+            {dataMain?.histories && dataMain?.histories.length > 6 && (
+              <div className="content-wrapper__form-suggest__list-all">
+                xem tat ca
+              </div>
+            )}
           </Col>
           <Col xs={12} md={3} className="content-wrapper__hashtag  box-content">
             <p className="content-wrapper__hashtag__title">Hashtag phổ biến</p>
             <div className="content-wrapper__hashtag__list">
               {renderHashtags}
             </div>
-            <div className="content-wrapper__hashtag__list-all">xem tat ca</div>
+            {dataMain?.posts && dataMain?.posts.length > 4 && (
+              <div className="content-wrapper__hashtag__list-all">
+                xem tat ca
+              </div>
+            )}
           </Col>
         </Row>
       </Container>

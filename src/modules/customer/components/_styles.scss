@@ -96,13 +96,19 @@
         background-color: $white;
       }
     }
+    &.select-category{
+      margin-bottom: pxToRem(5);
+      .css-yk16xz-control, .css-1pahdxg-control {
+        border: pxToRem(1) solid #707070;
+      }
+    }
   }
   .box-project{
     display: flex;
-    padding: pxToVW(19) pxToVW(45) pxToVW(15);
-    border: pxToVW(1) solid $color-border-box;
+    padding: pxToRem(19) pxToRem(45) pxToRem(15);
+    border: pxToRem(1) solid $color-border-box;
     background-color: $white;
-    margin-bottom: pxToVW(3);
+    margin-bottom: pxToRem(3);
     p{
       margin-right: auto;
     }

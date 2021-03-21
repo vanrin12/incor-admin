@@ -17,7 +17,11 @@ const Display = ({ history }: Props) => {
     <MainLayout activeMenu={6}>
       <Container fluid>
         <Row className="content-wrapper page-display">
-          <Col xs={12} md={12} className="d-flex align-items-center mb-4">
+          <Col
+            xs={12}
+            md={12}
+            className="d-flex align-items-center mb-4 justify-content-end"
+          >
             <h2 className="cancel-display">Hủy bỏ</h2>
             <Button customClass="button--primary" onClick={() => {}}>
               LƯU
@@ -42,8 +46,24 @@ const Display = ({ history }: Props) => {
             >
               Trang chủ
             </div>
-            <div className="page-display__item-display">Header</div>
-            <div className="page-display__item-display">Footer</div>
+            <div
+              className="page-display__item-display"
+              onClick={() => history.push(ROUTERS.DISPLAY_HEADER)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => {}}
+            >
+              Header
+            </div>
+            <div
+              className="page-display__item-display"
+              onClick={() => history.push(ROUTERS.DISPLAY_FOOTER)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => {}}
+            >
+              Footer
+            </div>
           </Col>
         </Row>
       </Container>
