@@ -56,7 +56,10 @@ const Display = ({ history }: Props) => {
             item.id === dataSubmit.component ? 'active' : ''
           }`}
           onClick={() => {
-            history.push(history.push(item.url));
+            history.push({
+              pathname: history.push(item.url),
+              state: { type: item?.type },
+            });
           }}
           onKeyDown={() => {}}
           tabIndex={0}

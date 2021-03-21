@@ -64,10 +64,13 @@ const Sale = ({
   useEffect(() => {
     switch (type) {
       case 'UPDATE_ABOUT_US_SUCCESS':
-        setShowError({
-          isShow: true,
-          content: 'Cập nhật thành công!.',
-        });
+        getAboutUs();
+        if (!isProcessing) {
+          setShowError({
+            isShow: true,
+            content: 'Cập nhật thành công!.',
+          });
+        }
         break;
       case 'UPDATE_ABOUT_US_FAILED':
         setShowError({
@@ -78,6 +81,7 @@ const Sale = ({
       default:
         break;
     }
+    // eslint-disable-next-line
   }, [type]);
 
   const handleChange = (value, name) => {

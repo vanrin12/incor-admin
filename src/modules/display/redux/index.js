@@ -23,6 +23,10 @@ export const { Types, Creators } = createActions({
   getDataMap: ['data'],
   getDataMapSuccess: null,
   getDataMapFailed: null,
+
+  updateSaleMap: ['data'],
+  updateSaleMapSuccess: null,
+  updateSaleMapFailed: null,
 });
 
 // Initial state
@@ -31,6 +35,7 @@ export const INITIAL_STATE = Immutable({
   statusCode: 0,
   dataAboutUs: {},
   dataCustomer: {},
+  dataSaleMap: {},
 });
 
 const getAboutUs = (state, action) => {
@@ -130,13 +135,36 @@ const getDataMap = (state, action) => {
 };
 
 const getDataMapSuccess = (state, action) => {
+  const { data } = action;
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    dataSaleMap: data,
+  });
+};
+
+const getDataMapFailed = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
   });
 };
 
-const getDataMapFailed = (state, action) => {
+const updateSaleMap = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const updateSaleMapSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updateSaleMapFailed = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
@@ -164,6 +192,10 @@ const HANDLERS = {
   [Types.GET_DATA_MAP]: getDataMap,
   [Types.GET_DATA_MAP_SUCCESS]: getDataMapSuccess,
   [Types.GET_DATA_MAP_FAILED]: getDataMapFailed,
+
+  [Types.UPDATE_SALE_MAP]: updateSaleMap,
+  [Types.UPDATE_SALE_MAP_SUCCESS]: updateSaleMapSuccess,
+  [Types.UPDATE_SALE_MAP_FAILED]: updateSaleMapFailed,
 };
 
 // Create reducers by pass state and handlers

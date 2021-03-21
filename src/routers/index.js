@@ -61,6 +61,9 @@ const displayIdentifiedContainer = lazy(() =>
 const displayMainContainer = lazy(() =>
   import('modules/display/components/main')
 );
+const displaySaleContainer = lazy(() =>
+  import('modules/display/containers/sale')
+);
 const AboutUsContainer = lazy(() => import('modules/display/containers'));
 
 const displayMediaContainer = lazy(() =>
@@ -204,6 +207,13 @@ const Router = ({ token }: Props) => {
             exact
             path={ROUTERS.CUSTOMER_EXP}
             component={CustomerContainer}
+            isAuthenticated={isAuthenticated}
+          />
+
+          <PrivateRoute
+            exact
+            path={ROUTERS.DISPLAY_SALE}
+            component={displaySaleContainer}
             isAuthenticated={isAuthenticated}
           />
         </Switch>
