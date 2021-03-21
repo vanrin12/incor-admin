@@ -6,15 +6,19 @@ import MainLayout from 'commons/components/MainLayout';
 import images from 'themes/images';
 import Input from 'commons/components/Input';
 import Button from 'commons/components/Button';
+import Loading from 'commons/components/Loading';
 
 type Props = {
   history: {
     push: Function,
     go: Function,
+    location: Object,
   },
   createIntroduce: Function,
   getValueHeader: Function,
   valueHeader: Object,
+  isProcessing: boolean,
+  type: string,
 };
 
 const Introduce = ({
@@ -22,16 +26,34 @@ const Introduce = ({
   createIntroduce,
   getValueHeader,
   valueHeader,
+  isProcessing,
+  type,
 }: Props) => {
+  const typePage = history?.location?.state?.type;
   const [dataSubmit, setDataSubmit] = useState({
-    nameWebsite: valueHeader.name,
-    tagline: valueHeader.link,
+    nameWebsite: '',
+    tagline: '',
   });
+  const dataHeader = valueHeader.filter(
+    (item) => item.type === typePage?.category
+  );
+  useEffect(() => {
+    if (type === 'CREATE_INTRODUCE_SUCCESS') {
+      history.go(-1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
 
   useEffect(() => {
-    getValueHeader({
-      type: 'introduce',
+    setDataSubmit({
+      nameWebsite: dataHeader && dataHeader[0] && dataHeader[0].name,
+      tagline: dataHeader && dataHeader[0] && dataHeader[0].link,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typePage]);
+
+  useEffect(() => {
+    getValueHeader();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -46,7 +68,7 @@ const Introduce = ({
     createIntroduce({
       name: dataSubmit.nameWebsite,
       link: dataSubmit.tagline,
-      type: 'introduce',
+      type: typePage.category,
     });
   };
 
@@ -77,31 +99,37 @@ const Introduce = ({
               LƯU
             </Button>
           </Col>
-          <Col xs={12} md={12}>
-            <h1>Giới thiệu</h1>
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'nameWebsite');
-              }}
-              value={dataSubmit.nameWebsite}
-              label="Tên chuyên mục"
-              placeholder="Nhập tên chuyên mục"
-            />
-            <p className="suggestions">
-              Dòng tiêu đề của chuyên mục tại trang chủ
-            </p>
-            <Input
-              type="text"
-              onChange={(e) => {
-                handleChange(e.target.value, 'tagline');
-              }}
-              value={dataSubmit.tagline}
-              label="Liên kết đến"
-              placeholder="Nhập URL"
-            />
-            <p className="suggestions">Đường dẫn đến category của chuyên mục</p>
-          </Col>
+          {isProcessing ? (
+            <Loading />
+          ) : (
+            <Col xs={12} md={12}>
+              <h1>{typePage?.title}</h1>
+              <Input
+                type="text"
+                onChange={(e) => {
+                  handleChange(e.target.value, 'nameWebsite');
+                }}
+                value={dataSubmit.nameWebsite}
+                label="Tên chuyên mục"
+                placeholder="Nhập tên chuyên mục"
+              />
+              <p className="suggestions">
+                Dòng tiêu đề của chuyên mục tại trang chủ
+              </p>
+              <Input
+                type="text"
+                onChange={(e) => {
+                  handleChange(e.target.value, 'tagline');
+                }}
+                value={dataSubmit.tagline}
+                label="Liên kết đến"
+                placeholder="Nhập URL"
+              />
+              <p className="suggestions">
+                Đường dẫn đến category của chuyên mục
+              </p>
+            </Col>
+          )}
         </Row>
       </Container>
     </MainLayout>

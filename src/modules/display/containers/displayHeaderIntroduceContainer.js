@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
     isProcessing: state.displayReducer.isProcessing,
     errors: state.displayReducer.errors,
     valueHeader: state.displayReducer.valueHeader,
+    dataCategories: state.postReducer.dataCategories,
   };
 };
 

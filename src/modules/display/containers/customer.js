@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import DisplayFooterComponent from '../components/footer';
+import CustomerComponent from '../components/customer';
 
 import { Creators } from '../redux';
 
@@ -8,8 +8,7 @@ const mapStateToProps = (state) => {
   return {
     type: state.displayReducer.type,
     isProcessing: state.displayReducer.isProcessing,
-    errors: state.displayReducer.errors,
-    dataFooter: state.displayReducer.dataFooter,
+    dataCustomer: state.displayReducer.dataCustomer,
   };
 };
 
@@ -17,13 +16,10 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       ...Creators,
-      createFooter: Creators.createFooter,
-      getDataFooter: Creators.getDataFooter,
+      getCustomerEXP: Creators.getCustomerEXP,
+      updateCustomerEXP: Creators.updateCustomerEXP,
     },
     dispatch
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DisplayFooterComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerComponent);

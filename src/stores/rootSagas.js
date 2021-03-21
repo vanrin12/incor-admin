@@ -57,6 +57,15 @@ import createIntroduceSaga from 'modules/display/sagas/createDisplayIntroduceSag
 import getValueHeaderSaga from 'modules/display/sagas/getValueHeaderSaga';
 import createFooterSaga from 'modules/display/sagas/createDisplayFooterSaga';
 
+import updateAboutUsSaga from 'modules/display/sagas/updateAboutUsSaga';
+
+import getAboutUsSaga from 'modules/display/sagas/getDataAboutUsSaga';
+
+import getCustomerExperiencesSaga from 'modules/display/sagas/getCustomerSaga';
+import updateCustomerExpSaga from 'modules/display/sagas/updateCustomerSaga';
+import getDataMapSaga from 'modules/display/sagas/getDataMapSaga';
+import getDataFooterSaga from 'modules/display/sagas/getDataFooterSaga';
+
 export default function* RootSagas() {
   yield all([
     getDataMainSaga(),
@@ -114,5 +123,12 @@ export default function* RootSagas() {
     createIntroduceSaga(),
     getValueHeaderSaga(),
     createFooterSaga(),
+
+    updateAboutUsSaga(),
+    getAboutUsSaga(),
+    getCustomerExperiencesSaga(),
+    updateCustomerExpSaga(),
+    getDataMapSaga(),
+    getDataFooterSaga(),
   ]);
 }

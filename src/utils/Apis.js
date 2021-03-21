@@ -66,6 +66,12 @@ export const ROUTES = {
   API_CREATE_INTRODUCE: `/api/v1/admin/constants/data-maps`,
   API_GET_VALUE_HEADER: `/api/v1/admin/constants/data-maps`,
   API_CREATE_FOOTER: `/api/v1/admin/constants`,
+  API_GET_DATA_FOOTER: `/api/v1/admin/constants`,
+
+  //  Giao diện
+  API_ABOUT_US: `/api/v1/admin/constants/about-us`,
+  API_CUSTOMER_EXP: `/api/v1/admin/constants/customer-experiences`,
+  API_DATA_MAP: `/api/v1/admin/constants/data-maps`,
 };
 
 export const API = create({

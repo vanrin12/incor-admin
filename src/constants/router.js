@@ -29,6 +29,8 @@ const ROUTERS = {
   DISPLAY_HEADER: '/header',
   DISPLAY_HEADER_INTRODUCE: '/header/introduce',
   DISPLAY_FOOTER: '/header/footer',
+  ABOUT_US: '/display/about_us',
+  CUSTOMER_EXP: '/display/customer_exp',
 };
 
 export default ROUTERS;
