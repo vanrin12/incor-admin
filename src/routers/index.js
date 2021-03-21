@@ -61,12 +61,13 @@ const displayIdentifiedContainer = lazy(() =>
 const displayMainContainer = lazy(() =>
   import('modules/display/components/main')
 );
-const displaySaleContainer = lazy(() =>
-  import('modules/display/components/sale')
-);
+const AboutUsContainer = lazy(() => import('modules/display/containers'));
 
 const displayMediaContainer = lazy(() =>
   import('modules/media/containers/index')
+);
+const CustomerContainer = lazy(() =>
+  import('modules/display/containers/customer')
 );
 
 type Props = {
@@ -194,8 +195,15 @@ const Router = ({ token }: Props) => {
           />
           <PrivateRoute
             exact
-            path={ROUTERS.DISPLAY_SALE}
-            component={displaySaleContainer}
+            path={ROUTERS.ABOUT_US}
+            component={AboutUsContainer}
+            isAuthenticated={isAuthenticated}
+          />
+
+          <PrivateRoute
+            exact
+            path={ROUTERS.CUSTOMER_EXP}
+            component={CustomerContainer}
             isAuthenticated={isAuthenticated}
           />
         </Switch>

@@ -150,11 +150,11 @@ const Medias = ({
           isShow: true,
           content: 'Dung lượng hình ảnh phải lớn hơn 0KB.',
         });
-      } else if (e.target.files[0].size > 5000000 && mediaType === 'image') {
+      } else if (e.target.files[0].size > 1574000000 && mediaType === 'image') {
         setModalCancel({
           ...modalCancel,
           isShow: true,
-          content: 'Kích thước hình ảnh được giới hạn ở 5mb',
+          content: 'Kích thước hình ảnh được giới hạn ở 1.5G',
         });
       } else {
         setImageUpload({
