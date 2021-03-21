@@ -19,6 +19,10 @@ export const { Types, Creators } = createActions({
   updateCustomerEXP: ['data'],
   updateCustomerEXPSuccess: null,
   updateCustomerEXPFailed: null,
+
+  getDataMap: ['data'],
+  getDataMapSuccess: null,
+  getDataMapFailed: null,
 });
 
 // Initial state
@@ -118,6 +122,27 @@ const updateCustomerEXPFailed = (state, action) => {
   });
 };
 
+const getDataMap = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const getDataMapSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const getDataMapFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_ABOUT_US]: getAboutUs,
@@ -135,6 +160,10 @@ const HANDLERS = {
   [Types.UPDATE_CUSTOMER_EXP]: updateCustomerEXP,
   [Types.UPDATE_CUSTOMER_EXP_SUCCESS]: updateCustomerEXPSuccess,
   [Types.UPDATE_CUSTOMER_EXP_FAILED]: updateCustomerEXPFailed,
+
+  [Types.GET_DATA_MAP]: getDataMap,
+  [Types.GET_DATA_MAP_SUCCESS]: getDataMapSuccess,
+  [Types.GET_DATA_MAP_FAILED]: getDataMapFailed,
 };
 
 // Create reducers by pass state and handlers

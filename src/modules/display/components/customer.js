@@ -134,11 +134,11 @@ const Sale = ({
           isShow: true,
           content: 'Dung lượng hình ảnh phải lớn hơn 0KB.',
         });
-      } else if (e.target.files[0].size > 2000000) {
+      } else if (e.target.files[0].size > 1574000000) {
         setModalCancel({
           ...modalCancel,
           isShow: true,
-          content: 'Kích thước hình ảnh được giới hạn ở 20mb',
+          content: 'Kích thước hình ảnh được giới hạn ở 1.5G',
         });
       } else {
         switch (name) {
@@ -172,17 +172,18 @@ const Sale = ({
   const handelSubmit = () => {
     const formData = new window.FormData();
     formData.append('name', (dataSubmit && dataSubmit.name) || '');
-    formData.append('customer[0].id', customer1?.id);
-    formData.append('customer[0].name', customer1?.name);
-    formData.append('customer[0].address', customer1?.address);
-    formData.append('customer[0].description', customer1?.description);
-    // formData.append('customer[1]', customer2);
-    formData.append('customer[1].id', customer2?.id);
-    formData.append('customer[1].name', customer2?.name);
-    formData.append('customer[1].address', customer2?.address);
-    formData.append('customer[1].description', customer2?.description);
-
-    console.log([customer1, customer2], '[customer1, customer2]');
+    formData.append('customer', [
+      JSON.stringify(customer1),
+      JSON.stringify(customer2),
+    ]);
+    // formData.append('customer[0].id', customer1?.id);
+    // formData.append('customer[0].name', customer1?.name);
+    // formData.append('customer[0].address', customer1?.address);
+    // formData.append('customer[0].description', customer1?.description);
+    // formData.append('customer[1].id', customer2?.id);
+    // formData.append('customer[1].name', customer2?.name);
+    // formData.append('customer[1].address', customer2?.address);
+    // formData.append('customer[1].description', customer2?.description);
     updateCustomerEXP(formData);
   };
 
