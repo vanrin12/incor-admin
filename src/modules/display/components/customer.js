@@ -20,6 +20,7 @@ type Props = {
   dataCustomer: Object,
   isProcessing: boolean,
   updateCustomerEXP: Function,
+  type: string,
 };
 
 const Sale = ({
@@ -28,6 +29,7 @@ const Sale = ({
   dataCustomer,
   isProcessing,
   updateCustomerEXP,
+  type,
 }: Props) => {
   const inputFile = useRef({});
   const inputFile2 = useRef({});
@@ -59,6 +61,31 @@ const Sale = ({
     getCustomerEXP();
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    switch (type) {
+      case 'UPDATE_CUSTOMER_EXP_SUCCESS':
+        getCustomerEXP();
+        if (!isProcessing) {
+          setModalCancel({
+            ...modalCancel,
+            isShow: true,
+            content: 'Cập nhật thành công!',
+          });
+        }
+        break;
+      case 'UPDATE_CUSTOMER_EXP_FAILED':
+        setModalCancel({
+          ...modalCancel,
+          isShow: true,
+          content: 'Cập nhật thất bại!',
+        });
+        break;
+      default:
+        break;
+    }
+    // eslint-disable-next-line
+  }, [type]);
 
   useEffect(() => {
     if (dataCustomer?.experiences && dataCustomer?.experiences[0]) {
@@ -172,18 +199,20 @@ const Sale = ({
   const handelSubmit = () => {
     const formData = new window.FormData();
     formData.append('name', (dataSubmit && dataSubmit.name) || '');
-    formData.append('customer', [
-      JSON.stringify(customer1),
-      JSON.stringify(customer2),
-    ]);
-    // formData.append('customer[0].id', customer1?.id);
-    // formData.append('customer[0].name', customer1?.name);
-    // formData.append('customer[0].address', customer1?.address);
-    // formData.append('customer[0].description', customer1?.description);
-    // formData.append('customer[1].id', customer2?.id);
-    // formData.append('customer[1].name', customer2?.name);
-    // formData.append('customer[1].address', customer2?.address);
-    // formData.append('customer[1].description', customer2?.description);
+    formData.append('customer[0][id]', customer1?.id);
+    formData.append('customer[0][name]', customer1?.name);
+    if (customer1?.image) {
+      formData.append('customer[0][image]', customer1?.image);
+    }
+    formData.append('customer[0][address]', customer1?.address);
+    formData.append('customer[0][description]', customer1?.description);
+    formData.append('customer[1][id]', customer2?.id);
+    formData.append('customer[1][name]', customer2?.name);
+    if (customer2?.image) {
+      formData.append('customer[1][image]', customer2?.image);
+    }
+    formData.append('customer[1][address]', customer2?.address);
+    formData.append('customer[1][description]', customer2?.description);
     updateCustomerEXP(formData);
   };
 

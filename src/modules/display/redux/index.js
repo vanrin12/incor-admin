@@ -39,6 +39,10 @@ export const { Types, Creators } = createActions({
   getDataFooter: null,
   getDataFooterSuccess: null,
   getDataFooterFailed: null,
+
+  updateSaleMap: ['data'],
+  updateSaleMapSuccess: null,
+  updateSaleMapFailed: null,
 });
 
 // Initial state
@@ -47,9 +51,10 @@ export const INITIAL_STATE = Immutable({
   statusCode: 0,
   dataAboutUs: {},
   dataCustomer: {},
+  dataSaleMap: {},
+  errors: '',
   type: '',
   valueHeader: {},
-  dataFooter: {},
 });
 
 const getAboutUs = (state, action) => {
@@ -149,9 +154,11 @@ const getDataMap = (state, action) => {
 };
 
 const getDataMapSuccess = (state, action) => {
+  const { data } = action;
   return state.merge({
     isProcessing: false,
     type: action.type,
+    dataSaleMap: data,
   });
 };
 
@@ -162,13 +169,33 @@ const getDataMapFailed = (state, action) => {
   });
 };
 
-const createIntroduce = (state, action) => {
+const updateSaleMap = (state, action) => {
   return state.merge({
     isProcessing: true,
     type: action.type,
   });
 };
 
+const updateSaleMapSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updateSaleMapFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+const createIntroduce = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+    errors: '',
+  });
+};
 const createIntroduceSuccess = (state, action) => {
   return state.merge({
     isProcessing: false,
@@ -229,28 +256,6 @@ const createFooterFailed = (state, action) => {
   });
 };
 
-const getDataFooter = (state, action) => {
-  return state.merge({
-    isProcessing: true,
-    type: action.type,
-  });
-};
-
-const getDataFooterSuccess = (state, action) => {
-  return state.merge({
-    isProcessing: false,
-    type: action.type,
-    dataFooter: action.data.constant,
-  });
-};
-
-const getDataFooterFailed = (state, action) => {
-  return state.merge({
-    isProcessing: false,
-    type: action.type,
-  });
-};
-
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_ABOUT_US]: getAboutUs,
@@ -273,6 +278,10 @@ const HANDLERS = {
   [Types.GET_DATA_MAP_SUCCESS]: getDataMapSuccess,
   [Types.GET_DATA_MAP_FAILED]: getDataMapFailed,
 
+  [Types.UPDATE_SALE_MAP]: updateSaleMap,
+  [Types.UPDATE_SALE_MAP_SUCCESS]: updateSaleMapSuccess,
+  [Types.UPDATE_SALE_MAP_FAILED]: updateSaleMapFailed,
+
   [Types.CREATE_INTRODUCE]: createIntroduce,
   [Types.CREATE_INTRODUCE_SUCCESS]: createIntroduceSuccess,
   [Types.CREATE_INTRODUCE_FAILED]: createIntroduceFailed,
@@ -284,10 +293,6 @@ const HANDLERS = {
   [Types.CREATE_FOOTER]: createFooter,
   [Types.CREATE_FOOTER_SUCCESS]: createFooterSuccess,
   [Types.CREATE_FOOTER_FAILED]: createFooterFailed,
-
-  [Types.GET_DATA_FOOTER]: getDataFooter,
-  [Types.GET_DATA_FOOTER_SUCCESS]: getDataFooterSuccess,
-  [Types.GET_DATA_FOOTER_FAILED]: getDataFooterFailed,
 };
 
 // Create reducers by pass state and handlers

@@ -65,6 +65,7 @@ import getCustomerExperiencesSaga from 'modules/display/sagas/getCustomerSaga';
 import updateCustomerExpSaga from 'modules/display/sagas/updateCustomerSaga';
 import getDataMapSaga from 'modules/display/sagas/getDataMapSaga';
 import getDataFooterSaga from 'modules/display/sagas/getDataFooterSaga';
+import updateSaleMapSaga from 'modules/display/sagas/updateSaleMapSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -130,5 +131,6 @@ export default function* RootSagas() {
     updateCustomerExpSaga(),
     getDataMapSaga(),
     getDataFooterSaga(),
+    updateSaleMapSaga(),
   ]);
 }

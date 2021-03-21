@@ -24,13 +24,13 @@ const ROUTERS = {
   DISPLAY: '/display',
   DISPLAY_IDENTIFIED: '/display/identified',
   DISPLAY_MAIN: '/display/main',
-  SALE: '/display/sale',
   MAIN_MEDIA: '/medias',
   DISPLAY_HEADER: '/header',
   DISPLAY_HEADER_INTRODUCE: '/header/introduce',
   DISPLAY_FOOTER: '/header/footer',
   ABOUT_US: '/display/about_us',
   CUSTOMER_EXP: '/display/customer_exp',
+  DISPLAY_SALE: `/display/sale-map`,
 };
 
 export default ROUTERS;
