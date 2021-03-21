@@ -26,6 +26,9 @@ const ROUTERS = {
   DISPLAY_MAIN: '/display/main',
   SALE: '/display/sale',
   MAIN_MEDIA: '/medias',
+  DISPLAY_HEADER: '/header',
+  DISPLAY_HEADER_INTRODUCE: '/header/introduce',
+  DISPLAY_FOOTER: '/header/footer',
 };
 
 export default ROUTERS;

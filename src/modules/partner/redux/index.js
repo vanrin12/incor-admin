@@ -1,6 +1,7 @@
 // import libs
 import { createActions, createReducer } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
+import moment from 'moment';
 
 // Define action creators
 export const { Types, Creators } = createActions({
@@ -304,7 +305,16 @@ const getListPartnerQuote = (state, action) => {
 };
 
 const getListPartnerQuoteSuccess = (state, action) => {
-  const dataQuotes = action.data.quotes.data;
+  const dataQuotes = action.data.quotes.data.map((item) => {
+    return {
+      id: item.id,
+      date:
+        item.created_at && moment(item.created_at).format('HH:SS MM/DD/YYYY'),
+      nameCustomer: item.customer?.name,
+      tag: `#${item?.project?.space_division?.name}`,
+      dvt: item.project?.address,
+    };
+  });
   return state.merge({
     isProcessing: false,
     type: action.type,

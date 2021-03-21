@@ -176,3 +176,16 @@
     }
   }
 }
+.group-facebook{
+  display: flex;
+  align-items: center;
+  margin-bottom: pxToRem(10);
+  .input{
+    width: 100%;
+    margin-left: pxToRem(10);
+  }
+  img{
+    width: pxToRem(30);
+    height: pxToRem(30);
+  }
+}

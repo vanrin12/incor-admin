@@ -53,6 +53,9 @@ import getListConstructionCustomerSaga from 'modules/customer/sagas/getListConst
 import registerConstructionCustomerSaga from 'modules/customer/sagas/registerConstructionCustomerSaga';
 import registerProjectItemSaga from 'modules/customer/sagas/registerProjectItemSaga';
 import updateProjectItemSaga from 'modules/customer/sagas/updateProjectItemSaga';
+import createIntroduceSaga from 'modules/display/sagas/createDisplayIntroduceSaga';
+import getValueHeaderSaga from 'modules/display/sagas/getValueHeaderSaga';
+import createFooterSaga from 'modules/display/sagas/createDisplayFooterSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -108,5 +111,8 @@ export default function* RootSagas() {
     registerConstructionCustomerSaga(),
     registerProjectItemSaga(),
     updateProjectItemSaga(),
+    createIntroduceSaga(),
+    getValueHeaderSaga(),
+    createFooterSaga(),
   ]);
 }

@@ -6,6 +6,7 @@ import { postReducer } from 'modules/post/redux';
 import { authReducer } from 'modules/authen/redux';
 import { customerReducer } from 'modules/customer/redux';
 import { mediaReducer } from 'modules/media/redux';
+import { displayReducer } from 'modules/display/redux';
 
 const appReducer = combineReducers({
   account: accountReducer,
@@ -15,6 +16,7 @@ const appReducer = combineReducers({
   authReducer,
   customerReducer,
   mediaReducer,
+  displayReducer,
 });
 
 export default appReducer;

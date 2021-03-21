@@ -19,6 +19,7 @@ export default () => {
       'postReducer',
       'authReducer',
       'customerReducer',
+      'displayReducer',
     ],
   };
 
