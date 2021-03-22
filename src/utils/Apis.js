@@ -68,6 +68,7 @@ export const ROUTES = {
   API_ABOUT_US: `/api/v1/admin/constants/about-us`,
   API_CUSTOMER_EXP: `/api/v1/admin/constants/customer-experiences`,
   API_DATA_MAP: `/api/v1/admin/constants/data-maps`,
+  API_MAIN_SLIDER: `/api/v1/admin/constants/slider`,
 };
 
 export const API = create({
