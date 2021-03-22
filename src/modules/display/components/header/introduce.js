@@ -16,7 +16,11 @@ type Props = {
   },
   createIntroduce: Function,
   getValueHeader: Function,
-  valueHeader: Object,
+  valueHeader: Array<{
+    type: string,
+    name: String,
+    link: string,
+  }>,
   isProcessing: boolean,
   type: string,
 };
@@ -34,23 +38,24 @@ const Introduce = ({
     nameWebsite: '',
     tagline: '',
   });
-  const dataHeader = valueHeader.filter(
-    (item) => item.type === typePage?.category
-  );
+
+  const dataHeader =
+    valueHeader &&
+    valueHeader.filter((item) => item.type === typePage?.category);
+
   useEffect(() => {
     if (type === 'CREATE_INTRODUCE_SUCCESS') {
       history.go(-1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
-
   useEffect(() => {
     setDataSubmit({
       nameWebsite: dataHeader && dataHeader[0] && dataHeader[0].name,
       tagline: dataHeader && dataHeader[0] && dataHeader[0].link,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typePage]);
+  }, [typePage, valueHeader]);
 
   useEffect(() => {
     getValueHeader();

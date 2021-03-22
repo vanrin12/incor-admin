@@ -54,7 +54,8 @@ export const INITIAL_STATE = Immutable({
   dataSaleMap: {},
   errors: '',
   type: '',
-  valueHeader: {},
+  valueHeader: [],
+  dataFooter: {},
 });
 
 const getAboutUs = (state, action) => {
@@ -256,6 +257,28 @@ const createFooterFailed = (state, action) => {
   });
 };
 
+const getDataFooter = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+const getDataFooterSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    dataFooter: action.data.constant,
+  });
+};
+
+const getDataFooterFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errors: action.errors,
+  });
+};
+
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_ABOUT_US]: getAboutUs,
@@ -293,6 +316,10 @@ const HANDLERS = {
   [Types.CREATE_FOOTER]: createFooter,
   [Types.CREATE_FOOTER_SUCCESS]: createFooterSuccess,
   [Types.CREATE_FOOTER_FAILED]: createFooterFailed,
+
+  [Types.GET_DATA_FOOTER]: getDataFooter,
+  [Types.GET_DATA_FOOTER_SUCCESS]: getDataFooterSuccess,
+  [Types.GET_DATA_FOOTER_FAILED]: getDataFooterFailed,
 };
 
 // Create reducers by pass state and handlers
