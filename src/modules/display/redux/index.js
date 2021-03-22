@@ -24,6 +24,22 @@ export const { Types, Creators } = createActions({
   getDataMapSuccess: null,
   getDataMapFailed: null,
 
+  createIntroduce: ['data'],
+  createIntroduceSuccess: null,
+  createIntroduceFailed: null,
+
+  getValueHeader: ['data'],
+  getValueHeaderSuccess: null,
+  getValueHeaderFailed: null,
+
+  createFooter: ['data'],
+  createFooterSuccess: null,
+  createFooterFailed: null,
+
+  getDataFooter: null,
+  getDataFooterSuccess: null,
+  getDataFooterFailed: null,
+
   updateSaleMap: ['data'],
   updateSaleMapSuccess: null,
   updateSaleMapFailed: null,
@@ -36,6 +52,9 @@ export const INITIAL_STATE = Immutable({
   dataAboutUs: {},
   dataCustomer: {},
   dataSaleMap: {},
+  errors: '',
+  type: '',
+  valueHeader: {},
 });
 
 const getAboutUs = (state, action) => {
@@ -170,6 +189,72 @@ const updateSaleMapFailed = (state, action) => {
     type: action.type,
   });
 };
+const createIntroduce = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+    errors: '',
+  });
+};
+const createIntroduceSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const createIntroduceFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errors: action.errors,
+  });
+};
+
+const getValueHeader = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+    errors: '',
+  });
+};
+const getValueHeaderSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    valueHeader: action.data.map,
+  });
+};
+
+const getValueHeaderFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errors: action.errors,
+  });
+};
+
+const createFooter = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+    errors: '',
+  });
+};
+const createFooterSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const createFooterFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errors: action.errors,
+  });
+};
 
 // Assign handler to types.
 const HANDLERS = {
@@ -196,6 +281,18 @@ const HANDLERS = {
   [Types.UPDATE_SALE_MAP]: updateSaleMap,
   [Types.UPDATE_SALE_MAP_SUCCESS]: updateSaleMapSuccess,
   [Types.UPDATE_SALE_MAP_FAILED]: updateSaleMapFailed,
+
+  [Types.CREATE_INTRODUCE]: createIntroduce,
+  [Types.CREATE_INTRODUCE_SUCCESS]: createIntroduceSuccess,
+  [Types.CREATE_INTRODUCE_FAILED]: createIntroduceFailed,
+
+  [Types.GET_VALUE_HEADER]: getValueHeader,
+  [Types.GET_VALUE_HEADER_SUCCESS]: getValueHeaderSuccess,
+  [Types.GET_VALUE_HEADER_FAILED]: getValueHeaderFailed,
+
+  [Types.CREATE_FOOTER]: createFooter,
+  [Types.CREATE_FOOTER_SUCCESS]: createFooterSuccess,
+  [Types.CREATE_FOOTER_FAILED]: createFooterFailed,
 };
 
 // Create reducers by pass state and handlers

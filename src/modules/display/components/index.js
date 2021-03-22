@@ -46,8 +46,24 @@ const Display = ({ history }: Props) => {
             >
               Trang chủ
             </div>
-            <div className="page-display__item-display">Header</div>
-            <div className="page-display__item-display">Footer</div>
+            <div
+              className="page-display__item-display"
+              onClick={() => history.push(ROUTERS.DISPLAY_HEADER)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => {}}
+            >
+              Header
+            </div>
+            <div
+              className="page-display__item-display"
+              onClick={() => history.push(ROUTERS.DISPLAY_FOOTER)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => {}}
+            >
+              Footer
+            </div>
           </Col>
         </Row>
       </Container>

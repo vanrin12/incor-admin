@@ -10,6 +10,8 @@ const images = {
   iconBack: require('../assets/imgs/arrow-up.png'),
   iconLoading: require('../assets/imgs/loading.gif'),
   iconClose: require('../assets/imgs/ic-close.png'),
+  icon_fb: require('../assets/imgs/icon_fb.png'),
+  icon_you: require('../assets/imgs/icon_youtube.png'),
 };
 
 export default images;

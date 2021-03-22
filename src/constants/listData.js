@@ -24,6 +24,33 @@ export const listComponent = [
     type: '',
   },
 ];
+export const listSite = [
+  {
+    id: 1,
+    name: 'GIỚI THIỆU',
+  },
+  {
+    id: 2,
+    name: 'DỊCH VỤ',
+  },
+  {
+    id: 3,
+    name: 'KHÁCH HÀNG',
+  },
+  {
+    id: 4,
+    name: 'HỢP TÁC',
+  },
+  {
+    id: 5,
+    name: 'TUYỂN DỤNG',
+  },
+  {
+    id: 6,
+    name: 'LIÊN HỆ',
+  },
+];
 export default {
   listComponent,
+  listSite,
 };
