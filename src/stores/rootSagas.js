@@ -53,6 +53,9 @@ import getListConstructionCustomerSaga from 'modules/customer/sagas/getListConst
 import registerConstructionCustomerSaga from 'modules/customer/sagas/registerConstructionCustomerSaga';
 import registerProjectItemSaga from 'modules/customer/sagas/registerProjectItemSaga';
 import updateProjectItemSaga from 'modules/customer/sagas/updateProjectItemSaga';
+import createIntroduceSaga from 'modules/display/sagas/createDisplayIntroduceSaga';
+import getValueHeaderSaga from 'modules/display/sagas/getValueHeaderSaga';
+import createFooterSaga from 'modules/display/sagas/createDisplayFooterSaga';
 
 import updateAboutUsSaga from 'modules/display/sagas/updateAboutUsSaga';
 
@@ -61,6 +64,7 @@ import getAboutUsSaga from 'modules/display/sagas/getDataAboutUsSaga';
 import getCustomerExperiencesSaga from 'modules/display/sagas/getCustomerSaga';
 import updateCustomerExpSaga from 'modules/display/sagas/updateCustomerSaga';
 import getDataMapSaga from 'modules/display/sagas/getDataMapSaga';
+import getDataFooterSaga from 'modules/display/sagas/getDataFooterSaga';
 import updateSaleMapSaga from 'modules/display/sagas/updateSaleMapSaga';
 
 export default function* RootSagas() {
@@ -117,12 +121,16 @@ export default function* RootSagas() {
     registerConstructionCustomerSaga(),
     registerProjectItemSaga(),
     updateProjectItemSaga(),
+    createIntroduceSaga(),
+    getValueHeaderSaga(),
+    createFooterSaga(),
 
     updateAboutUsSaga(),
     getAboutUsSaga(),
     getCustomerExperiencesSaga(),
     updateCustomerExpSaga(),
     getDataMapSaga(),
+    getDataFooterSaga(),
     updateSaleMapSaga(),
   ]);
 }

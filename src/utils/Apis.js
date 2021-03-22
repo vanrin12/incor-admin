@@ -63,6 +63,10 @@ export const ROUTES = {
     `/api/v1/admin/customers/construction-items/${id}`,
   API_UPDATE_PROJECT_ITEM: (id) =>
     `/api/v1/admin/customers/project-items/${id}`,
+  API_CREATE_INTRODUCE: `/api/v1/admin/constants/data-maps`,
+  API_GET_VALUE_HEADER: `/api/v1/admin/constants/data-maps`,
+  API_CREATE_FOOTER: `/api/v1/admin/constants`,
+  API_GET_DATA_FOOTER: `/api/v1/admin/constants`,
 
   //  Giao diện
   API_ABOUT_US: `/api/v1/admin/constants/about-us`,

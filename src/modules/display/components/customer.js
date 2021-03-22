@@ -286,7 +286,7 @@ const Sale = ({
                   onChange={(e) => handleChangeFile(e, 'customer1')}
                 />
                 <label>
-                  <strong>{'Upload file'}</strong>
+                  <strong>Upload file</strong>
                 </label>
               </div>
               <Input
@@ -336,7 +336,7 @@ const Sale = ({
                   onChange={(e) => handleChangeFile(e, 'customer2')}
                 />
                 <label>
-                  <strong>{'Upload file'}</strong>
+                  <strong>Upload file</strong>
                 </label>
               </div>
               <Input

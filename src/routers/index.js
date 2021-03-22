@@ -73,6 +73,18 @@ const CustomerContainer = lazy(() =>
   import('modules/display/containers/customer')
 );
 
+const displayHeaderContainer = lazy(() =>
+  import('modules/display/containers/displayHeaderContainer')
+);
+
+const displayHeaderIntroduceContainer = lazy(() =>
+  import('modules/display/containers/displayHeaderIntroduceContainer')
+);
+
+const displayFooterContainer = lazy(() =>
+  import('modules/display/containers/displayFooterContainer')
+);
+
 type Props = {
   token: string,
 };
@@ -182,6 +194,24 @@ const Router = ({ token }: Props) => {
             exact
             path={ROUTERS.DISPLAY}
             component={displayContainer}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.DISPLAY_HEADER_INTRODUCE}
+            component={displayHeaderIntroduceContainer}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.DISPLAY_HEADER}
+            component={displayHeaderContainer}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.DISPLAY_FOOTER}
+            component={displayFooterContainer}
             isAuthenticated={isAuthenticated}
           />
           <PrivateRoute
