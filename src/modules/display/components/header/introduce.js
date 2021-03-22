@@ -39,9 +39,10 @@ const Introduce = ({
     tagline: '',
   });
 
-  const dataHeader =
-    valueHeader &&
-    valueHeader.filter((item) => item.type === typePage?.category);
+  let dataHeader = [];
+  if (valueHeader) {
+    dataHeader = valueHeader.filter((item) => item.type === typePage?.category);
+  }
 
   useEffect(() => {
     if (type === 'CREATE_INTRODUCE_SUCCESS') {
@@ -49,6 +50,7 @@ const Introduce = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
+
   useEffect(() => {
     setDataSubmit({
       nameWebsite: dataHeader && dataHeader[0] && dataHeader[0].name,

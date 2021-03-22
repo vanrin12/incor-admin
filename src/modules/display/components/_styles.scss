@@ -89,6 +89,20 @@
     background-position: center center;
     background-size: cover;
 
+    &.input-slider {
+      position: relative;
+      overflow: hidden;
+
+      input.box__file {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        right: 0;
+        cursor: pointer;
+        z-index: 1;
+      }
+    }
+
     .box__file {
       width: 0.1px;
       height: 0.1px;
@@ -179,16 +193,36 @@
     }
   }
 }
-.group-facebook{
+
+.group-facebook {
   display: flex;
   align-items: center;
   margin-bottom: pxToRem(10);
-  .input{
+
+  .input {
     width: 100%;
     margin-left: pxToRem(10);
   }
-  img{
+
+  img {
     width: pxToRem(30);
     height: pxToRem(30);
   }
+}
+
+.plus-slide {
+  width: pxToRem(30);
+  text-align: right;
+  cursor: pointer;
+  font-size: pxToRem(30);
+  color: $color_primary;
+}
+
+.btn-mis {
+  width: pxToRem(30);
+  text-align: right;
+  cursor: pointer;
+  font-size: pxToRem(30);
+  color: $red;
+  margin-left: auto;
 }

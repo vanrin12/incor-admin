@@ -59,7 +59,7 @@ const displayIdentifiedContainer = lazy(() =>
   import('modules/display/components/identified')
 );
 const displayMainContainer = lazy(() =>
-  import('modules/display/components/main')
+  import('modules/display/containers/mainContainer')
 );
 const displaySaleContainer = lazy(() =>
   import('modules/display/containers/sale')

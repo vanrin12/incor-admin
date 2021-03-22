@@ -280,7 +280,6 @@ const Sale = ({
                 <input
                   className="box__file"
                   type="file"
-                  multiple
                   ref={inputFile}
                   accept="image/jpg, image/jpeg, image/png, capture=camera"
                   onChange={(e) => handleChangeFile(e, 'customer1')}
@@ -330,7 +329,6 @@ const Sale = ({
                 <input
                   className="box__file"
                   type="file"
-                  multiple
                   ref={inputFile2}
                   accept="image/jpg, image/jpeg, image/png, capture=camera"
                   onChange={(e) => handleChangeFile(e, 'customer2')}

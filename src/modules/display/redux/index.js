@@ -43,6 +43,18 @@ export const { Types, Creators } = createActions({
   updateSaleMap: ['data'],
   updateSaleMapSuccess: null,
   updateSaleMapFailed: null,
+
+  getListSlider: null,
+  getListSliderSuccess: null,
+  getListSliderFailed: null,
+
+  deleteSlider: ['id'],
+  deleteSliderSuccess: null,
+  deleteSliderFailed: null,
+
+  updateListSlider: ['data'],
+  updateListSliderSuccess: null,
+  updateListSliderFailed: null,
 });
 
 // Initial state
@@ -56,6 +68,8 @@ export const INITIAL_STATE = Immutable({
   type: '',
   valueHeader: [],
   dataFooter: {},
+  dataListSlider: {},
+  titleSlider: '',
 });
 
 const getAboutUs = (state, action) => {
@@ -208,7 +222,7 @@ const createIntroduceFailed = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
-    errors: action.errors,
+    errors: action?.errors,
   });
 };
 
@@ -223,7 +237,7 @@ const getValueHeaderSuccess = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
-    valueHeader: action.data.map,
+    valueHeader: action?.data?.map,
   });
 };
 
@@ -231,7 +245,7 @@ const getValueHeaderFailed = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
-    errors: action.errors,
+    errors: action?.errors,
   });
 };
 
@@ -267,7 +281,7 @@ const getDataFooterSuccess = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
-    dataFooter: action.data.constant,
+    dataFooter: action?.data?.constant,
   });
 };
 
@@ -276,6 +290,83 @@ const getDataFooterFailed = (state, action) => {
     isProcessing: false,
     type: action.type,
     errors: action.errors,
+  });
+};
+
+const getListSlider = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const getListSliderSuccess = (state, action) => {
+  const { data } = action;
+  const dataListSlider =
+    data &&
+    data.uploads.map((item) => ({
+      id: item.id,
+      image: '',
+      name: '',
+      imageView: item.image,
+    }));
+
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    dataListSlider,
+    titleSlider: data && data?.title,
+  });
+};
+
+const getListSliderFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const deleteSlider = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const deleteSliderSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const deleteSliderFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updateListSlider = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const updateListSliderSuccess = (state, action) => {
+  const { data } = action;
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    statusCode: data?.code,
+  });
+};
+
+const updateListSliderFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
   });
 };
 
@@ -320,6 +411,18 @@ const HANDLERS = {
   [Types.GET_DATA_FOOTER]: getDataFooter,
   [Types.GET_DATA_FOOTER_SUCCESS]: getDataFooterSuccess,
   [Types.GET_DATA_FOOTER_FAILED]: getDataFooterFailed,
+
+  [Types.GET_LIST_SLIDER]: getListSlider,
+  [Types.GET_LIST_SLIDER_SUCCESS]: getListSliderSuccess,
+  [Types.GET_LIST_SLIDER_FAILED]: getListSliderFailed,
+
+  [Types.DELETE_SLIDER]: deleteSlider,
+  [Types.DELETE_SLIDER_SUCCESS]: deleteSliderSuccess,
+  [Types.DELETE_SLIDER_FAILED]: deleteSliderFailed,
+
+  [Types.UPDATE_LIST_SLIDER]: updateListSlider,
+  [Types.UPDATE_LIST_SLIDER_SUCCESS]: updateListSliderSuccess,
+  [Types.UPDATE_LIST_SLIDER_FAILED]: updateListSliderFailed,
 };
 
 // Create reducers by pass state and handlers

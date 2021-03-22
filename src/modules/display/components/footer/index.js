@@ -43,6 +43,8 @@ const DisplayFooter = ({
   });
   const [fileName, setFileName] = useState('');
   const [fileName2, setFileName2] = useState('');
+  const [UrlFileName1, setUrlFileName1] = useState('');
+  const [UrlFileName2, setUrlFileName2] = useState('');
   const inputFile = useRef({});
   const inputFile2 = useRef({});
   const [showError, setShowError] = useState({
@@ -51,7 +53,9 @@ const DisplayFooter = ({
   });
   useEffect(() => {
     setFileName(dataFooter?.logo);
+    setUrlFileName1(dataFooter?.logo);
     setFileName2(dataFooter?.logoCongThuong);
+    setUrlFileName2(dataFooter?.logoCongThuong);
     setDataSubmit({
       nameWebsite: dataFooter?.companyName,
       tagline: '',
@@ -116,27 +120,33 @@ const DisplayFooter = ({
     inputRefCurrent && inputRefCurrent.click();
   };
   const getFileName = async (e) => {
-    if (e && e.files[0]) {
-      setDataSubmit({ ...dataSubmit, logo: e.files[0] });
-      setFileName(e.files[0].name);
-    } else if (e.target.files[0].size > 10485760) {
+    if (e && e.files[0] && e.files[0].size > 10485760) {
       setShowError({
         ...showError,
         isShow: true,
-        content: 'Dung lượng video được giới hạn ở 10MB',
+        content: 'Dung lượng hình ảnh được giới hạn ở 10MB',
       });
+    } else {
+      setDataSubmit({ ...dataSubmit, logo: e.files[0] });
+      setFileName(e.files[0].name);
+      setUrlFileName1(
+        (window.URL || window.webkitURL).createObjectURL(e.files[0])
+      );
     }
   };
   const getFileName2 = async (e) => {
-    if (e && e.files[0]) {
-      setDataSubmit({ ...dataSubmit, logo2: e.files[0] });
-      setFileName2(e.files[0].name);
-    } else if (e.target.files[0].size > 10485760) {
+    if (e && e.files[0] && e.files[0].size > 10485760) {
       setShowError({
         ...showError,
         isShow: true,
         content: 'Dung lượng video được giới hạn ở 10MB',
       });
+    } else {
+      setDataSubmit({ ...dataSubmit, logo2: e.files[0] });
+      setFileName2(e.files[0].name);
+      setUrlFileName2(
+        (window.URL || window.webkitURL).createObjectURL(e.files[0])
+      );
     }
   };
   const handleSubmit = () => {
@@ -207,11 +217,13 @@ const DisplayFooter = ({
                 onKeyDown={() => {}}
                 tabIndex={0}
                 role="button"
+                style={{
+                  backgroundImage: `url(${UrlFileName1})`,
+                }}
               >
                 <input
                   className="box__file"
                   type="file"
-                  multiple
                   ref={inputFile}
                   accept="image/jpg, image/png, image/gif, capture=camera"
                   onChange={(e) => getFileName(e.target)}
@@ -300,11 +312,13 @@ const DisplayFooter = ({
                 onKeyDown={() => {}}
                 tabIndex={0}
                 role="button"
+                style={{
+                  backgroundImage: `url(${UrlFileName2})`,
+                }}
               >
                 <input
                   className="box__file"
                   type="file"
-                  multiple
                   ref={inputFile2}
                   accept="image/jpg, image/png, image/gif, capture=camera"
                   onChange={(e) => getFileName2(e.target)}
