@@ -3,11 +3,12 @@
 import React, { memo, useState, useRef } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import MainLayout from 'commons/components/MainLayout';
+import Modal from 'commons/components/Modal';
 import images from 'themes/images';
 import Input from 'commons/components/Input';
 import Button from 'commons/components/Button';
-// import ROUTERS from 'constants/router';
 import { listComponent } from 'constants/listData';
+import ItemSlider from './ItemSlide';
 
 type Props = {
   history: {
@@ -22,7 +23,17 @@ const Display = ({ history }: Props) => {
     tagline: '',
     slide: null,
   });
-  const [fileName, setFileName] = useState('');
+  const [modalCancel, setModalCancel] = useState({
+    isShow: false,
+    content: '',
+  });
+  const [listSlider, setListSlider] = useState([
+    {
+      id: 1,
+      fileName: '',
+      name: '',
+    },
+  ]);
   const inputFile = useRef({});
   const handleChange = (value, name) => {
     setDataSubmit({
@@ -40,12 +51,37 @@ const Display = ({ history }: Props) => {
     inputRefCurrent && inputRefCurrent.click();
   };
 
-  const getFileName = async (e) => {
-    if (e && e.files[0]) {
-      setDataSubmit({ ...dataSubmit, favicon: e.files[0] });
-      setFileName(e.files[0].name);
+  const handleAddListSlider = () => {
+    setListSlider([
+      ...listSlider,
+      {
+        idx: Math.random(),
+        fileName: '',
+        name: '',
+      },
+    ]);
+  };
+
+  const handleRemoveSlider = (item) => {
+    console.log(item, 'ssssssss');
+    if (listSlider.length > 1) {
+      setModalCancel({ ...modalCancel, isShow: true, content: '' });
+    } else {
     }
   };
+
+  const renderListSlider =
+    listSlider &&
+    listSlider.length > 0 &&
+    listSlider.map((item) => (
+      <ItemSlider
+        inputFile={inputFile}
+        onButtonClick={onButtonClick}
+        key={item.id}
+        dataItem={item}
+        handleRemoveSlider={handleRemoveSlider}
+      />
+    ));
 
   const renderComponent =
     listComponent &&
@@ -57,7 +93,7 @@ const Display = ({ history }: Props) => {
           }`}
           onClick={() => {
             history.push({
-              pathname: history.push(item.url),
+              pathname: item.url,
               state: { type: item?.type },
             });
           }}
@@ -100,27 +136,17 @@ const Display = ({ history }: Props) => {
           </Col>
           <Col xs={12} md={12}>
             <h1>Trang chủ</h1>
-            <div className="favicon">Slide</div>
-            <div
-              className="box__input"
-              onClick={onButtonClick}
-              onKeyDown={() => {}}
-              tabIndex={0}
-              role="button"
-            >
-              <input
-                className="box__file"
-                type="file"
-                multiple
-                ref={inputFile}
-                accept="image/jpg, image/png, image/gif, capture=camera"
-                onChange={(e) => getFileName(e.target)}
-              />
-              <label>
-                <strong>{fileName || 'Upload file'}</strong>
-              </label>
+            <div className="favicon d-flex justify-content-between">
+              Slide
+              <div
+                className="plus-slide"
+                onClick={() => handleAddListSlider()}
+                role="presentation"
+              >
+                +
+              </div>
             </div>
-            <p className="suggestions">Kích thước tối thiểu 512x512px</p>
+            {renderListSlider}
             <Input
               type="text"
               onChange={(e) => {
@@ -136,6 +162,19 @@ const Display = ({ history }: Props) => {
           </Col>
         </Row>
       </Container>
+      <Modal
+        isOpen={modalCancel.isShow}
+        isShowFooter
+        handleClose={() => {
+          setModalCancel({ ...modalCancel, isShow: false });
+        }}
+        handleSubmit={() => {
+          setModalCancel({ ...modalCancel, isShow: false });
+        }}
+        textBtnRight="ĐÓNG"
+      >
+        {modalCancel.content}
+      </Modal>
     </MainLayout>
   );
 };

@@ -179,16 +179,36 @@
     }
   }
 }
-.group-facebook{
+
+.group-facebook {
   display: flex;
   align-items: center;
   margin-bottom: pxToRem(10);
-  .input{
+
+  .input {
     width: 100%;
     margin-left: pxToRem(10);
   }
-  img{
+
+  img {
     width: pxToRem(30);
     height: pxToRem(30);
   }
+}
+
+.plus-slide {
+  width: pxToRem(30);
+  text-align: right;
+  cursor: pointer;
+  font-size: pxToRem(30);
+  color: $color_primary;
+}
+
+.btn-mis {
+  width: pxToRem(30);
+  text-align: right;
+  cursor: pointer;
+  font-size: pxToRem(30);
+  color: $red;
+  margin-left: auto;
 }
