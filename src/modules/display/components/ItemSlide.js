@@ -3,16 +3,12 @@
 import React, { memo } from 'react';
 
 type Props = {
-  inputFile: Object,
-  onButtonClick: Function,
   dataItem: Object,
   handelGetFileName: Function,
   handleRemoveSlider: Function,
 };
 
 const ItemSlider = ({
-  inputFile,
-  onButtonClick,
   dataItem,
   handelGetFileName,
   handleRemoveSlider,
@@ -26,26 +22,29 @@ const ItemSlider = ({
       >
         -
       </div>
+
       <div
-        className="box__input"
-        onClick={onButtonClick}
+        className="box__input input-slider"
         onKeyDown={() => {}}
         tabIndex={0}
         role="button"
+        style={{
+          backgroundImage: `url(${dataItem?.imageView})`,
+        }}
       >
         <input
           className="box__file"
           type="file"
-          multiple
-          ref={inputFile}
-          accept="image/jpg, image/png, image/gif, capture=camera"
+          id={dataItem.id}
+          name={`name${dataItem.id}`}
+          accept="image/jpg, image/jpeg, image/png, capture=camera"
           onChange={(e) => handelGetFileName(e, dataItem.id)}
         />
         <label>
           <strong>{dataItem.name || 'Upload file'}</strong>
         </label>
       </div>
-      <p className="suggestions">Kích thước tối thiểu 512x512px</p>
+      <p className="suggestions pb-0">Kích thước tối thiểu 512x512px</p>
     </div>
   );
 };

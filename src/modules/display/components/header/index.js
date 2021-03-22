@@ -66,7 +66,7 @@ const DisplayHeader = ({
           }`}
           onClick={() => {
             history.push({
-              pathname: history.push(ROUTERS.DISPLAY_HEADER_INTRODUCE),
+              pathname: ROUTERS.DISPLAY_HEADER_INTRODUCE,
               state: { type: item },
             });
           }}
