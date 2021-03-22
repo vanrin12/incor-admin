@@ -50,18 +50,18 @@ const DisplayFooter = ({
     content: '',
   });
   useEffect(() => {
-    setFileName(dataFooter.logo);
-    setFileName2(dataFooter.logo1);
+    setFileName(dataFooter?.logo);
+    setFileName2(dataFooter?.logoCongThuong);
     setDataSubmit({
-      nameWebsite: dataFooter.companyName,
+      nameWebsite: dataFooter?.companyName,
       tagline: '',
       logo: null,
-      description: dataFooter.descCompany,
-      address: dataFooter.address,
-      phone: dataFooter.phone,
-      email: dataFooter.email,
-      youtube: dataFooter.linkYoutube,
-      facebook: dataFooter.linkFacebook,
+      description: dataFooter?.descCompany,
+      address: dataFooter?.address,
+      phone: dataFooter?.phone,
+      email: dataFooter?.email,
+      youtube: dataFooter?.linkYoutube,
+      facebook: dataFooter?.linkFacebook,
       logo2: null,
     });
   }, [dataFooter]);
@@ -161,7 +161,7 @@ const DisplayFooter = ({
       formData.append('constants[8][type]', true);
     }
     if (dataSubmit && dataSubmit.logo2) {
-      formData.append('constants[9][name]', 'logo1');
+      formData.append('constants[9][name]', 'logoCongThuong');
       formData.append('constants[9][value]', dataSubmit && dataSubmit.logo2);
       formData.append('constants[9][type]', true);
     }
