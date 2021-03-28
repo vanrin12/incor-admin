@@ -56,7 +56,7 @@ const progressProject = lazy(() =>
 );
 const displayContainer = lazy(() => import('modules/display/components'));
 const displayIdentifiedContainer = lazy(() =>
-  import('modules/display/components/identified')
+  import('modules/display/containers/identifiedContainer')
 );
 const displayMainContainer = lazy(() =>
   import('modules/display/containers/mainContainer')
