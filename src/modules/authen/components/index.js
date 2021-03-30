@@ -19,6 +19,8 @@ type Props = {
   },
   getListUser: Function,
   userInfo: Object,
+  roleUser: Object,
+  resetType: Function,
 };
 const Signin = ({
   signIn,
@@ -29,11 +31,18 @@ const Signin = ({
   errors,
   getListUser,
   userInfo,
+  roleUser,
+  resetType,
 }: Props) => {
   const [isShowError, setIsShowError] = useState({
     isOpen: false,
     content: '',
   });
+
+  useEffect(() => {
+    resetType();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (type === 'SIGN_IN_FAILED') {
@@ -48,12 +57,23 @@ const Signin = ({
     switch (type) {
       case Types.SIGN_IN_SUCCESS:
         API.setHeader('Authorization', `Bearer ${token}`);
-        history.push(ROUTERS.MAIN_PAGE);
+        if (roleUser?.name === 'administrator') {
+          history.push(ROUTERS.MAIN_PAGE);
+        }
+        if (roleUser?.name === 'content') {
+          history.push(ROUTERS.POST);
+        }
+        if (roleUser?.name === 'partner') {
+          history.push(ROUTERS.PARTNER);
+        }
+        if (roleUser?.name === 'customer') {
+          history.push(ROUTERS.CUSTOMER);
+        }
         break;
       default:
         break;
     }
-  }, [token, type, history]);
+  }, [token, type, history, roleUser]);
 
   return (
     <Container fluid className="signin-page">

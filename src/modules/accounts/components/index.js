@@ -16,21 +16,26 @@ import Table from 'commons/components/Table';
 // import ROUTERS from 'constants/router';
 import { headAccount } from 'constants/itemHead';
 import listActions from 'constants/actions';
-
+import Loading from 'commons/components/Loading';
 // import { headquarters, vote, role } from '../../../mockData/dataSelect';
 // import { listDataAccount } from '../../../mockData/listDataTable';
-import { getListUser, getUserRoles, createUser } from '../redux';
+import { getListUser, getUserRoles, createUser, deleteUser } from '../redux';
 
 const Account = () => {
   const dispatch = useDispatch();
-  const { userList, listRoles } = useSelector((state) => state?.account);
+  const { userList, listRoles, isProcessing, type } = useSelector(
+    (state) => state?.account
+  );
+
   const [createDate, setCreateDate] = useState(null);
   const [listId, setListId] = useState([]);
   const [dataFilter, setDataFilter] = useState({
     roleFilter: null,
     dateCreate: '',
+    action: null,
+    role: null,
   });
-  console.log(dataFilter);
+
   const [dataSubmit, setDataSubmit] = useState({});
   const handleCheckBox = (id) => {
     let dataCheckBox = [];
@@ -42,26 +47,33 @@ const Account = () => {
     setListId(dataCheckBox);
   };
 
+  useEffect(() => {
+    if (type === 'accounts/deleteUserSuccess') {
+      dispatch(
+        getListUser({
+          role_id: '',
+          keywords: '',
+          date: '',
+          page: 1,
+          pageSize: 10,
+        })
+      );
+    }
+  }, [type]);
+
   const [keySearch, setKeySearch] = useState('');
 
   const handleChange = (value, name) => {
-    switch (name) {
-      case 'roleFilter':
-        setDataFilter({
-          ...dataFilter,
-          [name]: value,
-        });
-        break;
-
-      default:
-        break;
-    }
-
+    setDataFilter({
+      ...dataFilter,
+      [name]: value,
+    });
     setDataSubmit({
       ...dataSubmit,
       [name]: value,
     });
   };
+
   const handleKeySearch = (value) => {
     setKeySearch(value);
   };
@@ -98,8 +110,6 @@ const Account = () => {
     );
   };
 
-  console.log('data submit', dataSubmit);
-
   const dataUserFormat =
     userList &&
     userList.data &&
@@ -116,6 +126,14 @@ const Account = () => {
         name: dataSubmit.name,
         roleName: dataSubmit?.role?.value,
         userList,
+      })
+    );
+  };
+
+  const handleDelete = () => {
+    dispatch(
+      deleteUser({
+        arrayId: listId && listId.toString(),
       })
     );
   };
@@ -162,7 +180,7 @@ const Account = () => {
               onChange={(e) => {
                 handleChange(e, 'role');
               }}
-              option={dataFilter.roleFilter}
+              option={dataFilter.role}
               customClass="select-role"
               label="Vai trò"
             />
@@ -177,9 +195,9 @@ const Account = () => {
                   placeholder="Action"
                   listItem={listActions}
                   onChange={(e) => {
-                    handleChange(e, 'roleFilter');
+                    handleChange(e, 'action');
                   }}
-                  option={dataFilter.roleFilter}
+                  option={dataFilter.action}
                   customClass="select-headquarters"
                 />
                 <Button
@@ -217,47 +235,53 @@ const Account = () => {
                 </Button>
               </div>
               <Col xs={12} md={12} className="action-delete pr-0">
-                <Button customClass="button--primary" onClick={() => {}}>
+                <Button customClass="button--primary" onClick={handleDelete}>
                   <p>XÓA</p>
                 </Button>
               </Col>
             </Col>
-            <Col xs={12} md={12} className="table-page table-account">
-              <Table
-                tableHeads={headAccount}
-                tableBody={dataUserFormat}
-                showLabel
-                isShowId
-                isShowColumnCheck
-                handleCheckBox={handleCheckBox}
-                listId={listId}
-                isShowColumnBtnStatus
-                isShowColumnBtn
-                nameBtn2="Xem"
-              />
-            </Col>
-            <Col sm={12} className="wrapper-pagination">
-              <ReactPaginate
-                previousLabel="Previous"
-                nextLabel="Next"
-                breakLabel={<span className="gap">...</span>}
-                pageCount={Math.ceil(userList?.users?.total / 10)}
-                // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-                forcePage={0}
-                containerClassName="pagination"
-                disabledClassName="disabled"
-                activeClassName="active"
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                marginPagesDisplayed={1}
-                nextLinkClassName="page-link"
-              />
-            </Col>
+            {isProcessing ? (
+              <Loading />
+            ) : (
+              <>
+                <Col xs={12} md={12} className="table-page table-account">
+                  <Table
+                    tableHeads={headAccount}
+                    tableBody={dataUserFormat}
+                    showLabel
+                    isShowId
+                    isShowColumnCheck
+                    handleCheckBox={handleCheckBox}
+                    listId={listId}
+                    isShowColumnBtnStatus
+                    isShowColumnBtn
+                    nameBtn2="Xem"
+                  />
+                </Col>
+                <Col sm={12} className="wrapper-pagination">
+                  <ReactPaginate
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    breakLabel={<span className="gap">...</span>}
+                    pageCount={Math.ceil(userList?.users?.total / 10)}
+                    // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
+                    forcePage={0}
+                    containerClassName="pagination"
+                    disabledClassName="disabled"
+                    activeClassName="active"
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    marginPagesDisplayed={1}
+                    nextLinkClassName="page-link"
+                  />
+                </Col>
+              </>
+            )}
           </Col>
         </Row>
       </Container>

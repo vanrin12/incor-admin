@@ -1,5 +1,5 @@
 // @flow
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import InlineSVG from 'svg-inline-react';
 import { Row } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
@@ -7,9 +7,21 @@ import menuItems from 'constants/menuItems';
 
 type Props = {
   activeMenu: number,
+  roleUser: Object,
 };
-const Menu = ({ activeMenu }: Props) => {
-  const renderItemMenu = menuItems.map((item) => {
+const Menu = ({ activeMenu, roleUser }: Props) => {
+  const [dataMenu, setDataMenu] = useState(menuItems);
+  const scale = menuItems.filter((item) => item.role === roleUser.name);
+  useEffect(() => {
+    if (roleUser.name === 'administrator') {
+      setDataMenu(menuItems);
+    } else {
+      setDataMenu(scale);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roleUser]);
+
+  const renderItemMenu = dataMenu.map((item) => {
     const isActive = activeMenu === item.id;
 
     return (

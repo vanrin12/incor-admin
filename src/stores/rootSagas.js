@@ -69,6 +69,8 @@ import updateSaleMapSaga from 'modules/display/sagas/updateSaleMapSaga';
 import getListSliderSaga from 'modules/display/sagas/getListSliderSaga';
 import deleteSliderSaga from 'modules/display/sagas/deleteSliderSaga';
 import updateListSliderSaga from 'modules/display/sagas/updateSliderSaga';
+import getListLayoutSaga from 'modules/display/sagas/getListLayoutSaga';
+import deleteUserSaga from 'modules/accounts/sagas/deleteUserSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -138,5 +140,7 @@ export default function* RootSagas() {
     getListSliderSaga(),
     deleteSliderSaga(),
     updateListSliderSaga(),
+    getListLayoutSaga(),
+    deleteUserSaga(),
   ]);
 }

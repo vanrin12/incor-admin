@@ -74,6 +74,7 @@ export const ROUTES = {
   API_DATA_MAP: `/api/v1/admin/constants/data-maps`,
   API_MAIN_SLIDER: `/api/v1/admin/constants/sliders`,
   API_DELETE_SLIDER: (id) => `/api/v1/admin/constants/uploads/${id}`,
+  API_GET_LIST_LAYOUT: `/api/v1/admin/constants/data-maps/layout`,
 };
 
 export const API = create({

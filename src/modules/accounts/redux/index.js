@@ -53,10 +53,8 @@ const accountSlice = createSlice({
 
     createUserSuccess: (state, action) => {
       const { data, userList } = action;
-      console.log(userList);
-      console.log(data);
       state.type = action.type;
-      state.isProcessing = true;
+      state.isProcessing = false;
       state.userList = {
         ...userList,
         data: [
@@ -73,7 +71,22 @@ const accountSlice = createSlice({
 
     createUserFailed: (state, action) => {
       state.type = action.type;
+      state.isProcessing = false;
+    },
+
+    deleteUser: (state, action) => {
+      state.type = action.type;
       state.isProcessing = true;
+    },
+
+    deleteUserSuccess: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = false;
+    },
+
+    deleteUserFailed: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = false;
     },
   },
 });
@@ -90,6 +103,9 @@ export const {
   createUser,
   createUserFailed,
   createUserSuccess,
+  deleteUser,
+  deleteUserFailed,
+  deleteUserSuccess,
 } = actions;
 
 export default reducer;
