@@ -1,10 +1,12 @@
 // @flow
 
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import Menu from 'commons/components/Menu';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ROUTERS from 'constants/router';
 import { Creators as AuthenCreators } from '../../../modules/authen/redux';
 // import Header from '../Header';
 
@@ -12,11 +14,29 @@ type Props = {
   children: any,
   activeMenu: number,
   logOut: Function,
+  roleUser: Object,
+  type: string,
+  history: {
+    push: Function,
+  },
   // customClass?: string,
 };
 
-const MainLayout = ({ children, activeMenu, logOut }: Props) => {
+const MainLayout = ({
+  children,
+  activeMenu,
+  logOut,
+  roleUser,
+  type,
+  history,
+}: Props) => {
   const [showLogout, setShowLogout] = useState(false);
+  useEffect(() => {
+    if (type === 'LOG_OUT') {
+      history.push(ROUTERS.LOGIN);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
   return (
     <Container fluid>
       <Row className="main-layout">
@@ -27,7 +47,7 @@ const MainLayout = ({ children, activeMenu, logOut }: Props) => {
           tabIndex={0}
           onKeyDown={() => {}}
         >
-          ADMIN INCOR
+          {roleUser?.name}
         </div>
         {showLogout && (
           <div className="popup-logout">
@@ -41,7 +61,7 @@ const MainLayout = ({ children, activeMenu, logOut }: Props) => {
           </div>
         )}
         <Col xs={12} md={2} className="menu-left">
-          <Menu activeMenu={activeMenu} />
+          <Menu activeMenu={activeMenu} roleUser={roleUser} />
         </Col>
         <Col xs={12} md={10} className="layout-right">
           {children}
@@ -51,8 +71,11 @@ const MainLayout = ({ children, activeMenu, logOut }: Props) => {
   );
 };
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state) => {
+  return {
+    roleUser: state.authReducer.roleUser,
+    type: state.authReducer.type,
+  };
 };
 
 const mapDispatchToProps = (dispatch) =>
@@ -66,4 +89,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   null
-)(memo<Props>(MainLayout));
+)(withRouter(memo<Props>(MainLayout)));

@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
     isProcessing: state.authReducer.isProcessing,
     errors: state.authReducer.errors,
     token: state.authReducer.token,
+    roleUser: state.authReducer.roleUser,
   };
 };
 
@@ -18,6 +19,7 @@ const mapDispatchToProps = (dispatch) =>
     {
       ...Creators,
       signIn: Creators.signIn,
+      resetType: Creators.resetType,
     },
     dispatch
   );

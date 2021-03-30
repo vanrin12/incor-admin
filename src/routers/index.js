@@ -87,165 +87,226 @@ const displayFooterContainer = lazy(() =>
 
 type Props = {
   token: string,
+  roleUser: Object,
 };
 
-const Router = ({ token }: Props) => {
+const Router = ({ token, roleUser }: Props) => {
   const isAuthenticated = token !== '';
 
   if (token) {
     API.setHeader('Authorization', `Bearer ${token}`);
   }
-
   return (
     <BrowserRouter>
       <Suspense>
         <Switch>
-          <Route
-            exact
-            path={ROUTERS.MAIN_MEDIA}
-            component={displayMediaContainer}
-          />
+          {(roleUser?.name === 'content' ||
+            roleUser?.name === 'administrator') && (
+            <Route
+              exact
+              path={ROUTERS.MAIN_MEDIA}
+              component={displayMediaContainer}
+            />
+          )}
           <Route exact path={ROUTERS.LOGIN} component={loginContainer} />
-          <PrivateRoute
-            exact
-            path={ROUTERS.MAIN_PAGE}
-            component={HomeMain}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.PARTNER}
-            component={Partner}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.CUSTOMER}
-            component={Customer}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.CUSTOMER_INFORMATION}
-            component={CustomerInfo}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.INFORMATION_NEEDS}
-            component={informationNeeds}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.INFORMATION_PROJECT_REGISTER}
-            component={informationProjectRegister}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.PROGRESS_PROJECT_DETAIL}
-            component={progressProject}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.POST}
-            component={Post}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.POST_REGISTER}
-            component={RegisterPost}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.DETAIL_POST}
-            component={DetailPost}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.REGISTER_CATEGORY_POST}
-            component={RegisterCategoryPost}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.UPDATE_CATEGORY_POST}
-            component={UpdateCategoryPost}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.ACCOUNTS}
-            component={accountComponents}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.PARTNER_MANAGEMENT}
-            component={partnerManagement}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.DISPLAY}
-            component={displayContainer}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.DISPLAY_HEADER_INTRODUCE}
-            component={displayHeaderIntroduceContainer}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.DISPLAY_HEADER}
-            component={displayHeaderContainer}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.DISPLAY_FOOTER}
-            component={displayFooterContainer}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.DISPLAY_IDENTIFIED}
-            component={displayIdentifiedContainer}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.DISPLAY_MAIN}
-            component={displayMainContainer}
-            isAuthenticated={isAuthenticated}
-          />
-          <PrivateRoute
-            exact
-            path={ROUTERS.ABOUT_US}
-            component={AboutUsContainer}
-            isAuthenticated={isAuthenticated}
-          />
-
-          <PrivateRoute
-            exact
-            path={ROUTERS.CUSTOMER_EXP}
-            component={CustomerContainer}
-            isAuthenticated={isAuthenticated}
-          />
-
-          <PrivateRoute
-            exact
-            path={ROUTERS.DISPLAY_SALE}
-            component={displaySaleContainer}
-            isAuthenticated={isAuthenticated}
-          />
+          {(roleUser?.name === 'administrator' ||
+            roleUser?.name === undefined) && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.MAIN_PAGE}
+              component={HomeMain}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'partner' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.PARTNER}
+              component={Partner}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'customer' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.CUSTOMER}
+              component={Customer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'customer' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.CUSTOMER_INFORMATION}
+              component={CustomerInfo}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'customer' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.INFORMATION_NEEDS}
+              component={informationNeeds}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'customer' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.INFORMATION_PROJECT_REGISTER}
+              component={informationProjectRegister}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'customer' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.PROGRESS_PROJECT_DETAIL}
+              component={progressProject}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'content' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.POST}
+              component={Post}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'content' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.POST_REGISTER}
+              component={RegisterPost}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'content' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.DETAIL_POST}
+              component={DetailPost}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'content' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.REGISTER_CATEGORY_POST}
+              component={RegisterCategoryPost}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'content' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.UPDATE_CATEGORY_POST}
+              component={UpdateCategoryPost}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.ACCOUNTS}
+              component={accountComponents}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'partner' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.PARTNER_MANAGEMENT}
+              component={partnerManagement}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.DISPLAY}
+              component={displayContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.DISPLAY_HEADER_INTRODUCE}
+              component={displayHeaderIntroduceContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.DISPLAY_HEADER}
+              component={displayHeaderContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.DISPLAY_FOOTER}
+              component={displayFooterContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.DISPLAY_IDENTIFIED}
+              component={displayIdentifiedContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.DISPLAY_MAIN}
+              component={displayMainContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.ABOUT_US}
+              component={AboutUsContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'customer' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.CUSTOMER_EXP}
+              component={CustomerContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.DISPLAY_SALE}
+              component={displaySaleContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
         </Switch>
       </Suspense>
     </BrowserRouter>
@@ -255,6 +316,7 @@ const Router = ({ token }: Props) => {
 const mapStateToProps = (state) => {
   return {
     token: state.authReducer.token,
+    roleUser: state.authReducer.roleUser,
   };
 };
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);

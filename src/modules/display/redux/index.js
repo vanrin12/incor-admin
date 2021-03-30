@@ -55,6 +55,10 @@ export const { Types, Creators } = createActions({
   updateListSlider: ['data'],
   updateListSliderSuccess: null,
   updateListSliderFailed: null,
+
+  getListLayout: null,
+  getListLayoutSuccess: null,
+  getListLayoutFailed: null,
 });
 
 // Initial state
@@ -70,6 +74,7 @@ export const INITIAL_STATE = Immutable({
   dataFooter: {},
   dataListSlider: {},
   titleSlider: '',
+  layoutHeader: [],
 });
 
 const getAboutUs = (state, action) => {
@@ -370,6 +375,29 @@ const updateListSliderFailed = (state, action) => {
   });
 };
 
+const getListLayout = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const getListLayoutSuccess = (state, action) => {
+  const { data } = action;
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    layoutHeader: data && data.map,
+  });
+};
+
+const getListLayoutFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_ABOUT_US]: getAboutUs,
@@ -423,6 +451,10 @@ const HANDLERS = {
   [Types.UPDATE_LIST_SLIDER]: updateListSlider,
   [Types.UPDATE_LIST_SLIDER_SUCCESS]: updateListSliderSuccess,
   [Types.UPDATE_LIST_SLIDER_FAILED]: updateListSliderFailed,
+
+  [Types.GET_LIST_LAYOUT]: getListLayout,
+  [Types.GET_LIST_LAYOUT_SUCCESS]: getListLayoutSuccess,
+  [Types.GET_LIST_LAYOUT_FAILED]: getListLayoutFailed,
 };
 
 // Create reducers by pass state and handlers

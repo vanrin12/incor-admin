@@ -34,6 +34,7 @@ const Introduce = ({
   type,
 }: Props) => {
   const typePage = history?.location?.state?.type;
+
   const [dataSubmit, setDataSubmit] = useState({
     nameWebsite: '',
     tagline: '',
@@ -41,7 +42,7 @@ const Introduce = ({
 
   let dataHeader = [];
   if (valueHeader) {
-    dataHeader = valueHeader.filter((item) => item.type === typePage?.category);
+    dataHeader = valueHeader.filter((item) => item.type === typePage?.name);
   }
 
   useEffect(() => {
@@ -75,7 +76,7 @@ const Introduce = ({
     createIntroduce({
       name: dataSubmit.nameWebsite,
       link: dataSubmit.tagline,
-      type: typePage.category,
+      type: typePage.name,
     });
   };
 
@@ -110,7 +111,7 @@ const Introduce = ({
             <Loading />
           ) : (
             <Col xs={12} md={12}>
-              <h1>{typePage?.title}</h1>
+              <h1>{typePage?.name}</h1>
               <Input
                 type="text"
                 onChange={(e) => {

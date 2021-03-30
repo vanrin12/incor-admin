@@ -13,18 +13,18 @@ type Props = {
     push: Function,
     go: Function,
   },
-  getListCategories: Function,
-  dataCategories: Array<{
+  getListLayout: Function,
+  layoutHeader: Array<{
     id: number,
-    title: string,
+    name: string,
   }>,
   isProcessing: boolean,
 };
 
 const DisplayHeader = ({
   history,
-  getListCategories,
-  dataCategories,
+  getListLayout,
+  layoutHeader,
   isProcessing,
 }: Props) => {
   const [dataSubmit, setDataSubmit] = useState({
@@ -36,7 +36,7 @@ const DisplayHeader = ({
   const inputFile = useRef({});
 
   useEffect(() => {
-    getListCategories();
+    getListLayout();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -57,8 +57,8 @@ const DisplayHeader = ({
   };
 
   const renderComponent =
-    dataCategories &&
-    dataCategories.map((item) => {
+    layoutHeader &&
+    layoutHeader.map((item) => {
       return (
         <div
           className={`list-companent__item-display ${
@@ -75,7 +75,7 @@ const DisplayHeader = ({
           role="button"
           key={item.id}
         >
-          {item.title}
+          {item.name}
         </div>
       );
     });

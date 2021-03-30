@@ -11,6 +11,7 @@ export const { Types, Creators } = createActions({
   logOutSuccess: null,
   logOutFailed: null,
   getListUser: ['list'],
+  resetType: null,
 });
 
 // Initial state
@@ -22,6 +23,7 @@ export const INITIAL_STATE = Immutable({
   token: '',
   accountInfo: {},
   getInfoUser: {},
+  roleUser: {},
 });
 
 const signIn = (state, action) => {
@@ -46,6 +48,7 @@ const signInSuccess = (state, action) => {
     token: action.data.token,
     accountInfo: action.data.user,
     errors: '',
+    roleUser: action.data.user.roles && action.data.user.roles[0],
   });
 };
 
@@ -77,6 +80,12 @@ const logOutFailed = (state, action) => {
   });
 };
 
+const resetType = (state) => {
+  return state.merge({
+    type: '',
+  });
+};
+
 // Assign handler to types.
 const HANDLERS = {
   [Types.SIGN_IN]: signIn,
@@ -86,6 +95,7 @@ const HANDLERS = {
   [Types.LOG_OUT_SUCCESS]: logOutSuccess,
   [Types.LOG_OUT_FAILED]: logOutFailed,
   [Types.GET_LIST_USER]: getListUser,
+  [Types.RESET_TYPE]: resetType,
 };
 
 // Create reducers by pass state and handlers
