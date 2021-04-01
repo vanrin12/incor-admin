@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // @flow
 
 import React, { useState, useEffect } from 'react';
@@ -38,7 +39,7 @@ const HomeMain = () => {
   const handleSelectChange = (option) => {
     setFilterChart(option);
   };
-  console.log(dataMain);
+
   const hashtags =
     dataMain &&
     dataMain.hashtag &&
@@ -49,6 +50,14 @@ const HomeMain = () => {
   useEffect(() => {
     dispatch(getDataMain());
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(getDataMain());
+    }, 300000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const renderHashtags =
