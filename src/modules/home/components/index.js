@@ -63,13 +63,13 @@ const HomeMain = () => {
   const renderHashtags =
     hashtags &&
     hashtags.map((item) => {
-      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+      // const randomColor = Math.floor(Math.random() * 16777215).toString(16);
       return (
         <span
           className="content-wrapper__hashtag__item"
-          style={{
-            background: `#${randomColor}`,
-          }}
+          // style={{
+          //   background: `#${randomColor}`,
+          // }}
         >
           {item}
         </span>

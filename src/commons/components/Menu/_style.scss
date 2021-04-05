@@ -23,6 +23,54 @@
     border-radius: pxToVW(2);
   }
 
+  .description-menu{
+    h2{
+      font-size: pxToRem(50);
+      color: $color_primary;
+      line-height: pxToRem(10);
+      font-style: oblique;
+      padding-bottom: pxToRem(10);
+    }
+    p{
+      font-style: oblique;
+      font-size: pxToRem(18);
+    }
+    &__admin{
+      color: $color_primary;
+      font-size: pxToRem(20);
+      font-style: normal;
+      text-align: right;
+      font-weight: $bold;
+      padding-bottom: pxToRem(5);
+    }
+    &__ceo{
+      color: gray;
+      font-size: pxToRem(18);
+      font-style: normal;
+      text-align: right;
+    }
+    &__incor{
+      color: $color_primary;
+      font-size: pxToRem(30);
+      font-weight: $bold;
+      padding: pxToRem(35) 0;
+    }
+    &__hotline{
+      color: $color-black;
+      font-size: pxToRem(18);
+      font-style: normal;
+      padding-bottom: pxToRem(5);
+      padding-top: pxToVW(15);
+      font-weight: $bold;
+    }
+    &__email{
+      color: $color-black;
+      font-size: pxToRem(18);
+      font-style: normal;
+      font-weight: $bold;
+    }
+  }
+
   .logo {
     background-image: url('../../../assets/imgs/logo.png');
     background-repeat: no-repeat;

@@ -21,6 +21,7 @@ type Props = {
   userInfo: Object,
   roleUser: Object,
   resetType: Function,
+  accountInfo: Object,
 };
 const Signin = ({
   signIn,
@@ -33,6 +34,7 @@ const Signin = ({
   userInfo,
   roleUser,
   resetType,
+  accountInfo,
 }: Props) => {
   const [isShowError, setIsShowError] = useState({
     isOpen: false,
@@ -64,7 +66,9 @@ const Signin = ({
           history.push(ROUTERS.POST);
         }
         if (roleUser?.name === 'partner') {
-          history.push(ROUTERS.PARTNER);
+          history.push(
+            `${ROUTERS.ROUTERS_PARTNER_MANAGEMENT}/${accountInfo?.id}`
+          );
         }
         if (roleUser?.name === 'customer') {
           history.push(ROUTERS.CUSTOMER);
@@ -73,6 +77,7 @@ const Signin = ({
       default:
         break;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, type, history, roleUser]);
 
   return (

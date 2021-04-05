@@ -200,6 +200,13 @@ const InformationNeeds = ({
                     option={dataAddProject.partner_id}
                     customClass="select-category"
                   />
+                  {/* <textarea
+                    onChange={(e) => {
+                      handleChange(e.target.value, 'category');
+                    }}
+                    value={dataAddProject.category}
+                    placeholder="Nhập tên hạng mục"
+                  /> */}
                   <textarea
                     onChange={(e) => {
                       handleChange(e.target.value, 'category');

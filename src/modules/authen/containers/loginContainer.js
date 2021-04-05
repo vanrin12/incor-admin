@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
     errors: state.authReducer.errors,
     token: state.authReducer.token,
     roleUser: state.authReducer.roleUser,
+    accountInfo: state.authReducer.accountInfo,
   };
 };
 

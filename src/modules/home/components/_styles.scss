@@ -151,6 +151,12 @@
       line-height: 1.4;
       font-weight: $bold;
       color: $white ;
+      &:nth-of-type(2n){
+        background-color: #bbbbbb;
+      }
+      &:nth-of-type(3n){
+        background-color: #ffb68a;
+      }
     }
 
     &__list-all{
