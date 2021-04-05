@@ -118,8 +118,7 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
-          {(roleUser?.name === 'partner' ||
-            roleUser?.name === 'administrator') && (
+          {roleUser?.name === 'administrator' && (
             <PrivateRoute
               exact
               path={ROUTERS.PARTNER}

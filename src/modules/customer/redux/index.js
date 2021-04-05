@@ -65,6 +65,7 @@ export const INITIAL_STATE = Immutable({
   listTableConstruction: [],
   totalConstruction: 0,
   projectId: '',
+  tableDetailProject: [],
 });
 
 const getListCustomer = (state, action) => {
@@ -203,8 +204,8 @@ const getListDivision = (state, action) => {
 };
 
 const getListDivisionSuccess = (state, action) => {
-  const listDivision = action.data.division.map((item, index) => ({
-    id: index,
+  const listDivision = action.data.division.map((item) => ({
+    id: item.id,
     value: item.name,
     label: item.name,
   }));
@@ -256,6 +257,22 @@ const getDetailProjectSuccess = (state, action) => {
     isProcessing: false,
     type: action.type,
     dataDetailProject: action.data.project,
+    tableDetailProject:
+      action &&
+      action.data &&
+      action.data.project &&
+      action.data.project.items &&
+      action.data.project.items.data &&
+      action.data.project.items.data.map((item) => {
+        return {
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          amount: item.amount,
+          unit: item.unit,
+          note: item.note,
+        };
+      }),
   });
 };
 

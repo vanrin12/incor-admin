@@ -13,6 +13,7 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
+import Modal from 'commons/components/Modal';
 // import ROUTERS from 'constants/router';
 import { headAccount } from 'constants/itemHead';
 import listActions from 'constants/actions';
@@ -26,7 +27,10 @@ const Account = () => {
   const { userList, listRoles, isProcessing, type } = useSelector(
     (state) => state?.account
   );
-
+  const [isShowPassword, setIsShowPassword] = useState({
+    isOpen: false,
+    content: '',
+  });
   const [createDate, setCreateDate] = useState(null);
   const [listId, setListId] = useState([]);
   const [dataFilter, setDataFilter] = useState({
@@ -34,6 +38,7 @@ const Account = () => {
     dateCreate: '',
     action: null,
     role: null,
+    page: 1,
   });
 
   const [dataSubmit, setDataSubmit] = useState({});
@@ -58,6 +63,13 @@ const Account = () => {
           pageSize: 10,
         })
       );
+    }
+    if (type === 'accounts/createUserSuccess') {
+      setDataSubmit({});
+      setDataFilter({
+        ...dataFilter,
+        role: null,
+      });
     }
   }, [type]);
 
@@ -102,9 +114,34 @@ const Account = () => {
     dispatch(
       getListUser({
         role_id: dataFilter?.roleFilter?.id,
-        keywords: '',
+        keywords: keySearch,
         date: createDate ? moment(createDate).format('YYYY-MM-DD') : '',
         page: 1,
+        pageSize: 10,
+      })
+    );
+  };
+
+  const handleSelectPagination = (eventKey) => {
+    setDataFilter({ ...dataFilter, page: eventKey.selected + 1 });
+    dispatch(
+      getListUser({
+        role_id: dataFilter?.roleFilter?.id,
+        keywords: keySearch,
+        date: createDate ? moment(createDate).format('YYYY-MM-DD') : '',
+        page: eventKey.selected + 1,
+        pageSize: 10,
+      })
+    );
+  };
+
+  const handleSearch = () => {
+    dispatch(
+      getListUser({
+        role_id: dataFilter?.roleFilter?.id,
+        keywords: keySearch,
+        date: createDate ? moment(createDate).format('YYYY-MM-DD') : '',
+        page: dataFilter.page,
         pageSize: 10,
       })
     );
@@ -118,6 +155,7 @@ const Account = () => {
       name: item.name,
       role_name: item.role_name,
       created_at: moment(item.created_at).format('HH:SS MM/DD/YYYY'),
+      password: item.pw_show,
     }));
 
   const handleCreateUser = () => {
@@ -137,7 +175,12 @@ const Account = () => {
       })
     );
   };
-
+  const handleClickBtnDetail = (item) => {
+    setIsShowPassword({
+      isOpen: true,
+      content: item?.password,
+    });
+  };
   return (
     <MainLayout activeMenu={5}>
       <Container fluid>
@@ -155,7 +198,10 @@ const Account = () => {
                 maxLength="20"
                 value={keySearch}
               />
-              <Button customClass="button--primary" onClick={() => {}}>
+              <Button
+                customClass="button--primary"
+                onClick={() => handleSearch()}
+              >
                 <p>TÌM</p>
               </Button>
             </div>
@@ -204,7 +250,7 @@ const Account = () => {
                   customClass="button--primary mr-5"
                   onClick={handleFilter}
                 >
-                  APPLY
+                  ÁP DỤNG
                 </Button>
                 <SelectDropdown
                   placeholder="Vai trò"
@@ -231,7 +277,7 @@ const Account = () => {
                   customClass="select-vote"
                 /> */}
                 <Button customClass="button--primary" onClick={handleFilter}>
-                  FILTER
+                  TÌM KIẾM
                 </Button>
               </div>
               <Col xs={12} md={12} className="action-delete pr-0">
@@ -256,6 +302,7 @@ const Account = () => {
                     isShowColumnBtnStatus
                     isShowColumnBtn
                     nameBtn2="Xem"
+                    handleClickBtnDetail={handleClickBtnDetail}
                   />
                 </Col>
                 <Col sm={12} className="wrapper-pagination">
@@ -263,9 +310,11 @@ const Account = () => {
                     previousLabel="Previous"
                     nextLabel="Next"
                     breakLabel={<span className="gap">...</span>}
-                    pageCount={Math.ceil(userList?.users?.total / 10)}
-                    // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-                    forcePage={0}
+                    pageCount={Math.ceil(userList?.total / 10)}
+                    onPageChange={(eventKey) =>
+                      handleSelectPagination(eventKey)
+                    }
+                    forcePage={dataFilter.page - 1 || 0}
                     containerClassName="pagination"
                     disabledClassName="disabled"
                     activeClassName="active"
@@ -285,6 +334,19 @@ const Account = () => {
           </Col>
         </Row>
       </Container>
+      <Modal
+        isOpen={isShowPassword.isOpen}
+        isShowFooter
+        handleClose={() => {
+          setIsShowPassword({ ...isShowPassword, isOpen: false });
+        }}
+        handleSubmit={() => {
+          setIsShowPassword({ ...isShowPassword, isOpen: false });
+        }}
+        textBtnRight="ĐÓNG"
+      >
+        {isShowPassword.content}
+      </Modal>
     </MainLayout>
   );
 };

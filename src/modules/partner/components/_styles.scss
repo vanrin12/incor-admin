@@ -79,6 +79,8 @@
         border-radius: 0;
         margin-left: pxToVW(-2);
         z-index: 999;
+        border-bottom-right-radius: pxToRem(8);
+        border-top-right-radius: pxToRem(8);
       }
 
       .input__box input {

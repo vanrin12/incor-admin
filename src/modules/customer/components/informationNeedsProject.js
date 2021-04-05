@@ -37,6 +37,9 @@ type Props = {
   }>,
   isProcessing: boolean,
   registerProjectItem: Function,
+  tableDetailProject: Array<{
+    id: number,
+  }>,
 };
 const InformationNeedsProject = ({
   getDetailProject,
@@ -50,6 +53,7 @@ const InformationNeedsProject = ({
   listDivision,
   isProcessing,
   registerProjectItem,
+  tableDetailProject,
 }: Props) => {
   const projectId = match.params.id;
   const areas = dataAreas.filter(
@@ -109,7 +113,6 @@ const InformationNeedsProject = ({
       space_division_id: dataSubmit?.divisionType?.id,
     });
   };
-
   return (
     <MainLayout activeMenu={4}>
       {isProcessing ? (
@@ -118,7 +121,9 @@ const InformationNeedsProject = ({
         <Container fluid>
           <Row className="content-wrapper page-customer">
             <Col xs={12} md={12}>
-              <h2 className="title-page">Thông tin nhu cầu - Dự án 1</h2>
+              <h2 className="title-page">
+                Thông tin nhu cầu - {dataDetailProject?.name}
+              </h2>
             </Col>
             <Col xs={12} md={3}>
               <Input
@@ -190,7 +195,7 @@ const InformationNeedsProject = ({
             <Col xs={12} md={12} className="table-page table-partner">
               <Table
                 tableHeads={headCustomerInfo}
-                tableBody={dataDetailProject?.items?.data}
+                tableBody={tableDetailProject}
                 showLabel
                 isShowId
               />

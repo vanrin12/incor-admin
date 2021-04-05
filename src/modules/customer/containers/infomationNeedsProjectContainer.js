@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
     dataAreas: state.partnerReducer.dataAreas,
     listSpaceType: state.customerReducer.listSpaceType,
     listDivision: state.customerReducer.listDivision,
+    tableDetailProject: state.customerReducer.tableDetailProject,
   };
 };
 

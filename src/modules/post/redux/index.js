@@ -219,7 +219,7 @@ const getListPostSuccess = (state, action) => {
     action.data.post &&
     action.data.post.data.map((item) => ({
       id: item.id,
-      title: item.seo_title,
+      title: item.name,
       writer: item.user.name,
       category: item.category.name,
       time: moment(item.created_at).format('HH:mm YYYY-MM-DD'),
@@ -249,6 +249,11 @@ const getListAllCategories = (state, action) => {
 };
 
 const getListAllCategoriesSuccess = (state, action) => {
+  const defaultData = {
+    id: 0,
+    value: 'all',
+    label: 'all',
+  };
   const dataAllCategories =
     action.data.categories &&
     action.data.categories.data &&
@@ -260,7 +265,7 @@ const getListAllCategoriesSuccess = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
-    listAllCategories: dataAllCategories,
+    listAllCategories: [defaultData, ...dataAllCategories],
   });
 };
 

@@ -115,7 +115,6 @@ const InformationNeeds = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataSubmit && dataSubmit.space && dataSubmit.space.id]);
-
   const handleRegister = () => {
     registerProject({
       name: dataSubmit.nameProject,
@@ -142,7 +141,7 @@ const InformationNeeds = ({
       <Container fluid>
         <Row className="content-wrapper page-information">
           <Col xs={12} md={12}>
-            <h2 className="title-page">Thông tin nhu cầu - Dự án 1</h2>
+            <h2 className="title-page">Thông tin nhu cầu</h2>
           </Col>
           <Col xs={12} md={3}>
             <Input

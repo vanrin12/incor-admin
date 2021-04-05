@@ -46,6 +46,18 @@ const Menu = ({ activeMenu, roleUser }: Props) => {
     <Row className="wrapper-menu">
       <div className="logo" />
       <div>{renderItemMenu}</div>
+      {roleUser.name === 'partner' && (
+        <div className="description-menu">
+          <h2>&quot;</h2>
+          <p>Cảm ơn Quý đối tác đã tin tưởng và đồng hành cùng Incor</p>
+          <p className="description-menu__admin">TOÀN NGUYỄN</p>
+          <p className="description-menu__ceo">CEO Incor</p>
+          <h1 className="description-menu__incor">INCOR</h1>
+          <p>Nền tảng kết nối khách hàng & công ty xây dựng nội thất</p>
+          <p className="description-menu__hotline">Hotline:</p>
+          <p className="description-menu__email">Email: cskh.incor@gmail.com</p>
+        </div>
+      )}
     </Row>
   );
 };
