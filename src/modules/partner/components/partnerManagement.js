@@ -93,6 +93,7 @@ const Customer = ({
     tax_code: dataManagement.company_tax_code || '',
     name: dataManagement.company_name || '',
     address: dataManagement.company_address || '',
+    email: dataManagement?.company_email || '',
   });
   const [keySearch, setKeySearch] = useState('');
   const [avatar, setAvatar] = useState('');
@@ -159,6 +160,7 @@ const Customer = ({
         tax_code: dataPartnerManagement.company_tax_code || '',
         name: dataPartnerManagement.company_name || '',
         address: dataPartnerManagement.company_address || '',
+        email: dataPartnerManagement?.company_email || '',
       });
     }
     if (type === 'REGISTER_PARTNER_PRODUCT_SUCCESS') {
@@ -254,6 +256,7 @@ const Customer = ({
     formData.append('address', dataFilter.address);
     formData.append('scale_id', dataFilter?.scales?.id);
     formData.append('tax_code', dataFilter.tax_code);
+    formData.append('email', dataFilter?.email);
     formData.append('career', dataJob && dataJob.toString());
     registerPartnerCompany(formData);
   };
@@ -354,6 +357,16 @@ const Customer = ({
                       <h2>Mã số thuế</h2>
                       <p>{dataPartnerManagement.company_tax_code}</p>
                     </Col>
+                    <Col xs={12} md={12} className="d-flex ">
+                      <h2 className="pt-2">Email</h2>
+                      <p className="pl-3 email-company">
+                        <a
+                          href={`mailto:${dataPartnerManagement?.company_email}`}
+                        >
+                          {dataPartnerManagement?.company_email}
+                        </a>
+                      </p>
+                    </Col>
                   </Row>
                 </Col>
                 <Col xs={12} md={4} className="box-info-partner">
@@ -409,6 +422,19 @@ const Customer = ({
                         value={dataFilter.tax_code}
                         placeholder="Nhập mã số thuế"
                         label="Mã số thuế"
+                        customClass="name-account"
+                      />
+                    </Col>
+                    <Col xs={12} md={12}>
+                      <Input
+                        type="text"
+                        onChange={(e) => {
+                          handleChange(e.target.value, 'email');
+                        }}
+                        maxLength="20"
+                        value={dataFilter.email}
+                        placeholder="email"
+                        label="Email"
                         customClass="name-account"
                       />
                     </Col>

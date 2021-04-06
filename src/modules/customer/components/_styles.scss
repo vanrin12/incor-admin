@@ -333,3 +333,23 @@
     }
   }
 }
+
+.group-image{
+  display: flex;
+  padding-top: pxToRem(20);
+  align-items: flex-end;
+  p{
+    width: pxToRem(300);
+    border-bottom: 1px solid #000;
+    padding-left: pxToRem(10);
+  }
+  .button{
+    height: pxToRem(30) !important;
+    p{
+      font-size: pxToRem(13);
+      border: 0;
+      width: auto;
+      padding-left: 0;
+    }
+  }
+}

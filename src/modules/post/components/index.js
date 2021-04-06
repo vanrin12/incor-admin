@@ -176,7 +176,7 @@ const Post = ({
                 customClass="select-vote"
               />
               <Button customClass="button--primary" onClick={handleFilter}>
-                FILTER
+                TÌM KIẾM
               </Button>
             </div>
           </Col>
