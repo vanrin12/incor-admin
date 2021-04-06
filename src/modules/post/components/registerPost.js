@@ -122,7 +122,9 @@ const RegisterPost = ({
       createDate && moment(createDate).format('YYYY-MM-DD HH:mm:ss')
     );
     formData.append('type', 'Y');
-    registerPost(formData);
+    if (dataRegister?.category?.id) {
+      registerPost(formData);
+    }
   };
   const handleDraft = () => {
     const formData = new window.FormData();

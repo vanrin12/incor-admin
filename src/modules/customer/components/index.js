@@ -143,7 +143,7 @@ const Customer = ({
                 customClass="button--primary"
                 onClick={handleFilterCustomer}
               >
-                FILTER
+                TÌM KIẾM
               </Button>
             </div>
           </Col>

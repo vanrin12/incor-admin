@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Immutable from 'seamless-immutable';
 import { Row, Col, Container } from 'react-bootstrap';
 import SelectDropdown from 'commons/components/Select';
@@ -45,6 +45,7 @@ const InformationNeeds = ({
   projectId,
   resetData,
 }: Props) => {
+  const inputFile = useRef({});
   const userId = match.params.id;
   const [dataSubmit, setDataSubmit] = useState({
     nameProject: '',
@@ -60,6 +61,8 @@ const InformationNeeds = ({
     note: '',
   });
   const [total, setTotal] = useState(0);
+  const [objFile, setObjFile] = useState(null);
+  const [nameImage, setNameImage] = useState('');
 
   useEffect(() => {
     if (
@@ -85,6 +88,17 @@ const InformationNeeds = ({
   useEffect(() => {
     if (type === 'REGISTER_PROJECT_ITEM_SUCCESS') {
       history.go(-1);
+    }
+    if (type === 'REGISTER_PROJECT_SUCCESS') {
+      setDataSubmit({
+        nameProject: '',
+        address: '',
+        area: null,
+        space: null,
+        typeSpace: null,
+      });
+      setObjFile(null);
+      setNameImage('');
     }
   }, [history, type]);
 
@@ -115,20 +129,36 @@ const InformationNeeds = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataSubmit && dataSubmit.space && dataSubmit.space.id]);
+
+  const getFileName = async (e) => {
+    setObjFile(e.files[0]);
+    setNameImage(e.files[0].name);
+  };
+
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+    // eslint-disable-next-line no-unused-expressions
+    const inputRefCurrent =
+      inputFile && inputFile.current ? inputFile.current : null;
+    // eslint-disable-next-line no-unused-expressions
+    inputRefCurrent && inputRefCurrent.click();
+  };
+
   const handleRegister = () => {
-    registerProject({
-      name: dataSubmit.nameProject,
-      user_id: userId,
-      address: dataSubmit.address,
-      area_id: dataSubmit?.area?.id,
-      space_type_id: dataSubmit?.space?.id,
-      space_division_id: dataSubmit?.typeSpace?.id,
-    });
+    const formData = new window.FormData();
+    formData.append('name', dataSubmit.nameProject);
+    formData.append('user_id', userId);
+    formData.append('address', dataSubmit.address);
+    formData.append('area_id', dataSubmit?.area?.id);
+    formData.append('space_type_id', dataSubmit?.space?.id);
+    formData.append('space_division_id', dataSubmit?.typeSpace?.id);
+    formData.append('file', objFile);
+    registerProject(formData);
   };
 
   const handleRegisterProjectItem = () => {
     registerProjectItem({
-      name: dataSubmit.nameProject,
+      name: dataAddCategories.nameCategories,
       project_id: projectId,
       description: dataAddCategories.description,
       amount: total,
@@ -201,6 +231,22 @@ const InformationNeeds = ({
               label="Loại hình không gian"
               disabled={dataSubmit.space === null}
             />
+          </Col>
+          <Col xs={12} md={6}>
+            <div className="group-image">
+              <h2>Bản vẽ</h2>
+              <p>{nameImage}</p>
+              <input
+                className="box__file d-none"
+                type="file"
+                ref={inputFile}
+                accept="image/jpg, image/jpeg, image/png, capture=camera"
+                onChange={(e) => getFileName(e.target)}
+              />
+              <Button customClass="button--primary" onClick={onButtonClick}>
+                <p>CHỌN FILE</p>
+              </Button>
+            </div>
           </Col>
           <Col xs={12} md={12} className="action-delete">
             <Button customClass="button--primary" onClick={handleRegister}>
