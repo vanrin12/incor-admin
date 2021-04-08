@@ -119,7 +119,7 @@ const Partner = ({
     getListPartner({
       paged: 1,
       career: dataFilter?.constant?.value,
-      scale_id: dataFilter?.areas?.id,
+      scale_id: dataFilter?.areas?.id !== 0 ? dataFilter?.areas?.id : null,
       rate: dataFilter?.vote?.value,
       keywords: keySearch,
     });

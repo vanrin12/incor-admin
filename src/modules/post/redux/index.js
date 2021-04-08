@@ -306,17 +306,22 @@ const getListAllSeoTitle = (state, action) => {
 };
 
 const getListAllSeoTitleSuccess = (state, action) => {
+  const defaultData = {
+    id: 0,
+    value: '',
+    label: 'Tất cả',
+  };
   const dataAllSeoTitle =
     action.data.seo_title &&
     action.data.seo_title.map((item, index) => ({
-      id: index,
+      id: index + 1,
       value: item,
       label: item,
     }));
   return state.merge({
     isProcessing: false,
     type: action.type,
-    listAllSeoTitle: dataAllSeoTitle,
+    listAllSeoTitle: [defaultData, ...dataAllSeoTitle],
   });
 };
 
