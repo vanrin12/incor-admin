@@ -112,15 +112,21 @@ const getListAreas = (state, action) => {
 };
 
 const getListAreasSuccess = (state, action) => {
+  const defaultData = {
+    id: 0,
+    value: 'Tất cả',
+    label: 'Tất cả',
+  };
+  const dataAreas =
+    action.data.data &&
+    action.data.data.areas &&
+    action.data.data.areas.map((item) => {
+      return { id: item.id, value: item.name, label: item.name };
+    });
   return state.merge({
     isProcessing: false,
     type: action.type,
-    dataAreas:
-      action.data.data &&
-      action.data.data.areas &&
-      action.data.data.areas.map((item) => {
-        return { id: item.id, value: item.name, label: item.name };
-      }),
+    dataAreas: [defaultData, ...dataAreas],
   });
 };
 
