@@ -23,6 +23,8 @@ type Props = {
   listId?: Array<{}>,
   handleCheckBox?: Function,
   isShowRating?: boolean,
+  handleDelete?: Function,
+  handleUpdate?: Function,
 };
 
 const TableData = ({
@@ -44,6 +46,8 @@ const TableData = ({
   listId = [],
   handleCheckBox = () => {},
   isShowRating = false,
+  handleDelete = () => {},
+  handleUpdate = () => {},
 }: Props) => {
   const renderBodyTable = () => {
     return (
@@ -68,6 +72,8 @@ const TableData = ({
           handleCheckBox={handleCheckBox}
           listId={listId}
           isShowRating={isShowRating}
+          handleDelete={handleDelete}
+          handleUpdate={handleUpdate}
         />
       ))
     );
@@ -111,5 +117,7 @@ TableData.defaultProps = {
   listId: [],
   handleCheckBox: () => {},
   isShowRating: false,
+  handleDelete: () => {},
+  handleUpdate: () => {},
 };
 export default memo<Props>(TableData);

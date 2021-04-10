@@ -22,6 +22,9 @@
       background-color:$bg-even-table;
     }
     tr{
+      &.row-active{
+        background-color: $bg-row-active;
+      }
       td{
         border: 0;
         padding: pxToVW(25) pxToVW(10);
@@ -38,4 +41,31 @@
 }
 .table-responsive{
   border-radius: pxToVW(10);
+}
+.action-category{
+  display: flex;
+  font-size: pxToVW(18);
+  position: absolute;
+  right: pxToRem(15);
+  height: auto;
+  .edit-categories{
+    width: pxToVW(110);
+    color: $white;
+    background-color:$color_primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: pxToVW(23) pxToVW(10);
+    font-size: pxToVW(18);
+  }
+  .cancel-categories{
+    width: pxToVW(110);
+    color: $white;
+    background-color: $bg-cancel-categories;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: pxToVW(23) pxToVW(10);
+    font-size: pxToVW(18);
+  }
 }

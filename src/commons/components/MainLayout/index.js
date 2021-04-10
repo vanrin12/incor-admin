@@ -7,6 +7,7 @@ import Menu from 'commons/components/Menu';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ROUTERS from 'constants/router';
+import images from 'themes/images';
 import { Creators as AuthenCreators } from '../../../modules/authen/redux';
 // import Header from '../Header';
 
@@ -47,6 +48,7 @@ const MainLayout = ({
           tabIndex={0}
           onKeyDown={() => {}}
         >
+          <img src={images.iconBack} alt="" />
           {roleUser?.name}
         </div>
         {showLogout && (

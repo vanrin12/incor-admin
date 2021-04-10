@@ -50,6 +50,7 @@ const Menu = ({ activeMenu, roleUser }: Props) => {
         <div className="description-menu">
           <h2>&quot;</h2>
           <p>Cảm ơn Quý đối tác đã tin tưởng và đồng hành cùng Incor</p>
+          <h2 className="text-right">&quot;</h2>
           <p className="description-menu__admin">TOÀN NGUYỄN</p>
           <p className="description-menu__ceo">CEO Incor</p>
           <h1 className="description-menu__incor">INCOR</h1>

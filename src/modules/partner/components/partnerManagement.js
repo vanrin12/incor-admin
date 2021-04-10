@@ -187,6 +187,13 @@ const Customer = ({
         keywords: keySearch,
       });
     }
+    if (type === 'REGISTER_PARTNER_COMPANY_SUCCESS') {
+      getListPartnerProduct({
+        id: dataPartnerManagement.company_id,
+        keywords: keySearch,
+      });
+      setIsShowEdit(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
@@ -330,17 +337,19 @@ const Customer = ({
           <Row className="content-wrapper page-partner page-post page-partner-management">
             <Col xs={12} md={2}>
               <div className="avatar" style={styleAvatar}>
-                <p onClick={onButtonClick} role="presentation">
-                  THAY ẢNH
-                  <input
-                    className="d-none"
-                    type="file"
-                    multiple
-                    ref={inputFile}
-                    accept="image/jpg, image/png, image/gif, capture=camera"
-                    onChange={(e) => getFileName(e.target)}
-                  />
-                </p>
+                {!dataPartnerManagement.company_image && (
+                  <p onClick={onButtonClick} role="presentation">
+                    THAY ẢNH
+                    <input
+                      className="d-none"
+                      type="file"
+                      multiple
+                      ref={inputFile}
+                      accept="image/jpg, image/png, image/gif, capture=camera"
+                      onChange={(e) => getFileName(e.target)}
+                    />
+                  </p>
+                )}
               </div>
             </Col>
             {!isShowEdit && dataPartnerManagement.company_name ? (

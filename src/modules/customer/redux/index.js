@@ -80,6 +80,7 @@ const getListCustomerSuccess = (state, action) => {
     id: item.id,
     date:
       item.created_at && moment(item.created_at).format('HH:mm - DD/MM/yyyy'),
+    nameUser: item.name,
     nameCustomer: item.name,
     nameIncor: item.name_incor,
     vote: item.area?.name,

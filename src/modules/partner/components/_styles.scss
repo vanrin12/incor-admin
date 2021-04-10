@@ -95,7 +95,7 @@
 
     tr {
       td {
-        &:nth-of-type(4) {
+        &:nth-of-type(5) {
           color: $color-link-table;
         }
 
@@ -120,6 +120,7 @@
     border-radius: 0;
     margin-left: pxToVW(-2);
     z-index: 999;
+    border-radius: pxToRem(8);
   }
 }
 
@@ -215,6 +216,7 @@
     border-radius: unset;
     margin-top: pxToVW(25);
     height: pxToVW(40);
+    border-radius: pxToRem(5);
   }
 
   .table {
@@ -347,6 +349,9 @@
     font-weight: $medium;
     color: $color_primary;
     padding-top: pxToVW(12);
+    a{
+      color:  $color_primary;
+    }
   }
 
   h4 {
@@ -359,7 +364,11 @@
 
   .list-tag {
     padding-top: pxToVW(5);
-
+    width: 100%;
+    display: inline-block;
+    word-break: break-word;
+    white-space: nowrap;
+    overflow: auto;
     span {
       font-size: pxToVW(15);
       line-height: pxToVW(24);
@@ -368,6 +377,7 @@
       background-color: $color-tag;
       border-radius: pxToVW(15);
       margin-right: pxToVW(8);
+      display: inline-block;
     }
   }
 }
