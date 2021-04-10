@@ -12,6 +12,7 @@ const images = {
   iconClose: require('../assets/imgs/ic-close.png'),
   icon_fb: require('../assets/imgs/icon_fb.png'),
   icon_you: require('../assets/imgs/icon_youtube.png'),
+  iconUp: require('../assets/imgs/ic-back-white.png'),
 };
 
 export default images;

@@ -1,14 +1,16 @@
 // @flow
 
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import Menu from 'commons/components/Menu';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ROUTERS from 'constants/router';
-import images from 'themes/images';
+import IMAGES from 'themes/images';
+import useOnClickOutside from '../../../customHooks/useClickOutSide';
 import { Creators as AuthenCreators } from '../../../modules/authen/redux';
+
 // import Header from '../Header';
 
 type Props = {
@@ -32,6 +34,10 @@ const MainLayout = ({
   history,
 }: Props) => {
   const [showLogout, setShowLogout] = useState(false);
+  const refMenu = useRef(null);
+
+  useOnClickOutside(refMenu, () => setShowLogout(false));
+
   useEffect(() => {
     if (type === 'LOG_OUT') {
       history.push(ROUTERS.LOGIN);
@@ -48,7 +54,7 @@ const MainLayout = ({
           tabIndex={0}
           onKeyDown={() => {}}
         >
-          <img src={images.iconBack} alt="" />
+          <img src={IMAGES.iconBack} alt="" />
           {roleUser?.name}
         </div>
         {showLogout && (
@@ -57,6 +63,7 @@ const MainLayout = ({
               className="popup-logout__item-logout"
               onClick={logOut}
               role="presentation"
+              ref={refMenu}
             >
               Đăng xuất
             </p>
