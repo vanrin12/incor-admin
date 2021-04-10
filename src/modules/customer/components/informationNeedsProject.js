@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Immutable from 'seamless-immutable';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
@@ -8,6 +8,7 @@ import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Table from 'commons/components/Table';
+import images from 'themes/images';
 import Input from 'commons/components/Input';
 import Loading from 'commons/components/Loading';
 import { headCustomerInfo } from 'constants/itemHead';
@@ -40,6 +41,8 @@ type Props = {
   tableDetailProject: Array<{
     id: number,
   }>,
+  registerProject: Function,
+  type: string,
 };
 const InformationNeedsProject = ({
   getDetailProject,
@@ -54,6 +57,8 @@ const InformationNeedsProject = ({
   isProcessing,
   registerProjectItem,
   tableDetailProject,
+  registerProject,
+  type,
 }: Props) => {
   const projectId = match.params.id;
   const areas = dataAreas.filter(
@@ -65,6 +70,10 @@ const InformationNeedsProject = ({
   const divisionType = listDivision.filter(
     (item) => item.id === dataDetailProject.space_division_id
   );
+  const inputFile = useRef({});
+  const [rowActive, setRowActive] = useState({});
+  const [nameImage, setNameImage] = useState('');
+  const [objFile, setObjFile] = useState(null);
 
   const [dataSubmit, setDataSubmit] = useState({
     nameProject: dataDetailProject?.name,
@@ -73,6 +82,49 @@ const InformationNeedsProject = ({
     spaceType: spaceType && spaceType[0],
     divisionType: divisionType && divisionType[0],
   });
+  const [total, setTotal] = useState(0);
+  const [dataAddCategories, setDataAddCategories] = useState({
+    nameCategories: '',
+    description: '',
+    dvt: '',
+    note: '',
+  });
+
+  useEffect(() => {
+    if (type === 'REGISTER_PROJECT_ITEM_SUCCESS') {
+      setDataAddCategories({
+        nameCategories: '',
+        description: '',
+        dvt: '',
+        note: '',
+      });
+    }
+    setTotal(0);
+  }, [type]);
+
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+    // eslint-disable-next-line no-unused-expressions
+    const inputRefCurrent =
+      inputFile && inputFile.current ? inputFile.current : null;
+    // eslint-disable-next-line no-unused-expressions
+    inputRefCurrent && inputRefCurrent.click();
+  };
+
+  const getFileName = async (e) => {
+    setObjFile(e.files[0]);
+    setNameImage(e.files[0].name);
+  };
+
+  // const [params, setParams] = useState({
+  //   page: 1,
+  // });
+
+  // const handleSelectPagination = (eventKey) => {
+  //   setParams({ ...params, page: eventKey.selected + 1 });
+  //   const paramsRequest = { ...params, page: eventKey.selected + 1 };
+  //   getDetailProject(projectId);
+  // };
 
   useEffect(() => {
     getDetailProject(projectId);
@@ -96,21 +148,58 @@ const InformationNeedsProject = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataSubmit && dataSubmit.spaceType && dataSubmit.spaceType.id]);
 
+  useEffect(() => {
+    setNameImage(dataDetailProject && dataDetailProject.drawing);
+  }, [dataDetailProject]);
+
   const handleChange = (value, name) => {
     setDataSubmit({
       ...dataSubmit,
       [name]: value,
     });
+    setDataAddCategories({
+      ...dataAddCategories,
+      [name]: value,
+    });
   };
 
   const handleUpdate = () => {
+    const formData = new window.FormData();
+    formData.append('name', dataSubmit.nameProject);
+    formData.append('user_id', dataDetailProject.user_id);
+    formData.append('address', dataSubmit.address);
+    formData.append('area_id', dataSubmit?.area?.id);
+    formData.append('space_type_id', dataSubmit?.spaceType?.id);
+    formData.append('space_division_id', dataSubmit?.divisionType?.id);
+    formData.append('file', objFile);
+    registerProject(formData);
+  };
+  const onClickTableRow = (rowData) => {
+    setRowActive(rowData);
+  };
+
+  const handleDelete = (rowData) => {
+    console.log(rowData);
+  };
+
+  const handleUpdateData = (rowData) => {
+    setDataAddCategories({
+      nameCategories: rowData?.name,
+      description: rowData?.description,
+      dvt: rowData?.unit,
+      note: rowData?.note,
+    });
+    setTotal(rowData?.amount);
+  };
+
+  const handleRegisterProjectItem = () => {
     registerProjectItem({
-      name: dataSubmit.nameProject,
-      user_id: dataDetailProject.user_id,
-      address: dataSubmit.address,
-      area_id: dataSubmit?.area?.id,
-      space_type_id: dataSubmit?.spaceType?.id,
-      space_division_id: dataSubmit?.divisionType?.id,
+      name: dataAddCategories.nameCategories,
+      project_id: projectId,
+      description: dataAddCategories.description,
+      amount: total,
+      unit: dataAddCategories?.dvt,
+      note: dataAddCategories?.note,
     });
   };
   return (
@@ -184,6 +273,22 @@ const InformationNeedsProject = ({
                 disabled={dataSubmit.spaceType === null}
               />
             </Col>
+            <Col xs={12} md={6}>
+              <div className="group-image">
+                <h2>Bản vẽ</h2>
+                <p>{nameImage}</p>
+                <input
+                  className="box__file d-none"
+                  type="file"
+                  ref={inputFile}
+                  accept="image/jpg, image/jpeg, image/png, capture=camera"
+                  onChange={(e) => getFileName(e.target)}
+                />
+                <Button customClass="button--primary" onClick={onButtonClick}>
+                  <p>CHỌN FILE</p>
+                </Button>
+              </div>
+            </Col>
             <Col xs={12} md={12} className="action-delete">
               <Button customClass="button--primary" onClick={handleUpdate}>
                 <p>CHỈNH SỬA</p>
@@ -192,12 +297,100 @@ const InformationNeedsProject = ({
             <Col xs={12} md={12} className="action-update">
               <p>Hạng mục chi tiết</p>
             </Col>
+            <Col xs={12} md={12}>
+              <div className="custom-head">
+                <p>Tên hạng mục</p>
+                <p>Mô tả kỹ thuật</p>
+                <p>Số lượng</p>
+                <p>ĐVT</p>
+                <p>Ghi chú</p>
+              </div>
+              <div className="custom-body">
+                <div className="custom-body__item">
+                  <textarea
+                    onChange={(e) => {
+                      handleChange(e.target.value, 'nameCategories');
+                    }}
+                    value={dataAddCategories.nameCategories}
+                    placeholder="Nhập tên"
+                    disabled={projectId === ''}
+                  />
+                </div>
+                <div className="custom-body__item">
+                  <textarea
+                    onChange={(e) => {
+                      handleChange(e.target.value, 'description');
+                    }}
+                    value={dataAddCategories.description}
+                    placeholder="Nhập mô tả"
+                    disabled={projectId === ''}
+                  />
+                </div>
+                <div className="custom-body__item action">
+                  <img
+                    src={images.iconBack}
+                    alt=""
+                    className="action-increase"
+                    onClick={() => projectId !== '' && setTotal(total + 1)}
+                    role="presentation"
+                  />
+                  <p>{total}</p>
+                  <img
+                    src={images.iconBack}
+                    alt=""
+                    className="action__reduction"
+                    onClick={() =>
+                      total !== 0 && projectId !== '' && setTotal(total - 1)
+                    }
+                    role="presentation"
+                  />
+                </div>
+                <div className="custom-body__item">
+                  <textarea
+                    onChange={(e) => {
+                      handleChange(e.target.value, 'dvt');
+                    }}
+                    value={dataAddCategories.dvt}
+                    placeholder="Nhập đơn vị tính"
+                    disabled={projectId === ''}
+                  />
+                </div>
+                <div className="custom-body__item">
+                  <textarea
+                    onChange={(e) => {
+                      handleChange(e.target.value, 'note');
+                    }}
+                    value={dataAddCategories.note}
+                    placeholder="Nhập Ghi chú"
+                    disabled={projectId === ''}
+                  />
+                </div>
+              </div>
+            </Col>
+            <Col xs={12} md={12} className="action-delete mb-3">
+              <Button
+                customClass="button--primary"
+                onClick={handleRegisterProjectItem}
+                isDisabled={
+                  dataAddCategories.nameCategories.length === 0 ||
+                  dataAddCategories.description.length === 0 ||
+                  total === 0 ||
+                  dataAddCategories.dvt.length === 0
+                }
+              >
+                <p>Chỉnh sửa</p>
+              </Button>
+            </Col>
             <Col xs={12} md={12} className="table-page table-partner">
               <Table
                 tableHeads={headCustomerInfo}
                 tableBody={tableDetailProject}
                 showLabel
                 isShowId
+                onClickRow={onClickTableRow}
+                rowActive={rowActive}
+                handleDelete={handleDelete}
+                handleUpdate={handleUpdateData}
               />
             </Col>
             <Col sm={12} className="wrapper-pagination">

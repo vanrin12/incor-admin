@@ -10,6 +10,11 @@
     line-height: pxToVW(24);
     font-weight: $medium;
     z-index: 999;
+    text-transform: uppercase;
+    img{
+      width: pxToRem(15);
+      margin-right: pxToRem(10);
+    }
   }
 
   .menu-left {

@@ -58,6 +58,7 @@ const Partner = ({
     scale_id: dataFilter?.areas?.id,
     rate: dataFilter?.vote?.value,
   });
+  console.log(dataPartner);
   // call api get list areas
   useEffect(() => {
     getListAreas();

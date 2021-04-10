@@ -86,6 +86,18 @@ const InformationNeeds = ({
     if (type === 'REGISTER_CONSTRUCTION_CUSTOMER_SUCCESS') {
       getListConstructionCustomer(customerId);
     }
+    if (type === 'REGISTER_CONSTRUCTION_CUSTOMER_SUCCESS') {
+      setDataAddProject({
+        category: '',
+        partner_id: null,
+        description: '',
+        time: null,
+        price: '',
+        prices: '',
+        note: '',
+        project: null,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
   const [sttTime, setSttTime] = useState(0);
@@ -347,7 +359,7 @@ const InformationNeeds = ({
                 {listConstructionCustomer?.address}
               </h2>
             </Col>
-            <Col xs={12} md={12} className="pt-3">
+            <Col xs={12} md={12} className="pt-3 table-progress-project">
               <Table
                 tableHeads={headProgress}
                 tableBody={listTableConstruction}

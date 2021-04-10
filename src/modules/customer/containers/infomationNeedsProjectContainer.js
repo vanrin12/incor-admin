@@ -26,6 +26,8 @@ const mapDispatchToProps = (dispatch) =>
       getListSpaceType: Creators.getListSpaceType,
       getListDivision: Creators.getListDivision,
       registerProjectItem: Creators.registerProjectItem,
+      registerProject: Creators.registerProject,
+      resetData: Creators.resetData,
     },
     dispatch
   );

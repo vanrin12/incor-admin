@@ -37,7 +37,7 @@ const menuItems = [
   </svg>
   `,
     url: ROUTERS.PARTNER,
-    role: 'partner',
+    role: '',
   },
   {
     id: 4,

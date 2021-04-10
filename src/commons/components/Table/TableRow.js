@@ -20,6 +20,8 @@ type Props = {
   listId?: Array<{}>,
   handleCheckBox?: Function,
   isShowRating?: boolean,
+  handleDelete?: Function,
+  handleUpdate?: Function,
 };
 
 const TableRow = ({
@@ -39,6 +41,8 @@ const TableRow = ({
   listId = [],
   handleCheckBox = () => {},
   isShowRating = false,
+  handleDelete = () => {},
+  handleUpdate = () => {},
 }: Props) => {
   // const isShowId = true;
   const fieldId = 'id';
@@ -52,7 +56,6 @@ const TableRow = ({
   };
   return (
     <tr
-      // onClick={() => onClickTableRow && onClickTableRow(rowItem)}
       className={`${onClickTableRow ? 'row-cursor-pointer' : ''} ${
         rowActive && rowActive.id === rowItem.id ? 'row-active' : ''
       }`}
@@ -82,7 +85,7 @@ const TableRow = ({
             onClick={() => onClickTableRow && onClickTableRow(rowItem)}
             role="presentation"
           >
-            {isShowRating && index === 4 ? (
+            {isShowRating && index === 5 ? (
               <Rating numberStar={rowItem[item]} />
             ) : (
               <span>{rowItem && rowItem[item]}</span>
@@ -117,6 +120,24 @@ const TableRow = ({
           </p>
         </td>
       )}
+      {rowActive && rowActive.id === rowItem.id && (
+        <div className="action-category">
+          <p
+            className="edit-categories"
+            onClick={() => handleUpdate(rowItem)}
+            role="presentation"
+          >
+            Chỉnh sửa
+          </p>
+          <p
+            className="cancel-categories"
+            onClick={() => handleDelete(rowItem)}
+            role="presentation"
+          >
+            Loại bỏ
+          </p>
+        </div>
+      )}
     </tr>
   );
 };
@@ -136,5 +157,7 @@ TableRow.defaultProps = {
   listId: [],
   handleCheckBox: () => {},
   isShowRating: false,
+  handleDelete: () => {},
+  handleUpdate: () => {},
 };
 export default memo<Props>(TableRow);

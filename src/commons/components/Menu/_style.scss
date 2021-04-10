@@ -53,11 +53,11 @@
       color: $color_primary;
       font-size: pxToRem(30);
       font-weight: $bold;
-      padding: pxToRem(35) 0;
+      padding: pxToRem(25) 0;
     }
     &__hotline{
       color: $color-black;
-      font-size: pxToRem(18);
+      font-size: pxToRem(16) !important;
       font-style: normal;
       padding-bottom: pxToRem(5);
       padding-top: pxToVW(15);
@@ -65,7 +65,7 @@
     }
     &__email{
       color: $color-black;
-      font-size: pxToRem(18);
+      font-size: pxToRem(15) !important;
       font-style: normal;
       font-weight: $bold;
     }

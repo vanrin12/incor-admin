@@ -5,22 +5,26 @@ export const headPartner = [
   },
   {
     id: 1,
-    name: 'Tên đối tác',
+    name: 'Tên đăng nhập',
   },
   {
     id: 2,
-    name: 'Ngành nghề',
+    name: 'Tên đối tác',
   },
   {
     id: 3,
-    name: 'Trụ sở',
+    name: 'Ngành nghề',
   },
   {
     id: 4,
-    name: 'Đánh giá',
+    name: 'Trụ sở',
   },
   {
     id: 5,
+    name: 'Đánh giá',
+  },
+  {
+    id: 6,
     name: 'Quản lý Đối tác',
   },
 ];
@@ -31,22 +35,26 @@ export const headCustomer = [
   },
   {
     id: 1,
-    name: 'Tên khách hàng',
+    name: 'Tên đăng nhập',
   },
   {
     id: 2,
-    name: 'Kinh doanh phụ trách',
+    name: 'Tên khách hàng',
   },
   {
     id: 3,
-    name: 'Khu vực',
+    name: 'Kinh doanh phụ trách',
   },
   {
     id: 4,
-    name: 'Thông tin nhu cầu',
+    name: 'Khu vực',
   },
   {
     id: 5,
+    name: 'Thông tin nhu cầu',
+  },
+  {
+    id: 6,
     name: 'Quản lý tiến độ',
   },
 ];

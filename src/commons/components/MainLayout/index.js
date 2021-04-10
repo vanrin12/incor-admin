@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ROUTERS from 'constants/router';
 import IMAGES from 'themes/images';
-import useOnClickOutside from 'customHooks/useClickOutSide';
+import useOnClickOutside from '../../../customHooks/useClickOutSide';
 import { Creators as AuthenCreators } from '../../../modules/authen/redux';
 
 // import Header from '../Header';
@@ -54,7 +54,7 @@ const MainLayout = ({
           tabIndex={0}
           onKeyDown={() => {}}
         >
-          <img src={IMAGES.iconUp} alt="" className="ico-up" />
+          <img src={IMAGES.iconBack} alt="" />
           {roleUser?.name}
         </div>
         {showLogout && (
