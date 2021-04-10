@@ -44,8 +44,8 @@ const RegisterPost = ({
   });
   const [objFile, setObjFile] = useState(null);
   const [file, setFile] = useState('');
-  const [status, setStatus] = useState('N');
-  const [show, setShow] = useState('N');
+  const [status, setStatus] = useState('Y');
+  const [show, setShow] = useState('Y');
   const [dataRegister, setRegister] = useState({
     title: '',
     titleSeo: '',
@@ -231,7 +231,7 @@ const RegisterPost = ({
             </div>
             <div className="box-status">
               <p>
-                Trạng thái: Đã xuất bản
+                Trạng thái: {status === 'Y' ? 'Đã xuất bản' : 'Chưa xuất bản'}
                 <span
                   onClick={() => {
                     setIsStatus(true);
@@ -293,7 +293,9 @@ const RegisterPost = ({
         textBtnRight="KHÔNG"
         isShowTwoBtn
         textBtnLeft="CÓ"
-      />
+      >
+        Cho hiển thị trạng thái bài viết
+      </Modal>
       <Modal
         isOpen={isShow}
         isShowFooter
@@ -308,7 +310,9 @@ const RegisterPost = ({
         textBtnRight="KHÔNG"
         isShowTwoBtn
         textBtnLeft="CÓ"
-      />
+      >
+        Cho hiển thị bài viết
+      </Modal>
       <Modal
         isOpen={isShowError.isOpen}
         isShowFooter

@@ -1,21 +1,26 @@
-.page-account{
-  &__form-register{
+.page-account {
+  &__form-register {
     padding-top: pxToVW(80);
-    .input__label{
+
+    .input__label {
       font-size: pxToVW(20) !important;
     }
-    .name-account{
+
+    .name-account {
       background-color: $white;
       color: $color-black;
       border: pxToVW(2) solid $color-border;
     }
-    .select-role{
+
+    .select-role {
       color: $color-black;
-      .input__box{
+
+      .input__box {
         background-color: $white;
       }
     }
-    .suggestions{
+
+    .suggestions {
       font-size: pxToVW(10);
       line-height: pxToVW(13);
       color: $color-table;
@@ -24,15 +29,18 @@
       padding-bottom: pxToVW(24);
       font-style: italic;
     }
-    .button.button.btn{
+
+    .button.button.btn {
       margin-top: pxToVW(80);
     }
   }
-  .table-account{
+
+  .table-account {
     padding-top: pxToVW(30);
-    tr{
-      td{
-        &:nth-child(6){
+
+    tr {
+      td {
+        &:nth-child(6) {
           display: none;
         }
       }
@@ -41,15 +49,39 @@
 }
 
 .react-datepicker__input-container {
-  ::-webkit-input-placeholder { /* Edge */
+  ::-webkit-input-placeholder {
+    /* Edge */
     color: $color-placeholder !important;
   }
-  
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
     color: $color-placeholder !important;
   }
-  
+
   ::placeholder {
     color: $color-placeholder !important;
+  }
+}
+
+.box-status {
+
+
+  .react-datepicker__input-container {
+    input {
+      margin-left: pxToRem(5);
+      border: pxToVW(1) solid $color-border;
+      line-height: pxToVW(25);
+      display: block;
+      font-size: pxToVW(16);
+      padding-left: pxToVW(10);
+      border-radius: pxToVW(5);
+      width: 100%;
+      letter-spacing: pxToVW(-0.25);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: $regular;
+    }
   }
 }
