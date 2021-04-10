@@ -23,19 +23,21 @@
     border-radius: pxToVW(2);
   }
 
-  .description-menu{
-    h2{
+  .description-menu {
+    h2 {
       font-size: pxToRem(50);
       color: $color_primary;
       line-height: pxToRem(10);
       font-style: oblique;
       padding-bottom: pxToRem(10);
     }
-    p{
+
+    p {
       font-style: oblique;
       font-size: pxToRem(18);
     }
-    &__admin{
+
+    &__admin {
       color: $color_primary;
       font-size: pxToRem(20);
       font-style: normal;
@@ -43,19 +45,22 @@
       font-weight: $bold;
       padding-bottom: pxToRem(5);
     }
-    &__ceo{
+
+    &__ceo {
       color: gray;
       font-size: pxToRem(18);
       font-style: normal;
       text-align: right;
     }
-    &__incor{
+
+    &__incor {
       color: $color_primary;
       font-size: pxToRem(30);
       font-weight: $bold;
       padding: pxToRem(25) 0;
     }
-    &__hotline{
+
+    &__hotline {
       color: $color-black;
       font-size: pxToRem(16) !important;
       font-style: normal;
@@ -63,7 +68,8 @@
       padding-top: pxToVW(15);
       font-weight: $bold;
     }
-    &__email{
+
+    &__email {
       color: $color-black;
       font-size: pxToRem(15) !important;
       font-style: normal;
@@ -86,6 +92,8 @@
       font-weight: bold;
       padding-bottom: pxToVW(55);
       cursor: pointer;
+      display: flex;
+      align-items: center;
 
       svg {
         vertical-align: initial;
