@@ -1,5 +1,9 @@
 .page-data {
   max-width: pxToRem(940);
+
+  .title-page {
+    font-size: pxToRem(30);
+  }
 }
 
 .form-search-data {
