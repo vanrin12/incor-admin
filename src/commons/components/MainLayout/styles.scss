@@ -3,7 +3,7 @@
 
   &__profile {
     position: absolute;
-    top: pxToVW(60);
+    top: pxToVW(25);
     right: pxToVW(40);
     color: $color_primary;
     font-size: pxToVW(20);
@@ -25,8 +25,8 @@
 
   .popup-logout {
     position: absolute;
-    top: pxToVW(100);
-    right: pxToVW(40);
+    top: pxToVW(65);
+    right: pxToVW(25);
     background-color: $white;
     padding: pxToVW(20) pxToVW(40);
     border-radius: pxToVW(15);
@@ -37,6 +37,21 @@
       line-height: pxToVW(30);
       color: $red;
       font-weight: $medium;
+    }
+  }
+
+  .ico-up {
+    @include transform-rotate(-90deg);
+    position: relative;
+    top: pxToRem(7);
+    width: pxToRem(11);
+    min-width: 9px;
+    left: pxToRem(-9);
+    cursor: pointer;
+  
+    &.style1 {
+      top: 0;
+      left: pxToRem(10);
     }
   }
 }
