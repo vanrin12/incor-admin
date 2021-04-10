@@ -31,6 +31,7 @@ const ROUTERS = {
   ABOUT_US: '/display/about_us',
   CUSTOMER_EXP: '/display/customer_exp',
   DISPLAY_SALE: `/display/sale-map`,
+  DISPLAY_DATA: `/display/data`,
 };
 
 export default ROUTERS;

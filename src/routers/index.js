@@ -85,6 +85,10 @@ const displayFooterContainer = lazy(() =>
   import('modules/display/containers/displayFooterContainer')
 );
 
+const displayDataContainer = lazy(() =>
+  import('modules/data/containers/dataContainer')
+);
+
 type Props = {
   token: string,
   roleUser: Object,
@@ -303,6 +307,15 @@ const Router = ({ token, roleUser }: Props) => {
               exact
               path={ROUTERS.DISPLAY_SALE}
               component={displaySaleContainer}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+
+          {roleUser?.name === 'administrator' && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.DISPLAY_DATA}
+              component={displayDataContainer}
               isAuthenticated={isAuthenticated}
             />
           )}

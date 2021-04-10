@@ -23,7 +23,6 @@ const Menu = ({ activeMenu, roleUser }: Props) => {
 
   const renderItemMenu = dataMenu.map((item) => {
     const isActive = activeMenu === item.id;
-
     return (
       <div
         key={item.id}

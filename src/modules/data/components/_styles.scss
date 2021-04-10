@@ -1,0 +1,111 @@
+.page-data {
+  max-width: pxToRem(940);
+}
+
+.form-search-data {
+  .list-hashtag {
+    .content-hashtag {
+      min-height: pxToRem(200);
+      padding: pxToRem(25);
+      border-radius: pxToRem(10);
+      border: pxToRem(1) solid $color-tag;
+      background-color: $white;
+      margin-bottom: pxToRem(35);
+
+      ul {
+        li {
+          min-width: pxToRem(70);
+          height: pxToRem(30);
+          margin: 2px 7px 2px 0;
+          padding: 5.4px 14px 5.6px 15px;
+          border-radius: pxToRem(20);
+          background-color: $color-tag;
+          display: inline-block;
+          line-height: 1.2;
+          color: $white;
+
+          span {
+            position: relative;
+            padding: pxToRem(3);
+            color: white;
+            cursor: pointer;
+
+            svg {
+              color: $white;
+              position: relative;
+              top: -1px;
+              fill: #ccc;
+            }
+          }
+        }
+      }
+
+      .input {
+        width: auto;
+        display: inline-block;
+
+        * {
+          width: auto;
+          display: inline-block;
+        }
+      }
+
+      .input-change {
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        font-size: pxToRem(16);
+        font-weight: 700;
+        border: 0;
+      }
+    }
+  }
+
+  .button.btn.btn-primary {
+    font-size: pxToRem(15);
+    height: pxToRem(32);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+}
+
+.from-advisory {
+  .button.btn.btn-primary {
+    font-size: pxToRem(15);
+    height: pxToRem(32);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+}
+
+.title-form {
+  width: pxToRem(425);
+  margin: pxToRem(6) 0 0;
+
+  input {
+    height: pxToRem(44);
+    background-color: $white;
+    border-color: $color-tag;
+    font-size: pxToRem(16);
+    border-radius: pxToRem(10);
+    font-weight: 700;
+    padding: pxToRem(10) pxToRem(20);
+
+    &::-webkit-input-placeholder {
+
+      font-size: pxToVW(16);
+    }
+
+    &::placeholder {
+      font-size: pxToVW(16);
+    }
+
+    &::-moz-placeholder {
+      font-size: pxToVW(16);
+    }
+
+    &:-ms-input-placeholder {
+      font-size: pxToVW(16);
+    }
+  }
+}

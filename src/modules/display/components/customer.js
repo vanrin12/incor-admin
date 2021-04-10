@@ -125,7 +125,7 @@ const Sale = ({
         });
         break;
       case 'customer2':
-        setCustomer1({
+        setCustomer2({
           ...customer2,
           [name]: value,
         });
