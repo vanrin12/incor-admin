@@ -60,32 +60,36 @@ const DetailPost = ({
   });
   const [objFile, setObjFile] = useState(null);
   const [file, setFile] = useState(dataPostDetail.image);
-  const [status, setStatus] = useState('N');
-  const [show, setShow] = useState('N');
+  const [status, setStatus] = useState('Y');
+  const [show, setShow] = useState('Y');
   const [dataRegister, setRegister] = useState({
-    title: dataPostDetail.name,
-    titleSeo: dataPostDetail.seo_title,
-    description: dataPostDetail.description,
+    title: dataPostDetail?.name,
+    titleSeo: dataPostDetail?.seo_title,
+    description: dataPostDetail?.description,
     category: listCategoryPost,
-    status: dataPostDetail.status,
-    show: dataPostDetail.show,
+    status: dataPostDetail?.status,
+    show: dataPostDetail?.show,
   });
-  useEffect(() => {
-    setRegister({
-      title: dataPostDetail.name,
-      titleSeo: dataPostDetail.seo_title,
-      description: dataPostDetail.description,
-      category: listCategoryPost,
-      status: dataPostDetail.status,
-      show: dataPostDetail.show,
-    });
-    setFile(dataPostDetail.image);
-    setContent(dataPostDetail.content);
-  }, [dataPostDetail, listCategoryPost]);
   useEffect(() => {
     getPostDetail(postId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
+
+  useEffect(() => {
+    setRegister({
+      title: dataPostDetail?.name,
+      titleSeo: dataPostDetail?.seo_title,
+      description: dataPostDetail?.description,
+      category: listCategoryPost,
+      status: dataPostDetail?.status,
+      show: dataPostDetail?.show,
+    });
+    setFile(dataPostDetail?.image);
+    setContent(dataPostDetail?.content);
+    setStatus(dataPostDetail?.status);
+    setShow(dataPostDetail?.show);
+  }, [dataPostDetail, listCategoryPost]);
+
   const handleChange = (value, name) => {
     setRegister({
       ...dataRegister,
@@ -139,7 +143,6 @@ const DetailPost = ({
     setFile(image);
   };
   const handleSubmit = () => {
-    // console.log(objFile);
     const formData = new window.FormData();
     formData.append('name', dataRegister.title);
     formData.append('content', content);
@@ -266,7 +269,7 @@ const DetailPost = ({
               </div>
               <div className="box-status">
                 <p>
-                  Trạng thái: Đã xuất bản
+                  Trạng thái: {status === 'Y' ? 'Đã xuất bản' : 'Chưa xuất bản'}
                   <span
                     onClick={() => {
                       setIsStatus(true);
@@ -330,7 +333,9 @@ const DetailPost = ({
         textBtnRight="KHÔNG"
         isShowTwoBtn
         textBtnLeft="CÓ"
-      />
+      >
+        Cho hiển thị trạng thái bài viết
+      </Modal>
       <Modal
         isOpen={isShow}
         isShowFooter
@@ -345,7 +350,9 @@ const DetailPost = ({
         textBtnRight="KHÔNG"
         isShowTwoBtn
         textBtnLeft="CÓ"
-      />
+      >
+        Cho hiển thị bài viết
+      </Modal>
       <Modal
         isOpen={isShowError.isOpen}
         isShowFooter

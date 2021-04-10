@@ -1,93 +1,108 @@
-.page-post{
-  button.button.btn{
+.page-post {
+  button.button.btn {
     height: pxToVW(47);
     font-size: pxToVW(20);
     padding-left: pxToVW(17);
     padding-right: pxToVW(17);
-    &:first-child{
+
+    &:first-child {
       margin-right: pxToVW(40);
     }
   }
-  .action-delete{
-    button.button.btn{
+
+  .action-delete {
+    button.button.btn {
       margin-right: 0;
       font-size: pxToVW(15);
       border-radius: pxToRem(8);
     }
   }
 }
-.page-register-post{
-  .title-page{
+
+.page-register-post {
+  .title-page {
     padding-bottom: pxToVW(38);
   }
-  .input{
-    &__label{
+
+  .input {
+    &__label {
       font-size: pxToVW(20);
       line-height: pxToVW(24);
       font-weight: $medium;
       color: $color-black;
       margin-bottom: pxToVW(8);
     }
-    &__box{
-      input{
+
+    &__box {
+      input {
         background-color: $white;
       }
     }
   }
-  textarea{
+
+  textarea {
     background-color: $white;
     width: 100%;
     border: pxToVW(1) solid #e8e9ec;
     font-size: pxToVW(15);
     padding: pxToVW(10) pxToVW(7);
-    &::placeholder{
+
+    &::placeholder {
       font-size: pxToVW(15);
     }
   }
+
   .customer-select {
     padding-top: pxToVW(38);
-    
-    .input__label{
+
+    .input__label {
       font-size: pxToVW(20);
       line-height: pxToVW(24);
       font-weight: $medium;
       color: $color-black;
       margin-bottom: pxToVW(8);
     }
+
     .input__box {
       background-color: $white;
     }
   }
-  h4{
+
+  h4 {
     font-size: pxToVW(10);
     line-height: pxToVW(13);
     color: $color-table;
     margin-bottom: pxToVW(28);
     padding-top: pxToVW(14);
   }
-  p{
+
+  p {
     font-size: pxToVW(20);
     line-height: pxToVW(24);
     font-weight: $medium;
     color: $color-black;
     margin-bottom: pxToVW(8);
   }
-  .action-register{
+
+  .action-register {
     padding-top: pxToVW(100);
-    button.button.btn{
+
+    button.button.btn {
       height: pxToVW(47);
       padding-left: pxToVW(17);
       padding-right: pxToVW(17);
-      p{
+
+      p {
         color: $white;
         font-size: pxToVW(20);
         margin-bottom: 0;
       }
     }
   }
-  .action-delete{
-    button.button.btn{
-      p{
+
+  .action-delete {
+    button.button.btn {
+      p {
         color: $white;
         font-size: pxToVW(15);
       }
@@ -95,78 +110,96 @@
   }
 }
 
-.page-register-post{
-  .action-delete{
-    .button{
+.page-register-post {
+  .action-delete {
+    .button {
       border-radius: pxToVW(5) !important;
     }
   }
-  .input{
+
+  .input {
     padding-bottom: pxToVW(20);
   }
-  .customer-select{
+
+  .customer-select {
     padding-bottom: pxToVW(20);
   }
-  .ck-editor{
+
+  .ck-editor {
     margin-bottom: pxToVW(20) !important;
   }
-  .ck-content{
+
+  .ck-content {
     height: pxToVW(250);
   }
-  .thumbnail{
+
+  .thumbnail {
     background-color: $white;
     padding: pxToVW(25);
     border-radius: pxToVW(10);
     margin-bottom: pxToVW(28);
-    .action-delete{
+
+    .action-delete {
       text-align: right;
     }
-    .image-thumbnail{
+
+    .image-thumbnail {
       width: 100%;
       height: pxToVW(230);
       margin-bottom: pxToVW(10);
     }
   }
-  .box-image{
+
+  .box-image {
     width: 100%;
     height: pxToVW(230);
     background-color: #6f6f6f;
     margin-bottom: pxToVW(10);
   }
-  .select-category{
+
+  .select-category {
     background-color: $white;
     border-radius: pxToVW(10);
     margin-bottom: pxToVW(28);
     padding: pxToVW(20) pxToVW(25);
-    .css-yk16xz-control, .css-1pahdxg-control {
+
+    .css-yk16xz-control,
+    .css-1pahdxg-control {
       border: pxToVW(1) solid #707070;
     }
   }
-  .box-status{
+
+  .box-status {
     background-color: $white;
     padding: pxToVW(20);
     border-radius: pxToVW(10);
-    p{
+
+    p {
       font-size: pxToVW(15);
       line-height: pxToVW(18);
       font-weight: $medium;
       color: $color-black;
-      span{
+
+      span {
         color: $color_primary;
         text-decoration: underline;
+        margin-left: pxToRem(5);
       }
     }
-    .group-action{
+
+    .group-action {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      .view-post{
+
+      .view-post {
         font-size: pxToVW(15);
         line-height: pxToVW(18);
         font-weight: $medium;
         color: $color_primary;
       }
-      .draft{
+
+      .draft {
         font-size: pxToVW(15);
         line-height: pxToVW(18);
         font-weight: $medium;
@@ -174,16 +207,18 @@
         opacity: 0.58;
         padding-right: pxToVW(27);
       }
-      .button{
+
+      .button {
         height: pxToVW(39);
         width: pxToVW(153);
         border-radius: pxToVW(5);
-        p{
+
+        p {
           color: $white;
           margin-bottom: 0;
         }
       }
     }
-    
+
   }
 }
