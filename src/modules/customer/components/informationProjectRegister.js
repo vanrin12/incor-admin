@@ -7,6 +7,7 @@ import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
+import Modal from 'commons/components/Modal';
 
 type Props = {
   getListSpaceType: Function,
@@ -50,6 +51,10 @@ const InformationNeeds = ({
 }: Props) => {
   const inputFile = useRef({});
   const userId = match.params.id;
+  const [isShowError, setIsShowError] = useState({
+    isShow: false,
+    content: '',
+  });
   const [dataSubmit, setDataSubmit] = useState({
     nameProject: '',
     address: '',
@@ -163,18 +168,24 @@ const InformationNeeds = ({
   };
 
   const handleRegisterProjectItem = () => {
-    registerProjectItem({
-      name: dataAddCategories.nameCategories,
-      project_id: projectId,
-      description: dataAddCategories.description,
-      amount: total,
-      unit: dataAddCategories?.dvt,
-      note: dataAddCategories?.note,
-      // TODO ADD HASHTAG
-    });
+    if (projectId) {
+      registerProjectItem({
+        name: dataAddCategories.nameCategories,
+        project_id: projectId,
+        description: dataAddCategories.description,
+        amount: total,
+        unit: dataAddCategories?.dvt,
+        note: dataAddCategories?.note,
+        // TODO ADD HASHTAG
+      });
+    } else {
+      setIsShowError({
+        isShow: true,
+        content: 'Bạn cần thêm dự án trước.',
+      });
+    }
   };
 
-  console.log(projectId, 'projectId');
   return (
     <MainLayout activeMenu={4}>
       <Container fluid>
@@ -280,7 +291,6 @@ const InformationNeeds = ({
                   }}
                   value={dataAddCategories.nameCategories}
                   placeholder="Nhập tên"
-                  disabled={projectId === ''}
                 />
               </div>
               <div className="custom-body__item customer">
@@ -301,7 +311,6 @@ const InformationNeeds = ({
                   }}
                   value={dataAddCategories.description}
                   placeholder="Nhập mô tả"
-                  disabled={projectId === ''}
                 />
               </div>
               <div className="custom-body__item action customer">
@@ -312,7 +321,6 @@ const InformationNeeds = ({
                   }}
                   placeholder="Nhập số lượng"
                   value={total}
-                  disabled={projectId === ''}
                 />
               </div>
               <div className="custom-body__item customer">
@@ -322,7 +330,6 @@ const InformationNeeds = ({
                   }}
                   value={dataAddCategories.dvt}
                   placeholder="Nhập đơn vị tính"
-                  disabled={projectId === ''}
                 />
               </div>
               <div className="custom-body__item customer">
@@ -332,7 +339,6 @@ const InformationNeeds = ({
                   }}
                   value={dataAddCategories.note}
                   placeholder="Nhập Ghi chú"
-                  disabled={projectId === ''}
                 />
               </div>
             </div>
@@ -353,6 +359,19 @@ const InformationNeeds = ({
           </Col>
         </Row>
       </Container>
+      <Modal
+        isOpen={isShowError.isShow}
+        isShowFooter
+        handleClose={() => {
+          setIsShowError({ ...isShowError, isShow: false });
+        }}
+        handleSubmit={() => {
+          setIsShowError({ ...isShowError, isShow: false });
+        }}
+        textBtnRight="ĐÓNG"
+      >
+        {isShowError.content}
+      </Modal>
     </MainLayout>
   );
 };
