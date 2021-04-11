@@ -25,7 +25,7 @@
       margin-bottom: pxToRem(25);
     }
 
-    .input{
+    .input {
       margin-bottom: pxToVW(10);
     }
   }
@@ -95,4 +95,24 @@
     opacity: 0;
     display: inline-block;
   }
+}
+
+.change-pass {
+  min-height: 90vh;
+
+  .form-change-pass {
+    max-width: 480px;
+    margin: auto;
+    padding-top: 150px;
+    padding-bottom: 50px;
+  }
+}
+
+small {
+  font-size: 14px;
+  font-style: italic;
+}
+
+.input__error-msg {
+  color: red;
 }

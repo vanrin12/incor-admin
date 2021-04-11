@@ -151,3 +151,21 @@ textarea {
     outline: none;
   }
 }
+
+.input__box__custom {
+  position: relative;
+
+  .input__box__icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    font-size: 10px;
+    width: 30px;
+    height: 30px;
+    @include transform-translateY(-50%);
+    cursor: pointer;
+    text-align: center;
+    line-height: 30px;
+    z-index: 1;
+  }
+}

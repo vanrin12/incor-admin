@@ -109,6 +109,10 @@ body .customer-select {
     .css-1uccc91-singleValue {
       padding-left: pxToVW(10);
     }
+
+    svg {
+      display: none !important;
+    }
   }
 
   .input__box {
@@ -296,7 +300,8 @@ body .customer-select {
   }
 }
 
-.css-b8ldur-Input {
+.css-b8ldur-Input,
+.css-1g6gooi {
   margin: 0 !important;
   padding: 0 !important;
   height: 100% !important;
@@ -324,4 +329,8 @@ body .customer-select {
       font-size: 14px !important;
     }
   }
+}
+
+.css-1wy0on6 {
+  display: none !important;
 }
