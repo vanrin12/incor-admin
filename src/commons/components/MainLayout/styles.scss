@@ -23,10 +23,18 @@
     position: fixed;
     z-index: 9;
     width: pxToRem(270);
+    @media (max-width: 1024px) {
+      max-width: pxToRem(210);
+    }
   }
 
   .layout-right {
     margin-left: pxToRem(250);
+    @media (max-width: 1024px) {
+      margin-left: pxToRem(175);
+      max-width: calc(100% - #{pxToRem(180)});
+      padding-right: 0;
+    }
   }
 
   .menu-logout {

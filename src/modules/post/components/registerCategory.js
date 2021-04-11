@@ -63,6 +63,17 @@ const RegisterPost = ({
     if (type === 'DELETE_CATEGORIES_SUCCESS') {
       getListCategories();
     }
+    if (type === 'REGISTER_CATEGORIES_SUCCESS') {
+      getListCategories();
+      setRegister({
+        category: '',
+        slug: '',
+        description: '',
+        parent: null,
+      });
+      setNameImage('');
+      setObjFile(null);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
@@ -106,13 +117,13 @@ const RegisterPost = ({
   };
 
   const handleRegisterCategory = () => {
-    console.log(objFile);
-    registerCategories({
-      name: dataRegister?.category,
-      slug: dataRegister?.slug,
-      description: dataRegister?.description,
-      parent_id: dataRegister?.parent?.id || 0,
-    });
+    const formData = new window.FormData();
+    formData.append('name', dataRegister?.category);
+    formData.append('slug', dataRegister?.slug);
+    formData.append('description', dataRegister?.description);
+    formData.append('parent_id', dataRegister?.parent?.id || 0);
+    formData.append('image', objFile);
+    registerCategories(formData);
   };
 
   return (
