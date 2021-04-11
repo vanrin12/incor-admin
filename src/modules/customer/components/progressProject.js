@@ -66,11 +66,19 @@ const InformationNeeds = ({
   const areas = dataAreas.filter(
     (item) => item.id === dataDetailCustomer.area_id
   );
+  const [params, setParams] = useState({
+    page: 1,
+  });
 
   useEffect(() => {
     getDetailCustomer(customerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [customerId]);
+
+  const handleSelectPagination = (eventKey) => {
+    setParams({ ...params, page: eventKey.selected + 1 });
+    getListConstructionCustomer(customerId, { page: eventKey.selected + 1 });
+  };
 
   useEffect(() => {
     getListParent();
@@ -78,7 +86,7 @@ const InformationNeeds = ({
   }, []);
 
   useEffect(() => {
-    getListConstructionCustomer(customerId);
+    getListConstructionCustomer(customerId, params);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId]);
 
@@ -376,8 +384,8 @@ const InformationNeeds = ({
                 nextLabel="Next"
                 breakLabel={<span className="gap">...</span>}
                 pageCount={Math.ceil(totalConstruction / 10)}
-                // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
-                forcePage={0}
+                onPageChange={(eventKey) => handleSelectPagination(eventKey)}
+                forcePage={params.page - 1 || 0}
                 containerClassName="pagination"
                 disabledClassName="disabled"
                 activeClassName="active"

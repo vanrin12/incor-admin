@@ -70,6 +70,7 @@ const accountSlice = createSlice({
     },
 
     createUserFailed: (state, action) => {
+      console.log(action);
       state.type = action.type;
       state.isProcessing = false;
     },

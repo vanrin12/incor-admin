@@ -71,6 +71,12 @@ const Account = () => {
         role: null,
       });
     }
+    if (type === 'accounts/createUserFailed') {
+      setIsShowPassword({
+        isOpen: true,
+        content: 'Tên không được trùng',
+      });
+    }
   }, [type]);
 
   const [keySearch, setKeySearch] = useState('');

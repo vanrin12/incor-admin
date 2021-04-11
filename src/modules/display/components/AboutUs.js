@@ -276,7 +276,7 @@ const Sale = ({
                 onChange={(e) => handleChangeFileThumbnail(e)}
               />
               <label>
-                <strong>{'Upload file'}</strong>
+                <strong>Upload file</strong>
               </label>
             </div>
           </Col>
