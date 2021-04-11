@@ -1,6 +1,6 @@
 .content-wrapper {
   margin-top: pxToVW(150);
-  margin-left: pxToVW(40);
+  margin-left: 0;
   font-family: $Roboto-Font;
   margin-bottom: pxToVW(82);
   font-weight: $medium;
@@ -21,7 +21,7 @@
       display: flex;
       justify-content: flex-end;
       margin-top: pxToVW(20);
-      
+
       &__select {
         margin-right: pxToVW(30);
         width: pxToVW(150);
@@ -32,7 +32,7 @@
         }
       }
     }
-    
+
     &__body {
       padding: pxToVW(34) pxToVW(21) pxToVW(84) pxToVW(20);
     }
@@ -43,11 +43,11 @@
     background: $white;
     // max-height: pxToVW(450);
     // padding-bottom: pxToVW(30);
-    
+
     &__list {
       overflow-y: scroll;
       max-height: pxToVW(400);
-      @include scrollbars(3px, rgba(0,0,0,0.3), '');
+      @include scrollbars(3px, rgba(0, 0, 0, 0.3), '');
     }
 
     &__title {
@@ -68,13 +68,14 @@
       font-size: pxToVW(13);
       color: #4d565c;
       padding: pxToVW(13) 0;
-      border-top:  solid pxToVW(1) $color-border;
-      border-bottom:  solid pxToVW(1) $color-border;
-      &__username{
+      border-top: solid pxToVW(1) $color-border;
+      border-bottom: solid pxToVW(1) $color-border;
+
+      &__username {
         // font-weight: $bold;
       }
 
-      &__info{
+      &__info {
         margin-left: pxToVW(2);
         font-weight: $regular;
       }
@@ -95,8 +96,9 @@
     &__list {
       overflow-y: scroll;
       max-height: pxToVW(245);
-      @include scrollbars(3px, rgba(0,0,0,0.3), '');
+      @include scrollbars(3px, rgba(0, 0, 0, 0.3), '');
     }
+
     &__item {
       display: flex;
       justify-content: space-between;
@@ -120,20 +122,22 @@
         font-size: pxToVW(13);
         font-weight: $medium;
       }
-      
+
       &__username {
         font-size: pxToVW(13);
         font-weight: $medium;
       }
     }
   }
+
   &__hashtag {
     margin-left: pxToVW(39);
-    margin-top: pxToVW(51);  
+    margin-top: pxToVW(51);
 
     &__title {
       padding: pxToVW(20) 0;
     }
+
     &__list {
       margin-top: pxToVW(11);
       min-height: pxToVW(215);
@@ -150,16 +154,18 @@
       font-size: pxToVW(15);
       line-height: 1.4;
       font-weight: $bold;
-      color: $white ;
-      &:nth-of-type(2n){
+      color: $white;
+
+      &:nth-of-type(2n) {
         background-color: #bbbbbb;
       }
-      &:nth-of-type(3n){
+
+      &:nth-of-type(3n) {
         background-color: #ffb68a;
       }
     }
 
-    &__list-all{
+    &__list-all {
       font-size: pxToVW(12);
       color: $blue-light;
       text-align: center;

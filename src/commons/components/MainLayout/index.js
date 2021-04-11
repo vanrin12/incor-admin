@@ -58,16 +58,16 @@ const MainLayout = ({
           {roleUser?.name}
         </div>
         {showLogout && (
-          <div className="popup-logout">
-            <p
-              className="popup-logout__item-logout"
-              onClick={logOut}
-              role="presentation"
-              ref={refMenu}
-            >
-              Đăng xuất
-            </p>
-          </div>
+          <>
+            <ul ref={refMenu} className="menu-logout">
+              <li>
+                <div className="popup-logout">Đổi mật khẩu</div>
+              </li>
+              <li onClick={logOut} role="presentation">
+                <div className="popup-logout">Đăng xuất</div>
+              </li>
+            </ul>
+          </>
         )}
         <Col xs={12} md={2} className="menu-left">
           <Menu activeMenu={activeMenu} roleUser={roleUser} />
