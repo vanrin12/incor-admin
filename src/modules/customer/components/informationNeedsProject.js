@@ -209,6 +209,7 @@ const InformationNeedsProject = ({
       note: dataAddCategories?.note,
     });
   };
+
   return (
     <MainLayout activeMenu={4}>
       {isProcessing ? (
@@ -288,7 +289,7 @@ const InformationNeedsProject = ({
                   className="box__file d-none"
                   type="file"
                   ref={inputFile}
-                  accept="image/jpg, image/jpeg, image/png, capture=camera"
+                  accept="*, capture=camera"
                   onChange={(e) => getFileName(e.target)}
                 />
                 <Button customClass="button--primary" onClick={onButtonClick}>

@@ -79,22 +79,29 @@ const Customer = ({
   totalQuotes,
 }: Props) => {
   const partnerId = match.params.id;
+  const defaultHashtag =
+    (dataPartnerManagement?.company_career &&
+      dataPartnerManagement?.company_career.split(',')) ||
+    null;
+
   const [isShowEdit, setIsShowEdit] = useState(false);
   const [isShowDetailConstruction, setIsShowDetailConstruction] = useState(
     false
   );
+  const [valueHashtag, setValueHashtag] = useState(defaultHashtag || []);
   const [dataManagement, setDataManagement] = useState(dataPartnerManagement);
   const scale = dataScales.filter(
     (item) => item.value === dataPartnerManagement.scale_name
   );
+
   const [dataFilter, setDataFilter] = useState({
-    scales: scale && dataScales[0],
-    job: null, //dataPartnerManagement?.company_career ||
+    scales: (scale && scale[0]) || dataScales[0],
     tax_code: dataManagement.company_tax_code || '',
     name: dataManagement.company_name || '',
     address: dataManagement.company_address || '',
     email: dataManagement?.company_email || '',
   });
+
   const [keySearch, setKeySearch] = useState('');
   const [avatar, setAvatar] = useState('');
   const [objAvatar, setObjAvatar] = useState(null);
@@ -154,13 +161,13 @@ const Customer = ({
     if (type === 'GET_LIST_PARTNER_MANAGEMENT_SUCCESS') {
       setDataManagement(dataPartnerManagement);
       setDataFilter({
-        scales: (scale && dataScales[0]) || null,
-        job: null,
+        scales: (scale && scale[0]) || dataScales[0] || null,
         tax_code: dataPartnerManagement.company_tax_code || '',
         name: dataPartnerManagement.company_name || '',
         address: dataPartnerManagement.company_address || '',
         email: dataPartnerManagement?.company_email || '',
       });
+      // setValueHashtag(defaultHashtag);
     }
     if (type === 'REGISTER_PARTNER_PRODUCT_SUCCESS') {
       getListPartnerProduct({
@@ -198,10 +205,26 @@ const Customer = ({
   }, [type]);
 
   const handleChange = (value, name) => {
-    setDataFilter({
-      ...dataFilter,
-      [name]: value,
-    });
+    let names = [];
+    switch (name) {
+      case 'job':
+        names =
+          (value &&
+            value.length &&
+            value.map((item) => {
+              return item.label;
+            })) ||
+          [];
+        setValueHashtag(names);
+        break;
+
+      default:
+        setDataFilter({
+          ...dataFilter,
+          [name]: value,
+        });
+        break;
+    }
   };
   const handleKeySearch = (value) => {
     setKeySearch(value);
@@ -247,13 +270,6 @@ const Customer = ({
   const styleAvatar = {
     backgroundImage: `url(${dataPartnerManagement.company_image || avatar})`,
   };
-
-  const dataJob =
-    dataFilter &&
-    dataFilter.job &&
-    dataFilter.job.map((item) => {
-      return item.value;
-    });
   const handleSubmit = () => {
     const formData = new window.FormData();
     formData.append('user_id', partnerId);
@@ -263,7 +279,7 @@ const Customer = ({
     formData.append('scale_id', dataFilter?.scales?.id);
     formData.append('tax_code', dataFilter.tax_code);
     formData.append('email', dataFilter?.email);
-    formData.append('career', dataJob && dataJob.toString());
+    formData.append('career', valueHashtag && valueHashtag.toString());
     registerPartnerCompany(formData);
   };
 
@@ -327,6 +343,16 @@ const Customer = ({
     }
   };
 
+  const defaultOption =
+    valueHashtag && valueHashtag.length > 0
+      ? valueHashtag.map((item, index) => {
+          return {
+            id: index + 1,
+            value: item,
+            label: item,
+          };
+        })
+      : null;
   return (
     <MainLayout activeMenu={3}>
       {isProcessing ? (
@@ -374,7 +400,9 @@ const Customer = ({
                     <Col xs={12} md={6}>
                       <h2>Quy mô nhân sự</h2>
                       <p>
-                        {dataPartnerManagement.scale_name || 'Bỏ chọn'} người
+                        {dataPartnerManagement.scale_name
+                          ? `${dataPartnerManagement.scale_name} người`
+                          : ''}
                       </p>
                     </Col>
                   </Row>
@@ -484,7 +512,7 @@ const Customer = ({
                         onChange={(e) => {
                           handleChange(e, 'job');
                         }}
-                        option={dataFilter.job}
+                        option={defaultOption}
                         customClass="select-vote"
                         label="Ngành nghề"
                         isMulti
@@ -511,7 +539,7 @@ const Customer = ({
                     dataFilter.address.length === 0 &&
                     dataFilter.name.length === 0 &&
                     !dataFilter.scales &&
-                    !dataFilter.job &&
+                    !valueHashtag &&
                     dataFilter.tax_code.length === 0
                   }
                 >

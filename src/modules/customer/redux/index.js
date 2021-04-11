@@ -76,7 +76,10 @@ const getListCustomer = (state, action) => {
 };
 
 const getListCustomerSuccess = (state, action) => {
-  const dataCustomer = action.data.customer.data.map((item) => ({
+  const listDataCustomer = action?.data?.customer?.data.filter(
+    (item) => item.role_name === 'partner'
+  );
+  const dataCustomer = listDataCustomer.map((item) => ({
     id: item.id,
     date:
       item.created_at && moment(item.created_at).format('HH:mm - DD/MM/yyyy'),
@@ -85,11 +88,12 @@ const getListCustomerSuccess = (state, action) => {
     nameIncor: item.name_incor,
     vote: item.area?.name,
   }));
+
   return state.merge({
     isProcessing: false,
     type: action.type,
     dataCustomer,
-    totalCustomer: action.data.customer.total,
+    totalCustomer: action?.data?.customer?.total,
   });
 };
 
