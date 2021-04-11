@@ -120,6 +120,7 @@ const Form = ({
                 // onSelect={handleDateSelect} //when day is clicked
                 onChange={(date) => setStartDate(date)}
                 selectsStart
+                isClearable
                 startDate={startDate}
                 endDate={endDate}
               />
