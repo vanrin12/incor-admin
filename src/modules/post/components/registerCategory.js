@@ -142,7 +142,6 @@ const RegisterPost = ({
                   onChange={(e) => {
                     handleChange(e.target.value, 'category');
                   }}
-                  maxLength="20"
                   value={dataRegister.category}
                   placeholder="Nhập tên chuyên mục"
                 />
@@ -153,7 +152,6 @@ const RegisterPost = ({
                   onChange={(e) => {
                     handleChange(e.target.value, 'slug');
                   }}
-                  maxLength="20"
                   value={dataRegister.slug}
                   placeholder="Nhập tên chuyên mục"
                 />

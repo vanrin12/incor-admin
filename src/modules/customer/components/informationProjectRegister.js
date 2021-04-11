@@ -6,8 +6,8 @@ import { Row, Col, Container } from 'react-bootstrap';
 import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
-import images from 'themes/images';
 import Input from 'commons/components/Input';
+import Modal from 'commons/components/Modal';
 
 type Props = {
   getListSpaceType: Function,
@@ -29,6 +29,8 @@ type Props = {
   registerProjectItem: Function,
   projectId: any,
   resetData: Function,
+  listHashtag: Array<{}>,
+  getDataFooter: Function,
 };
 const InformationNeeds = ({
   getListSpaceType,
@@ -44,9 +46,15 @@ const InformationNeeds = ({
   registerProjectItem,
   projectId,
   resetData,
+  listHashtag,
+  getDataFooter,
 }: Props) => {
   const inputFile = useRef({});
   const userId = match.params.id;
+  const [isShowError, setIsShowError] = useState({
+    isShow: false,
+    content: '',
+  });
   const [dataSubmit, setDataSubmit] = useState({
     nameProject: '',
     address: '',
@@ -59,8 +67,9 @@ const InformationNeeds = ({
     description: '',
     dvt: '',
     note: '',
+    hashtag: null,
   });
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState('');
   const [objFile, setObjFile] = useState(null);
   const [nameImage, setNameImage] = useState('');
 
@@ -77,6 +86,7 @@ const InformationNeeds = ({
 
   useEffect(() => {
     getListSpaceType();
+    getDataFooter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -96,6 +106,7 @@ const InformationNeeds = ({
         area: null,
         space: null,
         typeSpace: null,
+        hashtag: null,
       });
       setObjFile(null);
       setNameImage('');
@@ -157,21 +168,30 @@ const InformationNeeds = ({
   };
 
   const handleRegisterProjectItem = () => {
-    registerProjectItem({
-      name: dataAddCategories.nameCategories,
-      project_id: projectId,
-      description: dataAddCategories.description,
-      amount: total,
-      unit: dataAddCategories?.dvt,
-      note: dataAddCategories?.note,
-    });
+    if (projectId) {
+      registerProjectItem({
+        name: dataAddCategories.nameCategories,
+        project_id: projectId,
+        description: dataAddCategories.description,
+        amount: total,
+        unit: dataAddCategories?.dvt,
+        note: dataAddCategories?.note,
+        // TODO ADD HASHTAG
+      });
+    } else {
+      setIsShowError({
+        isShow: true,
+        content: 'Bạn cần thêm dự án trước.',
+      });
+    }
   };
+
   return (
     <MainLayout activeMenu={4}>
       <Container fluid>
         <Row className="content-wrapper page-information">
           <Col xs={12} md={12}>
-            <h2 className="title-page">Thông tin nhu cầu</h2>
+            <h2 className="title-page mb-3">Thông tin nhu cầu</h2>
           </Col>
           <Col xs={12} md={3}>
             <Input
@@ -209,7 +229,7 @@ const InformationNeeds = ({
           </Col>
           <Col xs={12} md={6}>
             <SelectDropdown
-              placeholder=""
+              placeholder="Chọn không gian"
               listItem={listSpaceType && Immutable.asMutable(listSpaceType)}
               onChange={(e) => {
                 handleChange(e, 'space');
@@ -221,7 +241,7 @@ const InformationNeeds = ({
           </Col>
           <Col xs={12} md={6}>
             <SelectDropdown
-              placeholder=""
+              placeholder="Chọn lại hình không gian"
               listItem={listDivision && Immutable.asMutable(listDivision)}
               onChange={(e) => {
                 handleChange(e, 'typeSpace');
@@ -255,71 +275,70 @@ const InformationNeeds = ({
           </Col>
           <Col xs={12} md={12}>
             <h2 className="title-project">Hạng mục chi tiết</h2>
-            <div className="custom-head">
+            <div className="custom-head customer">
               <p>Tên hạng mục</p>
+              <p>Hashtag</p>
               <p>Mô tả kỹ thuật</p>
               <p>Số lượng</p>
               <p>ĐVT</p>
               <p>Ghi chú</p>
             </div>
             <div className="custom-body">
-              <div className="custom-body__item">
+              <div className="custom-body__item customer">
                 <textarea
                   onChange={(e) => {
                     handleChange(e.target.value, 'nameCategories');
                   }}
                   value={dataAddCategories.nameCategories}
                   placeholder="Nhập tên"
-                  disabled={projectId === ''}
                 />
               </div>
-              <div className="custom-body__item">
+              <div className="custom-body__item customer">
+                <SelectDropdown
+                  placeholder="Chọn hashtag"
+                  listItem={listHashtag && Immutable.asMutable(listHashtag)}
+                  onChange={(e) => {
+                    handleChange(e, 'hashtag');
+                  }}
+                  isMulti
+                  option={dataAddCategories.hashtag}
+                />
+              </div>
+              <div className="custom-body__item customer">
                 <textarea
                   onChange={(e) => {
                     handleChange(e.target.value, 'description');
                   }}
                   value={dataAddCategories.description}
                   placeholder="Nhập mô tả"
-                  disabled={projectId === ''}
                 />
               </div>
-              <div className="custom-body__item action">
-                <img
-                  src={images.iconBack}
-                  alt=""
-                  className="action-increase"
-                  onClick={() => projectId !== '' && setTotal(total + 1)}
-                  role="presentation"
-                />
-                <p>{total}</p>
-                <img
-                  src={images.iconBack}
-                  alt=""
-                  className="action__reduction"
-                  onClick={() =>
-                    total !== 0 && projectId !== '' && setTotal(total - 1)
-                  }
-                  role="presentation"
+              <div className="custom-body__item action customer">
+                <textarea
+                  type="text"
+                  onChange={(e) => {
+                    setTotal(e.target.value);
+                  }}
+                  placeholder="Nhập số lượng"
+                  value={total}
                 />
               </div>
-              <div className="custom-body__item">
+              <div className="custom-body__item customer">
                 <textarea
                   onChange={(e) => {
                     handleChange(e.target.value, 'dvt');
                   }}
                   value={dataAddCategories.dvt}
                   placeholder="Nhập đơn vị tính"
-                  disabled={projectId === ''}
                 />
               </div>
-              <div className="custom-body__item">
+              <div className="custom-body__item customer">
                 <textarea
                   onChange={(e) => {
                     handleChange(e.target.value, 'note');
                   }}
                   value={dataAddCategories.note}
                   placeholder="Nhập Ghi chú"
-                  disabled={projectId === ''}
                 />
               </div>
             </div>
@@ -331,7 +350,7 @@ const InformationNeeds = ({
               isDisabled={
                 dataAddCategories.nameCategories.length === 0 ||
                 dataAddCategories.description.length === 0 ||
-                total === 0 ||
+                !total ||
                 dataAddCategories.dvt.length === 0
               }
             >
@@ -340,6 +359,19 @@ const InformationNeeds = ({
           </Col>
         </Row>
       </Container>
+      <Modal
+        isOpen={isShowError.isShow}
+        isShowFooter
+        handleClose={() => {
+          setIsShowError({ ...isShowError, isShow: false });
+        }}
+        handleSubmit={() => {
+          setIsShowError({ ...isShowError, isShow: false });
+        }}
+        textBtnRight="ĐÓNG"
+      >
+        {isShowError.content}
+      </Modal>
     </MainLayout>
   );
 };

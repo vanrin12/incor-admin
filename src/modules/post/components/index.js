@@ -150,6 +150,7 @@ const Post = ({
             <div className="form-search__left">
               <DatePicker
                 selected={createDate}
+                placeholderText="Chọn thời gian"
                 // onSelect={handleDateSelect} //when day is clicked
                 onChange={(date) => handleDateChange(date)}
               />
@@ -187,7 +188,7 @@ const Post = ({
                 onChange={(e) => {
                   handleKeySearch(e.target.value);
                 }}
-                maxLength="20"
+                placeholder="Nhập từ khóa"
                 value={keySearch}
               />
               <Button

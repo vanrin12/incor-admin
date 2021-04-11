@@ -69,15 +69,6 @@ const InformationNeedsProject = ({
   updateProjectItem,
 }: Props) => {
   const projectId = match.params.id;
-  const areas = dataAreas.filter(
-    (item) => item.id === dataDetailProject.area_id
-  );
-  const spaceType = listSpaceType.filter(
-    (item) => item.id === dataDetailProject.space_type_id
-  );
-  const divisionType = listDivision.filter(
-    (item) => item.id === dataDetailProject.space_division_id
-  );
   const inputFile = useRef({});
   const [rowActive, setRowActive] = useState({});
   const [nameImage, setNameImage] = useState('');
@@ -87,11 +78,11 @@ const InformationNeedsProject = ({
   });
 
   const [dataSubmit, setDataSubmit] = useState({
-    nameProject: dataDetailProject?.name,
-    address: dataDetailProject?.address,
-    area: areas && areas[0],
-    spaceType: spaceType && spaceType[0],
-    divisionType: divisionType && divisionType[0],
+    nameProject: '',
+    address: '',
+    area: null,
+    spaceType: null,
+    divisionType: null,
   });
   const [total, setTotal] = useState('');
   const [dataAddCategories, setDataAddCategories] = useState({
@@ -131,7 +122,7 @@ const InformationNeedsProject = ({
       default:
         break;
     }
-    setTotal(0);
+    setTotal('');
     // eslint-disable-next-line
   }, [type]);
 
@@ -176,10 +167,6 @@ const InformationNeedsProject = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataSubmit && dataSubmit.spaceType && dataSubmit.spaceType.id]);
-
-  useEffect(() => {
-    setNameImage(dataDetailProject && dataDetailProject.drawing);
-  }, [dataDetailProject]);
 
   const handleChange = (value, name) => {
     setDataSubmit({
@@ -251,7 +238,28 @@ const InformationNeedsProject = ({
     });
   };
 
+  useEffect(() => {
+    const areas = dataAreas.filter(
+      (item) => item.id === dataDetailProject.area_id
+    );
+    const spaceType = listSpaceType.filter(
+      (item) => item.id === dataDetailProject.space_type_id
+    );
+    const divisionType = listDivision.filter(
+      (item) => item.id === dataDetailProject.space_division_id
+    );
+    setNameImage(dataDetailProject && dataDetailProject.drawing);
+    setDataSubmit({
+      nameProject: dataDetailProject?.name,
+      address: dataDetailProject?.address,
+      area: areas && areas[0],
+      spaceType: spaceType && spaceType[0],
+      divisionType: divisionType && divisionType[0],
+    });
+    // eslint-disable-next-line
+  }, [dataDetailProject, projectId, listSpaceType, listDivision]);
   console.log(dataAddCategories.hashtag, 'dataAddCategories.hashtag');
+
   return (
     <MainLayout activeMenu={4}>
       {isProcessing ? (
@@ -260,7 +268,7 @@ const InformationNeedsProject = ({
         <Container fluid>
           <Row className="content-wrapper page-customer">
             <Col xs={12} md={12}>
-              <h2 className="title-page">
+              <h2 className="title-page mb-3">
                 Thông tin nhu cầu - {dataDetailProject?.name}
               </h2>
             </Col>
@@ -300,25 +308,25 @@ const InformationNeedsProject = ({
             </Col>
             <Col xs={12} md={6}>
               <SelectDropdown
-                placeholder=""
+                placeholder="Chọn không gian"
                 listItem={listSpaceType && Immutable.asMutable(listSpaceType)}
                 onChange={(e) => {
                   handleChange(e, 'spaceType');
                 }}
                 option={dataSubmit.spaceType}
-                customClass="select-headquarters"
+                customClass="select-headquarters mt-2"
                 label="Phân chia không gian"
               />
             </Col>
             <Col xs={12} md={6}>
               <SelectDropdown
-                placeholder=""
+                placeholder="Chọn lại hình không gian"
                 listItem={listDivision && Immutable.asMutable(listDivision)}
                 onChange={(e) => {
                   handleChange(e, 'divisionType');
                 }}
                 option={dataSubmit.divisionType}
-                customClass="select-headquarters"
+                customClass="select-headquarters mt-2"
                 label="Loại hình không gian"
                 disabled={dataSubmit.spaceType === null}
               />
@@ -450,7 +458,7 @@ const InformationNeedsProject = ({
                 isDisabled={
                   dataAddCategories.nameCategories.length === 0 ||
                   dataAddCategories.description.length === 0 ||
-                  total === 0 ||
+                  !total ||
                   dataAddCategories.dvt.length === 0
                 }
               >

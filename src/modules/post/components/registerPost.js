@@ -154,7 +154,6 @@ const RegisterPost = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'title');
               }}
-              maxLength="20"
               value={dataRegister.title}
               placeholder="Nhập tiêu đề tại đây"
             />
@@ -181,7 +180,6 @@ const RegisterPost = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'titleSeo');
               }}
-              maxLength="20"
               value={dataRegister.titleSeo}
               placeholder="Nhập tiêu đề không quá 70 từ"
             />
@@ -256,6 +254,7 @@ const RegisterPost = ({
                 Lên lịch:
                 <DatePicker
                   selected={createDate}
+                  placeholderText="Chọn thời gian"
                   // onSelect={handleDateSelect} //when day is clicked
                   onChange={(date) => handleDateChange(date)}
                 />

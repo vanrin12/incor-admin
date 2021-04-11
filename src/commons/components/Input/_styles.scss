@@ -5,7 +5,7 @@
   }
 
   &__label {
-    font-size: pxToVW(14);
+    font-size: pxToRem(14);
     font-weight: $medium;
     line-height: pxToVW(19);
     // color: $black-active;
@@ -105,6 +105,40 @@
         padding-right: pxToVW(35);
       }
     }
+  }
+}
+
+.react-datepicker__input-container input {
+  &::-webkit-input-placeholder {
+    color: $color-placeholder;
+    font-weight: $regular;
+    font-size: pxToVW(16);
+    letter-spacing: pxToVW(-0.25);
+    font-style: italic;
+  }
+
+  &::placeholder {
+    color: $color-placeholder;
+    font-weight: $regular;
+    font-size: pxToVW(16);
+    letter-spacing: pxToVW(-0.25);
+    font-style: italic;
+  }
+
+  &::-moz-placeholder {
+    color: $color-placeholder;
+    font-weight: $regular;
+    font-size: pxToVW(16);
+    letter-spacing: pxToVW(-0.25);
+    font-style: italic;
+  }
+
+  &:-ms-input-placeholder {
+    color: $color-placeholder;
+    font-weight: $regular;
+    font-size: pxToVW(16);
+    letter-spacing: pxToVW(-0.25);
+    font-style: italic;
   }
 }
 

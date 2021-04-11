@@ -246,10 +246,70 @@
   clear: both;
 }
 
-@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
+
   // For Google Chrome
   &::-webkit-scrollbar {
-    width:  $size;
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  // For Internet Explorer
+  & {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+@mixin customerSelect($heigh) {
+  .customer-select {
+    .css-26l3qy-menu>div * {
+      padding: 0.3125rem 0.5rem !important;
+    }
+
+    .css-g1d714-ValueContainer,
+    .css-1fhf3k1-control {
+      min-height: pxToRem($heigh);
+      max-height: pxToRem($heigh);
+      overflow: visible !important;
+      font-size: pxToRem(14) !important;
+    }
+
+    .css-yk16xz-control {
+      min-height: pxToRem($heigh);
+      max-height: pxToRem($heigh);
+    }
+
+    .css-1pahdxg-control {
+      min-height: pxToRem($heigh);
+      max-height: pxToRem($heigh);
+
+      .css-g1d714-ValueContainer,
+      .css-1uccc91-singleValue {
+        min-height: pxToRem($heigh);
+        max-height: pxToRem($heigh);
+      }
+    }
+  }
+}
+
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
+
+  // For Google Chrome
+  &::-webkit-scrollbar {
+    width: $size;
     height: $size;
   }
 

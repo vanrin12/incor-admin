@@ -41,7 +41,7 @@ const ItemPartner = ({
             onChange={(e) => {
               setKeySearch(e.target.value);
             }}
-            maxLength="20"
+            placeholder="Nhập từ khóa"
             value={keySearch}
           />
           <Button

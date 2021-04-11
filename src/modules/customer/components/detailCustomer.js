@@ -48,12 +48,12 @@ const InformationNeeds = ({
     (item) => item.id === dataDetailCustomer.area_id
   );
   const [dataSubmit, setDataSubmit] = useState({
-    nameCustomer: dataDetailCustomer.name,
-    phone: dataDetailCustomer.phone,
-    email: dataDetailCustomer.email,
-    area: (areas && areas[0]) || null,
-    nameBusiness: dataDetailCustomer.name_incor,
-    emailBusiness: dataDetailCustomer.email_incor,
+    nameCustomer: '',
+    phone: '',
+    email: '',
+    area: null,
+    nameBusiness: '',
+    emailBusiness: '',
   });
 
   useEffect(() => {
@@ -65,18 +65,6 @@ const InformationNeeds = ({
     getListAreas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    setDataSubmit({
-      nameCustomer: dataDetailCustomer.name,
-      phone: dataDetailCustomer.phone,
-      email: dataDetailCustomer.email,
-      area: (areas && areas[0]) || null,
-      nameBusiness: dataDetailCustomer.name_incor,
-      emailBusiness: dataDetailCustomer.email_incor,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataDetailCustomer]);
 
   useEffect(() => {
     if (type === 'UPDATE_CUSTOMER_SUCCESS') {
@@ -133,6 +121,19 @@ const InformationNeeds = ({
       email_incor: dataSubmit?.emailBusiness,
     });
   };
+
+  useEffect(() => {
+    setDataSubmit({
+      nameCustomer: dataDetailCustomer.name,
+      phone: dataDetailCustomer.phone,
+      email: dataDetailCustomer.email,
+      area: (areas && areas[0]) || null,
+      nameBusiness: dataDetailCustomer.name_incor,
+      emailBusiness: dataDetailCustomer.email_incor,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataDetailCustomer, customerId, dataAreas]);
+
   return (
     <MainLayout activeMenu={4}>
       {isProcessing ? (
@@ -141,7 +142,7 @@ const InformationNeeds = ({
         <Container fluid>
           <Row className="content-wrapper page-information">
             <Col xs={12} md={12}>
-              <h2 className="title-page">Thông tin nhu cầu</h2>
+              <h2 className="title-page mb-3">Thông tin nhu cầu</h2>
             </Col>
             <Col xs={12} md={3}>
               <Input

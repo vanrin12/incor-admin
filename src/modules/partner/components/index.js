@@ -58,7 +58,6 @@ const Partner = ({
     scale_id: dataFilter?.areas?.id,
     rate: dataFilter?.vote?.value,
   });
-  console.log(dataPartner);
   // call api get list areas
   useEffect(() => {
     getListAreas();
@@ -193,7 +192,7 @@ const Partner = ({
                   onChange={(e) => {
                     handleKeySearch(e.target.value);
                   }}
-                  maxLength="20"
+                  placeholder="Nhập từ khóa"
                   value={keySearch}
                 />
                 <Button

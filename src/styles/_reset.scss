@@ -96,7 +96,8 @@ video {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  *[role="presentation"]{
+
+  *[role="presentation"] {
     cursor: pointer;
   }
 }

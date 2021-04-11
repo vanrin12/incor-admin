@@ -243,7 +243,7 @@ const registerProjectSuccess = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
-    projectId: action.data.customer.id,
+    projectId: action?.data?.customer?.id,
   });
 };
 

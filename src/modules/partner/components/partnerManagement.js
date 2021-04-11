@@ -79,17 +79,12 @@ const Customer = ({
   totalQuotes,
 }: Props) => {
   const partnerId = match.params.id;
-  const defaultHashtag =
-    (dataPartnerManagement &&
-      dataPartnerManagement.company_career &&
-      dataPartnerManagement.company_career.split(',')) ||
-    null;
 
   const [isShowEdit, setIsShowEdit] = useState(false);
   const [isShowDetailConstruction, setIsShowDetailConstruction] = useState(
     false
   );
-  const [valueHashtag, setValueHashtag] = useState(defaultHashtag || []);
+  const [valueHashtag, setValueHashtag] = useState([]);
   const [dataManagement, setDataManagement] = useState(dataPartnerManagement);
   const scale = dataScales.filter(
     (item) => item.value === dataPartnerManagement.scale_name
@@ -152,6 +147,7 @@ const Customer = ({
       keywords: keySearch,
     });
   };
+
   // call api get list scales
   useEffect(() => {
     getListScales();
@@ -168,7 +164,7 @@ const Customer = ({
         address: dataPartnerManagement.company_address || '',
         email: dataPartnerManagement?.company_email || '',
       });
-      // setValueHashtag(defaultHashtag);
+      setValueHashtag(valueHashtag);
     }
     if (type === 'REGISTER_PARTNER_PRODUCT_SUCCESS') {
       getListPartnerProduct({
@@ -204,6 +200,24 @@ const Customer = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
+
+  useEffect(() => {
+    const defaultHashtag =
+      (dataPartnerManagement &&
+        dataPartnerManagement.company_career &&
+        dataPartnerManagement.company_career.split(',')) ||
+      null;
+    setValueHashtag(defaultHashtag);
+    setDataManagement(dataPartnerManagement);
+    setDataFilter({
+      scales: (scale && scale[0]) || dataScales[0],
+      tax_code: dataPartnerManagement?.company_tax_code || '',
+      name: dataPartnerManagement?.company_name || '',
+      address: dataPartnerManagement?.company_address || '',
+      email: dataPartnerManagement?.company_email || '',
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataPartnerManagement, dataPartnerManagement?.company_career, partnerId]);
 
   const handleChange = (value, name) => {
     let names = [];
@@ -443,7 +457,6 @@ const Customer = ({
                         onChange={(e) => {
                           handleChange(e.target.value, 'name');
                         }}
-                        maxLength="20"
                         value={dataFilter.name}
                         placeholder="Nhập tên doanh nghiệp"
                         label="Tên doanh nghiệp"
@@ -457,7 +470,6 @@ const Customer = ({
                         onChange={(e) => {
                           handleChange(e.target.value, 'email');
                         }}
-                        maxLength="20"
                         value={dataFilter.email}
                         placeholder="Email"
                         label="Email"
@@ -570,8 +582,8 @@ const Customer = ({
                       onChange={(e) => {
                         handleKeySearch(e.target.value);
                       }}
-                      maxLength="20"
                       value={keySearch}
+                      placeholder="Nhập từ khóa"
                     />
                     <Button
                       customClass="button--primary mt-0 h-37"
@@ -610,7 +622,7 @@ const Customer = ({
                       onChange={(e) => {
                         handleKeySearch(e.target.value);
                       }}
-                      maxLength="20"
+                      placeholder="Nhập từ khóa"
                       value={keySearch}
                     />
                     <Button
