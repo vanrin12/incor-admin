@@ -27,6 +27,10 @@ const Partner = ({
   const hashtag = [];
   const [listHashtag, setListHashtag] = useState(hashtag || []);
   const [valueHashtag, setValueHashtag] = useState('');
+  const [imagePartner, setImagePartner] = useState({
+    imgUpload: '',
+    imageView: '',
+  });
   const [titleForm, setTitleForm] = useState('');
   const [modalCancel, setModalCancel] = useState({
     isShow: false,
@@ -43,9 +47,13 @@ const Partner = ({
     }
 
     setTitleForm(dataFooter?.titleForm);
+    setImagePartner({
+      imgUpload: '',
+      imageView: dataFooter?.imagePartner,
+    });
+    // imagePartner
     // eslint-disable-next-line
   }, [dataFooter]);
-
   useEffect(() => {
     switch (type) {
       case 'CREATE_FOOTER_SUCCESS':
@@ -121,6 +129,41 @@ const Partner = ({
     }
   };
 
+  const handelGetFileName = (e) => {
+    if (e.target.validity.valid && e.target.files[0]) {
+      if (e.target.files[0].size === 0) {
+        setModalCancel({
+          ...modalCancel,
+          isShow: true,
+          content: 'Dung lượng hình ảnh phải lớn hơn 0KB.',
+        });
+      } else if (e.target.files[0].size > 1574000000) {
+        setModalCancel({
+          ...modalCancel,
+          isShow: true,
+          content: 'Kích thước hình ảnh được giới hạn ở 1.5G',
+        });
+      } else {
+        setImagePartner({
+          imgUpload: e.target.files[0],
+          imageView: (window.URL || window.webkitURL).createObjectURL(
+            e.target.files[0]
+          ),
+        });
+      }
+    }
+  };
+
+  const handleImagePartnerSubmit = () => {
+    const formData = new window.FormData();
+    if (imagePartner?.imgUpload) {
+      formData.append('constants[1][name]', 'imagePartner');
+      formData.append('constants[1][value]', imagePartner?.imgUpload);
+      formData.append('constants[1][type]', true);
+      createFooter(formData);
+    }
+  };
+
   const renderListHashtag =
     listHashtag &&
     listHashtag.length > 0 &&
@@ -191,6 +234,34 @@ const Partner = ({
             <div className="text-right mt-4">
               <Button onClick={() => handleSubmitForm()}>Lưu thay đổi</Button>
             </div>
+          </div>
+          <h2 className="title-page my-4">Ảnh bìa trang đối tác</h2>
+          <div className="item-slide">
+            <div
+              className="box__input input-slider"
+              onKeyDown={() => {}}
+              tabIndex={0}
+              role="button"
+              style={{
+                backgroundImage: `url(${imagePartner?.imageView})`,
+              }}
+            >
+              <input
+                className="box__file"
+                type="file"
+                name="name"
+                accept="image/jpg, image/jpeg, image/png, capture=camera"
+                onChange={(e) => handelGetFileName(e)}
+              />
+              <label>
+                <strong>{'Upload file'}</strong>
+              </label>
+            </div>
+          </div>
+          <div className="text-right">
+            <Button onClick={() => handleImagePartnerSubmit()}>
+              Lưu thay đổi
+            </Button>
           </div>
         </div>
         <Modal

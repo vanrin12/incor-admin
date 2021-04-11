@@ -27,6 +27,16 @@
     background-color: $white;
   }
 
+  &__aboutUs {
+    margin-bottom: pxToRem(20);
+
+    .app-video {
+      video {
+        height: pxToRem(200);
+      }
+    }
+  }
+
   h1 {
     font-size: pxToRem(30);
     line-height: pxToRem(20);

@@ -34,11 +34,14 @@ const Sale = ({
 }: Props) => {
   const [fileName, setFileName] = useState('');
   const inputFile = useRef({});
+  const inputFileThumbnail = useRef({});
   const [dataSubmit, setDataSubmit] = useState({
     name: '',
     video: '',
     tagline: '',
     videoView: '',
+    thumbnailVideo: '',
+    thumbnailViewVideo: '',
   });
 
   const [showError, setShowError] = useState({
@@ -99,6 +102,16 @@ const Sale = ({
     // eslint-disable-next-line no-unused-expressions
     inputRefCurrent && inputRefCurrent.click();
   };
+  const onButtonClickThumbnail = () => {
+    // `current` points to the mounted file input element
+    // eslint-disable-next-line no-unused-expressions
+    const inputRefCurrent =
+      inputFileThumbnail && inputFileThumbnail.current
+        ? inputFileThumbnail.current
+        : null;
+    // eslint-disable-next-line no-unused-expressions
+    inputRefCurrent && inputRefCurrent.click();
+  };
 
   const handleChangeFile = (e) => {
     if (e.target.validity.valid && e.target.files[0]) {
@@ -120,6 +133,31 @@ const Sale = ({
           ...dataSubmit,
           video: e.target.files[0],
           videoView: (window.URL || window.webkitURL).createObjectURL(
+            e.target.files[0]
+          ),
+        });
+      }
+    }
+  };
+  const handleChangeFileThumbnail = (e) => {
+    if (e.target.validity.valid && e.target.files[0]) {
+      if (e.target.files[0].size === 0) {
+        setShowError({
+          ...showError,
+          isShow: true,
+          content: 'Dung lượng ảnh phải lớn hơn 0KB.',
+        });
+      } else if (e.target.files[0].size > 1574000000) {
+        setShowError({
+          ...showError,
+          isShow: true,
+          content: 'Dung lượng hình ảnh được giới hạn ở 1.5G',
+        });
+      } else {
+        setDataSubmit({
+          ...dataSubmit,
+          thumbnailVideo: e.target.files[0],
+          thumbnailViewVideo: (window.URL || window.webkitURL).createObjectURL(
             e.target.files[0]
           ),
         });
@@ -169,7 +207,7 @@ const Sale = ({
               LƯU
             </Button>
           </Col>
-          <Col xs={12} md={12}>
+          <Col xs={12} md={12} className="page-display__aboutUs">
             <h1>{dataAboutUs?.name}</h1>
             <Input
               type="text"
@@ -214,10 +252,33 @@ const Sale = ({
               </label>
             </div>
             {dataSubmit?.videoView && (
-              <div className="mt-3">
+              <div className="mt-3 mb-3">
                 <Video src={dataSubmit?.videoView} />
               </div>
             )}
+
+            <div className="favicon">Thumbnail video</div>
+            <div
+              className="box__input"
+              onClick={onButtonClickThumbnail}
+              onKeyDown={() => {}}
+              tabIndex={0}
+              role="button"
+              style={{
+                backgroundImage: `url(${dataSubmit?.thumbnailViewVideo})`,
+              }}
+            >
+              <input
+                className="box__file"
+                type="file"
+                ref={inputFileThumbnail}
+                accept="image/jpg, image/jpeg, image/png, capture=camera"
+                onChange={(e) => handleChangeFileThumbnail(e)}
+              />
+              <label>
+                <strong>{'Upload file'}</strong>
+              </label>
+            </div>
           </Col>
         </Row>
       </Container>

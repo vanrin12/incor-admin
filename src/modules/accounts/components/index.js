@@ -195,7 +195,6 @@ const Account = () => {
                 onChange={(e) => {
                   handleKeySearch(e.target.value);
                 }}
-                maxLength="20"
                 value={keySearch}
               />
               <Button
@@ -212,7 +211,6 @@ const Account = () => {
               onChange={(e) => {
                 handleChange(e.target.value, 'name');
               }}
-              maxLength="20"
               value={dataSubmit.name}
               placeholder="Tên khách hàng/Đối tác/Admin"
               label="Tên tài khoản"
