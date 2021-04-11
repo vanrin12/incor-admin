@@ -147,7 +147,7 @@ const DetailPost = ({
     formData.append('name', dataRegister.title);
     formData.append('content', content);
     formData.append('seo_title', dataRegister.titleSeo);
-    formData.append('comment', dataRegister.description);
+    formData.append('description', dataRegister.description);
     formData.append('category_id', dataRegister?.category?.id);
     formData.append('image', objFile);
     formData.append('status', status);
@@ -165,7 +165,7 @@ const DetailPost = ({
     formData.append('name', dataRegister.title);
     formData.append('content', content);
     formData.append('seo_title', dataRegister.titleSeo);
-    formData.append('comment', dataRegister.description);
+    formData.append('description', dataRegister.description);
     formData.append('category_id', dataRegister?.category?.id);
     formData.append('image', objFile);
     formData.append('status', status);
@@ -293,6 +293,7 @@ const DetailPost = ({
                   Lên lịch:
                   <DatePicker
                     selected={createDate}
+                    isClearable
                     placeholderText="Chọn thời gian"
                     // onSelect={handleDateSelect} //when day is clicked
                     onChange={(date) => handleDateChange(date)}

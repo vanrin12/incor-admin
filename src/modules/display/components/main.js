@@ -7,7 +7,6 @@ import Modal from 'commons/components/Modal';
 import images from 'themes/images';
 import Input from 'commons/components/Input';
 import Button from 'commons/components/Button';
-import { listComponent } from 'constants/listData';
 import Loading from 'commons/components/Loading';
 import ItemSlider from './ItemSlide';
 
@@ -24,6 +23,8 @@ type Props = {
   updateListSlider: Function,
   statusCode: any,
   typeRequest: string,
+  getListLayout: Function,
+  siteMapComponent: any,
 };
 
 const Display = ({
@@ -36,6 +37,8 @@ const Display = ({
   updateListSlider,
   statusCode,
   typeRequest,
+  getListLayout,
+  siteMapComponent,
 }: Props) => {
   const [dataSubmit, setDataSubmit] = useState({
     tagline: '',
@@ -55,6 +58,7 @@ const Display = ({
 
   useEffect(() => {
     getListSlider();
+    getListLayout();
     // eslint-disable-next-line
   }, []);
 
@@ -66,7 +70,7 @@ const Display = ({
     });
     // eslint-disable-next-line
   }, [dataListSlider, titleSlider]);
-
+  console.log(siteMapComponent, 'layoutHeader');
   useEffect(() => {
     switch (typeRequest) {
       case 'UPDATE_LIST_SLIDER_SUCCESS':
@@ -219,8 +223,8 @@ const Display = ({
     ));
 
   const renderComponent =
-    listComponent &&
-    listComponent.map((item) => {
+    siteMapComponent &&
+    siteMapComponent.map((item) => {
       return (
         <div
           className="list-companent__item-display"

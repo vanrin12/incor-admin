@@ -75,6 +75,7 @@ export const INITIAL_STATE = Immutable({
   dataListSlider: {},
   titleSlider: '',
   layoutHeader: [],
+  siteMapComponent: [],
   listHashtag: [],
 });
 
@@ -393,10 +394,42 @@ const getListLayout = (state, action) => {
 
 const getListLayoutSuccess = (state, action) => {
   const { data } = action;
+  const siteMapComponent = data.map.filter(
+    (item) => item.type === 'promotion' || item.type === 'advisory'
+  );
+
+  const listComponent = [
+    {
+      id: 1,
+      name: siteMapComponent && siteMapComponent[0].name,
+      url: '/display/sale-map',
+      type: 'promotion',
+    },
+    {
+      id: 2,
+      name: 'Cảm nhận khách hàng',
+      url: '/display/customer_exp',
+      type: '',
+    },
+    {
+      id: 3,
+      name: siteMapComponent && siteMapComponent[1].name,
+      url: '/display/sale-map',
+      type: 'advisory',
+    },
+    {
+      id: 4,
+      name: 'Về chúng tôi',
+      url: '/display/about_us',
+      type: '',
+    },
+  ];
+
   return state.merge({
     isProcessing: false,
     type: action.type,
     layoutHeader: data && data.map,
+    siteMapComponent: listComponent,
   });
 };
 

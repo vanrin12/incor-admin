@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
     dataListSlider: state.displayReducer.dataListSlider,
     titleSlider: state.displayReducer.titleSlider,
     statusCode: state.displayReducer.statusCode,
+    siteMapComponent: state.displayReducer.siteMapComponent,
   };
 };
 
@@ -21,6 +22,7 @@ const mapDispatchToProps = (dispatch) =>
       getListSlider: Creators.getListSlider,
       deleteSlider: Creators.deleteSlider,
       updateListSlider: Creators.updateListSlider,
+      getListLayout: Creators.getListLayout,
     },
     dispatch
   );
