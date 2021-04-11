@@ -10,7 +10,7 @@ function* getDetailProject(action) {
      *
      */
     const response = yield call(() =>
-      API.get(ROUTES.API_GET_DETAIL_PROJECT(action.id))
+      API.get(ROUTES.API_GET_DETAIL_PROJECT(action.id), action.data)
     );
     if (response.ok) {
       const { data } = response.data;

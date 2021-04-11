@@ -82,6 +82,9 @@ const InformationNeedsProject = ({
   const [rowActive, setRowActive] = useState({});
   const [nameImage, setNameImage] = useState('');
   const [objFile, setObjFile] = useState(null);
+  const [params, setParams] = useState({
+    page: 1,
+  });
 
   const [dataSubmit, setDataSubmit] = useState({
     nameProject: dataDetailProject?.name,
@@ -90,7 +93,7 @@ const InformationNeedsProject = ({
     spaceType: spaceType && spaceType[0],
     divisionType: divisionType && divisionType[0],
   });
-  const [total, setTotal] = useState("");
+  const [total, setTotal] = useState('');
   const [dataAddCategories, setDataAddCategories] = useState({
     nameCategories: '',
     description: '',
@@ -146,18 +149,13 @@ const InformationNeedsProject = ({
     setNameImage(e.files[0].name);
   };
 
-  // const [params, setParams] = useState({
-  //   page: 1,
-  // });
-
-  // const handleSelectPagination = (eventKey) => {
-  //   setParams({ ...params, page: eventKey.selected + 1 });
-  //   const paramsRequest = { ...params, page: eventKey.selected + 1 };
-  //   getDetailProject(projectId);
-  // };
+  const handleSelectPagination = (eventKey) => {
+    setParams({ ...params, page: eventKey.selected + 1 });
+    getDetailProject(projectId, params);
+  };
 
   useEffect(() => {
-    getDetailProject(projectId);
+    getDetailProject(projectId, params);
     getDataFooter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
@@ -220,6 +218,7 @@ const InformationNeedsProject = ({
 
   const handleUpdateData = (rowData) => {
     setDataAddCategories({
+      ...dataAddCategories,
       nameCategories: rowData?.name,
       description: rowData?.description,
       dvt: rowData?.unit,
@@ -476,7 +475,7 @@ const InformationNeedsProject = ({
                 nextLabel="Next"
                 breakLabel={<span className="gap">...</span>}
                 pageCount={Math.ceil(dataDetailProject?.items?.total / 10)}
-                // onPageChange={(eventKey) => handleSelectPagination(eventKey)}
+                onPageChange={(eventKey) => handleSelectPagination(eventKey)}
                 forcePage={0}
                 containerClassName="pagination"
                 disabledClassName="disabled"

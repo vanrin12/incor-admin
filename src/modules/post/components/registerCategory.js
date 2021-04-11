@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState, memo, useEffect } from 'react';
+import React, { useState, memo, useEffect, useRef } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import Immutable from 'seamless-immutable';
 import SelectDropdown from 'commons/components/Select';
@@ -43,6 +43,9 @@ const RegisterPost = ({
     parent: null,
   });
   const [listId, setListId] = useState([]);
+  const inputFile = useRef({});
+  const [objFile, setObjFile] = useState(null);
+  const [nameImage, setNameImage] = useState('');
 
   // call api get list parent
   useEffect(() => {
@@ -72,6 +75,21 @@ const RegisterPost = ({
     }
     setListId(dataSubmit);
   };
+
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+    // eslint-disable-next-line no-unused-expressions
+    const inputRefCurrent =
+      inputFile && inputFile.current ? inputFile.current : null;
+    // eslint-disable-next-line no-unused-expressions
+    inputRefCurrent && inputRefCurrent.click();
+  };
+
+  const getFileName = async (e) => {
+    setObjFile(e.files[0]);
+    setNameImage(e.files[0].name);
+  };
+
   const handleChange = (value, name) => {
     setRegister({
       ...dataRegister,
@@ -88,6 +106,7 @@ const RegisterPost = ({
   };
 
   const handleRegisterCategory = () => {
+    console.log(objFile);
     registerCategories({
       name: dataRegister?.category,
       slug: dataRegister?.slug,
@@ -158,6 +177,19 @@ const RegisterPost = ({
                   option={dataRegister.parent}
                   customClass="select-vote"
                 />
+                <p>{nameImage}</p>
+                <input
+                  className="box__file d-none"
+                  type="file"
+                  ref={inputFile}
+                  accept="image/jpg, image/jpeg, image/png, capture=camera"
+                  onChange={(e) => getFileName(e.target)}
+                />
+                <div className="action-register pt-2">
+                  <Button customClass="button--primary" onClick={onButtonClick}>
+                    <p>CHỌN FILE</p>
+                  </Button>
+                </div>
               </Col>
               <Col xs={12} md={12} className="action-register">
                 <Button

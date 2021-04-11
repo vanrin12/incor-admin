@@ -83,6 +83,7 @@ const menuItems = [
   </svg>
   `,
     url: ROUTERS.DISPLAY_DATA,
+    role: '',
   },
 ];
 

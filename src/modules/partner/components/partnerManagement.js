@@ -80,8 +80,9 @@ const Customer = ({
 }: Props) => {
   const partnerId = match.params.id;
   const defaultHashtag =
-    (dataPartnerManagement?.company_career &&
-      dataPartnerManagement?.company_career.split(',')) ||
+    (dataPartnerManagement &&
+      dataPartnerManagement.company_career &&
+      dataPartnerManagement.company_career.split(',')) ||
     null;
 
   const [isShowEdit, setIsShowEdit] = useState(false);
