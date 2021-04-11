@@ -10,7 +10,7 @@ function* registerCategories(action) {
      *
      */
     const response = yield call(() =>
-      API.post(ROUTES.REGISTER_CATEGORIES, JSON.stringify(action.data))
+      API.post(ROUTES.REGISTER_CATEGORIES, action.data)
     );
     if (response.ok) {
       const { data } = response.data;

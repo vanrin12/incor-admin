@@ -214,6 +214,48 @@ export const headProgress = [
     name: 'PHẢN HỒI',
   },
 ];
+export const headForm = [
+  {
+    id: 0,
+    name: 'Ngày tạo',
+  },
+  {
+    id: 1,
+    name: 'Tên khách hàng',
+  },
+  {
+    id: 2,
+    name: 'Số điện thoại',
+  },
+  {
+    id: 3,
+    name: 'Email',
+  },
+  {
+    id: 4,
+    name: 'Khu vực',
+  },
+  {
+    id: 5,
+    name: 'Loại hình \n Không gian',
+  },
+  {
+    id: 6,
+    name: 'Phân chia \n Không gian',
+  },
+  {
+    id: 7,
+    name: 'Bản vẽ',
+  },
+  {
+    id: 8,
+    name: 'Thời gian hẹn tư vấn',
+  },
+  {
+    id: 9,
+    name: 'Ghi chú thêm',
+  },
+];
 export default {
   headPartner,
   headCustomer,
@@ -223,4 +265,5 @@ export default {
   headAccount,
   headPartnerManagement,
   headProgress,
+  headForm,
 };
