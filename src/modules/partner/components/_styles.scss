@@ -239,6 +239,9 @@
     margin-top: pxToVW(25);
     height: pxToVW(40);
     border-radius: pxToRem(5);
+    @media (max-width: 1024px) {
+      margin-right: 0 !important;
+    }
   }
 
   .table {

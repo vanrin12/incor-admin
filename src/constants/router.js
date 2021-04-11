@@ -33,6 +33,7 @@ const ROUTERS = {
   DISPLAY_SALE: `/display/sale-map`,
   DISPLAY_DATA: `/display/data`,
   CHANGE_PASSWORD: `/change-password/`,
+  FORM: `/form`,
 };
 
 export default ROUTERS;

@@ -170,6 +170,7 @@ const Account = () => {
         name: dataSubmit.name,
         roleName: dataSubmit?.role?.value,
         userList,
+        full_name: dataSubmit?.fullName,
       })
     );
   };
@@ -213,6 +214,16 @@ const Account = () => {
             </div>
           </Col>
           <Col xs={12} md={4} className="page-account__form-register">
+            <Input
+              type="text"
+              onChange={(e) => {
+                handleChange(e.target.value, 'fullName');
+              }}
+              value={dataSubmit.fullName}
+              placeholder="tên đăng nhập"
+              label="Tên đăng nhập"
+              customClass="name-account"
+            />
             <Input
               type="text"
               onChange={(e) => {
