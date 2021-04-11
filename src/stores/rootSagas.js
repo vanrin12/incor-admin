@@ -72,6 +72,8 @@ import updateListSliderSaga from 'modules/display/sagas/updateSliderSaga';
 import getListLayoutSaga from 'modules/display/sagas/getListLayoutSaga';
 import deleteUserSaga from 'modules/accounts/sagas/deleteUserSaga';
 
+import deleteProjectItem from 'modules/customer/sagas/deleteProjectItemSaga';
+
 export default function* RootSagas() {
   yield all([
     getDataMainSaga(),
@@ -142,5 +144,6 @@ export default function* RootSagas() {
     updateListSliderSaga(),
     getListLayoutSaga(),
     deleteUserSaga(),
+    deleteProjectItem(),
   ]);
 }

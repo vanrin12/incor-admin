@@ -122,7 +122,8 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
-          {roleUser?.name === 'administrator' && (
+          {(roleUser?.name === 'sale_admin' ||
+            roleUser?.name === 'administrator') && (
             <PrivateRoute
               exact
               path={ROUTERS.PARTNER}
@@ -130,7 +131,7 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
-          {(roleUser?.name === 'customer' ||
+          {(roleUser?.name === 'sale_admin' ||
             roleUser?.name === 'administrator') && (
             <PrivateRoute
               exact
@@ -139,7 +140,7 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
-          {(roleUser?.name === 'customer' ||
+          {(roleUser?.name === 'sale_admin' ||
             roleUser?.name === 'administrator') && (
             <PrivateRoute
               exact
@@ -148,7 +149,7 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
-          {(roleUser?.name === 'customer' ||
+          {(roleUser?.name === 'sale_admin' ||
             roleUser?.name === 'administrator') && (
             <PrivateRoute
               exact
@@ -157,7 +158,7 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
-          {(roleUser?.name === 'customer' ||
+          {(roleUser?.name === 'sale_admin' ||
             roleUser?.name === 'administrator') && (
             <PrivateRoute
               exact
@@ -166,7 +167,7 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
-          {(roleUser?.name === 'customer' ||
+          {(roleUser?.name === 'sale_admin' ||
             roleUser?.name === 'administrator') && (
             <PrivateRoute
               exact
@@ -220,7 +221,8 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
-          {roleUser?.name === 'administrator' && (
+          {(roleUser?.name === 'sale_admin' ||
+            roleUser?.name === 'administrator') && (
             <PrivateRoute
               exact
               path={ROUTERS.ACCOUNTS}
@@ -229,6 +231,7 @@ const Router = ({ token, roleUser }: Props) => {
             />
           )}
           {(roleUser?.name === 'partner' ||
+            roleUser?.name === 'sale_admin' ||
             roleUser?.name === 'administrator') && (
             <PrivateRoute
               exact
@@ -293,8 +296,7 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
-          {(roleUser?.name === 'customer' ||
-            roleUser?.name === 'administrator') && (
+          {roleUser?.name === 'administrator' && (
             <PrivateRoute
               exact
               path={ROUTERS.CUSTOMER_EXP}

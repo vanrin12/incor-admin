@@ -70,8 +70,15 @@ const Signin = ({
             `${ROUTERS.ROUTERS_PARTNER_MANAGEMENT}/${accountInfo?.id}`
           );
         }
-        if (roleUser?.name === 'customer') {
+        if (roleUser?.name === 'sale_admin') {
           history.push(ROUTERS.CUSTOMER);
+        }
+
+        if (roleUser?.name === 'customer') {
+          setIsShowError({
+            isOpen: true,
+            content: 'Tài khoản không có quyền truy cập',
+          });
         }
         break;
       default:

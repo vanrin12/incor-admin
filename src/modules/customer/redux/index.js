@@ -48,6 +48,10 @@ export const { Types, Creators } = createActions({
   updateProjectItem: ['id', 'data'],
   updateProjectItemSuccess: null,
   updateProjectItemFailed: null,
+
+  deleteProjectItem: ['id'],
+  deleteProjectItemSuccess: null,
+  deleteProjectItemFailed: null,
 });
 
 // Initial state
@@ -309,6 +313,27 @@ const deleteProjectFailed = (state, action) => {
   });
 };
 
+const deleteProjectItem = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const deleteProjectItemSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const deleteProjectItemFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
 const getListProject = (state, action) => {
   return state.merge({
     isProcessing: true,
@@ -501,6 +526,10 @@ const HANDLERS = {
   [Types.UPDATE_PROJECT_ITEM]: updateProjectItem,
   [Types.UPDATE_PROJECT_ITEM_SUCCESS]: updateProjectItemSuccess,
   [Types.UPDATE_PROJECT_ITEM_FAILED]: updateProjectItemFailed,
+
+  [Types.DELETE_PROJECT_ITEM]: deleteProjectItem,
+  [Types.DELETE_PROJECT_ITEM_SUCCESS]: deleteProjectItemSuccess,
+  [Types.DELETE_PROJECT_ITEM_FAILED]: deleteProjectItemFailed,
 
   [Types.RESET_DATA]: resetData,
 };
