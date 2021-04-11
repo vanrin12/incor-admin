@@ -196,6 +196,7 @@ const Account = () => {
                   handleKeySearch(e.target.value);
                 }}
                 value={keySearch}
+                placeholder="Nhập từ khóa"
               />
               <Button
                 customClass="button--primary"

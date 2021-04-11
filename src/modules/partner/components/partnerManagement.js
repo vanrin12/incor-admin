@@ -581,6 +581,7 @@ const Customer = ({
                         handleKeySearch(e.target.value);
                       }}
                       value={keySearch}
+                      placeholder="Nhập từ khóa"
                     />
                     <Button
                       customClass="button--primary mt-0 h-37"
@@ -619,6 +620,7 @@ const Customer = ({
                       onChange={(e) => {
                         handleKeySearch(e.target.value);
                       }}
+                      placeholder="Nhập từ khóa"
                       value={keySearch}
                     />
                     <Button

@@ -249,6 +249,7 @@
     }
 
     &.customer {
+      @include customerSelect(40);
 
       &:nth-of-type(2) {
         width: 15%;
@@ -283,6 +284,7 @@
           border: pxToVW(1) solid $color-border-box;
           background-color: #fff;
         }
+
       }
 
       input {

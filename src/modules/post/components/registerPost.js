@@ -254,6 +254,7 @@ const RegisterPost = ({
                 Lên lịch:
                 <DatePicker
                   selected={createDate}
+                  placeholderText="Chọn thời gian"
                   // onSelect={handleDateSelect} //when day is clicked
                   onChange={(date) => handleDateChange(date)}
                 />

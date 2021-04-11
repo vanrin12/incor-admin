@@ -192,6 +192,7 @@ const Partner = ({
                   onChange={(e) => {
                     handleKeySearch(e.target.value);
                   }}
+                  placeholder="Nhập từ khóa"
                   value={keySearch}
                 />
                 <Button
