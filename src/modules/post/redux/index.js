@@ -251,8 +251,8 @@ const getListAllCategories = (state, action) => {
 const getListAllCategoriesSuccess = (state, action) => {
   const defaultData = {
     id: 0,
-    value: 'all',
-    label: 'all',
+    value: 'Tất cả',
+    label: 'Tất cả',
   };
   const dataAllCategories =
     action.data.categories &&

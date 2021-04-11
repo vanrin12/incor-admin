@@ -75,6 +75,7 @@ export const INITIAL_STATE = Immutable({
   dataListSlider: {},
   titleSlider: '',
   layoutHeader: [],
+  listHashtag: [],
 });
 
 const getAboutUs = (state, action) => {
@@ -283,10 +284,18 @@ const getDataFooter = (state, action) => {
   });
 };
 const getDataFooterSuccess = (state, action) => {
+  const listHashtag =
+    action?.data?.constant?.hashtag &&
+    action?.data?.constant?.hashtag.split(',').map((item, index) => ({
+      id: index + 1,
+      value: item,
+      label: item,
+    }));
   return state.merge({
     isProcessing: false,
     type: action.type,
     dataFooter: action?.data?.constant,
+    listHashtag: listHashtag || [],
   });
 };
 

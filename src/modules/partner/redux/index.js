@@ -146,15 +146,17 @@ const getListScales = (state, action) => {
 };
 
 const getListScalesSuccess = (state, action) => {
+  const dataScales =
+    action.data.data &&
+    action.data.data.areas &&
+    action.data.data.areas.map((item) => {
+      return { id: item.id, value: item.name, label: item.name };
+    });
+  const defaultOption = { id: 0, value: '', label: 'Bỏ chọn' };
   return state.merge({
     isProcessing: false,
     type: action.type,
-    dataScales:
-      action.data.data &&
-      action.data.data.areas &&
-      action.data.data.areas.map((item) => {
-        return { id: item.id, value: item.name, label: item.name };
-      }),
+    dataScales: [defaultOption, ...dataScales],
   });
 };
 

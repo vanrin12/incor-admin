@@ -82,7 +82,7 @@ const SelectDropdown = ({
           }
           blurInputOnSelect={onBlur}
           isDisabled={disabled}
-          isSearchable={isSearchable}
+          isSearchable
           isMulti={isMulti}
         />
       </div>
