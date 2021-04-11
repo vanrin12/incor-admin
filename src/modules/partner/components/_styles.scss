@@ -97,6 +97,12 @@
   .table-partner {
     margin-top: pxToVW(25);
 
+    thead {
+      tr th:nth-child(4) {
+        width: 25%;
+      }
+    }
+
     tr {
       td {
         &:nth-of-type(5) {
@@ -384,8 +390,8 @@
     width: 100%;
     display: inline-block;
     word-break: break-word;
-    white-space: nowrap;
-    overflow: auto;
+    // white-space: nowrap;
+    // overflow: auto;
 
     span {
       font-size: pxToVW(15);
@@ -394,8 +400,8 @@
       padding: pxToVW(5) pxToVW(6);
       background-color: $color-tag;
       border-radius: pxToVW(15);
-      margin-right: pxToVW(8);
       display: inline-block;
+      margin: pxToVW(3);
     }
   }
 }
