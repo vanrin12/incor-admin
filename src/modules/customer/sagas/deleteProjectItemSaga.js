@@ -4,7 +4,6 @@ import { ROUTES, API } from '../../../utils/Apis';
 import { Types } from '../redux';
 
 function* deleteProjectItem(action) {
-  console.log(action, 'action');
   try {
     /**
      * Example data
