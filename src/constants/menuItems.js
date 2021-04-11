@@ -37,7 +37,7 @@ const menuItems = [
   </svg>
   `,
     url: ROUTERS.PARTNER,
-    role: '',
+    role: 'sale_admin',
   },
   {
     id: 4,
@@ -46,7 +46,7 @@ const menuItems = [
     <path id="ic_assignment_ind_24px" d="M19,3H14.82A2.988,2.988,0,0,0,9.18,3H5A2.006,2.006,0,0,0,3,5V19a2.006,2.006,0,0,0,2,2H19a2.006,2.006,0,0,0,2-2V5A2.006,2.006,0,0,0,19,3ZM12,3a1,1,0,1,1-1,1A1,1,0,0,1,12,3Zm0,4a3,3,0,1,1-3,3A3,3,0,0,1,12,7Zm6,12H6V17.6c0-2,4-3.1,6-3.1s6,1.1,6,3.1Z" transform="translate(-3 -1)"/>
   </svg>`,
     url: ROUTERS.CUSTOMER,
-    role: 'customer',
+    role: 'sale_admin',
   },
   {
     id: 5,
@@ -55,7 +55,7 @@ const menuItems = [
     <path id="ic_person_add_24px" d="M15,12a4,4,0,1,0-4-4A4,4,0,0,0,15,12ZM6,10V7H4v3H1v2H4v3H6V12H9V10Zm9,4c-2.67,0-8,1.34-8,4v2H23V18C23,15.34,17.67,14,15,14Z" transform="translate(-1 -4)"/>
   </svg>`,
     url: ROUTERS.ACCOUNTS,
-    role: '',
+    role: 'sale_admin',
   },
   {
     id: 6,
@@ -65,7 +65,7 @@ const menuItems = [
   </svg>
   `,
     url: ROUTERS.DISPLAY,
-    role: 'content',
+    role: '',
   },
   // {
   //   id: 7,

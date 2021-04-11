@@ -53,6 +53,8 @@ export const ROUTES = {
   API_GET_LIST_DIVISION: `/api/v1/site/space-division`,
   API_REGISTER_PROJECT: `/api/v1/admin/customers/project`,
   API_DELETE_PROJECT: (id) => `/api/v1/admin/customers/project/${id}`,
+  API_DELETE_PROJECT_ITEM: (id) =>
+    `/api/v1/admin/customers/project-items/${id}`,
   API_GET_DETAIL_PROJECT: (id) => `/api/v1/admin/customers/${id}/project`,
   API_GET_LIST_PROJECT: `/api/v1/site/projects`,
   API_GET_LIST_CONSTRUCTION_CUSTOMER: (id) =>

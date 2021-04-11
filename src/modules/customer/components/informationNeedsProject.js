@@ -8,7 +8,7 @@ import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Table from 'commons/components/Table';
-import images from 'themes/images';
+// import images from 'themes/images';
 import Input from 'commons/components/Input';
 import Loading from 'commons/components/Loading';
 import { headCustomerInfo } from 'constants/itemHead';
@@ -45,6 +45,8 @@ type Props = {
   type: string,
   listHashtag: Array<{}>,
   getDataFooter: Function,
+  deleteProjectItem: Function,
+  updateProjectItem: Function,
 };
 const InformationNeedsProject = ({
   getDetailProject,
@@ -63,6 +65,8 @@ const InformationNeedsProject = ({
   type,
   listHashtag,
   getDataFooter,
+  deleteProjectItem,
+  updateProjectItem,
 }: Props) => {
   const projectId = match.params.id;
   const areas = dataAreas.filter(
@@ -86,7 +90,7 @@ const InformationNeedsProject = ({
     spaceType: spaceType && spaceType[0],
     divisionType: divisionType && divisionType[0],
   });
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState("");
   const [dataAddCategories, setDataAddCategories] = useState({
     nameCategories: '',
     description: '',
@@ -96,16 +100,36 @@ const InformationNeedsProject = ({
   });
 
   useEffect(() => {
-    if (type === 'REGISTER_PROJECT_ITEM_SUCCESS') {
-      setDataAddCategories({
-        nameCategories: '',
-        description: '',
-        dvt: '',
-        note: '',
-        hashtag: null,
-      });
+    switch (type) {
+      case 'REGISTER_PROJECT_ITEM_SUCCESS':
+        getDetailProject(projectId);
+        setDataAddCategories({
+          nameCategories: '',
+          description: '',
+          dvt: '',
+          note: '',
+          hashtag: null,
+        });
+        break;
+      case 'DELETE_PROJECT_ITEM_SUCCESS':
+        getDetailProject(projectId);
+        break;
+      case 'UPDATE_PROJECT_ITEM_SUCCESS':
+        getDetailProject(projectId);
+        setRowActive({});
+        setDataAddCategories({
+          nameCategories: '',
+          description: '',
+          dvt: '',
+          note: '',
+          hashtag: null,
+        });
+        break;
+      default:
+        break;
     }
     setTotal(0);
+    // eslint-disable-next-line
   }, [type]);
 
   const onButtonClick = () => {
@@ -181,12 +205,17 @@ const InformationNeedsProject = ({
     formData.append('file', objFile);
     registerProject(formData);
   };
+
   const onClickTableRow = (rowData) => {
-    setRowActive(rowData);
+    if (rowData && rowData.id === rowActive?.id) {
+      setRowActive({});
+    } else {
+      setRowActive(rowData);
+    }
   };
 
   const handleDelete = (rowData) => {
-    console.log(rowData);
+    deleteProjectItem(rowData.id);
   };
 
   const handleUpdateData = (rowData) => {
@@ -207,9 +236,23 @@ const InformationNeedsProject = ({
       amount: total,
       unit: dataAddCategories?.dvt,
       note: dataAddCategories?.note,
+      // TODO ADD HASHTAG
     });
   };
 
+  const handleUpdateProjectItem = () => {
+    updateProjectItem(rowActive?.id, {
+      name: dataAddCategories.nameCategories,
+      project_id: projectId,
+      description: dataAddCategories.description,
+      amount: total,
+      unit: dataAddCategories?.dvt,
+      note: dataAddCategories?.note,
+      // TODO ADD HASHTAG
+    });
+  };
+
+  console.log(dataAddCategories.hashtag, 'dataAddCategories.hashtag');
   return (
     <MainLayout activeMenu={4}>
       {isProcessing ? (
@@ -347,7 +390,7 @@ const InformationNeedsProject = ({
                   />
                 </div>
                 <div className="custom-body__item action customer">
-                  <img
+                  {/* <img
                     src={images.iconBack}
                     alt=""
                     className="action-increase"
@@ -363,6 +406,16 @@ const InformationNeedsProject = ({
                       total !== 0 && projectId !== '' && setTotal(total - 1)
                     }
                     role="presentation"
+                  /> */}
+
+                  <textarea
+                    type="text"
+                    onChange={(e) => {
+                      setTotal(e.target.value);
+                    }}
+                    placeholder="Nhập số lượng"
+                    value={total}
+                    disabled={projectId === ''}
                   />
                 </div>
                 <div className="custom-body__item customer">
@@ -390,7 +443,11 @@ const InformationNeedsProject = ({
             <Col xs={12} md={12} className="action-delete mb-3">
               <Button
                 customClass="button--primary"
-                onClick={handleRegisterProjectItem}
+                onClick={
+                  rowActive?.id
+                    ? handleUpdateProjectItem
+                    : handleRegisterProjectItem
+                }
                 isDisabled={
                   dataAddCategories.nameCategories.length === 0 ||
                   dataAddCategories.description.length === 0 ||
@@ -398,7 +455,7 @@ const InformationNeedsProject = ({
                   dataAddCategories.dvt.length === 0
                 }
               >
-                <p>Chỉnh sửa</p>
+                <p>{`${rowActive?.id ? 'Chỉnh sửa' : 'Thêm mới'}`}</p>
               </Button>
             </Col>
             <Col xs={12} md={12} className="table-page table-partner">
