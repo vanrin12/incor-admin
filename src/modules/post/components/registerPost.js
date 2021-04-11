@@ -112,7 +112,7 @@ const RegisterPost = ({
     formData.append('name', dataRegister.title);
     formData.append('content', content);
     formData.append('seo_title', dataRegister.titleSeo);
-    formData.append('comment', dataRegister.description);
+    formData.append('description', dataRegister.description);
     formData.append('category_id', dataRegister?.category?.id);
     formData.append('image', objFile);
     formData.append('status', status);
@@ -131,7 +131,7 @@ const RegisterPost = ({
     formData.append('name', dataRegister.title);
     formData.append('content', content);
     formData.append('seo_title', dataRegister.titleSeo);
-    formData.append('comment', dataRegister.description);
+    formData.append('description', dataRegister.description);
     formData.append('category_id', dataRegister?.category?.id);
     formData.append('image', objFile);
     formData.append('status', status);
