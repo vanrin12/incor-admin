@@ -88,8 +88,8 @@ const Customer = ({
     (item) => item.value === dataPartnerManagement.scale_name
   );
   const [dataFilter, setDataFilter] = useState({
-    scales: (scale && scale[0]) || null,
-    job: null,
+    scales: scale && dataScales[0],
+    job: null, //dataPartnerManagement?.company_career ||
     tax_code: dataManagement.company_tax_code || '',
     name: dataManagement.company_name || '',
     address: dataManagement.company_address || '',
@@ -100,7 +100,6 @@ const Customer = ({
   const [objAvatar, setObjAvatar] = useState(null);
   const inputFile = useRef({});
   const [activeTab, setActiveTab] = useState('tab1');
-
   const onSelect = (key) => {
     setActiveTab(key);
     setKeySearch('');
@@ -155,7 +154,7 @@ const Customer = ({
     if (type === 'GET_LIST_PARTNER_MANAGEMENT_SUCCESS') {
       setDataManagement(dataPartnerManagement);
       setDataFilter({
-        scales: (scale && scale[0]) || null,
+        scales: (scale && dataScales[0]) || null,
         job: null,
         tax_code: dataPartnerManagement.company_tax_code || '',
         name: dataPartnerManagement.company_name || '',
@@ -192,6 +191,7 @@ const Customer = ({
         id: dataPartnerManagement.company_id,
         keywords: keySearch,
       });
+      getListPartnerManagement(partnerId);
       setIsShowEdit(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -254,7 +254,6 @@ const Customer = ({
     dataFilter.job.map((item) => {
       return item.value;
     });
-
   const handleSubmit = () => {
     const formData = new window.FormData();
     formData.append('user_id', partnerId);
@@ -336,20 +335,24 @@ const Customer = ({
         <Container fluid>
           <Row className="content-wrapper page-partner page-post page-partner-management">
             <Col xs={12} md={2}>
-              <div className="avatar" style={styleAvatar}>
-                {!dataPartnerManagement.company_image && (
-                  <p onClick={onButtonClick} role="presentation">
-                    THAY ẢNH
-                    <input
-                      className="d-none"
-                      type="file"
-                      multiple
-                      ref={inputFile}
-                      accept="image/jpg, image/png, image/gif, capture=camera"
-                      onChange={(e) => getFileName(e.target)}
-                    />
-                  </p>
-                )}
+              <div
+                className={`avatar ${
+                  dataPartnerManagement.company_image || avatar ? 'hover' : ''
+                }`}
+                style={styleAvatar}
+              >
+                {/* {!dataPartnerManagement.company_image && ( */}
+                <p onClick={onButtonClick} role="presentation">
+                  THAY ẢNH
+                  <input
+                    className="d-none"
+                    type="file"
+                    ref={inputFile}
+                    accept="image/jpg, image/png, image/gif, capture=camera"
+                    onChange={(e) => getFileName(e.target)}
+                  />
+                </p>
+                {/* )} */}
               </div>
             </Col>
             {!isShowEdit && dataPartnerManagement.company_name ? (
@@ -370,7 +373,9 @@ const Customer = ({
                     </Col>
                     <Col xs={12} md={6}>
                       <h2>Quy mô nhân sự</h2>
-                      <p>{dataPartnerManagement.scale_name} người</p>
+                      <p>
+                        {dataPartnerManagement.scale_name || 'Bỏ chọn'} người
+                      </p>
                     </Col>
                   </Row>
                 </Col>
@@ -425,7 +430,7 @@ const Customer = ({
                         }}
                         maxLength="20"
                         value={dataFilter.email}
-                        placeholder="email"
+                        placeholder="Email"
                         label="Email"
                         customClass="name-account"
                       />
@@ -452,7 +457,6 @@ const Customer = ({
                         onChange={(e) => {
                           handleChange(e.target.value, 'address');
                         }}
-                        maxLength="20"
                         value={dataFilter.address}
                         placeholder="Nhập địa chỉ công ty"
                         label="Trụ sở"
@@ -541,7 +545,7 @@ const Customer = ({
                       value={keySearch}
                     />
                     <Button
-                      customClass="button--primary mt-0"
+                      customClass="button--primary mt-0 h-37"
                       onClick={handleSearchPartnerProduct}
                     >
                       <p>TÌM</p>
@@ -581,7 +585,7 @@ const Customer = ({
                       value={keySearch}
                     />
                     <Button
-                      customClass="button--primary mt-0"
+                      customClass="button--primary mt-0 h-37"
                       onClick={handleSearchConstruction}
                     >
                       <p>TÌM</p>

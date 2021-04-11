@@ -81,6 +81,10 @@
         z-index: 999;
         border-bottom-right-radius: pxToRem(8);
         border-top-right-radius: pxToRem(8);
+
+        &.h-37 {
+          height: pxToVW(37) !important;
+        }
       }
 
       .input__box input {
@@ -166,6 +170,17 @@
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
+  overflow: hidden;
+
+  &.hover {
+    p {
+      opacity: 0;
+    }
+
+    &:hover p {
+      opacity: 1;
+    }
+  }
 
   p {
     font-size: pxToVW(15);
@@ -179,6 +194,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+    @include transition(0.3s);
   }
 }
 
@@ -349,8 +365,9 @@
     font-weight: $medium;
     color: $color_primary;
     padding-top: pxToVW(12);
-    a{
-      color:  $color_primary;
+
+    a {
+      color: $color_primary;
     }
   }
 
@@ -369,6 +386,7 @@
     word-break: break-word;
     white-space: nowrap;
     overflow: auto;
+
     span {
       font-size: pxToVW(15);
       line-height: pxToVW(24);
@@ -494,8 +512,9 @@
     ;
   }
 }
-.email-company{
-  a{
+
+.email-company {
+  a {
     font-size: pxToRem(18);
     color: $color-black;
   }

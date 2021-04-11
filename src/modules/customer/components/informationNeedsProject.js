@@ -43,6 +43,8 @@ type Props = {
   }>,
   registerProject: Function,
   type: string,
+  listHashtag: Array<{}>,
+  getDataFooter: Function,
 };
 const InformationNeedsProject = ({
   getDetailProject,
@@ -59,6 +61,8 @@ const InformationNeedsProject = ({
   tableDetailProject,
   registerProject,
   type,
+  listHashtag,
+  getDataFooter,
 }: Props) => {
   const projectId = match.params.id;
   const areas = dataAreas.filter(
@@ -88,6 +92,7 @@ const InformationNeedsProject = ({
     description: '',
     dvt: '',
     note: '',
+    hashtag: null,
   });
 
   useEffect(() => {
@@ -97,6 +102,7 @@ const InformationNeedsProject = ({
         description: '',
         dvt: '',
         note: '',
+        hashtag: null,
       });
     }
     setTotal(0);
@@ -128,6 +134,7 @@ const InformationNeedsProject = ({
 
   useEffect(() => {
     getDetailProject(projectId);
+    getDataFooter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
 
@@ -298,15 +305,16 @@ const InformationNeedsProject = ({
               <p>Hạng mục chi tiết</p>
             </Col>
             <Col xs={12} md={12}>
-              <div className="custom-head">
+              <div className="custom-head customer">
                 <p>Tên hạng mục</p>
+                <p>Hashtag</p>
                 <p>Mô tả kỹ thuật</p>
                 <p>Số lượng</p>
                 <p>ĐVT</p>
                 <p>Ghi chú</p>
               </div>
               <div className="custom-body">
-                <div className="custom-body__item">
+                <div className="custom-body__item customer">
                   <textarea
                     onChange={(e) => {
                       handleChange(e.target.value, 'nameCategories');
@@ -316,7 +324,18 @@ const InformationNeedsProject = ({
                     disabled={projectId === ''}
                   />
                 </div>
-                <div className="custom-body__item">
+                <div className="custom-body__item customer">
+                  <SelectDropdown
+                    placeholder="Chọn hashtag"
+                    listItem={listHashtag && Immutable.asMutable(listHashtag)}
+                    onChange={(e) => {
+                      handleChange(e, 'hashtag');
+                    }}
+                    isMulti
+                    option={dataAddCategories.hashtag}
+                  />
+                </div>
+                <div className="custom-body__item customer">
                   <textarea
                     onChange={(e) => {
                       handleChange(e.target.value, 'description');
@@ -326,7 +345,7 @@ const InformationNeedsProject = ({
                     disabled={projectId === ''}
                   />
                 </div>
-                <div className="custom-body__item action">
+                <div className="custom-body__item action customer">
                   <img
                     src={images.iconBack}
                     alt=""
@@ -345,7 +364,7 @@ const InformationNeedsProject = ({
                     role="presentation"
                   />
                 </div>
-                <div className="custom-body__item">
+                <div className="custom-body__item customer">
                   <textarea
                     onChange={(e) => {
                       handleChange(e.target.value, 'dvt');
@@ -355,7 +374,7 @@ const InformationNeedsProject = ({
                     disabled={projectId === ''}
                   />
                 </div>
-                <div className="custom-body__item">
+                <div className="custom-body__item customer">
                   <textarea
                     onChange={(e) => {
                       handleChange(e.target.value, 'note');

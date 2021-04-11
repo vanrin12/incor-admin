@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import informationNeedsProjectComponent from '../components/informationNeedsProject';
-
+import { Creators as CreatorsDisplay } from 'modules/display/redux';
 import { Creators } from '../redux';
 import { Creators as partnerReducer } from '../../partner/redux';
 
@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
     listSpaceType: state.customerReducer.listSpaceType,
     listDivision: state.customerReducer.listDivision,
     tableDetailProject: state.customerReducer.tableDetailProject,
+    listHashtag: state.displayReducer.listHashtag,
   };
 };
 
@@ -28,6 +29,7 @@ const mapDispatchToProps = (dispatch) =>
       registerProjectItem: Creators.registerProjectItem,
       registerProject: Creators.registerProject,
       resetData: Creators.resetData,
+      getDataFooter: CreatorsDisplay.getDataFooter,
     },
     dispatch
   );

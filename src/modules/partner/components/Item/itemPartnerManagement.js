@@ -45,7 +45,7 @@ const ItemPartner = ({
             value={keySearch}
           />
           <Button
-            customClass="button--primary mt-0"
+            customClass="button--primary mt-0 h-37"
             onClick={handleSearchCompany}
           >
             <p>TÌM</p>
