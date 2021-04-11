@@ -120,6 +120,7 @@ const Customer = ({
                 selected={createDate}
                 placeholderText="Chọn thời gian"
                 // onSelect={handleDateSelect} //when day is clicked
+                isClearable
                 onChange={(date) => handleDateChange(date)}
               />
               <SelectDropdown

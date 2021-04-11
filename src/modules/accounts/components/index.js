@@ -268,6 +268,7 @@ const Account = () => {
                 />
                 <DatePicker
                   selected={createDate}
+                  isClearable
                   // onSelect={handleDateSelect} //when day is clicked
                   onChange={(date) => handleDateChange(date)}
                   placeholderText="Thời Gian Tạo"

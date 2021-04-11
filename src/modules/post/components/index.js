@@ -150,6 +150,7 @@ const Post = ({
             <div className="form-search__left">
               <DatePicker
                 selected={createDate}
+                isClearable
                 placeholderText="Chọn thời gian"
                 // onSelect={handleDateSelect} //when day is clicked
                 onChange={(date) => handleDateChange(date)}

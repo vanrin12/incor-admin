@@ -253,6 +253,7 @@ const RegisterPost = ({
               <p>
                 Lên lịch:
                 <DatePicker
+                  isClearable
                   selected={createDate}
                   placeholderText="Chọn thời gian"
                   // onSelect={handleDateSelect} //when day is clicked
