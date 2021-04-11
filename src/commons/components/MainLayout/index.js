@@ -44,6 +44,7 @@ const MainLayout = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
+
   return (
     <Container fluid>
       <Row className="main-layout">
@@ -60,8 +61,11 @@ const MainLayout = ({
         {showLogout && (
           <>
             <ul ref={refMenu} className="menu-logout">
-              <li>
-                <div className="popup-logout">Đổi mật khẩu</div>
+              <li
+                onClick={() => history && history.push(ROUTERS.CHANGE_PASSWORD)}
+                role="presentation"
+              >
+                <div className="change-password">Đổi mật khẩu</div>
               </li>
               <li onClick={logOut} role="presentation">
                 <div className="popup-logout">Đăng xuất</div>

@@ -32,6 +32,7 @@ const ROUTERS = {
   CUSTOMER_EXP: '/display/customer_exp',
   DISPLAY_SALE: `/display/sale-map`,
   DISPLAY_DATA: `/display/data`,
+  CHANGE_PASSWORD: `/change-password/`,
 };
 
 export default ROUTERS;

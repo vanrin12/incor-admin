@@ -11,7 +11,8 @@
     font-weight: $medium;
     z-index: 999;
     text-transform: uppercase;
-    img{
+
+    img {
       width: pxToRem(15);
       margin-right: pxToRem(10);
     }
@@ -28,7 +29,7 @@
     margin-left: pxToRem(250);
   }
 
-  .popup-logout {
+  .menu-logout {
     position: absolute;
     top: pxToVW(65);
     right: pxToVW(25);
@@ -36,12 +37,19 @@
     padding: pxToVW(20) pxToVW(40);
     border-radius: pxToVW(15);
     z-index: 999;
+    box-shadow: 0 0.3125vw 0.52083vw 0 $black-opacity-24;
 
-    &__item-logout {
+    li {
       font-size: pxToVW(20);
       line-height: pxToVW(30);
-      color: $red;
+      color: $color-black;
       font-weight: $medium;
+      cursor: pointer;
+      margin-bottom: pxToRem(10);
+
+      .popup-logout {
+        color: $red;
+      }
     }
   }
 
@@ -53,7 +61,7 @@
     min-width: 9px;
     left: pxToRem(-9);
     cursor: pointer;
-  
+
     &.style1 {
       top: 0;
       left: pxToRem(10);

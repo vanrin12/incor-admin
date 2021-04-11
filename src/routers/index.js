@@ -89,6 +89,10 @@ const displayDataContainer = lazy(() =>
   import('modules/data/containers/dataContainer')
 );
 
+const changePasswordContainer = lazy(() =>
+  import('modules/authen/containers/changePasswordContainer')
+);
+
 type Props = {
   token: string,
   roleUser: Object,
@@ -321,6 +325,12 @@ const Router = ({ token, roleUser }: Props) => {
               isAuthenticated={isAuthenticated}
             />
           )}
+          <PrivateRoute
+            exact
+            path={ROUTERS.CHANGE_PASSWORD}
+            component={changePasswordContainer}
+            isAuthenticated={isAuthenticated}
+          />
         </Switch>
       </Suspense>
     </BrowserRouter>

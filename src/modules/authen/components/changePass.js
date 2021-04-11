@@ -1,19 +1,29 @@
 /* eslint-disable no-nested-ternary */
 // @flow
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect, memo } from 'react';
 import Button from 'commons/components/Button';
+import MainLayout from 'commons/components/MainLayout';
 import Input from 'commons/components/Input';
-import { changePassword, resetSingIn } from 'modules/accounts/redux';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { ModalPopup } from 'commons/components/Modal';
-import { logout } from 'modules/accounts/redux';
 
-const ChangePass = () => {
-  const dispatch = useDispatch();
-  const { type, isProcessingPass, errorMsg } = useSelector(
-    (state) => state?.account
-  );
+type Props = {
+  changePassword: Function,
+  errorMsg: string,
+  type: string,
+  isProcessingPass: boolean,
+  resetType: Function,
+  logOut: Function,
+};
+
+const ChangePass = ({
+  changePassword,
+  errorMsg,
+  type,
+  isProcessingPass,
+  resetType,
+  logOut,
+}: Props) => {
   const [dataChange, setDataChange] = useState({
     password: '',
     confirmPassword: '',
@@ -35,11 +45,11 @@ const ChangePass = () => {
 
   // handle logout
   const handleLogout = () => {
-    dispatch(logout());
+    logOut();
   };
 
   useEffect(() => {
-    dispatch(resetSingIn());
+    resetType();
     setErrorMess('');
     // eslint-disable-next-line
   }, []);
@@ -47,7 +57,7 @@ const ChangePass = () => {
   /** Show popup sign in success */
   useEffect(() => {
     switch (type) {
-      case 'accounts/changePasswordSuccess':
+      case 'CHANGE_PASSWORD_SUCCESS':
         setErrorMess('');
         setIsShowModal(true);
         setDataChange({
@@ -56,7 +66,7 @@ const ChangePass = () => {
           passwordOld: '',
         });
         break;
-      case 'accounts/changePasswordFailed':
+      case 'CHANGE_PASSWORD_FAILED':
         setErrorMess(errorMsg || 'Mật khẩu củ không trùng khớp');
         setIsShowModal(false);
         break;
@@ -65,6 +75,13 @@ const ChangePass = () => {
     }
     // eslint-disable-next-line
   }, [type, errorMsg]);
+
+  const handleChange = (value, name) => {
+    setDataChange({
+      ...dataChange,
+      [name]: value,
+    });
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -104,12 +121,12 @@ const ChangePass = () => {
     } else {
       formData.append('password_old', passwordOld);
       formData.append('password', password);
-      dispatch(changePassword(formData));
+      changePassword(formData);
     }
   };
 
   return (
-    <div>
+    <MainLayout>
       <div className="change-pass">
         <div className="container">
           <div className="form-change-pass">
@@ -120,8 +137,7 @@ const ChangePass = () => {
                 name="passwordOld"
                 onKeyPress={(e) => handleKeyDown(e)}
                 value={passwordOld}
-                onChange={formik.handleChange}
-                errorMsg={formik?.errors?.passwordOld}
+                onChange={(e) => handleChange(e.target.value, 'passwordOld')}
                 type={isShowType?.passwordOld ? 'text' : 'password'}
                 classIcon="faEyeSlash"
                 icoIcon={
@@ -148,8 +164,7 @@ const ChangePass = () => {
                 name="password"
                 onKeyPress={(e) => handleKeyDown(e)}
                 value={password}
-                onChange={formik.handleChange}
-                errorMsg={formik?.errors?.password}
+                onChange={(e) => handleChange(e.target.value, 'password')}
                 type={isShowType?.password ? 'text' : 'password'}
                 classIcon="faEyeSlash"
                 icoIcon={
@@ -172,8 +187,10 @@ const ChangePass = () => {
                 name="confirmPassword"
                 onKeyPress={(e) => handleKeyDown(e)}
                 value={confirmPassword}
-                onChange={formik.handleChange}
-                errorMsg={formik?.errors?.confirmPassword}
+                onChange={(e) =>
+                  handleChange(e.target.value, 'confirmPassword')
+                }
+                // errorMsg={formik?.errors?.confirmPassword}
                 type={isShowType?.confirmPassword ? 'text' : 'password'}
                 classIcon="faEyeSlash"
                 icoIcon={
@@ -198,7 +215,11 @@ const ChangePass = () => {
               </div>
             )}
             <div className="form-group mb-0 text-center btn-summit">
-              <Button onClick={handleSubmit} isShowLoading={isProcessingPass}>
+              <Button
+                onClick={handleSubmit}
+                isShowLoading={isProcessingPass}
+                isDisabled={!password || !passwordOld || !confirmPassword}
+              >
                 ĐỔI MẬT KHẨU
               </Button>
             </div>
@@ -221,8 +242,8 @@ const ChangePass = () => {
           <small>(Vùi lòng đăng xuất và đăng nhập lại)</small>
         </div>
       </ModalPopup>
-    </div>
+    </MainLayout>
   );
 };
 
-export default ChangePass;
+export default memo<Props>(ChangePass);

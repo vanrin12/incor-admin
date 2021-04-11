@@ -1,6 +1,7 @@
 // @flow
 
 import React, { memo } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
   placeholder?: string,
@@ -33,6 +34,10 @@ type Props = {
   maxLength?: string,
   autocomplete?: string,
   autoFocus?: boolean,
+  classIcon?: string,
+  isShowIcon?: boolean,
+  icoIcon?: any,
+  handleClickIcon?: Function,
 };
 
 const Input = ({
@@ -65,6 +70,9 @@ const Input = ({
   maxLength = '',
   autocomplete = '',
   autoFocus,
+  classIcon = '',
+  icoIcon = '',
+  handleClickIcon = () => {},
 }: Props) => {
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -114,6 +122,17 @@ const Input = ({
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
         />
+        {isShowIcon && (
+          <div
+            className={`input__box__icon ${classIcon}`}
+            onClick={() => handleClickIcon()}
+            role="button"
+            tabIndex={0}
+            onKeyUp={() => handleClickIcon()}
+          >
+            {icoIcon && <FontAwesomeIcon icon={icoIcon} />}
+          </div>
+        )}
       </div>
       {errorMsg && <p className="input__error-msg">{errorMsg}</p>}
     </div>
@@ -121,6 +140,7 @@ const Input = ({
 };
 
 Input.defaultProps = {
+  classIcon: '',
   placeholder: '',
   value: '',
   errorMsg: '',
@@ -143,7 +163,7 @@ Input.defaultProps = {
   customClassLabel: '',
   customClassWrap: '',
   isShowIcon: false,
-  deleteValue: () => {},
+  icoIcon: '',
   name: '',
   request: false,
   innerRef: null,
@@ -151,6 +171,7 @@ Input.defaultProps = {
   pattern: '',
   autocomplete: '',
   autoFocus: false,
+  handleClickIcon: () => {},
 };
 
 export default memo<Props>(Input);

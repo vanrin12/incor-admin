@@ -73,6 +73,7 @@ import getListLayoutSaga from 'modules/display/sagas/getListLayoutSaga';
 import deleteUserSaga from 'modules/accounts/sagas/deleteUserSaga';
 
 import deleteProjectItem from 'modules/customer/sagas/deleteProjectItemSaga';
+import changePasswordSaga from 'modules/authen/sagas/changePasswordSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -145,5 +146,6 @@ export default function* RootSagas() {
     getListLayoutSaga(),
     deleteUserSaga(),
     deleteProjectItem(),
+    changePasswordSaga(),
   ]);
 }
