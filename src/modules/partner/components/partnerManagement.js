@@ -442,7 +442,6 @@ const Customer = ({
                         onChange={(e) => {
                           handleChange(e.target.value, 'name');
                         }}
-                        maxLength="20"
                         value={dataFilter.name}
                         placeholder="Nhập tên doanh nghiệp"
                         label="Tên doanh nghiệp"
@@ -456,7 +455,6 @@ const Customer = ({
                         onChange={(e) => {
                           handleChange(e.target.value, 'email');
                         }}
-                        maxLength="20"
                         value={dataFilter.email}
                         placeholder="Email"
                         label="Email"
@@ -569,7 +567,6 @@ const Customer = ({
                       onChange={(e) => {
                         handleKeySearch(e.target.value);
                       }}
-                      maxLength="20"
                       value={keySearch}
                     />
                     <Button
@@ -609,7 +606,7 @@ const Customer = ({
                       onChange={(e) => {
                         handleKeySearch(e.target.value);
                       }}
-                      maxLength="20"
+                     
                       value={keySearch}
                     />
                     <Button

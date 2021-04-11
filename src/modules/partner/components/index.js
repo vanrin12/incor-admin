@@ -193,7 +193,6 @@ const Partner = ({
                   onChange={(e) => {
                     handleKeySearch(e.target.value);
                   }}
-                  maxLength="20"
                   value={keySearch}
                 />
                 <Button

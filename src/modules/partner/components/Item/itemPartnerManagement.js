@@ -41,7 +41,7 @@ const ItemPartner = ({
             onChange={(e) => {
               setKeySearch(e.target.value);
             }}
-            maxLength="20"
+           
             value={keySearch}
           />
           <Button

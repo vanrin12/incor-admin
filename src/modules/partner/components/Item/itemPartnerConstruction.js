@@ -144,7 +144,7 @@ const ItemPartnerConstruction = ({
             onChange={(e) => {
               setConstruction(e.target.value);
             }}
-            maxLength="20"
+          
             value={construction}
             placeholder="Nhập tên công trình"
           />
