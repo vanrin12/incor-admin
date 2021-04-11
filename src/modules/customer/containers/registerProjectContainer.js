@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import registerProjectComponent from '../components/informationProjectRegister';
 import { Creators as CreatorsDisplay } from 'modules/display/redux';
+import registerProjectComponent from '../components/informationProjectRegister';
 import { Creators } from '../redux';
 import { Creators as partnerReducer } from '../../partner/redux';
 

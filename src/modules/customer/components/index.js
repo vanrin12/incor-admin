@@ -106,7 +106,7 @@ const Customer = ({
       date: createDate && moment(createDate).format('YYYY-MM-DD'),
     });
   };
-
+  console.log(dataCustomer);
   return (
     <MainLayout activeMenu={4}>
       <Container fluid>

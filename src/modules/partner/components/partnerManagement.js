@@ -79,6 +79,7 @@ const Customer = ({
   totalQuotes,
 }: Props) => {
   const partnerId = match.params.id;
+
   const [isShowEdit, setIsShowEdit] = useState(false);
   const [isShowDetailConstruction, setIsShowDetailConstruction] = useState(
     false
@@ -202,8 +203,9 @@ const Customer = ({
 
   useEffect(() => {
     const defaultHashtag =
-      (dataPartnerManagement?.company_career &&
-        dataPartnerManagement?.company_career.split(',')) ||
+      (dataPartnerManagement &&
+        dataPartnerManagement.company_career &&
+        dataPartnerManagement.company_career.split(',')) ||
       null;
     setValueHashtag(defaultHashtag);
     setDataManagement(dataPartnerManagement);
