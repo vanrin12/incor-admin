@@ -80,9 +80,7 @@ const getListCustomer = (state, action) => {
 };
 
 const getListCustomerSuccess = (state, action) => {
-  const listDataCustomer = action?.data?.customer?.data.filter(
-    (item) => item.role_name === 'partner'
-  );
+  const listDataCustomer = action?.data?.customer?.data || [];
   const dataCustomer = listDataCustomer.map((item) => ({
     id: item.id,
     date:

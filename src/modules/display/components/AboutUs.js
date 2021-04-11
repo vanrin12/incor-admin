@@ -60,6 +60,7 @@ const Sale = ({
       name: dataAboutUs?.name || '',
       tagline: dataAboutUs?.tagline || '',
       videoView: dataAboutUs?.video,
+      thumbnailViewVideo: dataAboutUs?.image,
     });
     // eslint-disable-next-line
   }, [dataAboutUs]);
@@ -172,6 +173,9 @@ const Sale = ({
       formData.append('file', (dataSubmit && dataSubmit.video) || '');
     }
     formData.append('tagline', dataSubmit && dataSubmit.tagline);
+    if (dataSubmit?.thumbnailVideo) {
+      formData.append('image', dataSubmit && dataSubmit.thumbnailVideo);
+    }
     updateAboutUs(formData);
   };
 
