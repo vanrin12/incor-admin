@@ -114,7 +114,7 @@ const Form = ({
 
   return (
     <MainLayout activeMenu={9}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         <Row className="content-wrapper page-partner page-post">
           <Col xs={12} md={12}>
             <h2 className="title-page">Danh sách điền form tư vấn</h2>

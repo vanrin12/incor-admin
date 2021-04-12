@@ -85,7 +85,7 @@
   }
 
   .action-register {
-    padding-top: pxToVW(100);
+    padding-top: pxToVW(50);
 
     button.button.btn {
       height: pxToVW(47);
@@ -231,4 +231,15 @@
   h4 {
     font-size: pxToRem(10);
   }
+}
+
+.image-category {
+  height: pxToRem(100);
+  width: pxToRem(100);
+  margin-left: pxToRem(20);
+  background-position: center center;
+  background-size: cover;
+  border-radius: pxToRem(10);
+  border: 1px solid #ddd;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.16);
 }

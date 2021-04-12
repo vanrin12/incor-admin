@@ -130,7 +130,7 @@ const Post = ({
 
   return (
     <MainLayout activeMenu={2}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         <Row className="content-wrapper page-partner page-post">
           <Col xs={12} md={12}>
             <Button

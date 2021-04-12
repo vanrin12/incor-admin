@@ -115,7 +115,7 @@ const HomeMain = () => {
     );
   return (
     <MainLayout activeMenu={0}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         <Row className="content-wrapper">
           <Col xs={12} md={8} className="content-wrapper__chart box-content">
             <Row>

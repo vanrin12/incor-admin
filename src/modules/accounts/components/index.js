@@ -212,7 +212,7 @@ const Account = () => {
   };
   return (
     <MainLayout activeMenu={5}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         <Row className="content-wrapper page-partner page-post page-account">
           <Col xs={12} md={12}>
             <h2 className="title-page">Danh sách Khách hàng</h2>

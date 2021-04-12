@@ -146,7 +146,7 @@ const InformationNeeds = ({
       {isProcessing ? (
         <Loading />
       ) : (
-        <Container fluid>
+        <Container fluid className="pl-0">
           <Row className="content-wrapper page-information page-progress">
             <Col xs={12} md={12} className="header-page">
               <img

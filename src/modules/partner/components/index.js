@@ -134,7 +134,7 @@ const Partner = ({
       {isProcessing ? (
         <Loading />
       ) : (
-        <Container fluid>
+        <Container fluid className="pl-0">
           <Row className="content-wrapper page-partner">
             <Col xs={12} md={12}>
               <h2 className="title-page">Danh sách Đối tác</h2>

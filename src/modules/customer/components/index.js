@@ -109,7 +109,7 @@ const Customer = ({
 
   return (
     <MainLayout activeMenu={4}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         <Row className="content-wrapper page-partner page-post">
           <Col xs={12} md={12}>
             <h2 className="title-page">Danh sách Khách hàng</h2>
