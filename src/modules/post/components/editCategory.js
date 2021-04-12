@@ -126,7 +126,7 @@ const UpdateCategoryPost = ({
         {isProcessing ? (
           <Loading />
         ) : (
-          <Row className="content-wrapper page-register-post">
+          <Row className="content-wrapper page-register-post page-register-category">
             <Col xs={12} md={12}>
               <h2 className="title-page">Chỉnh sửa chuyên mục</h2>
             </Col>

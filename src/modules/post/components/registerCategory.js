@@ -147,7 +147,7 @@ const RegisterPost = ({
         {isProcessing ? (
           <Loading />
         ) : (
-          <Row className="content-wrapper page-register-post">
+          <Row className="content-wrapper page-register-post page-register-category">
             <Col xs={12} md={12}>
               <h2 className="title-page">Thêm chuyên mục</h2>
             </Col>

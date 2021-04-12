@@ -12,12 +12,11 @@
 }
 
 .box-content {
-  @include boxShadow(
-    pxToVW(10),
+  @include boxShadow(pxToVW(10),
     pxToVW(10),
     pxToVW(20),
     0,
-    rgba(50, 50, 50, 0.28)
-  );
+    rgba(50, 50, 50, 0.28));
   background: $white;
+  border-radius: pxToRem(10);
 }
