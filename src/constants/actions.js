@@ -9,6 +9,11 @@ const listActions = [
     value: 'khóa',
     label: 'Khóa',
   },
+  {
+    id: 3,
+    value: 'mở khóa',
+    label: 'mở Khóa',
+  },
 ];
 
 export default listActions;

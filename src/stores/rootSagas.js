@@ -74,6 +74,8 @@ import deleteUserSaga from 'modules/accounts/sagas/deleteUserSaga';
 
 import deleteProjectItem from 'modules/customer/sagas/deleteProjectItemSaga';
 import changePasswordSaga from 'modules/authen/sagas/changePasswordSaga';
+import getListFormRequestSaga from 'modules/form/sagas/getListFormRequestSaga';
+import lockUserSaga from 'modules/accounts/sagas/lockUserSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -147,5 +149,7 @@ export default function* RootSagas() {
     deleteUserSaga(),
     deleteProjectItem(),
     changePasswordSaga(),
+    getListFormRequestSaga(),
+    lockUserSaga(),
   ]);
 }

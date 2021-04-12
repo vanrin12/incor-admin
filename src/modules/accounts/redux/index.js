@@ -89,6 +89,21 @@ const accountSlice = createSlice({
       state.type = action.type;
       state.isProcessing = false;
     },
+
+    lockUser: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = true;
+    },
+
+    lockUserSuccess: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = false;
+    },
+
+    lockUserFailed: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = false;
+    },
   },
 });
 
@@ -107,6 +122,9 @@ export const {
   deleteUser,
   deleteUserFailed,
   deleteUserSuccess,
+  lockUser,
+  lockUserFailed,
+  lockUserSuccess,
 } = actions;
 
 export default reducer;

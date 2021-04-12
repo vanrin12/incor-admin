@@ -245,11 +245,11 @@ export const headForm = [
   },
   {
     id: 7,
-    name: 'Bản vẽ',
+    name: 'Thời gian hẹn tư vấn',
   },
   {
     id: 8,
-    name: 'Thời gian hẹn tư vấn',
+    name: 'Bản vẽ',
   },
   {
     id: 9,
