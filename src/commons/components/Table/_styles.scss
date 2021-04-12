@@ -1,10 +1,12 @@
-.table{
+.table {
   font-size: pxToVW(18);
   color: $color-table;
-  thead{
+
+  thead {
     background-color: $color_primary;
-    tr{
-      th{
+
+    tr {
+      th {
         border: 0;
         color: $color-head;
         font-size: pxToVW(18);
@@ -14,24 +16,29 @@
       }
     }
   }
-  tbody{
-    tr:nth-of-type(odd){
-      background-color:$white;
+
+  tbody {
+    tr:nth-of-type(odd) {
+      background-color: $white;
     }
-    tr:nth-of-type(even){
-      background-color:$bg-even-table;
+
+    tr:nth-of-type(even) {
+      background-color: $bg-even-table;
     }
-    tr{
-      &.row-active{
+
+    tr {
+      &.row-active {
         background-color: $bg-row-active;
       }
-      td{
+
+      td {
         border: 0;
         padding: pxToVW(25) pxToVW(10);
         white-space: pre-line;
         vertical-align: middle;
         font-size: pxToVW(18);
-        p{
+
+        p {
           color: $color-link-table;
           text-decoration: underline;
         }
@@ -39,26 +46,34 @@
     }
   }
 }
-.table-responsive{
+
+.opacity05 {
+  opacity: 0.5;
+}
+
+.table-responsive {
   border-radius: pxToVW(10);
 }
-.action-category{
+
+.action-category {
   display: flex;
   font-size: pxToVW(18);
   position: absolute;
   right: pxToRem(15);
   height: auto;
-  .edit-categories{
+
+  .edit-categories {
     width: pxToVW(110);
     color: $white;
-    background-color:$color_primary;
+    background-color: $color_primary;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: pxToVW(23) pxToVW(10);
     font-size: pxToVW(18);
   }
-  .cancel-categories{
+
+  .cancel-categories {
     width: pxToVW(110);
     color: $white;
     background-color: $bg-cancel-categories;
@@ -70,29 +85,55 @@
   }
 }
 
-.bs-tooltip-left{
-  .arrow{
-    &::before{
+.bs-tooltip-left {
+  .arrow {
+    &::before {
       border-left-color: #fff;
     }
   }
-  .tooltip-inner{
+
+  .tooltip-inner {
     background-color: #fff;
     padding: pxToRem(15);
-    .custom-tooltip{
-      h4{
+
+    .custom-tooltip {
+      h4 {
         font-size: pxToRem(15);
         line-height: pxToRem(18);
         margin-bottom: pxToRem(8);
         color: #000;
       }
-      p{
+
+      p {
         text-align: right;
         color: #2a5299;
         font-size: pxToRem(15);
         line-height: pxToRem(18);
         font-weight: $medium;
       }
+    }
+  }
+}
+
+.table-form-request {
+  thead {
+
+    tr {
+      th {
+        font-size: pxToRem(13);
+      }
+    }
+  }
+
+  .table tbody tr td {
+    font-size: pxToRem(13);
+
+    &:last-child {
+      text-align: center !important;
+    }
+
+    &:nth-child(12) {
+      text-align: center !important;
     }
   }
 }
