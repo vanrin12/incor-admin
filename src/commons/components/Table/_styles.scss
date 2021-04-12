@@ -69,3 +69,30 @@
     font-size: pxToVW(18);
   }
 }
+
+.bs-tooltip-left{
+  .arrow{
+    &::before{
+      border-left-color: #fff;
+    }
+  }
+  .tooltip-inner{
+    background-color: #fff;
+    padding: pxToRem(15);
+    .custom-tooltip{
+      h4{
+        font-size: pxToRem(15);
+        line-height: pxToRem(18);
+        margin-bottom: pxToRem(8);
+        color: #000;
+      }
+      p{
+        text-align: right;
+        color: #2a5299;
+        font-size: pxToRem(15);
+        line-height: pxToRem(18);
+        font-weight: $medium;
+      }
+    }
+  }
+}
