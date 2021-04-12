@@ -125,6 +125,7 @@ const Form = ({
                 // onSelect={handleDateSelect} //when day is clicked
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
+                isClearable
                 startDate={startDate}
                 endDate={endDate}
                 minDate={startDate}
@@ -140,7 +141,13 @@ const Form = ({
               />
               <SelectDropdown
                 placeholder="Kinh doanh"
-                listItem={listSpaceType && Immutable.asMutable(listSpaceType)}
+                listItem={
+                  listSpaceType &&
+                  Immutable.asMutable([
+                    { value: '', id: '', label: 'Tất cả' },
+                    ...listSpaceType,
+                  ])
+                }
                 onChange={(e) => {
                   handleChange(e, 'job');
                 }}
