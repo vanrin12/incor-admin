@@ -12,13 +12,9 @@ import Button from 'commons/components/Button';
 import Table from 'commons/components/Table';
 import Input from 'commons/components/Input';
 import Loading from 'commons/components/Loading';
-import ROUTERS from 'constants/router';
 import { headForm } from 'constants/itemHead';
 
 type Props = {
-  history: {
-    push: Function,
-  },
   getListAreas: Function,
   dataAreas: Array<{
     id: number,
@@ -33,7 +29,6 @@ type Props = {
 };
 
 const Form = ({
-  history,
   getListAreas,
   dataAreas,
   listSpaceType,
@@ -79,13 +74,6 @@ const Form = ({
   };
   const handleKeySearch = (value) => {
     setKeySearch(value);
-  };
-  const handleViewInformation = (item) => {
-    history.push(`${ROUTERS.INFORMATION}/${item?.id}`);
-  };
-
-  const handleClickBtnDetail = (item) => {
-    history.push(`${ROUTERS.PROGRESS_PROJECT}/${item?.id}`);
   };
 
   const handleSelectPagination = (eventKey) => {
@@ -199,12 +187,10 @@ const Form = ({
                   tableBody={dataFormRequest}
                   showLabel
                   isShowId
-                  isShowColumnBtn1
-                  nameBtn1="Xem"
                   isShowColumnBtn
                   nameBtn2="Xem"
-                  handleClickBtnView={handleViewInformation}
-                  handleClickBtnDetail={handleClickBtnDetail}
+                  isShowTooltip
+                  downloadImage
                 />
               </Col>
               <Col sm={12} className="wrapper-pagination">

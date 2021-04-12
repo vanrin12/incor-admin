@@ -1,7 +1,8 @@
 // @flow
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import Checkbox from 'commons/components/Checkbox';
 import Rating from 'commons/components/Rating';
+import { Overlay, Tooltip } from 'react-bootstrap';
 
 type Props = {
   rowItem: Object,
@@ -22,6 +23,8 @@ type Props = {
   isShowRating?: boolean,
   handleDelete?: Function,
   handleUpdate?: Function,
+  isShowTooltip?: boolean,
+  downloadImage?: boolean,
 };
 
 const TableRow = ({
@@ -43,8 +46,12 @@ const TableRow = ({
   isShowRating = false,
   handleDelete = () => {},
   handleUpdate = () => {},
+  isShowTooltip = false,
+  downloadImage = false,
 }: Props) => {
   // const isShowId = true;
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
   const fieldId = 'id';
   const [checkedItems, setCheckedItems] = useState({});
   const handleChange = (event) => {
@@ -54,6 +61,7 @@ const TableRow = ({
     });
     handleCheckBox([rowItem.id]);
   };
+
   return (
     <tr
       className={`${onClickTableRow ? 'row-cursor-pointer' : ''} ${
@@ -104,20 +112,43 @@ const TableRow = ({
           </p>
         </td>
       )}
-      {/* {isShowRating && (
-        <td>
-          <Rating numberStar={rowItem[5]} />
-        </td>
-      )} */}
       {isShowColumnBtn && (
         <td>
+          {downloadImage ? (
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+            <a href={rowItem?.file}>{nameBtn2}</a>
+          ) : (
+            <p
+              onClick={() => handleClickBtnDetail(rowItem)}
+              type="secondary"
+              role="presentation"
+            >
+              {nameBtn2}
+            </p>
+          )}
+        </td>
+      )}
+      {isShowTooltip && (
+        <td>
           <p
-            onClick={() => handleClickBtnDetail(rowItem)}
-            type="secondary"
+            ref={target}
+            onClick={() => rowItem?.description && setShow(!show)}
             role="presentation"
           >
-            {nameBtn2}
+            Xem
           </p>
+          <Overlay target={target.current} show={show} placement="left">
+            {(props) => (
+              <Tooltip id="overlay-example" {...props}>
+                <div className="custom-tooltip">
+                  <h4>{rowItem?.description}</h4>
+                  <p onClick={() => setShow(!show)} role="presentation">
+                    Đóng
+                  </p>
+                </div>
+              </Tooltip>
+            )}
+          </Overlay>
         </td>
       )}
       {rowActive && rowActive.id === rowItem.id && (
@@ -159,5 +190,7 @@ TableRow.defaultProps = {
   isShowRating: false,
   handleDelete: () => {},
   handleUpdate: () => {},
+  isShowTooltip: false,
+  downloadImage: false,
 };
 export default memo<Props>(TableRow);

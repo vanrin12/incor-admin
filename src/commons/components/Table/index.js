@@ -25,6 +25,8 @@ type Props = {
   isShowRating?: boolean,
   handleDelete?: Function,
   handleUpdate?: Function,
+  isShowTooltip?: boolean,
+  downloadImage?: boolean,
 };
 
 const TableData = ({
@@ -48,6 +50,8 @@ const TableData = ({
   isShowRating = false,
   handleDelete = () => {},
   handleUpdate = () => {},
+  isShowTooltip = false,
+  downloadImage = false,
 }: Props) => {
   const renderBodyTable = () => {
     return (
@@ -74,6 +78,8 @@ const TableData = ({
           isShowRating={isShowRating}
           handleDelete={handleDelete}
           handleUpdate={handleUpdate}
+          isShowTooltip={isShowTooltip}
+          downloadImage={downloadImage}
         />
       ))
     );
@@ -119,5 +125,7 @@ TableData.defaultProps = {
   isShowRating: false,
   handleDelete: () => {},
   handleUpdate: () => {},
+  isShowTooltip: false,
+  downloadImage: false,
 };
 export default memo<Props>(TableData);
