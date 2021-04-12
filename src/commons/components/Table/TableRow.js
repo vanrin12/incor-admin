@@ -114,14 +114,24 @@ const TableRow = ({
       )}
       {isShowColumnBtn && (
         <td>
-          {downloadImage ? (
+          {downloadImage && rowItem?.file ? (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
-            <a href={rowItem?.file}>{nameBtn2}</a>
+
+            <a
+              href={rowItem?.file || ''}
+              target="_blank"
+              rel="noopener noreferrer"
+              type="secondary"
+              role="presentation"
+            >
+              <p>{nameBtn2}</p>
+            </a>
           ) : (
             <p
               onClick={() => handleClickBtnDetail(rowItem)}
               type="secondary"
               role="presentation"
+              style={{ opacity: '0.5' }}
             >
               {nameBtn2}
             </p>
@@ -134,6 +144,7 @@ const TableRow = ({
             ref={target}
             onClick={() => rowItem?.description && setShow(!show)}
             role="presentation"
+            className={`${!rowItem?.description ? 'opacity05' : ''}`}
           >
             Xem
           </p>
