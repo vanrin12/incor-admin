@@ -88,7 +88,7 @@ const Signin = ({
   }, [token, type, history, roleUser]);
 
   return (
-    <Container fluid className="signin-page">
+    <Container fluid className="signin-page pl-0">
       <Row>
         <Col xs={12}>
           <FormLogin

@@ -15,7 +15,7 @@ type Props = {
 const Display = ({ history }: Props) => {
   return (
     <MainLayout activeMenu={6}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         <Row className="content-wrapper page-display">
           <Col
             xs={12}

@@ -373,7 +373,7 @@ const Customer = ({
       {isProcessing ? (
         <Loading />
       ) : (
-        <Container fluid>
+        <Container fluid className="pl-0">
           <Row className="content-wrapper page-partner page-post page-partner-management">
             <Col xs={12} md={2}>
               <div

@@ -188,7 +188,7 @@ const InformationNeeds = ({
 
   return (
     <MainLayout activeMenu={4}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         <Row className="content-wrapper page-information">
           <Col xs={12} md={12}>
             <h2 className="title-page mb-3">Thông tin nhu cầu</h2>

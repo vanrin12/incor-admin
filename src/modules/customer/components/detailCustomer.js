@@ -139,7 +139,7 @@ const InformationNeeds = ({
       {isProcessing ? (
         <Loading />
       ) : (
-        <Container fluid>
+        <Container fluid className="pl-0">
           <Row className="content-wrapper page-information">
             <Col xs={12} md={12}>
               <h2 className="title-page mb-3">Thông tin nhu cầu</h2>

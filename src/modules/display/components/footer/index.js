@@ -180,7 +180,7 @@ const DisplayFooter = ({
 
   return (
     <MainLayout activeMenu={6}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         {isProcessing ? (
           <Loading />
         ) : (
