@@ -20,16 +20,17 @@
 
   .menu-left {
     background-color: $white;
-    position: fixed;
+    // position: fixed;
     z-index: 9;
-    width: pxToRem(270);
+    // width: pxToRem(270);
     @media (max-width: 1024px) {
       max-width: pxToRem(210);
+      position: fixed;
     }
   }
 
   .layout-right {
-    margin-left: pxToRem(250);
+    // margin-left: pxToRem(250);
     @media (max-width: 1024px) {
       margin-left: pxToRem(175);
       max-width: calc(100% - #{pxToRem(180)});

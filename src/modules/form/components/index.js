@@ -2,7 +2,7 @@
 
 import React, { useState, memo, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-// import moment from 'moment';
+import moment from 'moment';
 import Immutable from 'seamless-immutable';
 import DatePicker from 'react-datepicker';
 import SelectDropdown from 'commons/components/Select';
@@ -20,27 +20,27 @@ type Props = {
     push: Function,
   },
   getListAreas: Function,
-  dataAreas: Array<{}>,
-  // getListName: Function,
-  listName: Array<{}>,
-  // getListCustomer: Function,
-  totalCustomer: number,
-  dataCustomer: Array<{
+  dataAreas: Array<{
+    id: number,
+  }>,
+  listSpaceType: Array<{ id: number }>,
+  totalRequest: number,
+  dataFormRequest: Array<{
     id: number,
   }>,
   isProcessing: boolean,
+  getFormRequest: Function,
 };
 
 const Form = ({
   history,
   getListAreas,
   dataAreas,
-  // getListName,
-  listName,
-  // getListCustomer,
-  totalCustomer,
-  dataCustomer,
+  listSpaceType,
+  totalRequest,
+  dataFormRequest,
   isProcessing,
+  getFormRequest,
 }: Props) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -52,26 +52,24 @@ const Form = ({
   const [keySearch, setKeySearch] = useState('');
   const [params, setParams] = useState({
     page: 1,
+    date_from: startDate && moment(startDate).format('YYYY-MM-DD'),
+    date_to: endDate && moment(endDate).format('YYYY-MM-DD'),
     area_id: dataFilter?.areas?.id,
-    name_incor: dataFilter?.job?.value,
+    space_type_id: dataFilter?.job?.id,
     keywords: keySearch,
-    date: startDate,
   });
+
   useEffect(() => {
     getListAreas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // useEffect(() => {
-  //   getListName();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
-  // useEffect(() => {
-  //   getListCustomer({
-  //     page: 1,
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    getFormRequest({
+      page: 1,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChange = (value, name) => {
     setDataFilter({
@@ -93,18 +91,27 @@ const Form = ({
   const handleSelectPagination = (eventKey) => {
     setParams({ ...params, page: eventKey.selected + 1 });
     // const paramsRequest = { ...params, page: eventKey.selected + 1 };
-    // getListCustomer(paramsRequest);
+    getFormRequest({
+      page: eventKey.selected + 1,
+      date_from: startDate && moment(startDate).format('YYYY-MM-DD'),
+      date_to: endDate && moment(endDate).format('YYYY-MM-DD'),
+      area_id: dataFilter?.areas?.id,
+      space_type_id: dataFilter?.job?.id,
+      keywords: keySearch,
+    });
   };
 
   const handleFilterCustomer = () => {
-    // getListCustomer({
-    //   area_id: dataFilter?.areas?.id,
-    //   name_incor: dataFilter?.job?.value,
-    //   keywords: keySearch,
-    //   date: createDate && moment(createDate).format('YYYY-MM-DD'),
-    // });
+    getFormRequest({
+      page: params.page,
+      date_from: startDate && moment(startDate).format('YYYY-MM-DD'),
+      date_to: endDate && moment(endDate).format('YYYY-MM-DD'),
+      area_id: dataFilter?.areas?.id,
+      space_type_id: dataFilter?.job?.id,
+      keywords: keySearch,
+    });
   };
-  console.log(dataCustomer);
+
   return (
     <MainLayout activeMenu={9}>
       <Container fluid>
@@ -145,7 +152,7 @@ const Form = ({
               />
               <SelectDropdown
                 placeholder="Kinh doanh"
-                listItem={listName && Immutable.asMutable(listName)}
+                listItem={listSpaceType && Immutable.asMutable(listSpaceType)}
                 onChange={(e) => {
                   handleChange(e, 'job');
                 }}
@@ -182,16 +189,20 @@ const Form = ({
             <Loading />
           ) : (
             <>
-              <Col xs={12} md={12} className="table-page mt-4">
+              <Col
+                xs={12}
+                md={12}
+                className="table-page mt-4 table-form-request"
+              >
                 <Table
                   tableHeads={headForm}
-                  tableBody={[]}
+                  tableBody={dataFormRequest}
                   showLabel
                   isShowId
                   isShowColumnBtn1
-                  nameBtn1="Quản lý"
+                  nameBtn1="Xem"
                   isShowColumnBtn
-                  nameBtn2="Quản lý"
+                  nameBtn2="Xem"
                   handleClickBtnView={handleViewInformation}
                   handleClickBtnDetail={handleClickBtnDetail}
                 />
@@ -201,7 +212,7 @@ const Form = ({
                   previousLabel="Previous"
                   nextLabel="Next"
                   breakLabel={<span className="gap">...</span>}
-                  pageCount={Math.ceil(totalCustomer / 10)}
+                  pageCount={Math.ceil(totalRequest / 10)}
                   onPageChange={(eventKey) => handleSelectPagination(eventKey)}
                   forcePage={params.page - 1 || 0}
                   containerClassName="pagination"
@@ -220,6 +231,14 @@ const Form = ({
               </Col>
             </>
           )}
+          <Col xs={12} md={12} className="action-delete pr-0">
+            <Button
+              customClass="button--primary"
+              onClick={handleFilterCustomer}
+            >
+              XUẤT DỮ LIỆU
+            </Button>
+          </Col>
         </Row>
       </Container>
     </MainLayout>

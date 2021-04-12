@@ -20,6 +20,7 @@ export default () => {
       'authReducer',
       'customerReducer',
       'displayReducer',
+      'formReducer',
     ],
   };
 

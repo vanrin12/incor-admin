@@ -8,6 +8,7 @@ import { customerReducer } from 'modules/customer/redux';
 import { mediaReducer } from 'modules/media/redux';
 import { displayReducer } from 'modules/display/redux';
 import { dataReducer } from 'modules/data/redux';
+import { formReducer } from 'modules/form/redux';
 
 const appReducer = combineReducers({
   account: accountReducer,
@@ -19,6 +20,7 @@ const appReducer = combineReducers({
   mediaReducer,
   displayReducer,
   dataReducer,
+  formReducer,
 });
 
 export default appReducer;

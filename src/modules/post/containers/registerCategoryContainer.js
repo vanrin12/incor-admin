@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
     isProcessing: state.postReducer.isProcessing,
     dataCategories: state.postReducer.dataCategories,
     dataParent: state.postReducer.dataParent,
+    totalCategory: state.postReducer.totalCategory,
   };
 };
 

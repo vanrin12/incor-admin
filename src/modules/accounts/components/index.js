@@ -18,9 +18,13 @@ import Modal from 'commons/components/Modal';
 import { headAccount } from 'constants/itemHead';
 import listActions from 'constants/actions';
 import Loading from 'commons/components/Loading';
-// import { headquarters, vote, role } from '../../../mockData/dataSelect';
-// import { listDataAccount } from '../../../mockData/listDataTable';
-import { getListUser, getUserRoles, createUser, deleteUser } from '../redux';
+import {
+  getListUser,
+  getUserRoles,
+  createUser,
+  deleteUser,
+  lockUser,
+} from '../redux';
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -175,18 +179,36 @@ const Account = () => {
     );
   };
 
-  const handleDelete = () => {
-    dispatch(
-      deleteUser({
-        arrayId: listId && listId.toString(),
-      })
-    );
-  };
   const handleClickBtnDetail = (item) => {
     setIsShowPassword({
       isOpen: true,
       content: item?.password,
     });
+  };
+
+  const handleCheckAction = () => {
+    if (dataFilter?.action?.id === 1) {
+      dispatch(
+        deleteUser({
+          arrayId: listId && listId.toString(),
+        })
+      );
+    }
+    if (dataFilter?.action?.id === 2) {
+      dispatch(
+        lockUser({
+          arrayId: listId && listId.toString(),
+          type: 'lock',
+        })
+      );
+    } else {
+      dispatch(
+        lockUser({
+          arrayId: listId && listId.toString(),
+          type: 'unlock',
+        })
+      );
+    }
   };
   return (
     <MainLayout activeMenu={5}>
@@ -222,7 +244,7 @@ const Account = () => {
               value={dataSubmit.fullName}
               placeholder="tên đăng nhập"
               label="Tên đăng nhập"
-              customClass="name-account"
+              customClass="name-account mb-3"
             />
             <Input
               type="text"
@@ -264,7 +286,10 @@ const Account = () => {
                 />
                 <Button
                   customClass="button--primary mr-5"
-                  onClick={handleFilter}
+                  onClick={handleCheckAction}
+                  isDisabled={
+                    dataFilter?.action?.id === undefined || listId.length === 0
+                  }
                 >
                   ÁP DỤNG
                 </Button>
@@ -297,11 +322,6 @@ const Account = () => {
                   TÌM KIẾM
                 </Button>
               </div>
-              <Col xs={12} md={12} className="action-delete pr-0">
-                <Button customClass="button--primary" onClick={handleDelete}>
-                  <p>XÓA</p>
-                </Button>
-              </Col>
             </Col>
             {isProcessing ? (
               <Loading />

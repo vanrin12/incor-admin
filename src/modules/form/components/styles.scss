@@ -1,0 +1,21 @@
+.table-form-request{
+  table{
+    tr{
+      td{
+        &:nth-of-type(2){
+          width: pxToRem(140);
+          font-style: italic;
+        }
+        &:nth-of-type(3){
+          width: pxToRem(150);
+        }
+        &:nth-of-type(9){
+          display: none;
+        }
+        &:nth-of-type(11){
+          display: none;
+        }
+      }
+    }
+  }
+}

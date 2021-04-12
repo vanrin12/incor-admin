@@ -260,7 +260,9 @@
     border-bottom: unset;
     padding-left: pxToVW(15);
     padding-top: pxToVW(85);
-
+    @media (max-width: 1024px) {
+      padding-left: pxToRem(20);
+    }
     .nav-link {
       color: $color-black;
       font-size: pxToVW(20);

@@ -59,6 +59,7 @@ export const INITIAL_STATE = Immutable({
   errorMsg: '',
   dataPostDetail: {},
   listCategoryPost: {},
+  totalCategory: '',
 });
 
 const getListCategories = (state, action) => {
@@ -82,6 +83,7 @@ const getListCategoriesSuccess = (state, action) => {
     isProcessing: false,
     type: action.type,
     dataCategories: dataListCategory,
+    totalCategory: action?.data?.categories?.total,
   });
 };
 

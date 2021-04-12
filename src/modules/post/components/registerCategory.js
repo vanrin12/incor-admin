@@ -3,6 +3,7 @@
 import React, { useState, memo, useEffect, useRef } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import Immutable from 'seamless-immutable';
+import ReactPaginate from 'react-paginate';
 import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Loading from 'commons/components/Loading';
@@ -24,6 +25,7 @@ type Props = {
   dataParent: Array<{}>,
   isProcessing: boolean,
   type: string,
+  totalCategory: number,
 };
 const RegisterPost = ({
   history,
@@ -35,6 +37,7 @@ const RegisterPost = ({
   dataParent,
   isProcessing,
   type,
+  totalCategory,
 }: Props) => {
   const [dataRegister, setRegister] = useState({
     category: '',
@@ -46,7 +49,10 @@ const RegisterPost = ({
   const inputFile = useRef({});
   const [objFile, setObjFile] = useState(null);
   const [nameImage, setNameImage] = useState('');
-
+  const [params, setParams] = useState({
+    page: 1,
+    pageSize: 10,
+  });
   // call api get list parent
   useEffect(() => {
     getListParent();
@@ -55,7 +61,10 @@ const RegisterPost = ({
 
   // call api get list categories
   useEffect(() => {
-    getListCategories();
+    getListCategories({
+      page: 1,
+      pageSize: 10,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -99,6 +108,12 @@ const RegisterPost = ({
   const getFileName = async (e) => {
     setObjFile(e.files[0]);
     setNameImage(e.files[0].name);
+  };
+
+  const handleSelectPagination = (eventKey) => {
+    setParams({ ...params, page: eventKey.selected + 1 });
+    const paramsRequest = { ...params, page: eventKey.selected + 1 };
+    getListCategories(paramsRequest);
   };
 
   const handleChange = (value, name) => {
@@ -225,6 +240,28 @@ const RegisterPost = ({
                 isShowColumnBtnStatus
                 onClickRow={handleViewDetail}
               />
+              <div className="wrapper-pagination">
+                <ReactPaginate
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  breakLabel={<span className="gap">...</span>}
+                  pageCount={Math.ceil(totalCategory / 10)}
+                  onPageChange={(eventKey) => handleSelectPagination(eventKey)}
+                  forcePage={params.page - 1 || 0}
+                  containerClassName="pagination"
+                  disabledClassName="disabled"
+                  activeClassName="active"
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  marginPagesDisplayed={1}
+                  nextLinkClassName="page-link"
+                />
+              </div>
             </Col>
           </Row>
         )}

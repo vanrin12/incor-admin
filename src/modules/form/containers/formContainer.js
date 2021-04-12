@@ -4,15 +4,16 @@ import customerComponent from '../components';
 
 import { Creators } from '../redux';
 import { Creators as partnerReducer } from '../../partner/redux';
+import { Creators as customerReducer } from '../../customer/redux';
 
 const mapStateToProps = (state) => {
   return {
-    type: state.customerReducer.type,
-    isProcessing: state.customerReducer.isProcessing,
+    type: state.formReducer.type,
+    isProcessing: state.formReducer.isProcessing,
     dataAreas: state.partnerReducer.dataAreas,
-    listName: state.customerReducer.listName,
-    dataCustomer: state.customerReducer.dataCustomer,
-    totalCustomer: state.customerReducer.totalCustomer,
+    dataFormRequest: state.formReducer.dataFormRequest,
+    totalRequest: state.formReducer.totalRequest,
+    listSpaceType: state.customerReducer.listSpaceType,
   };
 };
 
@@ -20,9 +21,9 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       ...Creators,
-      // getListCustomer: Creators.getListCustomer,
+      getFormRequest: Creators.getFormRequest,
       getListAreas: partnerReducer.getListAreas,
-      // getListName: Creators.getListName,
+      getListSpaceType: customerReducer.getListSpaceType,
     },
     dispatch
   );
