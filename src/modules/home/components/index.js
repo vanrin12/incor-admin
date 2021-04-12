@@ -21,13 +21,15 @@ import dataCharts from 'mockData/dataCharts';
 // import post from 'mockData/post';
 // import hashtags from 'mockData/hashtags';
 import { getDataMain } from 'modules/home/redux';
+import { useHistory } from 'react-router-dom';
+import ROUTERS from 'constants/router';
 
 // install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const HomeMain = () => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const [filterChart, setFilterChart] = useState({
     id: 0,
     value: 0,
@@ -62,16 +64,11 @@ const HomeMain = () => {
 
   const renderHashtags =
     hashtags &&
-    hashtags.map((item) => {
+    hashtags.map((item, index) => {
       // const randomColor = Math.floor(Math.random() * 16777215).toString(16);
       return (
-        <span
-          className="content-wrapper__hashtag__item"
-          // style={{
-          //   background: `#${randomColor}`,
-          // }}
-        >
-          {item}
+        <span className="content-wrapper__box-left__hashtag__item">
+          {`#${index + 1} ${item}`}
         </span>
       );
     });
@@ -79,14 +76,14 @@ const HomeMain = () => {
   const renderFormFillInfo =
     dataMain && dataMain.histories && dataMain.histories.length > 0 ? (
       dataMain.histories.map((item) => (
-        <div className="content-wrapper__form-suggest__item">
+        <div className="content-wrapper__box-left__form-suggest__item">
           <p>
             <span
-              className="content-wrapper__form-suggest__item__username"
+              className="content-wrapper__box-left__form-suggest__item__username"
               dangerouslySetInnerHTML={{ __html: item.name }}
             />
             <span
-              className="content-wrapper__form-suggest__item__username"
+              className="content-wrapper__box-left__form-suggest__item__username"
               dangerouslySetInnerHTML={{ __html: ` ${item.created_custom}` }}
             />
           </p>
@@ -101,14 +98,14 @@ const HomeMain = () => {
         <div className="content-wrapper__post__item">
           <div className="col-6">
             <p className="content-wrapper__post__item__title">{item.name}</p>
-            <p className="content-wrapper__form-suggest__item__time">
+            <p className="content-wrapper__post__item__time">
               {item.created_custom}
             </p>
           </div>
           <div className="content-wrapper__post__item__category col-2">
             {item?.category?.name}
           </div>
-          <div className="content-wrapper__post__item__username col-2">
+          <div className="content-wrapper__post__item__username col-3">
             {item?.user?.name}
           </div>
         </div>
@@ -170,41 +167,63 @@ const HomeMain = () => {
               </ResponsiveContainer>
             </Row>
           </Col>
-          <Col
-            xs={12}
-            md={3}
-            className="content-wrapper__form-suggest box-content"
-          >
-            <p className="content-wrapper__form-suggest__title">
-              lượt điền form
-            </p>
-            <div className="content-wrapper__form-suggest__list">
-              {renderFormFillInfo}
-            </div>
-            <div className="content-wrapper__form-suggest__list-all">
-              xem tat ca
+          <Col xs={12} md={4} className="content-wrapper__box-left">
+            <div className="content-wrapper__box-left__form-suggest box-content">
+              <p className="content-wrapper__box-left__form-suggest__title">
+                lượt điền form
+              </p>
+              <div className="content-wrapper__box-left__form-suggest__list">
+                {renderFormFillInfo}
+              </div>
+
+              <div className="content-wrapper__box-left__form-suggest__list-all">
+                {dataMain?.histories && dataMain?.histories?.length > 4 && (
+                  <span
+                    onClick={() => history.push(ROUTERS.FORM)}
+                    role="presentation"
+                  >
+                    Xem tất cả
+                  </span>
+                )}
+              </div>
             </div>
           </Col>
 
           <Col xs={12} md={8} className="content-wrapper__post box-content">
             <p className="content-wrapper__post__title">Bài viết gần đây</p>
             <div className="content-wrapper__post__list">{renderPost}</div>
-            {dataMain?.histories && dataMain?.histories.length > 6 && (
-              <div className="content-wrapper__form-suggest__list-all">
-                xem tat ca
-              </div>
-            )}
-          </Col>
-          <Col xs={12} md={3} className="content-wrapper__hashtag  box-content">
-            <p className="content-wrapper__hashtag__title">Hashtag phổ biến</p>
-            <div className="content-wrapper__hashtag__list">
-              {renderHashtags}
+
+            <div className="content-wrapper__box-left__hashtag__list-all">
+              {dataMain && dataMain.posts && dataMain.posts.length > 0 && (
+                <span
+                  onClick={() => history.push(ROUTERS.POST)}
+                  role="presentation"
+                >
+                  Xem tất cả
+                </span>
+              )}
             </div>
-            {dataMain?.posts && dataMain?.posts.length > 4 && (
-              <div className="content-wrapper__hashtag__list-all">
-                xem tat ca
+          </Col>
+          <Col xs={12} md={4} className="content-wrapper__box-left">
+            <div className="content-wrapper__box-left__hashtag  box-content">
+              <p className="content-wrapper__box-left__hashtag__title">
+                Hashtag phổ biến
+              </p>
+              <div className="content-wrapper__box-left__hashtag__list">
+                {renderHashtags}
               </div>
-            )}
+
+              <div className="content-wrapper__box-left__hashtag__list-all">
+                {dataMain?.posts && dataMain?.posts?.length > 4 && (
+                  <span
+                    onClick={() => history.push(ROUTERS.DISPLAY_DATA)}
+                    role="presentation"
+                  >
+                    Xem tất cả
+                  </span>
+                )}
+              </div>
+            </div>
           </Col>
         </Row>
       </Container>
