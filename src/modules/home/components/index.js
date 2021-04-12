@@ -194,7 +194,7 @@ const HomeMain = () => {
             <div className="content-wrapper__post__list">{renderPost}</div>
 
             <div className="content-wrapper__box-left__hashtag__list-all">
-              {dataMain && dataMain.posts && dataMain.posts.length > 0 && (
+              {dataMain && dataMain.posts && dataMain.posts.length > 3 && (
                 <span
                   onClick={() => history.push(ROUTERS.POST)}
                   role="presentation"
@@ -214,7 +214,7 @@ const HomeMain = () => {
               </div>
 
               <div className="content-wrapper__box-left__hashtag__list-all">
-                {dataMain?.posts && dataMain?.posts?.length > 4 && (
+                {hashtags?.length > 4 && (
                   <span
                     onClick={() => history.push(ROUTERS.DISPLAY_DATA)}
                     role="presentation"

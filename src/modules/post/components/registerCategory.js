@@ -106,8 +106,10 @@ const RegisterPost = ({
   };
 
   const getFileName = async (e) => {
-    setObjFile(e.files[0]);
-    setNameImage(e.files[0].name);
+    if (e && e.files && e.files[0]) {
+      setObjFile(e.files[0]);
+      setNameImage(e.files[0].name);
+    }
   };
 
   const handleSelectPagination = (eventKey) => {
