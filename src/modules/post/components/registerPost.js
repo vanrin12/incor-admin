@@ -145,7 +145,7 @@ const RegisterPost = ({
   };
   return (
     <MainLayout activeMenu={2}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         <Row className="content-wrapper page-register-post page-register">
           <Col xs={12} md={7}>
             <Input

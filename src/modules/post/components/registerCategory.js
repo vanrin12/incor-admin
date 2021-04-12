@@ -47,7 +47,10 @@ const RegisterPost = ({
   });
   const [listId, setListId] = useState([]);
   const inputFile = useRef({});
-  const [objFile, setObjFile] = useState(null);
+  const [objFile, setObjFile] = useState({
+    imgUpload: '',
+    imgView: '',
+  });
   const [nameImage, setNameImage] = useState('');
   const [params, setParams] = useState({
     page: 1,
@@ -81,7 +84,10 @@ const RegisterPost = ({
         parent: null,
       });
       setNameImage('');
-      setObjFile(null);
+      setObjFile({
+        imgUpload: '',
+        imgView: '',
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
@@ -106,8 +112,13 @@ const RegisterPost = ({
   };
 
   const getFileName = async (e) => {
-    setObjFile(e.files[0]);
-    setNameImage(e.files[0].name);
+    if (e && e.files && e.files[0]) {
+      setObjFile({
+        imgView: (window.URL || window.webkitURL).createObjectURL(e.files[0]),
+        imgUpload: e.files[0],
+      });
+      setNameImage(e.files[0].name);
+    }
   };
 
   const handleSelectPagination = (eventKey) => {
@@ -137,13 +148,15 @@ const RegisterPost = ({
     formData.append('slug', dataRegister?.slug);
     formData.append('description', dataRegister?.description);
     formData.append('parent_id', dataRegister?.parent?.id || 0);
-    formData.append('image', objFile);
+    if (objFile?.imgUpload) {
+      formData.append('image', objFile?.imgUpload);
+    }
     registerCategories(formData);
   };
 
   return (
     <MainLayout activeMenu={2}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         {isProcessing ? (
           <Loading />
         ) : (
@@ -161,7 +174,7 @@ const RegisterPost = ({
               </Button>
             </Col>
             <Col xs={12} md={6}>
-              <Col xs={12} md={12}>
+              <Col xs={12} md={12} className="pl-0">
                 <Input
                   label="Tên chuyên mục"
                   type="text"
@@ -201,21 +214,36 @@ const RegisterPost = ({
                   option={dataRegister.parent}
                   customClass="select-vote"
                 />
-                <p>{nameImage}</p>
-                <input
-                  className="box__file d-none"
-                  type="file"
-                  ref={inputFile}
-                  accept="image/jpg, image/jpeg, image/png, capture=camera"
-                  onChange={(e) => getFileName(e.target)}
-                />
-                <div className="action-register pt-2">
-                  <Button customClass="button--primary" onClick={onButtonClick}>
-                    <p>CHỌN FILE</p>
-                  </Button>
+                <div className="d-flex align-items-center">
+                  <div>
+                    <p>{nameImage}</p>
+                    <input
+                      className="box__file d-none"
+                      type="file"
+                      ref={inputFile}
+                      accept="image/jpg, image/jpeg, image/png, capture=camera"
+                      onChange={(e) => getFileName(e.target)}
+                    />
+                    <div className="action-register pt-2">
+                      <Button
+                        customClass="button--primary"
+                        onClick={onButtonClick}
+                      >
+                        <p>CHỌN FILE</p>
+                      </Button>
+                    </div>
+                  </div>
+                  {objFile?.imgView && (
+                    <div
+                      className="image-category"
+                      style={{
+                        backgroundImage: `url(${objFile?.imgView})`,
+                      }}
+                    />
+                  )}
                 </div>
               </Col>
-              <Col xs={12} md={12} className="action-register">
+              <Col xs={12} md={12} className="action-register pl-0">
                 <Button
                   customClass="button--primary"
                   onClick={handleRegisterCategory}

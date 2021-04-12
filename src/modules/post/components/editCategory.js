@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import Immutable from 'seamless-immutable';
 import SelectDropdown from 'commons/components/Select';
@@ -44,12 +44,18 @@ const UpdateCategoryPost = ({
   updateCategories,
   type,
 }: Props) => {
-  const categoryId = match.params.id;
+  const [nameImage, setNameImage] = useState('');
+  const inputFile = useRef({});
+  const categoryId = match && match.params && match.params.id;
   const [dataRegister, setRegister] = useState({
     category: categoriesDetail?.name || '',
     slug: categoriesDetail?.slug || '',
     description: categoriesDetail?.description || '',
     parent: null,
+  });
+  const [objFile, setObjFile] = useState({
+    imgUpload: null,
+    imgView: '',
   });
   const [listId, setListId] = useState([]);
   // call api get list parent
@@ -69,6 +75,7 @@ const UpdateCategoryPost = ({
     getListCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     if (
       type === 'UPDATE_CATEGORIES_SUCCESS' ||
@@ -89,8 +96,12 @@ const UpdateCategoryPost = ({
       description: categoriesDetail?.description || '',
       parent: filterParent[0],
     });
+    setObjFile({
+      imgUpload: '',
+      imgView: categoriesDetail?.image,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoriesDetail]);
+  }, [categoriesDetail, categoryId]);
 
   const handleCheckBox = (id) => {
     let dataSubmit = [];
@@ -111,18 +122,43 @@ const UpdateCategoryPost = ({
     });
   };
 
+  const handleViewDetail = (item) => {
+    getCategoriesDetail(item.id);
+  };
+
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+    // eslint-disable-next-line no-unused-expressions
+    const inputRefCurrent =
+      inputFile && inputFile.current ? inputFile.current : null;
+    // eslint-disable-next-line no-unused-expressions
+    inputRefCurrent && inputRefCurrent.click();
+  };
+
+  const getFileName = async (e) => {
+    if (e && e.files && e.files[0]) {
+      setObjFile({
+        imgView: (window.URL || window.webkitURL).createObjectURL(e.files[0]),
+        imgUpload: e.files[0],
+      });
+      setNameImage(e.files[0].name);
+    }
+  };
   const handleUpdateCategory = () => {
-    updateCategories(categoryId, {
-      name: dataRegister?.category,
-      slug: dataRegister?.slug,
-      description: dataRegister?.description,
-      parent_id: dataRegister?.parent?.id || 0,
-    });
+    const formData = new window.FormData();
+    formData.append('name', dataRegister?.category);
+    formData.append('slug', dataRegister?.slug);
+    formData.append('description', dataRegister?.description);
+    formData.append('parent_id', dataRegister?.parent?.id || 0);
+    if (objFile?.imgUpload) {
+      formData.append('image', objFile?.imgUpload);
+    }
+    updateCategories(categoryId, formData);
   };
 
   return (
     <MainLayout activeMenu={2}>
-      <Container fluid>
+      <Container fluid className="pl-0">
         {isProcessing ? (
           <Loading />
         ) : (
@@ -140,7 +176,7 @@ const UpdateCategoryPost = ({
               </Button>
             </Col>
             <Col xs={12} md={6}>
-              <Col xs={12} md={12}>
+              <Col xs={12} md={12} className="pl-0">
                 <Input
                   label="Tên chuyên mục"
                   type="text"
@@ -180,8 +216,37 @@ const UpdateCategoryPost = ({
                   option={dataRegister.parent}
                   customClass="select-vote"
                 />
+                <div className="d-flex align-items-center">
+                  <div>
+                    <p>{nameImage}</p>
+                    <input
+                      className="box__file d-none"
+                      type="file"
+                      ref={inputFile}
+                      accept="image/jpg, image/jpeg, image/png, capture=camera"
+                      onChange={(e) => getFileName(e.target)}
+                    />
+                    <div className="action-register pt-2">
+                      <Button
+                        customClass="button--primary"
+                        onClick={onButtonClick}
+                      >
+                        <p>CHỌN FILE</p>
+                      </Button>
+                    </div>
+                  </div>
+
+                  {objFile?.imgView && (
+                    <div
+                      className="image-category"
+                      style={{
+                        backgroundImage: `url(${objFile?.imgView})`,
+                      }}
+                    />
+                  )}
+                </div>
               </Col>
-              <Col xs={12} md={12} className="action-register">
+              <Col xs={12} md={12} className="action-register pl-0">
                 <Button
                   customClass="button--primary"
                   onClick={handleUpdateCategory}
@@ -204,6 +269,7 @@ const UpdateCategoryPost = ({
                 handleCheckBox={handleCheckBox}
                 listId={listId}
                 isShowColumnBtnStatus
+                onClickRow={handleViewDetail}
               />
             </Col>
           </Row>
