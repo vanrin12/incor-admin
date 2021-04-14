@@ -79,7 +79,7 @@ export const ROUTES = {
   API_GET_LIST_LAYOUT: `/api/v1/admin/constants/data-maps/layout`,
 
   API_CHANGE_PASSWORD: '/api/v1/auth/change-password',
-  API_LOCK_USER: `/api/v1/admin/users/lock`,
+  API_LOCK_USER: `/api/v1/admin/users/locks`,
   API_GET_FORM_REQUEST: `/api/v1/admin/form-requests`,
 };
 

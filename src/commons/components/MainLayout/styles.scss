@@ -31,12 +31,11 @@
   }
 
   .layout-right {
-    // margin-left: pxToRem(250);
     margin-left: 16.666667%;
 
     @media (max-width: 1024px) {
-      margin-left: pxToRem(175);
-      max-width: calc(100% - #{pxToRem(180)});
+      margin-left: pxToRem(195);
+      max-width: calc(100% - #{pxToRem(200)});
       padding-right: 0;
     }
   }
