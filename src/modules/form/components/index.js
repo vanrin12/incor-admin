@@ -227,7 +227,12 @@ const Form = ({
           <Col xs={12} md={12} className="action-delete pr-0">
             <Button
               customClass="button--primary"
-              onClick={handleFilterCustomer}
+              onClick={() =>
+                window.open(
+                  'http://18.217.44.234:4000/api/v1/form-requests',
+                  '_blank'
+                )
+              }
             >
               XUẤT DỮ LIỆU
             </Button>
