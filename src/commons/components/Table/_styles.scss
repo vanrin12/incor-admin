@@ -31,6 +31,14 @@
         background-color: $bg-row-active;
       }
 
+      &.row-red {
+        background-color: $color-delete;
+
+        * {
+          color: $white !important;
+        }
+      }
+
       td {
         border: 0;
         padding: pxToVW(25) pxToVW(10);
@@ -85,6 +93,16 @@
   }
 }
 
+.tooltip.show {
+  opacity: 1;
+}
+
+.bs-tooltip-auto[x-placement^=left] .arrow::before,
+.bs-tooltip-left .arrow::before {
+  left: 0;
+  border-width: 0.5rem 0 1rem 1rem;
+}
+
 .bs-tooltip-left {
   .arrow {
     &::before {
@@ -95,6 +113,12 @@
   .tooltip-inner {
     background-color: #fff;
     padding: pxToRem(15);
+    max-width: pxToRem(350);
+    min-width: pxToRem(300);
+    text-align: left;
+    white-space: pre-line;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    border-radius: pxToRem(15);
 
     .custom-tooltip {
       h4 {

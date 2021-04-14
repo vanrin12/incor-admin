@@ -27,6 +27,7 @@ type Props = {
   handleUpdate?: Function,
   isShowTooltip?: boolean,
   downloadImage?: boolean,
+  isShowLock?: boolean,
 };
 
 const TableData = ({
@@ -52,6 +53,7 @@ const TableData = ({
   handleUpdate = () => {},
   isShowTooltip = false,
   downloadImage = false,
+  isShowLock = false,
 }: Props) => {
   const renderBodyTable = () => {
     return (
@@ -80,6 +82,7 @@ const TableData = ({
           handleUpdate={handleUpdate}
           isShowTooltip={isShowTooltip}
           downloadImage={downloadImage}
+          isShowLock={isShowLock}
         />
       ))
     );
@@ -127,5 +130,6 @@ TableData.defaultProps = {
   handleUpdate: () => {},
   isShowTooltip: false,
   downloadImage: false,
+  isShowLock: false,
 };
 export default memo<Props>(TableData);

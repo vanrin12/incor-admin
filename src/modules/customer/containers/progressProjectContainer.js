@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import progressProjectComponent from '../components/progressProject';
-
+import { Creators as partnerReducer } from '../../partner/redux';
 import { Creators } from '../redux';
 import { Creators as postReducer } from '../../post/redux';
 
@@ -28,6 +28,8 @@ const mapDispatchToProps = (dispatch) =>
       registerConstructionCustomer: Creators.registerConstructionCustomer,
       getListParent: postReducer.getListParent,
       getDetailCustomer: Creators.getDetailCustomer,
+      getListAreas: partnerReducer.getListAreas,
+      updateCustomer: Creators.updateCustomer,
     },
     dispatch
   );

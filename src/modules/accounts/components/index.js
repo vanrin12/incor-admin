@@ -81,6 +81,22 @@ const Account = () => {
         content: 'Tên không được trùng',
       });
     }
+    if (type === 'accounts/lockUserSuccess') {
+      dispatch(
+        getListUser({
+          role_id: '',
+          keywords: '',
+          date: '',
+          page: 1,
+          pageSize: 10,
+        })
+      );
+      setListId([]);
+      setDataFilter({
+        ...dataFilter,
+        action: null,
+      });
+    }
   }, [type]);
 
   const [keySearch, setKeySearch] = useState('');
@@ -156,12 +172,12 @@ const Account = () => {
       })
     );
   };
-
   const dataUserFormat =
     userList &&
     userList.data &&
     userList.data.map((item) => ({
       id: item.id,
+      lock: item.lock,
       name: item.name,
       role_name: item.role_name,
       created_at: moment(item.created_at).format('HH:SS MM/DD/YYYY'),
@@ -260,7 +276,7 @@ const Account = () => {
 
             <SelectDropdown
               placeholder="Chọn vai trò"
-              listItem={listRoles}
+              listItem={listRoles && listRoles.slice(1)}
               onChange={(e) => {
                 handleChange(e, 'role');
               }}
@@ -339,6 +355,7 @@ const Account = () => {
                     isShowColumnBtnStatus
                     isShowColumnBtn
                     nameBtn2="Xem"
+                    isShowLock
                     handleClickBtnDetail={handleClickBtnDetail}
                   />
                 </Col>

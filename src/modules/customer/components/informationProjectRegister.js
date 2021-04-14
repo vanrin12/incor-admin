@@ -269,7 +269,17 @@ const InformationNeeds = ({
             </div>
           </Col>
           <Col xs={12} md={12} className="action-delete">
-            <Button customClass="button--primary" onClick={handleRegister}>
+            <Button
+              customClass="button--primary"
+              onClick={handleRegister}
+              isDisabled={
+                !dataSubmit?.address ||
+                !dataSubmit?.area ||
+                !dataSubmit?.nameProject ||
+                !dataSubmit?.space ||
+                !dataSubmit?.typeSpace
+              }
+            >
               <p>LƯU THAY ĐỔI</p>
             </Button>
           </Col>

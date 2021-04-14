@@ -25,6 +25,7 @@ type Props = {
   handleUpdate?: Function,
   isShowTooltip?: boolean,
   downloadImage?: boolean,
+  isShowLock?: boolean,
 };
 
 const TableRow = ({
@@ -48,6 +49,7 @@ const TableRow = ({
   handleUpdate = () => {},
   isShowTooltip = false,
   downloadImage = false,
+  isShowLock = false,
 }: Props) => {
   // const isShowId = true;
   const [show, setShow] = useState(false);
@@ -61,12 +63,11 @@ const TableRow = ({
     });
     handleCheckBox([rowItem.id]);
   };
-
   return (
     <tr
       className={`${onClickTableRow ? 'row-cursor-pointer' : ''} ${
         rowActive && rowActive.id === rowItem.id ? 'row-active' : ''
-      }`}
+      }  ${isShowLock && rowItem?.lock === 'Y' ? 'row-red' : ''}`}
     >
       {isShowColumnCheck && (
         <td>
@@ -131,7 +132,9 @@ const TableRow = ({
               onClick={() => handleClickBtnDetail(rowItem)}
               type="secondary"
               role="presentation"
-              style={{ opacity: '0.5' }}
+              className={`${
+                downloadImage && !rowItem?.file ? 'opacity05' : ''
+              }`}
             >
               {nameBtn2}
             </p>
@@ -203,5 +206,6 @@ TableRow.defaultProps = {
   handleUpdate: () => {},
   isShowTooltip: false,
   downloadImage: false,
+  isShowLock: false,
 };
 export default memo<Props>(TableRow);

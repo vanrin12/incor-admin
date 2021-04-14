@@ -26,6 +26,7 @@ type Props = {
   }>,
   isProcessing: boolean,
   getFormRequest: Function,
+  getListSpaceType: Function,
 };
 
 const Form = ({
@@ -36,6 +37,7 @@ const Form = ({
   dataFormRequest,
   isProcessing,
   getFormRequest,
+  getListSpaceType,
 }: Props) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -56,6 +58,7 @@ const Form = ({
 
   useEffect(() => {
     getListAreas();
+    getListSpaceType();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -18,7 +18,7 @@ const accountSlice = createSlice({
     getListUserSuccess: (state, action) => {
       state.type = action.type;
       state.isProcessing = false;
-      state.userList = action.data.users;
+      state.userList = action?.data?.users;
     },
 
     getListUserFailed: (state, action) => {
@@ -32,13 +32,19 @@ const accountSlice = createSlice({
     },
 
     getUserRolesSuccess: (state, action) => {
-      state.type = action.type;
-      state.isProcessing = false;
-      state.listRoles = action?.data?.roles.map((item) => ({
+      const roleAll = {
+        id: '',
+        value: '',
+        label: 'Tất cả',
+      };
+      const listRole = action?.data?.roles.map((item) => ({
         id: item.id,
         value: item.name,
         label: item.name,
       }));
+      state.type = action.type;
+      state.isProcessing = false;
+      state.listRoles = [roleAll, ...listRole];
     },
 
     getUserRolesFailed: (state, action) => {
@@ -70,7 +76,6 @@ const accountSlice = createSlice({
     },
 
     createUserFailed: (state, action) => {
-      console.log(action);
       state.type = action.type;
       state.isProcessing = false;
     },

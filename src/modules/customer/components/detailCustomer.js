@@ -124,12 +124,12 @@ const InformationNeeds = ({
 
   useEffect(() => {
     setDataSubmit({
-      nameCustomer: dataDetailCustomer.name,
-      phone: dataDetailCustomer.phone,
-      email: dataDetailCustomer.email,
+      nameCustomer: dataDetailCustomer.name || '',
+      phone: dataDetailCustomer.phone || '',
+      email: dataDetailCustomer.email || '',
       area: (areas && areas[0]) || null,
-      nameBusiness: dataDetailCustomer.name_incor,
-      emailBusiness: dataDetailCustomer.email_incor,
+      nameBusiness: dataDetailCustomer.name_incor || '',
+      emailBusiness: dataDetailCustomer.email_incor || '',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataDetailCustomer, customerId, dataAreas]);
@@ -211,10 +211,19 @@ const InformationNeeds = ({
                 placeholder="Email kinh doanh Incor"
               />
             </Col>
+
             <Col xs={12} md={12} className="action-delete">
               <Button
                 customClass="button--primary"
                 onClick={handleUpdateCustomer}
+                isDisabled={
+                  !dataSubmit?.email ||
+                  !dataSubmit?.area ||
+                  !dataSubmit?.emailBusiness ||
+                  !dataSubmit?.nameBusiness ||
+                  !dataSubmit?.phone ||
+                  !dataSubmit?.nameCustomer
+                }
               >
                 <p>LƯU THAY ĐỔI</p>
               </Button>
