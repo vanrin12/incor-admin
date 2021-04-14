@@ -8,6 +8,7 @@ import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import images from 'themes/images';
+import Input from 'commons/components/Input';
 import Table from 'commons/components/Table';
 import Loading from 'commons/components/Loading';
 import { headProgress } from 'constants/itemHead';
@@ -36,6 +37,8 @@ type Props = {
   dataParent: Array<{}>,
   type: string,
   isProcessing: boolean,
+  getListAreas: Function,
+  updateCustomer: Function,
 };
 const InformationNeeds = ({
   getDetailCustomer,
@@ -51,8 +54,10 @@ const InformationNeeds = ({
   dataParent,
   type,
   isProcessing,
+  getListAreas,
+  updateCustomer,
 }: Props) => {
-  const customerId = match.params.id;
+  const customerId = match.params && match.params.id;
   const [dataAddProject, setDataAddProject] = useState({
     category: '',
     partner_id: null,
@@ -64,10 +69,17 @@ const InformationNeeds = ({
     project: null,
   });
   const areas = dataAreas.filter(
-    (item) => item.id === dataDetailCustomer.area_id
+    (item) => item.id === dataDetailCustomer?.area_id
   );
   const [params, setParams] = useState({
     page: 1,
+  });
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [dataSubmit, setDataSubmit] = useState({
+    nameProject: '',
+    address: '',
+    area: null,
+    phone: '',
   });
 
   useEffect(() => {
@@ -82,6 +94,7 @@ const InformationNeeds = ({
 
   useEffect(() => {
     getListParent();
+    getListAreas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -91,6 +104,10 @@ const InformationNeeds = ({
   }, [customerId]);
 
   useEffect(() => {
+    if (type === 'UPDATE_CUSTOMER_SUCCESS') {
+      getDetailCustomer(customerId);
+      setIsUpdate(false);
+    }
     if (type === 'REGISTER_CONSTRUCTION_CUSTOMER_SUCCESS') {
       getListConstructionCustomer(customerId);
     }
@@ -141,6 +158,33 @@ const InformationNeeds = ({
     };
     registerConstructionCustomer(data);
   };
+
+  const handleChangeUpdate = (value, name) => {
+    setDataSubmit({
+      ...dataSubmit,
+      [name]: value,
+    });
+  };
+
+  useEffect(() => {
+    setDataSubmit({
+      nameCustomer: dataDetailCustomer.name || '',
+      phone: dataDetailCustomer.phone || '',
+      email: dataDetailCustomer.email || '',
+      area: (areas && areas[0]) || null,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataDetailCustomer, customerId]);
+
+  const handleUpdate = () => {
+    updateCustomer(customerId, {
+      name: dataSubmit?.nameCustomer,
+      email: dataSubmit?.email,
+      phone: dataSubmit?.phone,
+      area_id: dataSubmit?.area?.id,
+    });
+  };
+
   return (
     <MainLayout activeMenu={4}>
       {isProcessing ? (
@@ -159,33 +203,102 @@ const InformationNeeds = ({
               <h2 className="title-page">Quản lý tiến độ công trình</h2>
             </Col>
             <Col xs={12} md={3}>
-              <p className="page-progress__title-info">Tên khách hàng</p>
-              <h2 className="page-progress__content-info name">
-                {dataDetailCustomer.name}
-              </h2>
+              {isUpdate ? (
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    handleChangeUpdate(e.target.value, 'nameCustomer');
+                  }}
+                  value={dataSubmit.nameCustomer}
+                  label="Tên khách hàng"
+                  placeholder="Tên khách hàng"
+                />
+              ) : (
+                <>
+                  <p className="page-progress__title-info">Tên khách hàng</p>
+                  <h2 className="page-progress__content-info name">
+                    {dataDetailCustomer.name}
+                  </h2>
+                </>
+              )}
             </Col>
             <Col xs={12} md={3}>
-              <p className="page-progress__title-info">Số điện thoại</p>
-              <h2 className="page-progress__content-info">
-                {dataDetailCustomer.phone}
-              </h2>
+              {isUpdate ? (
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    handleChangeUpdate(e.target.value, 'phone');
+                  }}
+                  value={dataSubmit.phone}
+                  label="Số điện thoại"
+                  placeholder="Số điện thoại"
+                />
+              ) : (
+                <>
+                  <p className="page-progress__title-info">Số điện thoại</p>
+                  <h2 className="page-progress__content-info">
+                    {dataDetailCustomer.phone}
+                  </h2>
+                </>
+              )}
             </Col>
             <Col xs={12} md={3}>
-              <p className="page-progress__title-info">Email</p>
-              <h2 className="page-progress__content-info">
-                {dataDetailCustomer.email}
-              </h2>
+              {isUpdate ? (
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    handleChangeUpdate(e.target.value, 'email');
+                  }}
+                  value={dataSubmit.email}
+                  label="Email"
+                  placeholder="Email"
+                />
+              ) : (
+                <>
+                  <p className="page-progress__title-info">Email</p>
+                  <h2 className="page-progress__content-info">
+                    {dataDetailCustomer.email}
+                  </h2>
+                </>
+              )}
             </Col>
             <Col xs={12} md={3}>
-              <p className="page-progress__title-info">Khu vực</p>
-              <h2 className="page-progress__content-info">
-                {areas[0] && areas[0].value}
-              </h2>
+              {isUpdate ? (
+                <SelectDropdown
+                  placeholder="Chọn tỉnh/thành phố"
+                  listItem={dataAreas && Immutable.asMutable(dataAreas)}
+                  onChange={(e) => {
+                    handleChangeUpdate(e, 'area');
+                  }}
+                  option={dataSubmit.area}
+                  customClass="select-headquarters"
+                  label="khu vực"
+                />
+              ) : (
+                <>
+                  <p className="page-progress__title-info">Khu vực</p>
+                  <h2 className="page-progress__content-info">
+                    {areas[0] && areas[0].value}
+                  </h2>
+                </>
+              )}
             </Col>
             <Col xs={12} md={12} className="action-delete">
-              <Button customClass="button--primary" onClick={() => {}}>
-                <p>LƯU THAY ĐỔI</p>
-              </Button>
+              {isUpdate ? (
+                <Button
+                  customClass="button--primary"
+                  onClick={() => handleUpdate()}
+                >
+                  <p>LƯU THAY ĐỔI</p>
+                </Button>
+              ) : (
+                <Button
+                  customClass="button--primary"
+                  onClick={() => setIsUpdate(true)}
+                >
+                  <p>CHỈNH SỬA</p>
+                </Button>
+              )}
             </Col>
             <Col xs={12} md={4}>
               <SelectDropdown

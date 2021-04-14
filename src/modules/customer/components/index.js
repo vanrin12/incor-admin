@@ -134,7 +134,13 @@ const Customer = ({
               />
               <SelectDropdown
                 placeholder="Kinh doanh"
-                listItem={listName && Immutable.asMutable(listName)}
+                listItem={
+                  listName &&
+                  Immutable.asMutable([
+                    { id: '', value: '', label: 'Tất cả' },
+                    ...listName,
+                  ])
+                }
                 onChange={(e) => {
                   handleChange(e, 'job');
                 }}

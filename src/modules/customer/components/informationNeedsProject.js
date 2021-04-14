@@ -41,12 +41,13 @@ type Props = {
   tableDetailProject: Array<{
     id: number,
   }>,
-  registerProject: Function,
+  updateCustomer: Function,
   type: string,
   listHashtag: Array<{}>,
   getDataFooter: Function,
   deleteProjectItem: Function,
   updateProjectItem: Function,
+  registerProject: Function,
 };
 const InformationNeedsProject = ({
   getDetailProject,
@@ -61,12 +62,13 @@ const InformationNeedsProject = ({
   isProcessing,
   registerProjectItem,
   tableDetailProject,
-  registerProject,
+  updateCustomer,
   type,
   listHashtag,
   getDataFooter,
   deleteProjectItem,
   updateProjectItem,
+  registerProject,
 }: Props) => {
   const projectId = match.params.id;
   const inputFile = useRef({});
@@ -95,6 +97,9 @@ const InformationNeedsProject = ({
 
   useEffect(() => {
     switch (type) {
+      case 'UPDATE_CUSTOMER_SUCCESS':
+        getDetailProject(projectId, params); // TODO UPDATE API
+        break;
       case 'REGISTER_PROJECT_ITEM_SUCCESS':
         getDetailProject(projectId);
         setDataAddCategories({
@@ -189,6 +194,13 @@ const InformationNeedsProject = ({
     formData.append('space_division_id', dataSubmit?.divisionType?.id);
     formData.append('file', objFile);
     registerProject(formData);
+    // updateCustomer(projectId, {
+    //   name: dataSubmit?.nameProject,
+    //   email: dataSubmit?.email,
+    //   phone: dataSubmit?.phone,
+    //   // area_id: dataSubmit?.area?.id,
+    // });
+    // updateCustomer(projectId, formData);
   };
 
   const onClickTableRow = (rowData) => {
@@ -250,15 +262,14 @@ const InformationNeedsProject = ({
     );
     setNameImage(dataDetailProject && dataDetailProject.drawing);
     setDataSubmit({
-      nameProject: dataDetailProject?.name,
-      address: dataDetailProject?.address,
-      area: areas && areas[0],
-      spaceType: spaceType && spaceType[0],
-      divisionType: divisionType && divisionType[0],
+      nameProject: dataDetailProject?.name || '',
+      address: dataDetailProject?.address || '',
+      area: (areas && areas[0]) || null,
+      spaceType: (spaceType && spaceType[0]) || null,
+      divisionType: (divisionType && divisionType[0]) || null,
     });
     // eslint-disable-next-line
   }, [dataDetailProject, projectId, listSpaceType, listDivision]);
-  console.log(dataAddCategories.hashtag, 'dataAddCategories.hashtag');
 
   return (
     <MainLayout activeMenu={4}>
@@ -348,7 +359,17 @@ const InformationNeedsProject = ({
               </div>
             </Col>
             <Col xs={12} md={12} className="action-delete">
-              <Button customClass="button--primary" onClick={handleUpdate}>
+              <Button
+                customClass="button--primary"
+                onClick={handleUpdate}
+                isDisabled={
+                  !dataSubmit?.divisionType ||
+                  !dataSubmit?.address ||
+                  !dataSubmit?.nameProject ||
+                  !dataSubmit?.spaceType ||
+                  !dataSubmit?.spaceType
+                }
+              >
                 <p>CHỈNH SỬA</p>
               </Button>
             </Col>
