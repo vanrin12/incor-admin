@@ -52,6 +52,7 @@ export const ROUTES = {
   API_GET_LIST_SPACE_TYPE: `/api/v1/site/space-type`,
   API_GET_LIST_DIVISION: `/api/v1/site/space-division`,
   API_REGISTER_PROJECT: `/api/v1/admin/customers/project`,
+  API_UPDATE_PROJECT: (id) => `/api/v1/admin/customers/project/${id}`,
   API_DELETE_PROJECT: (id) => `/api/v1/admin/customers/project/${id}`,
   API_DELETE_PROJECT_ITEM: (id) =>
     `/api/v1/admin/customers/project-items/${id}`,
