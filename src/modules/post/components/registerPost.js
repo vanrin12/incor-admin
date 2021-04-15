@@ -13,6 +13,7 @@ import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Modal from 'commons/components/Modal';
 import ROUTERS from 'constants/router';
+import { uploadAdapterPlugin } from 'utils/UploadAdapter';
 
 type Props = {
   registerPost: Function,
@@ -145,7 +146,7 @@ const RegisterPost = ({
   };
   return (
     <MainLayout activeMenu={2}>
-      <Container fluid className="pl-0">
+      <Container fluid>
         <Row className="content-wrapper page-register-post page-register">
           <Col xs={12} md={7}>
             <Input
@@ -172,6 +173,10 @@ const RegisterPost = ({
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setContent(data);
+              }}
+              onReady={(editor) => {
+                editor.ui.view.editable.element.style.height = '200px';
+                uploadAdapterPlugin(editor);
               }}
             />
             <Input

@@ -81,6 +81,7 @@ export const ROUTES = {
   API_CHANGE_PASSWORD: '/api/v1/auth/change-password',
   API_LOCK_USER: `/api/v1/admin/users/locks`,
   API_GET_FORM_REQUEST: `/api/v1/admin/form-requests`,
+  UPLOAD_IMAGE: `api/v1/admin/s3-upload`,
 };
 
 export const API = create({
