@@ -13,6 +13,7 @@ import Table from 'commons/components/Table';
 import Loading from 'commons/components/Loading';
 import { headProgress } from 'constants/itemHead';
 import { timeProject } from '../../../mockData/dataSelect';
+import { ModalPopup } from 'commons/components/Modal';
 
 type Props = {
   getDetailCustomer: Function,
@@ -39,6 +40,8 @@ type Props = {
   isProcessing: boolean,
   getListAreas: Function,
   updateCustomer: Function,
+  listHashtag: Array<{}>,
+  getDataFooter: Function,
 };
 const InformationNeeds = ({
   getDetailCustomer,
@@ -56,6 +59,8 @@ const InformationNeeds = ({
   isProcessing,
   getListAreas,
   updateCustomer,
+  listHashtag,
+  getDataFooter,
 }: Props) => {
   const customerId = match.params && match.params.id;
   const [dataAddProject, setDataAddProject] = useState({
@@ -68,11 +73,16 @@ const InformationNeeds = ({
     note: '',
     project: null,
   });
+  const [isShowError, setIsShowError] = useState({
+    isShow: false,
+    content: '',
+  });
   const areas = dataAreas.filter(
     (item) => item.id === dataDetailCustomer?.area_id
   );
   const [params, setParams] = useState({
     page: 1,
+    paged: 10,
   });
   const [isUpdate, setIsUpdate] = useState(false);
   const [dataSubmit, setDataSubmit] = useState({
@@ -82,6 +92,10 @@ const InformationNeeds = ({
     phone: '',
   });
 
+  const [valueHashtag, setValueHashtag] = useState([]);
+  const [sttTime, setSttTime] = useState(0);
+  const [progressStart, setProgressStart] = useState(0);
+  const [progressEnd, setProgressEnd] = useState(0);
   useEffect(() => {
     getDetailCustomer(customerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,6 +109,7 @@ const InformationNeeds = ({
   useEffect(() => {
     getListParent();
     getListAreas();
+    getDataFooter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -108,10 +123,9 @@ const InformationNeeds = ({
       getDetailCustomer(customerId);
       setIsUpdate(false);
     }
+
     if (type === 'REGISTER_CONSTRUCTION_CUSTOMER_SUCCESS') {
       getListConstructionCustomer(customerId);
-    }
-    if (type === 'REGISTER_CONSTRUCTION_CUSTOMER_SUCCESS') {
       setDataAddProject({
         category: '',
         partner_id: null,
@@ -123,12 +137,25 @@ const InformationNeeds = ({
         project: null,
       });
     }
+    setValueHashtag([]);
+    setSttTime(0);
+    setProgressStart(0);
+    setProgressEnd(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
-  const [sttTime, setSttTime] = useState(0);
-  const [progressStart, setProgressStart] = useState(0);
-  const [progressEnd, setProgressEnd] = useState(0);
+
   const handleChange = (value, name) => {
+    let names = [];
+    if (name === 'hashtag') {
+      names =
+        (value &&
+          value.length &&
+          value.map((item) => {
+            return item.label;
+          })) ||
+        [];
+      setValueHashtag(names);
+    }
     setDataAddProject({
       ...dataAddProject,
       [name]: value,
@@ -155,8 +182,29 @@ const InformationNeeds = ({
       paid: dataAddProject.prices,
       amount: dataAddProject.price,
       note: dataAddProject.note,
+      hashtag: valueHashtag && valueHashtag.toString(),
+      // TODO AND HASHTAG
     };
-    registerConstructionCustomer(data);
+    if (
+      dataAddProject?.project?.id &&
+      dataAddProject.description &&
+      sttTime &&
+      dataAddProject?.time?.value &&
+      progressStart &&
+      progressEnd &&
+      dataAddProject.prices &&
+      dataAddProject.price &&
+      dataAddProject.note &&
+      valueHashtag?.length > 0
+    ) {
+      registerConstructionCustomer(data);
+    } else {
+      setIsShowError({
+        ...isShowError,
+        isShow: true,
+        content: 'Vui lòng điền đầy đủ thông tin.',
+      });
+    }
   };
 
   const handleChangeUpdate = (value, name) => {
@@ -184,6 +232,17 @@ const InformationNeeds = ({
       area_id: dataSubmit?.area?.id,
     });
   };
+
+  const defaultOption =
+    valueHashtag && valueHashtag.length > 0
+      ? valueHashtag.map((item, index) => {
+          return {
+            id: index + 1,
+            value: item,
+            label: item,
+          };
+        })
+      : null;
 
   return (
     <MainLayout activeMenu={4}>
@@ -323,8 +382,8 @@ const InformationNeeds = ({
                 <p>GHI CHÚ</p>
               </div>
               <div className="custom-body table-body-progress">
-                <div className="custom-body__item">
-                  <SelectDropdown
+                <div className="custom-body__item hashtag">
+                  {/* <SelectDropdown
                     placeholder="Nhập tên hạng mục"
                     listItem={dataParent && Immutable.asMutable(dataParent)}
                     onChange={(e) => {
@@ -332,14 +391,16 @@ const InformationNeeds = ({
                     }}
                     option={dataAddProject.partner_id}
                     customClass="select-category"
-                  />
-                  {/* <textarea
-                    onChange={(e) => {
-                      handleChange(e.target.value, 'category');
-                    }}
-                    value={dataAddProject.category}
-                    placeholder="Nhập tên hạng mục"
                   /> */}
+                  <SelectDropdown
+                    placeholder="Chọn hashtag"
+                    listItem={listHashtag && Immutable.asMutable(listHashtag)}
+                    onChange={(e) => {
+                      handleChange(e, 'hashtag');
+                    }}
+                    isMulti
+                    option={defaultOption}
+                  />
                   <textarea
                     onChange={(e) => {
                       handleChange(e.target.value, 'category');
@@ -516,6 +577,20 @@ const InformationNeeds = ({
           </Row>
         </Container>
       )}
+
+      <ModalPopup
+        isOpen={isShowError.isShow}
+        isShowFooter
+        handleClose={() => {
+          setIsShowError({ ...isShowError, isShow: false });
+        }}
+        handleSubmit={() => {
+          setIsShowError({ ...isShowError, isShow: false });
+        }}
+        textBtnRight="ĐÓNG"
+      >
+        {isShowError.content}
+      </ModalPopup>
     </MainLayout>
   );
 };

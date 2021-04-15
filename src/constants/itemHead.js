@@ -65,18 +65,22 @@ export const headCustomerInfo = [
   },
   {
     id: 1,
-    name: 'Mô tả kỹ thuật',
+    name: 'Hashtag',
   },
   {
     id: 2,
-    name: 'Số lượng',
+    name: 'Mô tả kỹ thuật',
   },
   {
     id: 3,
-    name: 'ĐVT',
+    name: 'Số lượng',
   },
   {
     id: 4,
+    name: 'ĐVT',
+  },
+  {
+    id: 54,
     name: 'Ghi chú',
   },
 ];

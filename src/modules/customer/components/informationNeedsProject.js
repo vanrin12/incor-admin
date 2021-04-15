@@ -8,7 +8,6 @@ import SelectDropdown from 'commons/components/Select';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Table from 'commons/components/Table';
-// import images from 'themes/images';
 import Input from 'commons/components/Input';
 import Loading from 'commons/components/Loading';
 import { headCustomerInfo } from 'constants/itemHead';
@@ -41,7 +40,7 @@ type Props = {
   tableDetailProject: Array<{
     id: number,
   }>,
-  updateCustomer: Function,
+  updateProject: Function,
   type: string,
   listHashtag: Array<{}>,
   getDataFooter: Function,
@@ -62,7 +61,7 @@ const InformationNeedsProject = ({
   isProcessing,
   registerProjectItem,
   tableDetailProject,
-  updateCustomer,
+  updateProject,
   type,
   listHashtag,
   getDataFooter,
@@ -92,8 +91,8 @@ const InformationNeedsProject = ({
     description: '',
     dvt: '',
     note: '',
-    hashtag: null,
   });
+  const [valueHashtag, setValueHashtag] = useState([]);
 
   useEffect(() => {
     switch (type) {
@@ -107,8 +106,8 @@ const InformationNeedsProject = ({
           description: '',
           dvt: '',
           note: '',
-          hashtag: null,
         });
+        setValueHashtag([]);
         break;
       case 'DELETE_PROJECT_ITEM_SUCCESS':
         getDetailProject(projectId);
@@ -121,8 +120,8 @@ const InformationNeedsProject = ({
           description: '',
           dvt: '',
           note: '',
-          hashtag: null,
         });
+        setValueHashtag([]);
         break;
       default:
         break;
@@ -174,6 +173,17 @@ const InformationNeedsProject = ({
   }, [dataSubmit && dataSubmit.spaceType && dataSubmit.spaceType.id]);
 
   const handleChange = (value, name) => {
+    let names = [];
+    if (name === 'hashtag') {
+      names =
+        (value &&
+          value.length &&
+          value.map((item) => {
+            return item.label;
+          })) ||
+        [];
+      setValueHashtag(names);
+    }
     setDataSubmit({
       ...dataSubmit,
       [name]: value,
@@ -200,7 +210,7 @@ const InformationNeedsProject = ({
     //   phone: dataSubmit?.phone,
     //   // area_id: dataSubmit?.area?.id,
     // });
-    // updateCustomer(projectId, formData);
+    // updateProject(projectId, formData);
   };
 
   const onClickTableRow = (rowData) => {
@@ -224,6 +234,7 @@ const InformationNeedsProject = ({
       note: rowData?.note,
     });
     setTotal(rowData?.amount);
+    setValueHashtag(rowData?.hashTag ? rowData?.hashTag.split(',') : []);
   };
 
   const handleRegisterProjectItem = () => {
@@ -234,7 +245,7 @@ const InformationNeedsProject = ({
       amount: total,
       unit: dataAddCategories?.dvt,
       note: dataAddCategories?.note,
-      // TODO ADD HASHTAG
+      hashtag: valueHashtag && valueHashtag.toString(),
     });
   };
 
@@ -246,7 +257,7 @@ const InformationNeedsProject = ({
       amount: total,
       unit: dataAddCategories?.dvt,
       note: dataAddCategories?.note,
-      // TODO ADD HASHTAG
+      hashtag: valueHashtag && valueHashtag.toString(),
     });
   };
 
@@ -270,6 +281,17 @@ const InformationNeedsProject = ({
     });
     // eslint-disable-next-line
   }, [dataDetailProject, projectId, listSpaceType, listDivision]);
+
+  const defaultOption =
+    valueHashtag && valueHashtag.length > 0
+      ? valueHashtag.map((item, index) => {
+          return {
+            id: index + 1,
+            value: item,
+            label: item,
+          };
+        })
+      : null;
 
   return (
     <MainLayout activeMenu={4}>
@@ -404,7 +426,7 @@ const InformationNeedsProject = ({
                       handleChange(e, 'hashtag');
                     }}
                     isMulti
-                    option={dataAddCategories.hashtag}
+                    option={defaultOption}
                   />
                 </div>
                 <div className="custom-body__item customer">
@@ -418,24 +440,6 @@ const InformationNeedsProject = ({
                   />
                 </div>
                 <div className="custom-body__item action customer">
-                  {/* <img
-                    src={images.iconBack}
-                    alt=""
-                    className="action-increase"
-                    onClick={() => projectId !== '' && setTotal(total + 1)}
-                    role="presentation"
-                  />
-                  <p>{total}</p>
-                  <img
-                    src={images.iconBack}
-                    alt=""
-                    className="action__reduction"
-                    onClick={() =>
-                      total !== 0 && projectId !== '' && setTotal(total - 1)
-                    }
-                    role="presentation"
-                  /> */}
-
                   <textarea
                     type="text"
                     onChange={(e) => {
@@ -477,16 +481,21 @@ const InformationNeedsProject = ({
                     : handleRegisterProjectItem
                 }
                 isDisabled={
-                  dataAddCategories.nameCategories.length === 0 ||
-                  dataAddCategories.description.length === 0 ||
+                  dataAddCategories?.nameCategories?.length === 0 ||
+                  dataAddCategories?.description?.length === 0 ||
                   !total ||
-                  dataAddCategories.dvt.length === 0
+                  dataAddCategories?.dvt?.length === 0 ||
+                  valueHashtag?.length === 0
                 }
               >
                 <p>{`${rowActive?.id ? 'Chỉnh sửa' : 'Thêm mới'}`}</p>
               </Button>
             </Col>
-            <Col xs={12} md={12} className="table-page table-partner">
+            <Col
+              xs={12}
+              md={12}
+              className="table-page table-partner table-project-item"
+            >
               <Table
                 tableHeads={headCustomerInfo}
                 tableBody={tableDetailProject}

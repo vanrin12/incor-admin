@@ -49,6 +49,10 @@ export const { Types, Creators } = createActions({
   updateProjectItemSuccess: null,
   updateProjectItemFailed: null,
 
+  updateProject: ['id', 'data'],
+  updateProjectSuccess: null,
+  updateProjectFailed: null,
+
   deleteProjectItem: ['id'],
   deleteProjectItemSuccess: null,
   deleteProjectItemFailed: null,
@@ -274,6 +278,7 @@ const getDetailProjectSuccess = (state, action) => {
         return {
           id: item.id,
           name: item.name,
+          hashTag: item.hashtag || '',
           description: item.description,
           amount: item.amount,
           unit: item.unit,
@@ -467,6 +472,26 @@ const resetData = (state) => {
   });
 };
 
+const updateProject = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const updateProjectSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updateProjectFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_LIST_CUSTOMER]: getListCustomer,
@@ -528,6 +553,10 @@ const HANDLERS = {
   [Types.DELETE_PROJECT_ITEM]: deleteProjectItem,
   [Types.DELETE_PROJECT_ITEM_SUCCESS]: deleteProjectItemSuccess,
   [Types.DELETE_PROJECT_ITEM_FAILED]: deleteProjectItemFailed,
+
+  [Types.UPDATE_PROJECT]: updateProject,
+  [Types.UPDATE_PROJECT_SUCCESS]: updateProjectSuccess,
+  [Types.UPDATE_PROJECT_FAILED]: updateProjectFailed,
 
   [Types.RESET_DATA]: resetData,
 };

@@ -297,7 +297,7 @@ const Customer = ({
     formData.append('career', valueHashtag && valueHashtag.toString());
     registerPartnerCompany(formData);
   };
-
+ console.log(valueHashtag,"valueHashtag")
   const handleAddPartnerProduct = (item) => {
     const formData = new window.FormData();
     formData.append(

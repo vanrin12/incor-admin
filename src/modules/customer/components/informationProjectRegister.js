@@ -67,11 +67,11 @@ const InformationNeeds = ({
     description: '',
     dvt: '',
     note: '',
-    hashtag: null,
   });
   const [total, setTotal] = useState('');
   const [objFile, setObjFile] = useState(null);
   const [nameImage, setNameImage] = useState('');
+  const [valueHashtag, setValueHashtag] = useState([]);
 
   useEffect(() => {
     if (
@@ -106,10 +106,10 @@ const InformationNeeds = ({
         area: null,
         space: null,
         typeSpace: null,
-        hashtag: null,
       });
       setObjFile(null);
       setNameImage('');
+      setValueHashtag([]);
     }
   }, [history, type]);
 
@@ -123,6 +123,18 @@ const InformationNeeds = ({
   }, [dataSubmit && dataSubmit.space && dataSubmit.space.id]);
 
   const handleChange = (value, name) => {
+    let names = [];
+    if (name === 'hashtag') {
+      names =
+        (value &&
+          value.length &&
+          value.map((item) => {
+            return item.label;
+          })) ||
+        [];
+      setValueHashtag(names);
+    }
+
     setDataSubmit({
       ...dataSubmit,
       [name]: value,
@@ -176,7 +188,7 @@ const InformationNeeds = ({
         amount: total,
         unit: dataAddCategories?.dvt,
         note: dataAddCategories?.note,
-        // TODO ADD HASHTAG
+        hashtag: valueHashtag && valueHashtag.toString(),
       });
     } else {
       setIsShowError({
@@ -185,6 +197,16 @@ const InformationNeeds = ({
       });
     }
   };
+  const defaultOption =
+    valueHashtag && valueHashtag.length > 0
+      ? valueHashtag.map((item, index) => {
+          return {
+            id: index + 1,
+            value: item,
+            label: item,
+          };
+        })
+      : null;
 
   return (
     <MainLayout activeMenu={4}>
@@ -218,7 +240,7 @@ const InformationNeeds = ({
           <Col xs={12} md={3}>
             <SelectDropdown
               placeholder="Chọn tỉnh/thành phố"
-              listItem={dataAreas && Immutable.asMutable(dataAreas)}
+              listItem={dataAreas && Immutable.asMutable(dataAreas.slice(1))}
               onChange={(e) => {
                 handleChange(e, 'area');
               }}
@@ -311,7 +333,7 @@ const InformationNeeds = ({
                     handleChange(e, 'hashtag');
                   }}
                   isMulti
-                  option={dataAddCategories.hashtag}
+                  option={defaultOption}
                 />
               </div>
               <div className="custom-body__item customer">
@@ -358,10 +380,11 @@ const InformationNeeds = ({
               customClass="button--primary"
               onClick={handleRegisterProjectItem}
               isDisabled={
-                dataAddCategories.nameCategories.length === 0 ||
-                dataAddCategories.description.length === 0 ||
+                dataAddCategories?.nameCategories.length === 0 ||
+                dataAddCategories?.description.length === 0 ||
                 !total ||
-                dataAddCategories.dvt.length === 0
+                dataAddCategories?.dvt?.length === 0 ||
+                valueHashtag?.length === 0
               }
             >
               <p>THÊM MỚI</p>

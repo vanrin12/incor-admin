@@ -77,6 +77,8 @@ import changePasswordSaga from 'modules/authen/sagas/changePasswordSaga';
 import getListFormRequestSaga from 'modules/form/sagas/getListFormRequestSaga';
 import lockUserSaga from 'modules/accounts/sagas/lockUserSaga';
 
+import updateProjectSaga from 'modules/customer/sagas/updateProjectSaga';
+
 export default function* RootSagas() {
   yield all([
     getDataMainSaga(),
@@ -134,7 +136,7 @@ export default function* RootSagas() {
     createIntroduceSaga(),
     getValueHeaderSaga(),
     createFooterSaga(),
-
+    updateProjectSaga(),
     updateAboutUsSaga(),
     getAboutUsSaga(),
     getCustomerExperiencesSaga(),

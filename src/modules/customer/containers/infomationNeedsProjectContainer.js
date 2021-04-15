@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch) =>
       getDataFooter: CreatorsDisplay.getDataFooter,
       deleteProjectItem: Creators.deleteProjectItem,
       updateProjectItem: Creators.updateProjectItem,
-      updateCustomer: Creators.updateCustomer,
+      updateProject: Creators.updateProject,
     },
     dispatch
   );

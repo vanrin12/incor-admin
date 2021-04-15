@@ -375,6 +375,16 @@
   }
 
   &.table-body-progress {
+    .hashtag {
+      .customer-select {
+        margin-bottom: 10px;
+
+        .input__box {
+          border: pxToVW(1) solid $color-border-box;
+        }
+      }
+    }
+
     .custom-body__item {
       padding-left: pxToVW(10);
 
@@ -522,7 +532,7 @@
       tr {
         td {
           &:nth-of-type(3) {
-            width: pxToRem(320);
+            width: pxToRem(250);
             display: block;
           }
 
@@ -530,6 +540,20 @@
             display: block;
             width: 100%;
             word-break: break-all;
+          }
+        }
+      }
+    }
+  }
+}
+
+.table-project-item {
+  table {
+    tbody {
+      tr {
+        td {
+          &:nth-of-type(3) {
+            width: pxToRem(300);
           }
         }
       }

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import progressProjectComponent from '../components/progressProject';
 import { Creators as partnerReducer } from '../../partner/redux';
+import { Creators as CreatorsDisplay } from 'modules/display/redux';
 import { Creators } from '../redux';
 import { Creators as postReducer } from '../../post/redux';
 
@@ -16,6 +17,7 @@ const mapStateToProps = (state) => {
     listTableConstruction: state.customerReducer.listTableConstruction,
     totalConstruction: state.customerReducer.totalConstruction,
     dataParent: state.postReducer.dataParent,
+    listHashtag: state.displayReducer.listHashtag,
   };
 };
 
@@ -30,6 +32,7 @@ const mapDispatchToProps = (dispatch) =>
       getDetailCustomer: Creators.getDetailCustomer,
       getListAreas: partnerReducer.getListAreas,
       updateCustomer: Creators.updateCustomer,
+      getDataFooter: CreatorsDisplay.getDataFooter,
     },
     dispatch
   );
