@@ -278,7 +278,7 @@ const getDetailProjectSuccess = (state, action) => {
         return {
           id: item.id,
           name: item.name,
-          hashTag: item.hashtag || '',
+          hashtag: item.hashtag || '',
           description: item.description,
           amount: item.amount,
           unit: item.unit,

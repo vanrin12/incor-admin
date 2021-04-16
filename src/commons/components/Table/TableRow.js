@@ -52,6 +52,7 @@ const TableRow = ({
   downloadImage = false,
   isShowLock = false,
   isShowCustomerProject = false,
+  isShowHashtag = false,
 }: Props) => {
   // const isShowId = true;
   const [show, setShow] = useState(false);
@@ -100,11 +101,21 @@ const TableRow = ({
               <Rating numberStar={rowItem[item]} />
             ) : (
               <span>
-                {rowItem && rowItem[item]}
                 {isShowCustomerProject && index === 1 && (
                   <div className="customerProject">
                     {rowItem?.customerProject}
                   </div>
+                )}
+                {isShowHashtag && rowItem && item === 'hashtag' ? (
+                  <>
+                    {rowItem?.hashtag &&
+                      rowItem?.hashtag?.split(',')?.length > 0 &&
+                      rowItem?.hashtag?.split(',').map((item) => {
+                        return <span className="hashtag">#{item}</span>;
+                      })}
+                  </>
+                ) : (
+                  rowItem && rowItem[item]
                 )}
               </span>
             )}
@@ -217,5 +228,6 @@ TableRow.defaultProps = {
   downloadImage: false,
   isShowLock: false,
   isShowCustomerProject: false,
+  isShowHashtag: false,
 };
 export default memo<Props>(TableRow);

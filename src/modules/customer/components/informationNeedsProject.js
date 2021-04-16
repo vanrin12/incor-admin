@@ -234,7 +234,7 @@ const InformationNeedsProject = ({
       note: rowData?.note,
     });
     setTotal(rowData?.amount);
-    setValueHashtag(rowData?.hashTag ? rowData?.hashTag.split(',') : []);
+    setValueHashtag(rowData?.hashtag ? rowData?.hashtag.split(',') : []);
   };
 
   const handleRegisterProjectItem = () => {
@@ -505,6 +505,7 @@ const InformationNeedsProject = ({
                 rowActive={rowActive}
                 handleDelete={handleDelete}
                 handleUpdate={handleUpdateData}
+                isShowHashtag
               />
             </Col>
             <Col sm={12} className="wrapper-pagination">

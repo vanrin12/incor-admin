@@ -31,7 +31,7 @@ const ItemProgressProject = ({ dataObj, indexProject }: Props) => {
             (table) =>
               ({
                 id: table.id,
-                categories: table.category,
+                hashtag: table.category,
                 customerProject: table.name,
                 description: table.description,
                 total:
@@ -47,6 +47,7 @@ const ItemProgressProject = ({ dataObj, indexProject }: Props) => {
           isShowId
           isShowColumnBtn
           isShowCustomerProject
+          isShowHashtag
           nameBtn2="Xem"
           // handleClickBtnView={handleViewInformation}
         />
