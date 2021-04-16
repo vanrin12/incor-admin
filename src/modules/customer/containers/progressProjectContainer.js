@@ -13,11 +13,11 @@ const mapStateToProps = (state) => {
     listProject: state.customerReducer.listProject,
     dataDetailCustomer: state.customerReducer.dataDetailCustomer,
     dataAreas: state.partnerReducer.dataAreas,
-    listConstructionCustomer: state.customerReducer.listConstructionCustomer,
-    listTableConstruction: state.customerReducer.listTableConstruction,
     totalConstruction: state.customerReducer.totalConstruction,
     dataParent: state.postReducer.dataParent,
     listHashtag: state.displayReducer.listHashtag,
+    listTableConstructionProject:
+      state.customerReducer.listTableConstructionProject,
   };
 };
 

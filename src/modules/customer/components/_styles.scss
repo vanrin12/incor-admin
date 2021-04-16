@@ -532,6 +532,16 @@
       tr {
         td {
           &:nth-of-type(3) {
+            display: none !important;
+          }
+
+          .customerProject {
+            font-weight: bold;
+            margin-top: 5px;
+            color: $bg-main;
+          }
+
+          &:nth-of-type(4) {
             width: pxToRem(250);
             display: block;
           }
@@ -539,7 +549,7 @@
           span {
             display: block;
             width: 100%;
-            word-break: break-all;
+            word-break: break-word;
           }
         }
       }
