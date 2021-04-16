@@ -28,6 +28,7 @@ type Props = {
   isShowTooltip?: boolean,
   downloadImage?: boolean,
   isShowLock?: boolean,
+  isShowCustomerProject?: boolean,
 };
 
 const TableData = ({
@@ -54,6 +55,7 @@ const TableData = ({
   isShowTooltip = false,
   downloadImage = false,
   isShowLock = false,
+  isShowCustomerProject = false,
 }: Props) => {
   const renderBodyTable = () => {
     return (
@@ -83,6 +85,7 @@ const TableData = ({
           isShowTooltip={isShowTooltip}
           downloadImage={downloadImage}
           isShowLock={isShowLock}
+          isShowCustomerProject={isShowCustomerProject}
         />
       ))
     );
@@ -131,5 +134,6 @@ TableData.defaultProps = {
   isShowTooltip: false,
   downloadImage: false,
   isShowLock: false,
+  isShowCustomerProject: false,
 };
 export default memo<Props>(TableData);

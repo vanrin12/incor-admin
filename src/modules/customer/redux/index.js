@@ -368,31 +368,16 @@ const getListConstructionCustomer = (state, action) => {
   return state.merge({
     isProcessing: true,
     type: action.type,
+    totalConstruction: 0,
   });
 };
 
 const getListConstructionCustomerSuccess = (state, action) => {
-  const listTableConstruction =
-    action.data &&
-    action.data[0] &&
-    action.data[0].item &&
-    action.data[0].item.data.map((item) => ({
-      id: item.id,
-      categories: item.category,
-      description: item.description,
-      total: item.amount,
-      time: `${item.estimate} ${item.unit}`,
-      progress: `${item.progress_begin} / ${item.progress_end}`,
-      price: item.paid,
-      prices: item.amount - item.paid,
-      note: item.note,
-    }));
   return state.merge({
     isProcessing: false,
     type: action.type,
-    listConstructionCustomer: action.data && action.data[0],
-    listTableConstruction,
-    totalConstruction: action?.data[0]?.item?.total,
+    listTableConstructionProject: action.data,
+    totalConstruction: 0, // TODO UPDATE
   });
 };
 
@@ -400,6 +385,8 @@ const getListConstructionCustomerFailed = (state, action) => {
   return state.merge({
     isProcessing: false,
     type: action.type,
+    totalConstruction: 0,
+    listTableConstructionProject: [],
   });
 };
 

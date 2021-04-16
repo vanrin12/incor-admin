@@ -9,11 +9,11 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import images from 'themes/images';
 import Input from 'commons/components/Input';
-import Table from 'commons/components/Table';
 import Loading from 'commons/components/Loading';
-import { headProgress } from 'constants/itemHead';
 import { timeProject } from '../../../mockData/dataSelect';
 import { ModalPopup } from 'commons/components/Modal';
+
+import ItemProgressProject from './ItemProgressProject';
 
 type Props = {
   getDetailCustomer: Function,
@@ -28,20 +28,16 @@ type Props = {
       id: string,
     },
   },
-  listConstructionCustomer: Object,
   registerConstructionCustomer: Function,
-  listTableConstruction: Array<{
-    id: number,
-  }>,
   totalConstruction: number,
   getListParent: Function,
-  dataParent: Array<{}>,
   type: string,
   isProcessing: boolean,
   getListAreas: Function,
   updateCustomer: Function,
   listHashtag: Array<{}>,
   getDataFooter: Function,
+  listTableConstructionProject: Array<{}>,
 };
 const InformationNeeds = ({
   getDetailCustomer,
@@ -49,22 +45,20 @@ const InformationNeeds = ({
   dataAreas,
   getListConstructionCustomer,
   match,
-  listConstructionCustomer,
   registerConstructionCustomer,
-  listTableConstruction,
   totalConstruction,
   getListParent,
-  dataParent,
   type,
   isProcessing,
   getListAreas,
   updateCustomer,
   listHashtag,
   getDataFooter,
+  listTableConstructionProject,
 }: Props) => {
   const customerId = match.params && match.params.id;
   const [dataAddProject, setDataAddProject] = useState({
-    category: '',
+    name: '',
     partner_id: null,
     description: '',
     time: null,
@@ -127,7 +121,7 @@ const InformationNeeds = ({
     if (type === 'REGISTER_CONSTRUCTION_CUSTOMER_SUCCESS') {
       getListConstructionCustomer(customerId);
       setDataAddProject({
-        category: '',
+        name: '',
         partner_id: null,
         description: '',
         time: null,
@@ -172,8 +166,8 @@ const InformationNeeds = ({
     const data = {
       project_id: dataAddProject?.project?.id,
       partner_id: dataAddProject?.partner_id?.id,
-      category: dataAddProject.category,
       description: dataAddProject.description,
+      name: dataAddProject?.name,
       estimate: sttTime,
       construction_time: dataAddProject?.time?.value,
       unit: dataAddProject?.time?.value,
@@ -182,8 +176,7 @@ const InformationNeeds = ({
       paid: dataAddProject.prices,
       amount: dataAddProject.price,
       note: dataAddProject.note,
-      hashtag: valueHashtag && valueHashtag.toString(),
-      // TODO AND HASHTAG
+      category: valueHashtag && valueHashtag.toString(),
     };
     if (
       dataAddProject?.project?.id &&
@@ -243,6 +236,17 @@ const InformationNeeds = ({
           };
         })
       : null;
+
+  const renderListTableConstructionProject =
+    listTableConstructionProject &&
+    listTableConstructionProject.length > 0 &&
+    listTableConstructionProject.map((item, index) => (
+      <ItemProgressProject
+        key={item.id}
+        dataObj={item}
+        indexProject={index + 1}
+      />
+    ));
 
   return (
     <MainLayout activeMenu={4}>
@@ -383,15 +387,6 @@ const InformationNeeds = ({
               </div>
               <div className="custom-body table-body-progress">
                 <div className="custom-body__item hashtag">
-                  {/* <SelectDropdown
-                    placeholder="Nhập tên hạng mục"
-                    listItem={dataParent && Immutable.asMutable(dataParent)}
-                    onChange={(e) => {
-                      handleChange(e, 'partner_id');
-                    }}
-                    option={dataAddProject.partner_id}
-                    customClass="select-category"
-                  /> */}
                   <SelectDropdown
                     placeholder="Chọn hashtag"
                     listItem={listHashtag && Immutable.asMutable(listHashtag)}
@@ -403,9 +398,9 @@ const InformationNeeds = ({
                   />
                   <textarea
                     onChange={(e) => {
-                      handleChange(e.target.value, 'category');
+                      handleChange(e.target.value, 'name');
                     }}
-                    value={dataAddProject.category}
+                    value={dataAddProject.name}
                     placeholder="Nhập tên đơn vị"
                   />
                 </div>
@@ -526,33 +521,10 @@ const InformationNeeds = ({
                 <p>THÊM MỚI</p>
               </Button>
             </Col>
-            <Col xs={12} md={12} className="title-project">
-              Dự án 1
-            </Col>
-            <Col xs={12} md={4}>
-              <p className="page-progress__title-info">Tên dự án/ chủ đầu tư</p>
-              <h2 className="page-progress__content-info">
-                {listConstructionCustomer?.name}
-              </h2>
-            </Col>
-            <Col xs={12} md={7}>
-              <p className="page-progress__title-info">Địa chỉ công trình</p>
-              <h2 className="page-progress__content-info">
-                {listConstructionCustomer?.address}
-              </h2>
-            </Col>
-            <Col xs={12} md={12} className="pt-3 table-progress-project">
-              <Table
-                tableHeads={headProgress}
-                tableBody={listTableConstruction}
-                showLabel
-                isShowId
-                isShowColumnBtn
-                nameBtn2="Xem"
-                // handleClickBtnView={handleViewInformation}
-              />
-            </Col>
-            <Col sm={12} className="wrapper-pagination">
+            {renderListTableConstructionProject}
+
+            <Col sm={12} className="wrapper-pagination d-none">
+              {/* TODO UPDATE */}
               <ReactPaginate
                 previousLabel="Previous"
                 nextLabel="Next"

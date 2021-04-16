@@ -26,6 +26,7 @@ type Props = {
   isShowTooltip?: boolean,
   downloadImage?: boolean,
   isShowLock?: boolean,
+  isShowCustomerProject?: boolean,
 };
 
 const TableRow = ({
@@ -50,6 +51,7 @@ const TableRow = ({
   isShowTooltip = false,
   downloadImage = false,
   isShowLock = false,
+  isShowCustomerProject = false,
 }: Props) => {
   // const isShowId = true;
   const [show, setShow] = useState(false);
@@ -97,7 +99,14 @@ const TableRow = ({
             {isShowRating && index === 5 ? (
               <Rating numberStar={rowItem[item]} />
             ) : (
-              <span>{rowItem && rowItem[item]}</span>
+              <span>
+                {rowItem && rowItem[item]}
+                {isShowCustomerProject && index === 1 && (
+                  <div className="customerProject">
+                    {rowItem?.customerProject}
+                  </div>
+                )}
+              </span>
             )}
           </td>
         );
@@ -207,5 +216,6 @@ TableRow.defaultProps = {
   isShowTooltip: false,
   downloadImage: false,
   isShowLock: false,
+  isShowCustomerProject: false,
 };
 export default memo<Props>(TableRow);
