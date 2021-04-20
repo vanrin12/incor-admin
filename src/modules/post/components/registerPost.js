@@ -172,6 +172,7 @@ const RegisterPost = ({
               data=""
               onChange={(event, editor) => {
                 const data = editor.getData();
+                console.log('data', data);
                 setContent(data);
               }}
               onReady={(editor) => {
