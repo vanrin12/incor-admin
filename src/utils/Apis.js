@@ -83,6 +83,7 @@ export const ROUTES = {
   API_LOCK_USER: `/api/v1/admin/users/locks`,
   API_GET_FORM_REQUEST: `/api/v1/admin/form-requests`,
   UPLOAD_IMAGE: `api/v1/admin/s3-upload`,
+  API_GET_NAME_PARTNER: (id) => `api/v1/admin/users/name/${id}`,
 };
 
 export const API = create({

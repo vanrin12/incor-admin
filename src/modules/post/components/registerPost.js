@@ -13,7 +13,7 @@ import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Modal from 'commons/components/Modal';
 import ROUTERS from 'constants/router';
-import { uploadAdapterPlugin } from 'utils/UploadAdapter';
+import { uploadAdapterPlugin } from '../../../utils/UploadAdapter';
 
 type Props = {
   registerPost: Function,

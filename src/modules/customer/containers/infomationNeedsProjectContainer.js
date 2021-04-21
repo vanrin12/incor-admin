@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import informationNeedsProjectComponent from '../components/informationNeedsProject';
-import { Creators as CreatorsDisplay } from 'modules/display/redux';
 import { Creators } from '../redux';
+import { Creators as CreatorsDisplay } from '../../display/redux';
 import { Creators as partnerReducer } from '../../partner/redux';
 
 const mapStateToProps = (state) => {

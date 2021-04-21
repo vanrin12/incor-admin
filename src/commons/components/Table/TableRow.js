@@ -27,6 +27,7 @@ type Props = {
   downloadImage?: boolean,
   isShowLock?: boolean,
   isShowCustomerProject?: boolean,
+  isShowHashtag?: boolean,
 };
 
 const TableRow = ({
@@ -108,10 +109,11 @@ const TableRow = ({
                 )}
                 {isShowHashtag && rowItem && item === 'hashtag' ? (
                   <>
-                    {rowItem?.hashtag &&
-                      rowItem?.hashtag?.split(',')?.length > 0 &&
-                      rowItem?.hashtag?.split(',').map((item) => {
-                        return <span className="hashtag">#{item}</span>;
+                    {rowItem &&
+                      rowItem.hashtag &&
+                      rowItem.hashtag.split(',')?.length > 0 &&
+                      rowItem.hashtag.split(',').map((items) => {
+                        return <span className="hashtag">#{items}</span>;
                       })}
                   </>
                 ) : (
@@ -143,7 +145,6 @@ const TableRow = ({
               target="_blank"
               rel="noopener noreferrer"
               type="secondary"
-              role="presentation"
             >
               <p>{nameBtn2}</p>
             </a>
