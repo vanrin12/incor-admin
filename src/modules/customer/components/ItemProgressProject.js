@@ -27,22 +27,27 @@ const ItemProgressProject = ({ dataObj, indexProject }: Props) => {
       <Col xs={12} md={12} className="pt-3 table-progress-project">
         <Table
           tableHeads={headProgress}
-          tableBody={dataObj?.item?.map(
-            (table) =>
-              ({
-                id: table.id,
-                hashtag: table.category,
-                customerProject: table.name,
-                description: table.description,
-                total:
-                  (table.amount && table.amount.toLocaleString('en')) || '0',
-                time: `${table.estimate} ${table.unit}`,
-                progress: `${table.progress_begin} / ${table.progress_end}`,
-                price: (table.paid && table.paid).toLocaleString('en') || '0',
-                prices: (table.amount - table.paid).toLocaleString('en') || '0',
-                note: table.note,
-              } || [])
-          )}
+          tableBody={
+            dataObj &&
+            dataObj.item &&
+            dataObj.item.map(
+              (table) =>
+                ({
+                  id: table.id,
+                  hashtag: table.category,
+                  customerProject: table.name,
+                  description: table.description,
+                  total:
+                    (table.amount && table.amount.toLocaleString('en')) || '0',
+                  time: `${table.estimate} ${table.unit}`,
+                  progress: `${table.progress_begin} / ${table.progress_end}`,
+                  price: (table.paid && table.paid).toLocaleString('en') || '0',
+                  prices:
+                    (table.amount - table.paid).toLocaleString('en') || '0',
+                  note: table.note,
+                } || [])
+            )
+          }
           showLabel
           isShowId
           isShowColumnBtn

@@ -40,7 +40,7 @@ type Props = {
   tableDetailProject: Array<{
     id: number,
   }>,
-  updateProject: Function,
+  // updateProject: Function,
   type: string,
   listHashtag: Array<{}>,
   getDataFooter: Function,
@@ -61,7 +61,7 @@ const InformationNeedsProject = ({
   isProcessing,
   registerProjectItem,
   tableDetailProject,
-  updateProject,
+  // updateProject,
   type,
   listHashtag,
   getDataFooter,
@@ -234,7 +234,11 @@ const InformationNeedsProject = ({
       note: rowData?.note,
     });
     setTotal(rowData?.amount);
-    setValueHashtag(rowData?.hashtag ? rowData?.hashtag.split(',') : []);
+    setValueHashtag(
+      rowData?.hashtag
+        ? rowData && rowData.hashtag && rowData.hashtag.split(',')
+        : []
+    );
   };
 
   const handleRegisterProjectItem = () => {

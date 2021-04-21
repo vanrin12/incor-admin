@@ -10,8 +10,8 @@ import Button from 'commons/components/Button';
 import images from 'themes/images';
 import Input from 'commons/components/Input';
 import Loading from 'commons/components/Loading';
-import { timeProject } from '../../../mockData/dataSelect';
 import { ModalPopup } from 'commons/components/Modal';
+import { timeProject } from '../../../mockData/dataSelect';
 
 import ItemProgressProject from './ItemProgressProject';
 
@@ -37,7 +37,14 @@ type Props = {
   updateCustomer: Function,
   listHashtag: Array<{}>,
   getDataFooter: Function,
-  listTableConstructionProject: Array<{}>,
+  listTableConstructionProject: Array<{
+    id: number,
+  }>,
+  getNamePartner: Function,
+  listNamePartner: Array<{
+    id: Number,
+    value: string,
+  }>,
 };
 const InformationNeeds = ({
   getDetailCustomer,
@@ -55,10 +62,12 @@ const InformationNeeds = ({
   listHashtag,
   getDataFooter,
   listTableConstructionProject,
+  getNamePartner,
+  listNamePartner,
 }: Props) => {
   const customerId = match.params && match.params.id;
   const [dataAddProject, setDataAddProject] = useState({
-    name: '',
+    name: null,
     partner_id: null,
     description: '',
     time: null,
@@ -84,12 +93,21 @@ const InformationNeeds = ({
     address: '',
     area: null,
     phone: '',
+    email: '',
+    nameCustomer: '',
   });
 
   const [valueHashtag, setValueHashtag] = useState([]);
   const [sttTime, setSttTime] = useState(0);
   const [progressStart, setProgressStart] = useState(0);
   const [progressEnd, setProgressEnd] = useState(0);
+
+  // get list name partner
+  useEffect(() => {
+    getNamePartner(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     getDetailCustomer(customerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,7 +139,7 @@ const InformationNeeds = ({
     if (type === 'REGISTER_CONSTRUCTION_CUSTOMER_SUCCESS') {
       getListConstructionCustomer(customerId);
       setDataAddProject({
-        name: '',
+        name: null,
         partner_id: null,
         description: '',
         time: null,
@@ -167,7 +185,7 @@ const InformationNeeds = ({
       project_id: dataAddProject?.project?.id,
       partner_id: dataAddProject?.partner_id?.id,
       description: dataAddProject.description,
-      name: dataAddProject?.name,
+      name: dataAddProject?.name?.value,
       estimate: sttTime,
       construction_time: dataAddProject?.time?.value,
       unit: dataAddProject?.time?.value,
@@ -396,12 +414,15 @@ const InformationNeeds = ({
                     isMulti
                     option={defaultOption}
                   />
-                  <textarea
+                  <SelectDropdown
+                    placeholder="Tên đơn vị"
+                    listItem={
+                      listNamePartner && Immutable.asMutable(listNamePartner)
+                    }
                     onChange={(e) => {
-                      handleChange(e.target.value, 'name');
+                      handleChange(e, 'name');
                     }}
-                    value={dataAddProject.name}
-                    placeholder="Nhập tên đơn vị"
+                    option={dataAddProject?.name}
                   />
                 </div>
                 <div className="custom-body__item">

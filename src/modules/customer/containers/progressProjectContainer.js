@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import progressProjectComponent from '../components/progressProject';
 import { Creators as partnerReducer } from '../../partner/redux';
-import { Creators as CreatorsDisplay } from 'modules/display/redux';
+import { Creators as CreatorsDisplay } from '../../display/redux';
 import { Creators } from '../redux';
 import { Creators as postReducer } from '../../post/redux';
 
@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
     listHashtag: state.displayReducer.listHashtag,
     listTableConstructionProject:
       state.customerReducer.listTableConstructionProject,
+    listNamePartner: state.customerReducer.listNamePartner,
   };
 };
 
@@ -33,6 +34,7 @@ const mapDispatchToProps = (dispatch) =>
       getListAreas: partnerReducer.getListAreas,
       updateCustomer: Creators.updateCustomer,
       getDataFooter: CreatorsDisplay.getDataFooter,
+      getNamePartner: Creators.getNamePartner,
     },
     dispatch
   );

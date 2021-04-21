@@ -78,6 +78,7 @@ import getListFormRequestSaga from 'modules/form/sagas/getListFormRequestSaga';
 import lockUserSaga from 'modules/accounts/sagas/lockUserSaga';
 
 import updateProjectSaga from 'modules/customer/sagas/updateProjectSaga';
+import getNamePartnerSaga from 'modules/customer/sagas/getNamePartnerSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -153,5 +154,6 @@ export default function* RootSagas() {
     changePasswordSaga(),
     getListFormRequestSaga(),
     lockUserSaga(),
+    getNamePartnerSaga(),
   ]);
 }

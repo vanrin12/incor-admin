@@ -56,6 +56,10 @@ export const { Types, Creators } = createActions({
   deleteProjectItem: ['id'],
   deleteProjectItemSuccess: null,
   deleteProjectItemFailed: null,
+
+  getNamePartner: ['id'],
+  getNamePartnerSuccess: null,
+  getNamePartnerFailed: null,
 });
 
 // Initial state
@@ -74,6 +78,7 @@ export const INITIAL_STATE = Immutable({
   totalConstruction: 0,
   projectId: '',
   tableDetailProject: [],
+  listNamePartner: [],
 });
 
 const getListCustomer = (state, action) => {
@@ -479,6 +484,31 @@ const updateProjectFailed = (state, action) => {
     type: action.type,
   });
 };
+
+const getNamePartner = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const getNamePartnerSuccess = (state, action) => {
+  const listNamePartner = action.data.data.map((item) => {
+    return { id: item.key, value: item.value, label: item.value };
+  });
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    listNamePartner,
+  });
+};
+
+const getNamePartnerFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_LIST_CUSTOMER]: getListCustomer,
@@ -544,6 +574,10 @@ const HANDLERS = {
   [Types.UPDATE_PROJECT]: updateProject,
   [Types.UPDATE_PROJECT_SUCCESS]: updateProjectSuccess,
   [Types.UPDATE_PROJECT_FAILED]: updateProjectFailed,
+
+  [Types.GET_NAME_PARTNER]: getNamePartner,
+  [Types.GET_NAME_PARTNER_SUCCESS]: getNamePartnerSuccess,
+  [Types.GET_NAME_PARTNER_FAILED]: getNamePartnerFailed,
 
   [Types.RESET_DATA]: resetData,
 };
