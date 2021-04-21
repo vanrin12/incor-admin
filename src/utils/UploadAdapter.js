@@ -12,7 +12,7 @@ export class UploadAdapter {
   async upload() {
     return this.loader.file.then((file) => {
       const data = new FormData();
-      data.append('file', file);
+      data.append('upload', file);
       const genericError = `Couldn't upload file: ${file.name}.`;
 
       return axios({
@@ -23,7 +23,9 @@ export class UploadAdapter {
           'Content-Type': 'multipart/form-data',
         },
       })
-        .then(({ data }) => ({ default: data.url }))
+        .then(({ data }) => {
+          return { default: data.data.url };
+        })
         .catch(({ error }) => Promise.reject(error?.message ?? genericError));
     });
   }
@@ -35,7 +37,8 @@ export class UploadAdapter {
 
 // CKEditor FileRepository
 export function uploadAdapterPlugin(editor) {
-  console.log('editor', editor);
-  editor.plugins.get('FileRepository').createUploadAdapter = (loader) =>
-    new UploadAdapter(loader);
+  if (editor && editor.plugins) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) =>
+      new UploadAdapter(loader);
+  }
 }

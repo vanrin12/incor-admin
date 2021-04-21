@@ -14,6 +14,7 @@ import Loading from 'commons/components/Loading';
 import Input from 'commons/components/Input';
 import Modal from 'commons/components/Modal';
 import ROUTERS from 'constants/router';
+import { uploadAdapterPlugin } from 'utils/UploadAdapter';
 
 type Props = {
   updatePost: Function,
@@ -209,7 +210,14 @@ const DetailPost = ({
                 data={content}
                 onChange={(event, editor) => {
                   const data = editor.getData();
+                  console.log('data', data);
                   setContent(data);
+                }}
+                onReady={(editor) => {
+                  if (editor && editor.ui) {
+                    editor.ui.view.editable.element.style.height = '200px';
+                  }
+                  uploadAdapterPlugin(editor);
                 }}
               />
               <Input
