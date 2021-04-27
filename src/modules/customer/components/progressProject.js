@@ -104,7 +104,7 @@ const InformationNeeds = ({
 
   // get list name partner
   useEffect(() => {
-    getNamePartner(1);
+    getNamePartner(2);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

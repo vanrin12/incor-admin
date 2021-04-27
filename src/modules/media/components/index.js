@@ -323,6 +323,16 @@ const Medias = ({
         classNameBtnLeft="btn-left"
         customClass="popup-add-product media"
         isShowIconClose
+        handleCloseIcon={() => {
+          setIsShow(false);
+          setImageUpload({
+            ...imageUpload,
+            url: '',
+            name: '',
+            nameImage: '',
+            imageView: '',
+          });
+        }}
       >
         <div className="title-content">
           <div className="popup-add-product__left">

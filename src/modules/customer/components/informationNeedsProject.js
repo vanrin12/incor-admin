@@ -40,13 +40,12 @@ type Props = {
   tableDetailProject: Array<{
     id: number,
   }>,
-  // updateProject: Function,
+  updateProject: Function,
   type: string,
   listHashtag: Array<{}>,
   getDataFooter: Function,
   deleteProjectItem: Function,
   updateProjectItem: Function,
-  registerProject: Function,
 };
 const InformationNeedsProject = ({
   getDetailProject,
@@ -61,13 +60,12 @@ const InformationNeedsProject = ({
   isProcessing,
   registerProjectItem,
   tableDetailProject,
-  // updateProject,
+  updateProject,
   type,
   listHashtag,
   getDataFooter,
   deleteProjectItem,
   updateProjectItem,
-  registerProject,
 }: Props) => {
   const projectId = match.params.id;
   const inputFile = useRef({});
@@ -203,14 +201,7 @@ const InformationNeedsProject = ({
     formData.append('space_type_id', dataSubmit?.spaceType?.id);
     formData.append('space_division_id', dataSubmit?.divisionType?.id);
     formData.append('file', objFile);
-    registerProject(formData);
-    // updateCustomer(projectId, {
-    //   name: dataSubmit?.nameProject,
-    //   email: dataSubmit?.email,
-    //   phone: dataSubmit?.phone,
-    //   // area_id: dataSubmit?.area?.id,
-    // });
-    // updateProject(projectId, formData);
+    updateProject(projectId, formData);
   };
 
   const onClickTableRow = (rowData) => {

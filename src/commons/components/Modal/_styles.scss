@@ -48,8 +48,8 @@
 
   &__iconClose {
     position: absolute;
-    right: pxToVW(30);
-    top: pxToVW(20);
+    right: pxToVW(-15);
+    top: pxToVW(-15);
     width: pxToVW(33);
     height: pxToVW(33);
     color: $color-button-close;
@@ -97,7 +97,7 @@
       font-size: pxToVW(15);
       line-height: pxToVW(18);
       background: $color_primary;
-      border-radius: 0;
+      border-radius: pxToVW(6);
     }
   }
 }
