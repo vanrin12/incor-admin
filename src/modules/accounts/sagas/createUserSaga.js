@@ -10,6 +10,7 @@ function* createUser(action) {
           name: action?.payload?.name,
           password: 'abcd1234',
           role_name: action?.payload?.roleName,
+          full_name: action?.payload?.full_name,
         }),
         {
           headers: {

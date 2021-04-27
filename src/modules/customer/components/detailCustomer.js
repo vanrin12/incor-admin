@@ -8,6 +8,7 @@ import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Loading from 'commons/components/Loading';
+import { ModalPopup } from 'commons/components/Modal';
 import ROUTERS from 'constants/router';
 
 type Props = {
@@ -43,6 +44,8 @@ const InformationNeeds = ({
   type,
   deleteProject,
 }: Props) => {
+  const [isShowError, setIsShowError] = useState(false);
+  const [idClose, setIdClose] = useState('');
   const customerId = match.params.id;
   const areas = dataAreas.filter(
     (item) => item.id === dataDetailCustomer.area_id
@@ -104,7 +107,13 @@ const InformationNeeds = ({
           >
             Quản lý
           </h3>
-          <h4 onClick={() => handleDeleteProject(item.id)} role="presentation">
+          <h4
+            onClick={() => {
+              setIsShowError(true);
+              setIdClose(item.id);
+            }}
+            role="presentation"
+          >
             Kết thúc dự án
           </h4>
         </div>
@@ -243,6 +252,21 @@ const InformationNeeds = ({
               </Button>
             </Col>
           </Row>
+          <ModalPopup
+            isOpen={isShowError}
+            isShowFooter
+            handleClose={() => {
+              handleDeleteProject(idClose);
+              setIsShowError(false);
+            }}
+            isShowIconClose
+            handleCloseIcon={() => {
+              setIsShowError(false);
+            }}
+            textBtnRight="Kết thúc"
+          >
+            Bạn có muốn kết thúc dự án?
+          </ModalPopup>
         </Container>
       )}
     </MainLayout>

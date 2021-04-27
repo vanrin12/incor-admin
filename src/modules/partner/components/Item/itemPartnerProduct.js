@@ -132,6 +132,9 @@ const ItemPartnerProduct = ({
         classNameBtnLeft="btn-left"
         customClass="popup-add-product"
         isShowIconClose
+        handleCloseIcon={() => {
+          setIsShow(false);
+        }}
       >
         <div className="title-content">
           <div className="popup-add-product__left">
@@ -205,6 +208,10 @@ const ItemPartnerProduct = ({
         classNameBtnLeft="btn-left"
         customClass="popup-add-product"
         isShowIconClose
+        handleCloseIcon={() => {
+          setIsShowDetailProduct(false);
+          // resetType();
+        }}
       >
         <div className="title-content">
           <div className="popup-add-product__left">

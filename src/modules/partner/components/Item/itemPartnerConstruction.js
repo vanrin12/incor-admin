@@ -132,6 +132,8 @@ const ItemPartnerConstruction = ({
           setIsOpenAddConstruction(false);
           setIsShowAddConstruction(true);
         }}
+        isShowIconClose
+        handleCloseIcon={() => setIsOpenAddConstruction(false)}
         customClassButton="w-100"
         textBtnRight="THÊM"
         isShowHeader
@@ -145,6 +147,7 @@ const ItemPartnerConstruction = ({
               setConstruction(e.target.value);
             }}
             value={construction}
+            customClassWrap="w-100"
             placeholder="Nhập tên công trình"
           />
         </div>
@@ -158,6 +161,9 @@ const ItemPartnerConstruction = ({
         classNameBtnLeft="btn-left"
         customClass="popup-add-product"
         isShowIconClose
+        handleCloseIcon={() => {
+          setIsShowAddConstruction(false);
+        }}
       >
         <div className="title-content">
           <div className="popup-add-product__left">
@@ -231,6 +237,9 @@ const ItemPartnerConstruction = ({
         classNameBtnLeft="btn-left"
         customClass="popup-add-product"
         isShowIconClose
+        handleCloseIcon={() => {
+          setIsShowUpdateConstruction(false);
+        }}
       >
         <div className="title-content">
           <div className="popup-add-product__left">
