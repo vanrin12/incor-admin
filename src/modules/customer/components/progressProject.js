@@ -227,7 +227,7 @@ const InformationNeeds = ({
 
   useEffect(() => {
     setDataSubmit({
-      nameCustomer: dataDetailCustomer.name || '',
+      nameCustomer: dataDetailCustomer.full_name || '',
       phone: dataDetailCustomer.phone || '',
       email: dataDetailCustomer.email || '',
       area: (areas && areas[0]) || null,
@@ -237,7 +237,7 @@ const InformationNeeds = ({
 
   const handleUpdate = () => {
     updateCustomer(customerId, {
-      name: dataSubmit?.nameCustomer,
+      full_name: dataSubmit?.nameCustomer,
       email: dataSubmit?.email,
       phone: dataSubmit?.phone,
       area_id: dataSubmit?.area?.id,
@@ -298,7 +298,7 @@ const InformationNeeds = ({
                 <>
                   <p className="page-progress__title-info">Tên khách hàng</p>
                   <h2 className="page-progress__content-info name">
-                    {dataDetailCustomer.name}
+                    {dataDetailCustomer.full_name}
                   </h2>
                 </>
               )}

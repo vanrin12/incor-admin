@@ -84,8 +84,8 @@ const getListPartner = (state, action) => {
 const getListPartnerSuccess = (state, action) => {
   const dataPartner = action.data.partner.data.map((item) => ({
     id: item.id,
-    nameUser: item.full_name,
     name: item.partner_name,
+    nameUser: item.full_name,
     job: item.company_career,
     headquarters: item.company_address,
     vote: item.avg,

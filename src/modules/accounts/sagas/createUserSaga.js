@@ -7,10 +7,10 @@ function* createUser(action) {
       API.post(
         ROUTES.USER_LIST,
         JSON.stringify({
-          name: action?.payload?.name,
+          name: action?.payload?.full_name,
           password: 'abcd1234',
           role_name: action?.payload?.roleName,
-          full_name: action?.payload?.full_name,
+          full_name: action?.payload?.name,
         }),
         {
           headers: {
