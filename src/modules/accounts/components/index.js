@@ -178,7 +178,7 @@ const Account = () => {
     userList.data.map((item) => ({
       id: item.id,
       lock: item.lock,
-      name: item.name,
+      name: item.full_name,
       role_name: item.role_name,
       created_at: moment(item.created_at).format('HH:SS MM/DD/YYYY'),
       password: item.pw_show,
