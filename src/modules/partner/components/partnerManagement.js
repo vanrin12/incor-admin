@@ -49,6 +49,12 @@ type Props = {
   updatePartnerConstruction: Function,
   dataDetailPartnerConstruction: Object,
   totalQuotes: number,
+  match: {
+    params: {
+      id: string,
+    },
+  },
+  uploadImageConstruction: Function,
 };
 
 const Customer = ({
@@ -77,6 +83,7 @@ const Customer = ({
   updatePartnerConstruction,
   dataDetailPartnerConstruction,
   totalQuotes,
+  uploadImageConstruction,
 }: Props) => {
   const partnerId = match.params.id;
 
@@ -173,6 +180,12 @@ const Customer = ({
       });
     }
     if (type === 'REGISTER_PARTNER_CONSTRUCTION_SUCCESS') {
+      getListConstruction({
+        id: dataPartnerManagement.company_id,
+        keywords: keySearch,
+      });
+    }
+    if (type === 'UPLOAD_IMAGE_CONSTRUCTION_SUCCESS') {
       getListConstruction({
         id: dataPartnerManagement.company_id,
         keywords: keySearch,
@@ -297,7 +310,7 @@ const Customer = ({
     formData.append('career', valueHashtag && valueHashtag.toString());
     registerPartnerCompany(formData);
   };
- console.log(valueHashtag,"valueHashtag")
+  console.log(valueHashtag, 'valueHashtag');
   const handleAddPartnerProduct = (item) => {
     const formData = new window.FormData();
     formData.append(
@@ -343,20 +356,20 @@ const Customer = ({
     }
   };
 
-  const handleAddPartnerConstruction = (item) => {
-    const formData = new window.FormData();
-    formData.append(
-      'company_id',
-      parseInt(dataPartnerManagement.company_id, 10)
-    );
-    formData.append('image', item.image);
-    formData.append('name', item.name);
-    formData.append('description', item.description);
-    formData.append('hashtag', item?.hashtag);
-    if (item.name.length > 0) {
-      registerPartnerConstruction(formData);
-    }
-  };
+  // const handleAddPartnerConstruction = (item) => {
+  //   const formData = new window.FormData();
+  //   formData.append(
+  //     'company_id',
+  //     parseInt(dataPartnerManagement.company_id, 10)
+  //   );
+  //   formData.append('image', item.image);
+  //   formData.append('name', item.name);
+  //   formData.append('description', item.description);
+  //   formData.append('hashtag', item?.hashtag);
+  //   if (item.name.length > 0) {
+  //     registerPartnerConstruction(formData);
+  //   }
+  // };
 
   const defaultOption =
     valueHashtag && valueHashtag.length > 0
@@ -640,11 +653,13 @@ const Customer = ({
                       dataDetailPartnerConstruction
                     }
                     handleDetailConstruction={handleDetailConstruction}
-                    handleAddPartnerConstruction={handleAddPartnerConstruction}
+                    registerPartnerConstruction={registerPartnerConstruction}
                     handleUpdatePartnerConstruction={
                       handleUpdatePartnerConstruction
                     }
                     type={type}
+                    comID={parseInt(dataPartnerManagement.company_id, 10)}
+                    uploadImageConstruction={uploadImageConstruction}
                   />
                 ) : (
                   <>

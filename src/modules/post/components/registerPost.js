@@ -8,6 +8,7 @@ import Immutable from 'seamless-immutable';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import SelectDropdown from 'commons/components/Select';
+// import HtmlEmbed from '@ckeditor/ckeditor5-html-embed/src/htmlembed';
 import MainLayout from 'commons/components/MainLayout';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
@@ -172,13 +173,16 @@ const RegisterPost = ({
               data=""
               onChange={(event, editor) => {
                 const data = editor.getData();
-                console.log('data', data);
+
                 setContent(data);
               }}
               onReady={(editor) => {
                 editor.ui.view.editable.element.style.height = '200px';
                 uploadAdapterPlugin(editor);
               }}
+              // config={{
+              //   plugins: [HtmlEmbed],
+              // }}
             />
             <Input
               label="SEO TITLE"

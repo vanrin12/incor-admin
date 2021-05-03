@@ -19,6 +19,7 @@ const mapStateToProps = (state) => {
     dataDetailPartnerConstruction:
       state.partnerReducer.dataDetailPartnerConstruction,
     totalQuotes: state.partnerReducer.totalQuotes,
+    uploadImageConstruction: state.partnerReducer.uploadImageConstruction,
   };
 };
 
