@@ -64,8 +64,8 @@ const DisplayFooter = ({
       address: dataFooter?.address,
       phone: dataFooter?.phone,
       email: dataFooter?.email,
-      youtube: dataFooter?.linkYoutube,
-      facebook: dataFooter?.linkFacebook,
+      youtube: dataFooter?.youTube,
+      facebook: dataFooter?.facebook,
       logo2: null,
     });
   }, [dataFooter]);

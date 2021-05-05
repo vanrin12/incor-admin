@@ -80,6 +80,8 @@ import lockUserSaga from 'modules/accounts/sagas/lockUserSaga';
 import updateProjectSaga from 'modules/customer/sagas/updateProjectSaga';
 import getNamePartnerSaga from 'modules/customer/sagas/getNamePartnerSaga';
 import uploadImageConstructionSaga from 'modules/partner/sagas/uploadImageConstructionSaga';
+import deleteProjectCustomerSaga from 'modules/customer/sagas/deleteProjectCustomerSaga';
+import updateProjectCustomerSaga from 'modules/customer/sagas/updateProjectCustomerSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -157,5 +159,7 @@ export default function* RootSagas() {
     lockUserSaga(),
     getNamePartnerSaga(),
     uploadImageConstructionSaga(),
+    deleteProjectCustomerSaga(),
+    updateProjectCustomerSaga(),
   ]);
 }
