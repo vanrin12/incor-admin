@@ -35,6 +35,8 @@ const mapDispatchToProps = (dispatch) =>
       updateCustomer: Creators.updateCustomer,
       getDataFooter: CreatorsDisplay.getDataFooter,
       getNamePartner: Creators.getNamePartner,
+      deleteProjectCustomer: Creators.deleteProjectCustomer,
+      updateProjectCustomer: Creators.updateProjectCustomer,
     },
     dispatch
   );

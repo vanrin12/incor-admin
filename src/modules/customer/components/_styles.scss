@@ -531,6 +531,7 @@
     tbody {
       tr {
         td {
+          font-size: pxToRem(13);
           &:nth-of-type(3) {
             display: none !important;
           }

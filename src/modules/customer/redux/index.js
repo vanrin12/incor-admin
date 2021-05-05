@@ -60,6 +60,14 @@ export const { Types, Creators } = createActions({
   getNamePartner: ['id'],
   getNamePartnerSuccess: null,
   getNamePartnerFailed: null,
+
+  deleteProjectCustomer: ['id'],
+  deleteProjectCustomerSuccess: null,
+  deleteProjectCustomerFailed: null,
+
+  updateProjectCustomer: ['id', 'data'],
+  updateProjectCustomerSuccess: null,
+  updateProjectCustomerFailed: null,
 });
 
 // Initial state
@@ -509,6 +517,48 @@ const getNamePartnerFailed = (state, action) => {
     type: action.type,
   });
 };
+
+const deleteProjectCustomer = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const deleteProjectCustomerSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const deleteProjectCustomerFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updateProjectCustomer = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const updateProjectCustomerSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const updateProjectCustomerFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_LIST_CUSTOMER]: getListCustomer,
@@ -578,6 +628,14 @@ const HANDLERS = {
   [Types.GET_NAME_PARTNER]: getNamePartner,
   [Types.GET_NAME_PARTNER_SUCCESS]: getNamePartnerSuccess,
   [Types.GET_NAME_PARTNER_FAILED]: getNamePartnerFailed,
+
+  [Types.DELETE_PROJECT_CUSTOMER]: deleteProjectCustomer,
+  [Types.DELETE_PROJECT_CUSTOMER_SUCCESS]: deleteProjectCustomerSuccess,
+  [Types.DELETE_PROJECT_CUSTOMER_FAILED]: deleteProjectCustomerFailed,
+
+  [Types.UPDATE_PROJECT_CUSTOMER]: updateProjectCustomer,
+  [Types.UPDATE_PROJECT_CUSTOMER_SUCCESS]: updateProjectCustomerSuccess,
+  [Types.UPDATE_PROJECT_CUSTOMER_FAILED]: updateProjectCustomerFailed,
 
   [Types.RESET_DATA]: resetData,
 };

@@ -8,9 +8,20 @@ import { headProgress } from 'constants/itemHead';
 type Props = {
   dataObj: Object,
   indexProject: number,
+  rowActive: Object,
+  handleDelete: Function,
+  handleUpdateData: Function,
+  onClickTableRow: Function,
 };
 
-const ItemProgressProject = ({ dataObj, indexProject }: Props) => {
+const ItemProgressProject = ({
+  dataObj,
+  indexProject,
+  rowActive,
+  handleDelete,
+  handleUpdateData,
+  onClickTableRow,
+}: Props) => {
   return (
     <div className="item-progress-project w-100 row m-0">
       <Col xs={12} md={12} className="title-project">
@@ -54,6 +65,10 @@ const ItemProgressProject = ({ dataObj, indexProject }: Props) => {
           isShowCustomerProject
           isShowHashtag
           nameBtn2="Xem"
+          rowActive={rowActive}
+          handleDelete={handleDelete}
+          handleUpdate={handleUpdateData}
+          onClickRow={onClickTableRow}
           // handleClickBtnView={handleViewInformation}
         />
       </Col>

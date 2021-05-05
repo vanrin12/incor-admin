@@ -86,6 +86,10 @@ export const ROUTES = {
   // API_GET_NAME_PARTNER: (id) => `api/v1/admin/users/name/${id}`,
   CONSTRUCTIONS_UPLOAD: `api/v1/admin/partners/constructions/upload`,
   API_GET_NAME_PARTNER: (id) => `api/v1/admin/users/full_name/${id}`,
+  API_DELETE_PROJECT_CUSTOMER: (id) =>
+    `/api/v1/admin/customers/construction-items/${id}`,
+  API_UPDATE_PROJECT_CUSTOMER: (id) =>
+    `/api/v1/admin/customers/construction-items/${id}`,
 };
 
 export const API = create({

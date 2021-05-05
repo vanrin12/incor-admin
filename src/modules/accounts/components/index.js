@@ -258,7 +258,7 @@ const Account = () => {
                 handleChange(e.target.value, 'fullName');
               }}
               value={dataSubmit.fullName}
-              placeholder="tên đăng nhập"
+              placeholder="Tên đăng nhập"
               label="Tên đăng nhập"
               customClass="name-account mb-3"
             />
