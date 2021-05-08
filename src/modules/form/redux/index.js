@@ -8,6 +8,9 @@ export const { Types, Creators } = createActions({
   getFormRequest: ['data'],
   getFormRequestSuccess: null,
   getFormRequestFailed: null,
+  deleteFormRequest: ['data'],
+  deleteFormRequestSuccess: null,
+  deleteFormRequestFailed: null,
   resetType: null,
 });
 
@@ -54,11 +57,36 @@ const getFormRequestFailed = (state, action) => {
   });
 };
 
+const deleteFormRequest = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const deleteFormRequestSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const deleteFormRequestFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_FORM_REQUEST]: getFormRequest,
   [Types.GET_FORM_REQUEST_SUCCESS]: getFormRequestSuccess,
   [Types.GET_FORM_REQUEST_FAILED]: getFormRequestFailed,
+
+  [Types.DELETE_FORM_REQUEST]: deleteFormRequest,
+  [Types.DELETE_FORM_REQUEST_SUCCESS]: deleteFormRequestSuccess,
+  [Types.DELETE_FORM_REQUEST_FAILED]: deleteFormRequestFailed,
 };
 
 // Create reducers by pass state and handlers

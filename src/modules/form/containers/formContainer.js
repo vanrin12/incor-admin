@@ -24,6 +24,7 @@ const mapDispatchToProps = (dispatch) =>
       getFormRequest: Creators.getFormRequest,
       getListAreas: partnerReducer.getListAreas,
       getListSpaceType: customerReducer.getListSpaceType,
+      deleteFormRequest: Creators.deleteFormRequest,
     },
     dispatch
   );

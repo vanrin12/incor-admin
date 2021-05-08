@@ -27,6 +27,8 @@ type Props = {
   isProcessing: boolean,
   getFormRequest: Function,
   getListSpaceType: Function,
+  deleteFormRequest: Function,
+  type: string,
 };
 
 const Form = ({
@@ -38,6 +40,8 @@ const Form = ({
   isProcessing,
   getFormRequest,
   getListSpaceType,
+  deleteFormRequest,
+  type,
 }: Props) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -55,6 +59,17 @@ const Form = ({
     space_type_id: dataFilter?.job?.id,
     keywords: keySearch,
   });
+  const [listId, setListId] = useState([]);
+
+  const handleCheckBox = (id) => {
+    let dataCheckBox = [];
+    if (listId.includes({ ...id }[0])) {
+      dataCheckBox = listId.filter((item) => item !== { ...id }[0]);
+    } else {
+      dataCheckBox = [...listId, ...id];
+    }
+    setListId(dataCheckBox);
+  };
 
   useEffect(() => {
     getListAreas();
@@ -68,6 +83,15 @@ const Form = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (type === 'DELETE_FORM_REQUEST_SUCCESS') {
+      getFormRequest({
+        page: 1,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
 
   const handleChange = (value, name) => {
     setDataFilter({
@@ -101,6 +125,10 @@ const Form = ({
       space_type_id: dataFilter?.job?.id,
       keywords: keySearch,
     });
+  };
+
+  const handleDelete = () => {
+    deleteFormRequest({ arrayId: listId && listId.toString() });
   };
 
   return (
@@ -163,6 +191,13 @@ const Form = ({
               >
                 TÌM KIẾM
               </Button>
+              <Button
+                customClass="button--primary ml-2"
+                onClick={handleDelete}
+                isDisabled={listId.length === 0}
+              >
+                XÓA
+              </Button>
             </div>
           </Col>
           <Col xs={12} md={6} className="form-search">
@@ -201,6 +236,9 @@ const Form = ({
                   nameBtn2="Xem"
                   isShowTooltip
                   downloadImage
+                  isShowColumnCheck
+                  handleCheckBox={handleCheckBox}
+                  listId={listId}
                 />
               </Col>
               <Col sm={12} className="wrapper-pagination">

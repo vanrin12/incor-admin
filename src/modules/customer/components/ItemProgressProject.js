@@ -47,7 +47,7 @@ const ItemProgressProject = ({
                   id: table.id,
                   hashtag: table.category,
                   customerProject: table.name,
-                  description: table.description,
+                  describe: table.description,
                   total:
                     (table.amount && table.amount.toLocaleString('en')) || '0',
                   time: `${table.estimate} ${table.unit}`,
@@ -56,6 +56,7 @@ const ItemProgressProject = ({
                   prices:
                     (table.amount - table.paid).toLocaleString('en') || '0',
                   note: table.note,
+                  description: '',
                 } || [])
             )
           }
@@ -64,11 +65,11 @@ const ItemProgressProject = ({
           isShowColumnBtn
           isShowCustomerProject
           isShowHashtag
-          nameBtn2="Xem"
           rowActive={rowActive}
           handleDelete={handleDelete}
           handleUpdate={handleUpdateData}
           onClickRow={onClickTableRow}
+          isShowTooltip
           // handleClickBtnView={handleViewInformation}
         />
       </Col>
