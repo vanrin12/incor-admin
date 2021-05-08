@@ -90,6 +90,7 @@ export const ROUTES = {
     `/api/v1/admin/customers/construction-items/${id}`,
   API_UPDATE_PROJECT_CUSTOMER: (id) =>
     `/api/v1/admin/customers/construction-items/${id}`,
+  API_DELETE_FORM_REQUEST: `/api/v1/admin/form-requests`,
 };
 
 export const API = create({

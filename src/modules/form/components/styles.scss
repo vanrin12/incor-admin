@@ -2,17 +2,17 @@
   table{
     tr{
       td{
-        &:nth-of-type(2){
+        &:nth-of-type(3){
           width: pxToRem(140);
           font-style: italic;
         }
-        &:nth-of-type(3){
+        &:nth-of-type(4){
           width: pxToRem(150);
         }
-        &:nth-of-type(9){
+        &:nth-of-type(10){
           display: none;
         }
-        &:nth-of-type(11){
+        &:nth-of-type(12){
           display: none;
         }
       }

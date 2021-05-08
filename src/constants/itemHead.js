@@ -221,42 +221,46 @@ export const headProgress = [
 export const headForm = [
   {
     id: 0,
-    name: 'Ngày tạo',
+    name: '',
   },
   {
     id: 1,
-    name: 'Tên khách hàng',
+    name: 'Ngày tạo',
   },
   {
     id: 2,
-    name: 'Số điện thoại',
+    name: 'Tên khách hàng',
   },
   {
     id: 3,
-    name: 'Email',
+    name: 'Số điện thoại',
   },
   {
     id: 4,
-    name: 'Khu vực',
+    name: 'Email',
   },
   {
     id: 5,
-    name: 'Loại hình \n Không gian',
+    name: 'Khu vực',
   },
   {
     id: 6,
-    name: 'Phân chia \n Không gian',
+    name: 'Loại hình \n Không gian',
   },
   {
     id: 7,
-    name: 'Thời gian hẹn tư vấn',
+    name: 'Phân chia \n Không gian',
   },
   {
     id: 8,
-    name: 'Bản vẽ',
+    name: 'Thời gian hẹn tư vấn',
   },
   {
     id: 9,
+    name: 'Bản vẽ',
+  },
+  {
+    id: 10,
     name: 'Ghi chú thêm',
   },
 ];
