@@ -45,6 +45,8 @@ type Props = {
     id: Number,
     value: string,
   }>,
+  deleteProjectCustomer: Function,
+  updateProjectCustomer: Function,
 };
 const InformationNeeds = ({
   getDetailCustomer,
@@ -64,11 +66,12 @@ const InformationNeeds = ({
   listTableConstructionProject,
   getNamePartner,
   listNamePartner,
+  deleteProjectCustomer,
+  updateProjectCustomer,
 }: Props) => {
   const customerId = match.params && match.params.id;
   const [dataAddProject, setDataAddProject] = useState({
     name: null,
-    partner_id: null,
     description: '',
     time: null,
     price: '',
@@ -101,6 +104,7 @@ const InformationNeeds = ({
   const [sttTime, setSttTime] = useState(0);
   const [progressStart, setProgressStart] = useState(0);
   const [progressEnd, setProgressEnd] = useState(0);
+  const [rowActive, setRowActive] = useState({});
 
   // get list name partner
   useEffect(() => {
@@ -140,7 +144,6 @@ const InformationNeeds = ({
       getListConstructionCustomer(customerId);
       setDataAddProject({
         name: null,
-        partner_id: null,
         description: '',
         time: null,
         price: '',
@@ -148,6 +151,12 @@ const InformationNeeds = ({
         note: '',
         project: null,
       });
+    }
+    if (type === 'DELETE_PROJECT_CUSTOMER_SUCCESS') {
+      getListConstructionCustomer(customerId);
+    }
+    if (type === 'UPDATE_PROJECT_CUSTOMER_SUCCESS') {
+      getListConstructionCustomer(customerId);
     }
     setValueHashtag([]);
     setSttTime(0);
@@ -183,7 +192,6 @@ const InformationNeeds = ({
   const handleRegister = () => {
     const data = {
       project_id: dataAddProject?.project?.id,
-      partner_id: dataAddProject?.partner_id?.id,
       description: dataAddProject.description,
       name: dataAddProject?.name?.value,
       estimate: sttTime,
@@ -254,7 +262,70 @@ const InformationNeeds = ({
           };
         })
       : null;
+  const onClickTableRow = (rowData) => {
+    if (rowData && rowData.id === rowActive?.id) {
+      setRowActive({});
+    } else {
+      setRowActive(rowData);
+    }
+  };
 
+  const nameCustomerProgress =
+    listNamePartner &&
+    listNamePartner.filter((item) => item.value === rowActive?.customerProject);
+  const processProject =
+    (rowActive && rowActive.progress && rowActive.progress.split(' / ')) || [];
+
+  const timesProject =
+    (rowActive && rowActive.time && rowActive.time.split(' ')) || [];
+  const dvtTimeProgress =
+    timeProject &&
+    timeProject.filter(
+      (item) => item.value === ((timesProject && timesProject[1]) || '')
+    );
+  
+  const handleUpdateData = () => {
+    setDataAddProject({
+      ...dataAddProject,
+      name: nameCustomerProgress,
+      partner_id: null,
+      time: dvtTimeProgress && dvtTimeProgress[0],
+      description: rowActive?.description,
+      price: rowActive?.total.replaceAll(',', ''),
+      prices: rowActive?.prices,
+      note: rowActive?.note,
+      project: null,
+    });
+    setSttTime(timesProject && timesProject[0]);
+    setProgressStart(processProject && processProject[0]);
+    setProgressEnd(processProject && processProject[1]);
+    setValueHashtag(
+      rowActive?.hashtag
+        ? rowActive && rowActive.hashtag && rowActive.hashtag.split(',')
+        : []
+    );
+  };
+
+  const handleDelete = (rowData) => {
+    deleteProjectCustomer(rowData?.id);
+  };
+  
+  const handleUpdateProject = () => {
+    updateProjectCustomer(rowActive?.id, {
+      project_id: dataAddProject?.project?.id,
+      description: dataAddProject.description,
+      name: dataAddProject?.name?.value,
+      estimate: sttTime,
+      construction_time: dataAddProject?.time?.value,
+      unit: dataAddProject?.time?.value,
+      progress_begin: progressStart,
+      progress_end: progressEnd,
+      paid: dataAddProject.prices,
+      amount: dataAddProject.price,
+      note: dataAddProject.note,
+      category: valueHashtag && valueHashtag.toString(),
+    });
+  };
   const renderListTableConstructionProject =
     listTableConstructionProject &&
     listTableConstructionProject.length > 0 &&
@@ -263,6 +334,10 @@ const InformationNeeds = ({
         key={item.id}
         dataObj={item}
         indexProject={index + 1}
+        onClickTableRow={onClickTableRow}
+        rowActive={rowActive}
+        handleUpdateData={handleUpdateData}
+        handleDelete={handleDelete}
       />
     ));
 
@@ -536,10 +611,10 @@ const InformationNeeds = ({
             <Col xs={12} md={12} className="action-delete">
               <Button
                 customClass="button--primary"
-                onClick={handleRegister}
+                onClick={rowActive?.id ? handleUpdateProject : handleRegister}
                 isDisabled={dataAddProject.project === null}
               >
-                <p>THÊM MỚI</p>
+                <p>{`${rowActive?.id ? 'Chỉnh sửa' : 'Thêm mới'}`}</p>
               </Button>
             </Col>
             {renderListTableConstructionProject}

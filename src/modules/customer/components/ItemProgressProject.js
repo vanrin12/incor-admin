@@ -8,9 +8,20 @@ import { headProgress } from 'constants/itemHead';
 type Props = {
   dataObj: Object,
   indexProject: number,
+  rowActive: Object,
+  handleDelete: Function,
+  handleUpdateData: Function,
+  onClickTableRow: Function,
 };
 
-const ItemProgressProject = ({ dataObj, indexProject }: Props) => {
+const ItemProgressProject = ({
+  dataObj,
+  indexProject,
+  rowActive,
+  handleDelete,
+  handleUpdateData,
+  onClickTableRow,
+}: Props) => {
   return (
     <div className="item-progress-project w-100 row m-0">
       <Col xs={12} md={12} className="title-project">
@@ -36,7 +47,7 @@ const ItemProgressProject = ({ dataObj, indexProject }: Props) => {
                   id: table.id,
                   hashtag: table.category,
                   customerProject: table.name,
-                  description: table.description,
+                  describe: table.description,
                   total:
                     (table.amount && table.amount.toLocaleString('en')) || '0',
                   time: `${table.estimate} ${table.unit}`,
@@ -45,6 +56,7 @@ const ItemProgressProject = ({ dataObj, indexProject }: Props) => {
                   prices:
                     (table.amount - table.paid).toLocaleString('en') || '0',
                   note: table.note,
+                  description: '',
                 } || [])
             )
           }
@@ -53,7 +65,11 @@ const ItemProgressProject = ({ dataObj, indexProject }: Props) => {
           isShowColumnBtn
           isShowCustomerProject
           isShowHashtag
-          nameBtn2="Xem"
+          rowActive={rowActive}
+          handleDelete={handleDelete}
+          handleUpdate={handleUpdateData}
+          onClickRow={onClickTableRow}
+          isShowTooltip
           // handleClickBtnView={handleViewInformation}
         />
       </Col>

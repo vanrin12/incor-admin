@@ -531,7 +531,14 @@
     tbody {
       tr {
         td {
+          font-size: pxToRem(13);
           &:nth-of-type(3) {
+            display: none !important;
+          }
+          &:nth-of-type(11) {
+            display: none !important;
+          }
+          &:nth-of-type(12) {
             display: none !important;
           }
 

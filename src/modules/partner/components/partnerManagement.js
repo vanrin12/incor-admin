@@ -49,6 +49,12 @@ type Props = {
   updatePartnerConstruction: Function,
   dataDetailPartnerConstruction: Object,
   totalQuotes: number,
+  match: {
+    params: {
+      id: string,
+    },
+  },
+  uploadImageConstruction: Function,
 };
 
 const Customer = ({
@@ -77,6 +83,7 @@ const Customer = ({
   updatePartnerConstruction,
   dataDetailPartnerConstruction,
   totalQuotes,
+  uploadImageConstruction,
 }: Props) => {
   const partnerId = match.params.id;
 
@@ -173,6 +180,12 @@ const Customer = ({
       });
     }
     if (type === 'REGISTER_PARTNER_CONSTRUCTION_SUCCESS') {
+      getListConstruction({
+        id: dataPartnerManagement.company_id,
+        keywords: keySearch,
+      });
+    }
+    if (type === 'UPLOAD_IMAGE_CONSTRUCTION_SUCCESS') {
       getListConstruction({
         id: dataPartnerManagement.company_id,
         keywords: keySearch,
@@ -297,7 +310,7 @@ const Customer = ({
     formData.append('career', valueHashtag && valueHashtag.toString());
     registerPartnerCompany(formData);
   };
- console.log(valueHashtag,"valueHashtag")
+  console.log(valueHashtag, 'valueHashtag');
   const handleAddPartnerProduct = (item) => {
     const formData = new window.FormData();
     formData.append(
@@ -343,20 +356,20 @@ const Customer = ({
     }
   };
 
-  const handleAddPartnerConstruction = (item) => {
-    const formData = new window.FormData();
-    formData.append(
-      'company_id',
-      parseInt(dataPartnerManagement.company_id, 10)
-    );
-    formData.append('image', item.image);
-    formData.append('name', item.name);
-    formData.append('description', item.description);
-    formData.append('hashtag', item?.hashtag);
-    if (item.name.length > 0) {
-      registerPartnerConstruction(formData);
-    }
-  };
+  // const handleAddPartnerConstruction = (item) => {
+  //   const formData = new window.FormData();
+  //   formData.append(
+  //     'company_id',
+  //     parseInt(dataPartnerManagement.company_id, 10)
+  //   );
+  //   formData.append('image', item.image);
+  //   formData.append('name', item.name);
+  //   formData.append('description', item.description);
+  //   formData.append('hashtag', item?.hashtag);
+  //   if (item.name.length > 0) {
+  //     registerPartnerConstruction(formData);
+  //   }
+  // };
 
   const defaultOption =
     valueHashtag && valueHashtag.length > 0
@@ -398,31 +411,61 @@ const Customer = ({
             </Col>
             {!isShowEdit && dataPartnerManagement.company_name ? (
               <>
-                <Col xs={12} md={4} className="box-info-partner">
-                  <h2>Tên doanh nghiệp</h2>
-                  <h1>{dataPartnerManagement.company_name}</h1>
+                <Col xs={12} md={8} className="box-info-partner">
                   <Row>
                     <Col xs={12} md={6}>
-                      <h2>Email</h2>
-                      <p>
-                        <a
-                          href={`mailto:${dataPartnerManagement?.company_email}`}
-                        >
-                          {dataPartnerManagement?.company_email}
-                        </a>
-                      </p>
+                      <h2>Tên doanh nghiệp</h2>
+                      <h1>{dataPartnerManagement.company_name}</h1>
                     </Col>
                     <Col xs={12} md={6}>
-                      <h2>Quy mô nhân sự</h2>
-                      <p>
-                        {dataPartnerManagement.scale_name
-                          ? `${dataPartnerManagement.scale_name} người`
-                          : ''}
-                      </p>
+                      <h2>Trụ sở</h2>
+                      <h4>{dataPartnerManagement.company_address}</h4>
+                    </Col>
+                    <Col xs={12} md={6}>
+                      <Row>
+                        <Col xs={12} md={6}>
+                          <h2>Email</h2>
+                          <p>
+                            <a
+                              href={`mailto:${dataPartnerManagement?.company_email}`}
+                            >
+                              {dataPartnerManagement?.company_email}
+                            </a>
+                          </p>
+                        </Col>
+                        <Col xs={12} md={6}>
+                          <h2>Quy mô nhân sự</h2>
+                          <p>
+                            {dataPartnerManagement.scale_name
+                              ? `${dataPartnerManagement.scale_name} người`
+                              : ''}
+                          </p>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col xs={12} md={6}>
+                      <Row>
+                        <Col xs={12} md={4}>
+                          <h2>Mã số thuế</h2>
+                          <p>{dataPartnerManagement.company_tax_code}</p>
+                        </Col>
+                        <Col xs={12} md={8}>
+                          <h2>Ngành nghề</h2>
+                          <div className="list-tag">
+                            {dataPartnerManagement &&
+                              dataPartnerManagement.company_career &&
+                              dataPartnerManagement.company_career
+                                .split(',')
+                                .map((item) => {
+                                  return <span>#{item}</span>;
+                                })}
+                          </div>
+                        </Col>
+                      </Row>
                     </Col>
                   </Row>
                 </Col>
-                <Col xs={12} md={4} className="box-info-partner">
+                {/* <Col xs={12} md={4} className="box-info-partner">
                   <Row>
                     <Col xs={12} md={12}>
                       <h2>Trụ sở</h2>
@@ -445,7 +488,7 @@ const Customer = ({
                       </div>
                     </Col>
                   </Row>
-                </Col>
+                </Col> */}
               </>
             ) : (
               <>
@@ -640,11 +683,13 @@ const Customer = ({
                       dataDetailPartnerConstruction
                     }
                     handleDetailConstruction={handleDetailConstruction}
-                    handleAddPartnerConstruction={handleAddPartnerConstruction}
+                    registerPartnerConstruction={registerPartnerConstruction}
                     handleUpdatePartnerConstruction={
                       handleUpdatePartnerConstruction
                     }
                     type={type}
+                    comID={parseInt(dataPartnerManagement.company_id, 10)}
+                    uploadImageConstruction={uploadImageConstruction}
                   />
                 ) : (
                   <>

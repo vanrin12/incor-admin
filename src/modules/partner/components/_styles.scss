@@ -299,8 +299,8 @@
   overflow: auto;
 
   .product {
-    width: pxToVW(284);
-    height: pxToVW(279);
+    width: pxToVW(200);
+    height: pxToVW(200);
     border-radius: pxToVW(10);
     background-color: $white;
     margin-right: pxToVW(4);
@@ -327,15 +327,15 @@
   }
 
   .add-product {
-    width: pxToVW(284);
-    height: pxToVW(279);
+    width: pxToVW(200);
+    height: pxToVW(200);
     border-radius: pxToVW(10);
     background-color: $color-box-add;
     font-size: pxToVW(200);
     font-weight: $medium;
     color: $color-add;
-    padding-left: pxToVW(85);
-    padding-top: pxToVW(25);
+    padding-left: pxToVW(37);
+    padding-top: pxToVW(3);
     display: inline-block;
     vertical-align: top;
   }
@@ -467,19 +467,7 @@
         color: $color-placeholder;
       }
 
-      .add-file {
-        width: pxToVW(150);
-        background: $color_primary;
-        height: pxToVW(35);
-        border-radius: 0;
-        text-align: center;
-        display: block;
-
-        p {
-          color: $white;
-          text-align: center;
-        }
-      }
+      
     }
   }
 
@@ -536,4 +524,82 @@
     font-size: pxToRem(18);
     color: $color-black;
   }
+}
+
+.wrapper-product {
+  display: flex;
+  grid-gap: pxToVW(20);
+  margin-top: pxToVW(20);
+}
+.product-item {
+  width: pxToVW(200);
+  height: pxToVW(200);
+  border-radius: pxToVW(10);
+  background-color: $color_primary;
+  margin-right: pxToVW(10);
+  text-align: center;
+  color: $white;
+  vertical-align: center;
+  padding-top: pxToVW(120);
+  font-size: pxToVW(15);
+  line-height: pxToVW(18);
+ 
+  
+}
+.wrapper-add-image {
+  display: flex;
+  flex-direction: column;
+  padding: pxToVW(30);
+  align-items: center;
+  justify-content: space-between;
+  .input-file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .box__input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wrapper-submit-image {
+   
+    margin-top: pxToVW(100);
+    button {
+      width: pxToVW(250);
+      p {
+        text-align: center;
+        color: $white;
+      }
+    }
+
+  }
+
+  .add-file {
+    width: pxToVW(150);
+    background: $color_primary;
+    height: pxToVW(25);
+    border-radius: 0;
+    text-align: center;
+    display: block;
+
+    p {
+      color: $white;
+      text-align: center;
+    }
+  }
+}
+
+.product-image{ 
+  width: pxToVW(200);
+  height: pxToVW(200);
+  border-radius: pxToVW(10);
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

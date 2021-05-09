@@ -54,6 +54,9 @@ export const { Types, Creators } = createActions({
   updatePartnerConstructionSuccess: null,
   updatePartnerConstructionFailed: null,
   resetType: null,
+  uploadImageConstruction: ['data'],
+  uploadImageConstructionSuccess: null,
+  uploadImageConstructionFailed: null,
 });
 
 // Initial state
@@ -473,6 +476,28 @@ const updatePartnerConstructionFailed = (state, action) => {
   });
 };
 
+const uploadImageConstruction = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const uploadImageConstructionSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const uploadImageConstructionFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
+  });
+};
+
 const resetType = (state) => {
   return state.merge({
     type: '',
@@ -544,6 +569,10 @@ const HANDLERS = {
   [Types.UPDATE_PARTNER_CONSTRUCTION]: updatePartnerConstruction,
   [Types.UPDATE_PARTNER_CONSTRUCTION_SUCCESS]: updatePartnerConstructionSuccess,
   [Types.UPDATE_PARTNER_CONSTRUCTION_FAILED]: updatePartnerConstructionFailed,
+
+  [Types.UPLOAD_IMAGE_CONSTRUCTION]: uploadImageConstruction,
+  [Types.UPLOAD_IMAGE_CONSTRUCTION_SUCCESS]: uploadImageConstructionSuccess,
+  [Types.UPLOAD_IMAGE_CONSTRUCTION_FAILED]: uploadImageConstructionFailed,
 
   [Types.RESET_TYPE]: resetType,
 };
