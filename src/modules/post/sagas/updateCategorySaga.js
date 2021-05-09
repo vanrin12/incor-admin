@@ -10,7 +10,7 @@ function* updateCategories(action) {
      *
      */
     const response = yield call(() =>
-      API.put(ROUTES.UPDATE_CATEGORIES(action.id), action.data)
+      API.post(ROUTES.UPDATE_CATEGORIES(action.id), action.data)
     );
     if (response.ok) {
       const { data } = response.data;

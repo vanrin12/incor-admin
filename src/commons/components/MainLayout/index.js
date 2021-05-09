@@ -10,6 +10,7 @@ import ROUTERS from 'constants/router';
 import IMAGES from 'themes/images';
 import useOnClickOutside from '../../../customHooks/useClickOutSide';
 import { Creators as AuthenCreators } from '../../../modules/authen/redux';
+import { Creators as CreatorsFooter } from '../../../modules/display/redux';
 
 // import Header from '../Header';
 
@@ -22,6 +23,8 @@ type Props = {
   history: {
     push: Function,
   },
+  getDataFooter: Function,
+  dataFooter: Object,
   // customClass?: string,
 };
 
@@ -32,6 +35,8 @@ const MainLayout = ({
   roleUser,
   type,
   history,
+  getDataFooter,
+  dataFooter,
 }: Props) => {
   const [showLogout, setShowLogout] = useState(false);
   const refMenu = useRef(null);
@@ -44,6 +49,13 @@ const MainLayout = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
+
+  useEffect(() => {
+    if (roleUser?.name === 'partner') {
+      getDataFooter();
+    }
+    //eslint-disable-next-line
+  }, [roleUser?.name]);
 
   return (
     <Container fluid>
@@ -74,7 +86,11 @@ const MainLayout = ({
           </>
         )}
         <Col xs={12} md={2} className="menu-left">
-          <Menu activeMenu={activeMenu} roleUser={roleUser} />
+          <Menu
+            activeMenu={activeMenu}
+            roleUser={roleUser}
+            dataFooter={dataFooter}
+          />
         </Col>
         <Col xs={12} md={10} className="layout-right">
           {children}
@@ -88,6 +104,7 @@ const mapStateToProps = (state) => {
   return {
     roleUser: state.authReducer.roleUser,
     type: state.authReducer.type,
+    dataFooter: state?.displayReducer?.dataFooter,
   };
 };
 
@@ -95,6 +112,7 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       logOut: AuthenCreators.logOut,
+      getDataFooter: CreatorsFooter.getDataFooter,
     },
     dispatch
   );

@@ -129,6 +129,7 @@ const Partner = ({
     deletePartner({ arrayId: listId && listId.toString() });
   };
 
+  
   return (
     <MainLayout activeMenu={3}>
       {isProcessing ? (

@@ -138,7 +138,7 @@ const Form = ({
           <Col xs={12} md={12}>
             <h2 className="title-page">Danh sách điền form tư vấn</h2>
           </Col>
-          <Col xs={12} md={6} className="form-search">
+          <Col xs={12} md={7} className="form-search">
             <div className="form-search__left">
               <DatePicker
                 selected={startDate}
@@ -200,7 +200,7 @@ const Form = ({
               </Button>
             </div>
           </Col>
-          <Col xs={12} md={6} className="form-search">
+          <Col xs={12} md={5} className="form-search">
             <div className="form-search__right">
               <Input
                 type="text"

@@ -55,6 +55,8 @@ type Props = {
     },
   },
   uploadImageConstruction: Function,
+  dataAreas: Array<{}>,
+  getListAreas: Function,
 };
 
 const Customer = ({
@@ -84,6 +86,8 @@ const Customer = ({
   dataDetailPartnerConstruction,
   totalQuotes,
   uploadImageConstruction,
+  dataAreas,
+  getListAreas,
 }: Props) => {
   const partnerId = match.params.id;
 
@@ -101,7 +105,10 @@ const Customer = ({
     scales: (scale && scale[0]) || dataScales[0],
     tax_code: dataManagement.company_tax_code || '',
     name: dataManagement.company_name || '',
-    address: dataManagement.company_address || '',
+    address: {
+      value: dataManagement.company_address,
+      label: dataManagement.company_address,
+    },
     email: dataManagement?.company_email || '',
   });
 
@@ -114,7 +121,10 @@ const Customer = ({
     setActiveTab(key);
     setKeySearch('');
   };
-
+  useEffect(() => {
+    getListAreas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // call api get list partner management
   useEffect(() => {
     if (activeTab === 'tab1') {
@@ -168,7 +178,11 @@ const Customer = ({
         scales: (scale && scale[0]) || dataScales[0] || null,
         tax_code: dataPartnerManagement.company_tax_code || '',
         name: dataPartnerManagement.company_name || '',
-        address: dataPartnerManagement.company_address || '',
+        address:
+          {
+            value: dataPartnerManagement.company_address,
+            label: dataPartnerManagement.company_address,
+          } || null,
         email: dataPartnerManagement?.company_email || '',
       });
       setValueHashtag(valueHashtag);
@@ -226,7 +240,11 @@ const Customer = ({
       scales: (scale && scale[0]) || dataScales[0],
       tax_code: dataPartnerManagement?.company_tax_code || '',
       name: dataPartnerManagement?.company_name || '',
-      address: dataPartnerManagement?.company_address || '',
+      address:
+        {
+          value: dataPartnerManagement?.company_address,
+          label: dataPartnerManagement?.company_address,
+        } || null,
       email: dataPartnerManagement?.company_email || '',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -303,14 +321,13 @@ const Customer = ({
     formData.append('user_id', partnerId);
     formData.append('avatar', objAvatar);
     formData.append('name', dataFilter.name);
-    formData.append('address', dataFilter.address);
+    formData.append('address', dataFilter.address?.value);
     formData.append('scale_id', dataFilter?.scales?.id);
     formData.append('tax_code', dataFilter.tax_code);
     formData.append('email', dataFilter?.email);
     formData.append('career', valueHashtag && valueHashtag.toString());
     registerPartnerCompany(formData);
   };
-  console.log(valueHashtag, 'valueHashtag');
   const handleAddPartnerProduct = (item) => {
     const formData = new window.FormData();
     formData.append(
@@ -415,11 +432,11 @@ const Customer = ({
                   <Row>
                     <Col xs={12} md={6}>
                       <h2>Tên doanh nghiệp</h2>
-                      <h1>{dataPartnerManagement.company_name}</h1>
+                      <h1>{dataPartnerManagement?.company_name}</h1>
                     </Col>
                     <Col xs={12} md={6}>
                       <h2>Trụ sở</h2>
-                      <h4>{dataPartnerManagement.company_address}</h4>
+                      <h4>{dataPartnerManagement?.company_address}</h4>
                     </Col>
                     <Col xs={12} md={6}>
                       <Row>
@@ -536,15 +553,17 @@ const Customer = ({
                 <Col xs={12} md={4}>
                   <Row>
                     <Col xs={12} md={12}>
-                      <Input
-                        type="text"
+                      <SelectDropdown
+                        placeholder="Chọn địa chỉ công ty"
+                        listItem={
+                          dataAreas && Immutable.asMutable(dataAreas.slice(1))
+                        }
                         onChange={(e) => {
-                          handleChange(e.target.value, 'address');
+                          handleChange(e, 'address');
                         }}
-                        value={dataFilter.address}
-                        placeholder="Nhập địa chỉ công ty"
+                        option={dataFilter.address}
+                        customClass="select-headquarters"
                         label="Trụ sở"
-                        customClass="name-account"
                       />
                     </Col>
                     <Col xs={12} md={6}>
