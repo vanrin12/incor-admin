@@ -234,7 +234,7 @@ const Account = () => {
             <h2 className="title-page">Danh sách Khách hàng</h2>
           </Col>
           <Col xs={12} md={12} className="form-search">
-            <div className="form-search__right">
+            <div className="form-search__right mr-3">
               <Input
                 type="text"
                 onChange={(e) => {

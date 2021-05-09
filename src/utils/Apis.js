@@ -14,7 +14,7 @@ export const ROUTES = {
   REGISTER_CATEGORIES: 'api/v1/admin/categories',
   GET_PARENT: 'api/v1/admin/categories/parent',
   GET_CATEGORIES_DETAIL: (id) => `api/v1/admin/categories/${id}`,
-  UPDATE_CATEGORIES: (id) => `api/v1/admin/categories/${id}`,
+  UPDATE_CATEGORIES: (id) => `api/v1/admin/categories/${id}/update`,
   GET_LIST_POST: 'api/v1/admin/posts',
   GET_ALL_CATEGORIES: 'api/v1/site/categories',
   REGISTER_POST: 'api/v1/admin/posts',
@@ -77,7 +77,7 @@ export const ROUTES = {
   API_DATA_MAP: `/api/v1/admin/constants/data-maps`,
   API_MAIN_SLIDER: `/api/v1/admin/constants/sliders`,
   API_DELETE_SLIDER: (id) => `/api/v1/admin/constants/uploads/${id}`,
-  API_GET_LIST_LAYOUT: `/api/v1/admin/constants/data-maps/layout`,
+  API_GET_LIST_LAYOUT: `/api/v1/admin/constants/data-maps/layout?layout=header`,
 
   API_CHANGE_PASSWORD: '/api/v1/auth/change-password',
   API_LOCK_USER: `/api/v1/admin/users/locks`,

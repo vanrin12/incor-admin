@@ -428,7 +428,7 @@ const InformationNeeds = ({
                   }}
                   option={dataSubmit.area}
                   customClass="select-headquarters"
-                  label="khu vực"
+                  label="Khu vực"
                 />
               ) : (
                 <>

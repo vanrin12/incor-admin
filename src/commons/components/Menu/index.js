@@ -8,8 +8,9 @@ import menuItems from 'constants/menuItems';
 type Props = {
   activeMenu: number,
   roleUser: Object,
+  dataFooter: Object,
 };
-const Menu = ({ activeMenu, roleUser }: Props) => {
+const Menu = ({ activeMenu, roleUser, dataFooter }: Props) => {
   const [dataMenu, setDataMenu] = useState(menuItems);
   const scale = menuItems.filter((item) => item.role === roleUser.name);
   useEffect(() => {
@@ -46,16 +47,22 @@ const Menu = ({ activeMenu, roleUser }: Props) => {
       <div className="logo" />
       <div>{renderItemMenu}</div>
       {roleUser.name === 'partner' && (
-        <div className="description-menu">
+        <div className="description-menu ">
           <h2>&quot;</h2>
           <p>Cảm ơn Quý đối tác đã tin tưởng và đồng hành cùng Incor</p>
           <h2 className="text-right">&quot;</h2>
           <p className="description-menu__admin">TOÀN NGUYỄN</p>
           <p className="description-menu__ceo">CEO Incor</p>
-          <h1 className="description-menu__incor">INCOR</h1>
-          <p>Nền tảng kết nối khách hàng & công ty xây dựng nội thất</p>
-          <p className="description-menu__hotline">Hotline:</p>
-          <p className="description-menu__email">Email: cskh.incor@gmail.com</p>
+          <div className="customer-bottom">
+            <h1 className="description-menu__incor">INCOR</h1>
+            <p>Nền tảng kết nối khách hàng & công ty xây dựng nội thất</p>
+            <p className="description-menu__hotline mt-2">
+              Hotline:{` ${dataFooter?.phone}`}
+            </p>
+            <p className="description-menu__email">
+              Email: {` ${dataFooter?.email}`}
+            </p>
+          </div>
         </div>
       )}
     </Row>
