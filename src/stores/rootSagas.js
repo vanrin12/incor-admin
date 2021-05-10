@@ -85,6 +85,7 @@ import updateProjectCustomerSaga from 'modules/customer/sagas/updateProjectCusto
 import deleteFormRequestSaga from 'modules/form/sagas/deleteFormRequestSaga';
 import deleteImageSaga from 'modules/partner/sagas/deleteImageImageSaga';
 import deleteConstruction from 'modules/partner/sagas/deleteContructionSaga';
+import deleteItemHeaderSaga from 'modules/display/sagas/deleteItemHeaderSaga';
 
 export default function* RootSagas() {
   yield all([
@@ -167,5 +168,6 @@ export default function* RootSagas() {
     deleteFormRequestSaga(),
     deleteImageSaga(),
     deleteConstruction(),
+    deleteItemHeaderSaga(),
   ]);
 }

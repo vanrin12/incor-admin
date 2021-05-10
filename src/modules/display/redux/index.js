@@ -59,6 +59,10 @@ export const { Types, Creators } = createActions({
   getListLayout: ['layout'],
   getListLayoutSuccess: null,
   getListLayoutFailed: null,
+
+  deleteItemHeader: ['id'],
+  deleteItemHeaderSuccess: null,
+  deleteItemHeaderFailed: null,
 });
 
 // Initial state
@@ -439,6 +443,25 @@ const getListLayoutFailed = (state, action) => {
     type: action.type,
   });
 };
+const deleteItemHeader = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+const deleteItemHeaderSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const deleteItemHeaderFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
 
 // Assign handler to types.
 const HANDLERS = {
@@ -497,6 +520,10 @@ const HANDLERS = {
   [Types.GET_LIST_LAYOUT]: getListLayout,
   [Types.GET_LIST_LAYOUT_SUCCESS]: getListLayoutSuccess,
   [Types.GET_LIST_LAYOUT_FAILED]: getListLayoutFailed,
+
+  [Types.DELETE_ITEM_HEADER]: deleteItemHeader,
+  [Types.DELETE_ITEM_HEADER_SUCCESS]: deleteItemHeaderSuccess,
+  [Types.DELETE_ITEM_HEADER_FAILED]: deleteItemHeaderFailed,
 };
 
 // Create reducers by pass state and handlers

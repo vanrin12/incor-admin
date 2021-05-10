@@ -24,6 +24,7 @@ type Props = {
   dataFooter: Object,
   createFooter: Function,
   type: string,
+  deleteItemHeader: Function,
 };
 
 const DisplayHeader = ({
@@ -35,6 +36,7 @@ const DisplayHeader = ({
   dataFooter,
   createFooter,
   type,
+  deleteItemHeader,
 }: Props) => {
   const [fileLogo, setFileLogo] = useState(null);
   const [imgLogoView, setImgLogoView] = useState('');
@@ -48,6 +50,7 @@ const DisplayHeader = ({
     getDataFooter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     switch (type) {
       case 'CREATE_FOOTER_SUCCESS':
@@ -61,6 +64,15 @@ const DisplayHeader = ({
         setShowError({
           isShow: true,
           content: 'Cập nhật thất bại!.',
+        });
+        break;
+      case 'DELETE_ITEM_HEADER_SUCCESS':
+        getListLayout('menu');
+        break;
+      case 'DELETE_ITEM_HEADER_FAILED':
+        setShowError({
+          isShow: true,
+          content: 'Xóa thất bại!.',
         });
         break;
       default:
@@ -100,7 +112,10 @@ const DisplayHeader = ({
     createFooter(formData);
   };
 
-  const handleRemoveMenu = (item) => {};
+  const handleRemoveMenu = (item) => {
+    deleteItemHeader(item.id);
+  };
+
   const renderComponent =
     layoutHeader &&
     layoutHeader.map((item) => {
@@ -199,7 +214,7 @@ const DisplayHeader = ({
                   onClick={() =>
                     history.push({
                       pathname: ROUTERS.DISPLAY_HEADER_INTRODUCE,
-                      state: { type: '' },
+                      state: { type: '', dataLength: layoutHeader?.length },
                     })
                   }
                   role="presentation"

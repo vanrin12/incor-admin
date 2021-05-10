@@ -70,6 +70,7 @@ export const ROUTES = {
   API_GET_VALUE_HEADER: `/api/v1/admin/constants/data-maps`,
   API_CREATE_FOOTER: `/api/v1/admin/constants`,
   API_GET_DATA_FOOTER: `/api/v1/admin/constants`,
+  API_GET_DELETE_HEADER: (id) => `/api/v1/admin/constants/data-maps/${id}`,
 
   //  Giao diện
   API_ABOUT_US: `/api/v1/admin/constants/about-us`,
@@ -77,7 +78,8 @@ export const ROUTES = {
   API_DATA_MAP: `/api/v1/admin/constants/data-maps`,
   API_MAIN_SLIDER: `/api/v1/admin/constants/sliders`,
   API_DELETE_SLIDER: (id) => `/api/v1/admin/constants/uploads/${id}`,
-  API_GET_LIST_LAYOUT:(layout)=> `/api/v1/admin/constants/data-maps/layout?layout=${layout}`,
+  API_GET_LIST_LAYOUT: (layout) =>
+    `/api/v1/admin/constants/data-maps/layout?layout=${layout}`,
 
   API_CHANGE_PASSWORD: '/api/v1/auth/change-password',
   API_LOCK_USER: `/api/v1/admin/users/locks`,
