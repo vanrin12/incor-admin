@@ -3,9 +3,11 @@ import { ROUTES, API } from 'utils/Apis';
 import { Types } from '../redux';
 
 // worker Saga: will be fired on SEND_INVITE actions
-function* getListLayout() {
+function* getListLayout(action) {
   try {
-    const response = yield call(() => API.get(ROUTES.API_GET_LIST_LAYOUT));
+    const response = yield call(() =>
+      API.get(ROUTES.API_GET_LIST_LAYOUT(action.layout))
+    );
     if (response.ok) {
       const { data } = response?.data;
       // In case: Login request success

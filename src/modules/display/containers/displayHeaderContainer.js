@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
     isProcessing: state.displayReducer.isProcessing,
     dataCategories: state.postReducer.dataCategories,
     layoutHeader: state.displayReducer.layoutHeader,
+    dataFooter: state.displayReducer.dataFooter,
   };
 };
 
@@ -20,6 +21,8 @@ const mapDispatchToProps = (dispatch) =>
       ...Creators,
       getListCategories: CreatorsCategory.getListCategories,
       getListLayout: Creators.getListLayout,
+      createFooter: Creators.createFooter,
+      getDataFooter: Creators.getDataFooter,
     },
     dispatch
   );
