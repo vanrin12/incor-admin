@@ -56,7 +56,11 @@ const ItemProgressProject = ({
                   prices:
                     (table.amount - table.paid).toLocaleString('en') || '0',
                   note: table.note,
-                  description: '',
+                  feedbacks:
+                    table &&
+                    table.evaluates &&
+                    table.evaluates[0] &&
+                    table.evaluates[0].content,
                 } || [])
             )
           }
@@ -69,7 +73,7 @@ const ItemProgressProject = ({
           handleDelete={handleDelete}
           handleUpdate={handleUpdateData}
           onClickRow={onClickTableRow}
-          isShowTooltip
+          isShowFeedback
           // handleClickBtnView={handleViewInformation}
         />
       </Col>

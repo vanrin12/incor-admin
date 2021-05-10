@@ -30,6 +30,7 @@ type Props = {
   isShowLock?: boolean,
   isShowCustomerProject?: boolean,
   isShowHashtag?: boolean,
+  isShowFeedback?: boolean,
 };
 
 const TableData = ({
@@ -58,6 +59,7 @@ const TableData = ({
   isShowLock = false,
   isShowCustomerProject = false,
   isShowHashtag = false,
+  isShowFeedback = false,
 }: Props) => {
   const renderBodyTable = () => {
     return (
@@ -89,6 +91,7 @@ const TableData = ({
           isShowLock={isShowLock}
           isShowCustomerProject={isShowCustomerProject}
           isShowHashtag={isShowHashtag}
+          isShowFeedback={isShowFeedback}
         />
       ))
     );
@@ -139,5 +142,6 @@ TableData.defaultProps = {
   isShowLock: false,
   isShowCustomerProject: false,
   isShowHashtag: false,
+  isShowFeedback: false,
 };
 export default memo<Props>(TableData);

@@ -18,6 +18,7 @@ type Props = {
   handleAddPartnerProduct: Function,
   handleUpdatePartnerProduct: Function,
   type: string,
+  deletePartnerProduct: Function,
 };
 
 const ItemPartnerProduct = ({
@@ -28,6 +29,7 @@ const ItemPartnerProduct = ({
   handleAddPartnerProduct,
   handleUpdatePartnerProduct,
   type,
+  deletePartnerProduct,
 }: Props) => {
   const inputFile = useRef({});
   const [isShow, setIsShow] = useState(false);
@@ -87,6 +89,11 @@ const ItemPartnerProduct = ({
     setFileName(e.files[0] && e.files[0].name);
   };
 
+  const handleDeleteConstruction = (e, item) => {
+    e.stopPropagation();
+    deletePartnerProduct(item.id);
+  };
+
   const renderProduct =
     dataProducts &&
     dataProducts.data &&
@@ -106,6 +113,12 @@ const ItemPartnerProduct = ({
           onKeyDown={() => {}}
         >
           <p>{item.name}</p>
+          <button
+            className="btn-delete-image"
+            onClick={(e) => handleDeleteConstruction(e, item)}
+          >
+            Xóa
+          </button>
         </div>
       );
     });
