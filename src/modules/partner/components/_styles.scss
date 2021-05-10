@@ -547,8 +547,26 @@
   align-items: center;
   font-size: pxToVW(15);
   line-height: pxToVW(18);
+  cursor: pointer;
+  position: relative;
 
+  .btn-delete {
+    display: none;
+  }
 
+  &:hover {
+    .btn-delete {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: $color-delete;
+      color: $white;
+      border: none;
+      width: pxToRem(60);
+      height: pxToRem(30);
+    }
+  }
 }
 
 .wrapper-add-image {
@@ -610,4 +628,24 @@
   display: inline-block;
   background-repeat: no-repeat;
   background-size: cover;
+  cursor: pointer;
+  position: relative;
+
+  .btn-delete-image {
+    display: none;
+  }
+
+  &:hover {
+    .btn-delete-image {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: $color-delete;
+      color: $white;
+      border: none;
+      width: pxToRem(60);
+      height: pxToRem(30);
+    }
+  }
 }

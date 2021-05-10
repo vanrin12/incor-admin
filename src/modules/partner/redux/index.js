@@ -57,6 +57,12 @@ export const { Types, Creators } = createActions({
   uploadImageConstruction: ['data'],
   uploadImageConstructionSuccess: null,
   uploadImageConstructionFailed: null,
+  deleteImage: ['id'],
+  deleteImageSuccess: null,
+  deleteImageFailed: null,
+  deleteConstruction: ['id'],
+  deleteConstructionSuccess: null,
+  deleteConstructionFailed: null,
 });
 
 // Initial state
@@ -504,6 +510,49 @@ const resetType = (state) => {
   });
 };
 
+const deleteConstruction = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const deleteConstructionSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const deleteConstructionFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
+  });
+};
+const deleteImage = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const deleteImageSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const deleteImageFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
+  });
+};
+
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_LIST_PARTNER]: getListPartner,
@@ -573,6 +622,14 @@ const HANDLERS = {
   [Types.UPLOAD_IMAGE_CONSTRUCTION]: uploadImageConstruction,
   [Types.UPLOAD_IMAGE_CONSTRUCTION_SUCCESS]: uploadImageConstructionSuccess,
   [Types.UPLOAD_IMAGE_CONSTRUCTION_FAILED]: uploadImageConstructionFailed,
+
+  [Types.DELETE_IMAGE]: deleteImage,
+  [Types.DELETE_IMAGE_SUCCESS]: deleteImageSuccess,
+  [Types.DELETE_IMAGE]: deleteImageFailed,
+
+  [Types.DELETE_CONSTRUCTION]: deleteConstruction,
+  [Types.DELETE_CONSTRUCTION_SUCCESS]: deleteConstructionSuccess,
+  [Types.DELETE_CONSTRUCTION]: deleteConstructionFailed,
 
   [Types.RESET_TYPE]: resetType,
 };

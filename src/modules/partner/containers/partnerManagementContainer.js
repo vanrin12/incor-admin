@@ -41,6 +41,8 @@ const mapDispatchToProps = (dispatch) =>
       getDetailPartnerConstruction: Creators.getDetailPartnerConstruction,
       updatePartnerConstruction: Creators.updatePartnerConstruction,
       resetType: Creators.resetType,
+      deleteImage: Creators.deleteImage,
+      deleteConstruction: Creators.deleteConstruction,
     },
     dispatch
   );

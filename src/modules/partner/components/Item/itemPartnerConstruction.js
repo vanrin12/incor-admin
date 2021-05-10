@@ -14,12 +14,12 @@ type Props = {
   // },
   handleDetailConstruction: Function,
   dataConstructions: Object,
-  dataDetailPartnerConstruction: Object,
   registerPartnerConstruction: Function,
-  handleUpdatePartnerConstruction: Function,
-  type: string,
+  // type: string,
   comID: string,
   uploadImageConstruction: Function,
+  deleteImage: Function,
+  deleteConstruction: Function,
 };
 
 const ItemPartnerConstruction = ({
@@ -30,6 +30,8 @@ const ItemPartnerConstruction = ({
   registerPartnerConstruction,
   // handleUpdatePartnerConstruction,
   uploadImageConstruction,
+  deleteImage,
+  deleteConstruction,
   // type,
   comID,
 }: Props) => {
@@ -86,14 +88,33 @@ const ItemPartnerConstruction = ({
     uploadImageConstruction(formData);
   };
 
+  const handleDeleteImage = (item) => {
+    deleteImage(item.id);
+  };
+
+  const handleDeleteConstruction = (e, item) => {
+    e.stopPropagation();
+    deleteConstruction(item.id);
+  };
+
   const renderImageList = (imageList) => {
     return imageList.map((item) => {
       const styleBackground = {
         backgroundImage: `url(${item.image})`,
       };
-      return <div className="product-image" style={styleBackground} />;
+      return (
+        <div className="product-image" style={styleBackground}>
+          <button
+            className="btn-delete-image"
+            onClick={() => handleDeleteImage(item)}
+          >
+            Xóa
+          </button>
+        </div>
+      );
     });
   };
+
   const renderConstructions =
     dataConstructions &&
     dataConstructions.data &&
@@ -108,6 +129,12 @@ const ItemPartnerConstruction = ({
             onKeyDown={() => {}}
           >
             {item.name}
+            <button
+              className="btn-delete"
+              onClick={(e) => handleDeleteConstruction(e, item)}
+            >
+              Xóa
+            </button>
           </div>
           {renderImageList(item.uploads)}
           <div

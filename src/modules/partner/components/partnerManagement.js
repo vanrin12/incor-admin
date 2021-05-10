@@ -57,6 +57,8 @@ type Props = {
   uploadImageConstruction: Function,
   dataAreas: Array<{}>,
   getListAreas: Function,
+  deleteImage: Function,
+  deleteConstruction: Function,
 };
 
 const Customer = ({
@@ -88,6 +90,8 @@ const Customer = ({
   uploadImageConstruction,
   dataAreas,
   getListAreas,
+  deleteImage,
+  deleteConstruction,
 }: Props) => {
   const partnerId = match.params.id;
 
@@ -172,59 +176,78 @@ const Customer = ({
   }, []);
 
   useEffect(() => {
-    if (type === 'GET_LIST_PARTNER_MANAGEMENT_SUCCESS') {
-      setDataManagement(dataPartnerManagement);
-      setDataFilter({
-        scales: (scale && scale[0]) || dataScales[0] || null,
-        tax_code: dataPartnerManagement.company_tax_code || '',
-        name: dataPartnerManagement.company_name || '',
-        address:
-          {
-            value: dataPartnerManagement.company_address,
-            label: dataPartnerManagement.company_address,
-          } || null,
-        email: dataPartnerManagement?.company_email || '',
-      });
-      setValueHashtag(valueHashtag);
+    switch (type) {
+      case 'GET_LIST_PARTNER_MANAGEMENT_SUCCESS':
+        setDataManagement(dataPartnerManagement);
+        setDataFilter({
+          scales: (scale && scale[0]) || dataScales[0] || null,
+          tax_code: dataPartnerManagement.company_tax_code || '',
+          name: dataPartnerManagement.company_name || '',
+          address:
+            {
+              value: dataPartnerManagement.company_address,
+              label: dataPartnerManagement.company_address,
+            } || null,
+          email: dataPartnerManagement?.company_email || '',
+        });
+        setValueHashtag(valueHashtag);
+        break;
+      case 'REGISTER_PARTNER_PRODUCT_SUCCESS':
+        getListPartnerProduct({
+          id: dataPartnerManagement.company_id,
+          keywords: keySearch,
+        });
+        break;
+      case 'REGISTER_PARTNER_CONSTRUCTION_SUCCESS':
+        getListConstruction({
+          id: dataPartnerManagement.company_id,
+          keywords: keySearch,
+        });
+        break;
+      case 'UPLOAD_IMAGE_CONSTRUCTION_SUCCESS':
+        getListConstruction({
+          id: dataPartnerManagement.company_id,
+          keywords: keySearch,
+        });
+        break;
+      case 'DELETE_IMAGE_SUCCESS':
+        getListConstruction({
+          id: dataPartnerManagement.company_id,
+          keywords: keySearch,
+        });
+
+        break;
+
+      case 'UPDATE_PARTNER_PRODUCT_SUCCESS':
+        getListPartnerProduct({
+          id: dataPartnerManagement.company_id,
+          keywords: keySearch,
+        });
+        break;
+      case 'UPDATE_PARTNER_CONSTRUCTION_SUCCESS':
+        getListConstruction({
+          id: dataPartnerManagement.company_id,
+          keywords: keySearch,
+        });
+        break;
+      case 'DELETE_CONSTRUCTION_SUCCESS':
+        getListConstruction({
+          id: dataPartnerManagement.company_id,
+          keywords: keySearch,
+        });
+        break;
+      case 'REGISTER_PARTNER_COMPANY_SUCCESS':
+        getListPartnerProduct({
+          id: dataPartnerManagement.company_id,
+          keywords: keySearch,
+        });
+        getListPartnerManagement(partnerId);
+        setIsShowEdit(false);
+        break;
+      default:
+        break;
     }
-    if (type === 'REGISTER_PARTNER_PRODUCT_SUCCESS') {
-      getListPartnerProduct({
-        id: dataPartnerManagement.company_id,
-        keywords: keySearch,
-      });
-    }
-    if (type === 'REGISTER_PARTNER_CONSTRUCTION_SUCCESS') {
-      getListConstruction({
-        id: dataPartnerManagement.company_id,
-        keywords: keySearch,
-      });
-    }
-    if (type === 'UPLOAD_IMAGE_CONSTRUCTION_SUCCESS') {
-      getListConstruction({
-        id: dataPartnerManagement.company_id,
-        keywords: keySearch,
-      });
-    }
-    if (type === 'UPDATE_PARTNER_PRODUCT_SUCCESS') {
-      getListPartnerProduct({
-        id: dataPartnerManagement.company_id,
-        keywords: keySearch,
-      });
-    }
-    if (type === 'UPDATE_PARTNER_CONSTRUCTION_SUCCESS') {
-      getListConstruction({
-        id: dataPartnerManagement.company_id,
-        keywords: keySearch,
-      });
-    }
-    if (type === 'REGISTER_PARTNER_COMPANY_SUCCESS') {
-      getListPartnerProduct({
-        id: dataPartnerManagement.company_id,
-        keywords: keySearch,
-      });
-      getListPartnerManagement(partnerId);
-      setIsShowEdit(false);
-    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
@@ -709,6 +732,8 @@ const Customer = ({
                     type={type}
                     comID={parseInt(dataPartnerManagement.company_id, 10)}
                     uploadImageConstruction={uploadImageConstruction}
+                    deleteImage={deleteImage}
+                    deleteConstruction={deleteConstruction}
                   />
                 ) : (
                   <>
