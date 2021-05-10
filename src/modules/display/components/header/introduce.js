@@ -15,19 +15,13 @@ type Props = {
     location: Object,
   },
   createIntroduce: Function,
-  getValueHeader: Function,
   isProcessing: boolean,
   type: string,
 };
 
-const Introduce = ({
-  history,
-  createIntroduce,
-  getValueHeader,
-  isProcessing,
-  type,
-}: Props) => {
+const Introduce = ({ history, createIntroduce, isProcessing, type }: Props) => {
   const typePage = history?.location?.state?.type;
+  const dataLength = history?.location?.state?.dataLength;
   const [dataSubmit, setDataSubmit] = useState({
     nameWebsite: typePage && typePage?.name,
     tagline: typePage && typePage?.link,
@@ -52,11 +46,6 @@ const Introduce = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typePage]);
 
-  useEffect(() => {
-    getValueHeader();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleChange = (value, name) => {
     setDataSubmit({
       ...dataSubmit,
@@ -68,7 +57,7 @@ const Introduce = ({
     createIntroduce({
       name: dataSubmit.nameWebsite,
       link: dataSubmit.tagline,
-      type: 'header',
+      type: typePage?.type || `header${dataLength + 1}`,
       layout: 'menu',
     });
   };

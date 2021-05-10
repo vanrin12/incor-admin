@@ -324,10 +324,11 @@
       border-bottom-right-radius: pxToVW(10);
       white-space: pre-wrap;
     }
+
     .btn-delete-image {
       display: none;
     }
-  
+
     &:hover {
       .btn-delete-image {
         display: inline-block;
@@ -486,9 +487,11 @@
 
 
     }
-    button{
+
+    button {
       background: $color_primary !important;
       margin-left: pxToRem(10);
+
       p {
         color: $white;
         text-align: center;
@@ -599,8 +602,14 @@
   flex-direction: column;
   padding: pxToVW(30);
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background-color: $bg-popup;
+  height: pxToVW(500);
+  border-radius: pxToRem(10);
+
+  img {
+    margin-bottom: pxToRem(20);
+  }
 
   .input-file {
     width: 0.1px;

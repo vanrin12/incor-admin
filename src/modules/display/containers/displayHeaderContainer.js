@@ -23,6 +23,7 @@ const mapDispatchToProps = (dispatch) =>
       getListLayout: Creators.getListLayout,
       createFooter: Creators.createFooter,
       getDataFooter: Creators.getDataFooter,
+      deleteItemHeader: Creators.deleteItemHeader,
     },
     dispatch
   );

@@ -85,6 +85,7 @@ import updateProjectCustomerSaga from 'modules/customer/sagas/updateProjectCusto
 import deleteFormRequestSaga from 'modules/form/sagas/deleteFormRequestSaga';
 import deleteImageSaga from 'modules/partner/sagas/deleteImageImageSaga';
 import deleteConstruction from 'modules/partner/sagas/deleteContructionSaga';
+import deleteItemHeaderSaga from 'modules/display/sagas/deleteItemHeaderSaga';
 import deletePartnerProductSaga from 'modules/partner/sagas/deletePartnerProductSaga';
 
 export default function* RootSagas() {
@@ -168,6 +169,7 @@ export default function* RootSagas() {
     deleteFormRequestSaga(),
     deleteImageSaga(),
     deleteConstruction(),
-    deletePartnerProductSaga()
+    deleteItemHeaderSaga(),
+    deletePartnerProductSaga(),
   ]);
 }
