@@ -127,10 +127,10 @@ const ItemPartnerConstruction = ({
     });
   return (
     <>
+      <Button onClick={() => setIsOpenAddConstruction(true)}>
+        Tạo Công Trình
+      </Button>
       <Col xs={12} md={12} className="list-product">
-        <Button onClick={() => setIsOpenAddConstruction(true)}>
-          Tạo Công Trình
-        </Button>
         <div className="wrapper-constructions">{renderConstructions}</div>
       </Col>
       <Modal
