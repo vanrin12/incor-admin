@@ -13,6 +13,7 @@ const images = {
   icon_fb: require('../assets/imgs/icon_fb.png'),
   icon_you: require('../assets/imgs/icon_youtube.png'),
   iconUp: require('../assets/imgs/ic-back-white.png'),
+  imgUpload: require('../assets/imgs/upload.png'),
 };
 
 export default images;

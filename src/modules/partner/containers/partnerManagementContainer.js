@@ -43,6 +43,7 @@ const mapDispatchToProps = (dispatch) =>
       resetType: Creators.resetType,
       deleteImage: Creators.deleteImage,
       deleteConstruction: Creators.deleteConstruction,
+      deletePartnerProduct: Creators.deletePartnerProduct,
     },
     dispatch
   );

@@ -28,6 +28,7 @@ type Props = {
   isShowLock?: boolean,
   isShowCustomerProject?: boolean,
   isShowHashtag?: boolean,
+  isShowFeedback?: boolean,
 };
 
 const TableRow = ({
@@ -54,6 +55,7 @@ const TableRow = ({
   isShowLock = false,
   isShowCustomerProject = false,
   isShowHashtag = false,
+  isShowFeedback = false,
 }: Props) => {
   // const isShowId = true;
   const [show, setShow] = useState(false);
@@ -186,6 +188,31 @@ const TableRow = ({
           </Overlay>
         </td>
       )}
+      {isShowFeedback && (
+        <td>
+          <p
+            ref={target}
+            onClick={() => rowItem?.feedbacks && setShow(!show)}
+            role="presentation"
+            className={`${!rowItem?.feedbacks ? 'opacity05' : ''}`}
+          >
+            Xem
+          </p>
+          <Overlay target={target.current} show={show} placement="left">
+            {(props) => (
+              <Tooltip id="overlay-example" {...props}>
+                <div className="custom-tooltip">
+                  <h4>{rowItem?.feedbacks}</h4>
+
+                  <p onClick={() => setShow(!show)} role="presentation">
+                    Đóng
+                  </p>
+                </div>
+              </Tooltip>
+            )}
+          </Overlay>
+        </td>
+      )}
       {rowActive && rowActive.id === rowItem.id && (
         <div className="action-category">
           <p
@@ -230,5 +257,6 @@ TableRow.defaultProps = {
   isShowLock: false,
   isShowCustomerProject: false,
   isShowHashtag: false,
+  isShowFeedback: false,
 };
 export default memo<Props>(TableRow);

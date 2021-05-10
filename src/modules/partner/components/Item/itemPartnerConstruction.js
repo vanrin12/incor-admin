@@ -6,6 +6,7 @@ import { Col } from 'react-bootstrap';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Modal from 'commons/components/Modal';
+import images from 'themes/images';
 // import ROUTERS from 'constants/router';
 
 type Props = {
@@ -222,6 +223,7 @@ const ItemPartnerConstruction = ({
               accept="image/jpg, image/png, image/gif, capture=camera"
               onChange={(e) => getFileName(e.target)}
             />
+            {fileName === '' && <img src={images.imgUpload} alt="" />}
             {fileName && (
               <img
                 src={URL.createObjectURL(fileName)}
@@ -239,14 +241,16 @@ const ItemPartnerConstruction = ({
               </Button>
             </label>
           </div>
-          <div className="wrapper-submit-image">
-            <Button
-              customClass="button--primary submit-image mt-0"
-              onClick={() => handleUploadImage()}
-            >
-              <p>THÊM ẢNH</p>
-            </Button>
-          </div>
+          {fileName && (
+            <div className="wrapper-submit-image">
+              <Button
+                customClass="button--primary submit-image mt-0"
+                onClick={() => handleUploadImage()}
+              >
+                <p>THÊM ẢNH</p>
+              </Button>
+            </div>
+          )}
         </div>
       </Modal>
     </>
