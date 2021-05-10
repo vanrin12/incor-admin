@@ -324,6 +324,23 @@
       border-bottom-right-radius: pxToVW(10);
       white-space: pre-wrap;
     }
+    .btn-delete-image {
+      display: none;
+    }
+  
+    &:hover {
+      .btn-delete-image {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: $color-delete;
+        color: $white;
+        border: none;
+        width: pxToRem(60);
+        height: pxToRem(30);
+      }
+    }
   }
 
   .add-product {
@@ -469,6 +486,14 @@
 
 
     }
+    button{
+      background: $color_primary !important;
+      margin-left: pxToRem(10);
+      p {
+        color: $white;
+        text-align: center;
+      }
+    }
   }
 
   &__right {
@@ -575,6 +600,7 @@
   padding: pxToVW(30);
   align-items: center;
   justify-content: space-between;
+  background-color: $bg-popup;
 
   .input-file {
     width: 0.1px;
@@ -607,12 +633,13 @@
   }
 
   .add-file {
-    width: pxToVW(150);
-    background: $color_primary;
-    height: pxToVW(25);
-    border-radius: 0;
+    width: pxToRem(150) !important;
+    background: $color_primary !important;
+    height: pxToRem(35) !important;
+    border-radius: pxToRem(5);
     text-align: center;
     display: block;
+    margin-top: pxToRem(15) !important;
 
     p {
       color: $white;

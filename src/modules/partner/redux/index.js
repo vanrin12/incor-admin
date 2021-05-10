@@ -63,6 +63,9 @@ export const { Types, Creators } = createActions({
   deleteConstruction: ['id'],
   deleteConstructionSuccess: null,
   deleteConstructionFailed: null,
+  deletePartnerProduct: ['id'],
+  deletePartnerProductSuccess: null,
+  deletePartnerProductFailed: null,
 });
 
 // Initial state
@@ -553,6 +556,28 @@ const deleteImageFailed = (state, action) => {
   });
 };
 
+const deletePartnerProduct = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const deletePartnerProductSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const deletePartnerProductFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+    errorMsg: action.errorMsg,
+  });
+};
+
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_LIST_PARTNER]: getListPartner,
@@ -630,6 +655,10 @@ const HANDLERS = {
   [Types.DELETE_CONSTRUCTION]: deleteConstruction,
   [Types.DELETE_CONSTRUCTION_SUCCESS]: deleteConstructionSuccess,
   [Types.DELETE_CONSTRUCTION]: deleteConstructionFailed,
+
+  [Types.DELETE_PARTNER_PRODUCT]: deletePartnerProduct,
+  [Types.DELETE_PARTNER_PRODUCT_SUCCESS]: deletePartnerProductSuccess,
+  [Types.DELETE_PARTNER_PRODUCT]: deletePartnerProductFailed,
 
   [Types.RESET_TYPE]: resetType,
 };

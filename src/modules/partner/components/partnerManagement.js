@@ -59,6 +59,7 @@ type Props = {
   getListAreas: Function,
   deleteImage: Function,
   deleteConstruction: Function,
+  deletePartnerProduct: Function,
 };
 
 const Customer = ({
@@ -92,6 +93,7 @@ const Customer = ({
   getListAreas,
   deleteImage,
   deleteConstruction,
+  deletePartnerProduct,
 }: Props) => {
   const partnerId = match.params.id;
 
@@ -243,6 +245,13 @@ const Customer = ({
         });
         getListPartnerManagement(partnerId);
         setIsShowEdit(false);
+        break;
+      case 'DELETE_PARTNER_PRODUCT_SUCCESS':
+        getListPartnerProduct({
+          id: dataPartnerManagement.company_id,
+          keywords: keySearch,
+        });
+
         break;
       default:
         break;
@@ -697,6 +706,7 @@ const Customer = ({
                   handleAddPartnerProduct={handleAddPartnerProduct}
                   handleUpdatePartnerProduct={handleUpdatePartnerProduct}
                   type={type}
+                  deletePartnerProduct={deletePartnerProduct}
                 />
               </Tab>
               <Tab eventKey="tab3" title="Công trình">
