@@ -6,6 +6,7 @@ import MainLayout from 'commons/components/MainLayout';
 import images from 'themes/images';
 import Button from 'commons/components/Button';
 import ROUTERS from 'constants/router';
+import Modal from 'commons/components/Modal';
 import Loading from 'commons/components/Loading';
 
 type Props = {
@@ -19,6 +20,10 @@ type Props = {
     name: string,
   }>,
   isProcessing: boolean,
+  getDataFooter: Function,
+  dataFooter: Object,
+  createFooter: Function,
+  type: string,
 };
 
 const DisplayHeader = ({
@@ -26,20 +31,43 @@ const DisplayHeader = ({
   getListLayout,
   layoutHeader,
   isProcessing,
+  getDataFooter,
+  dataFooter,
+  createFooter,
+  type,
 }: Props) => {
-  const [dataSubmit, setDataSubmit] = useState({
-    component: '',
-    tagline: '',
-    slide: null,
-  });
-  const [fileName, setFileName] = useState('');
+  const [fileLogo, setFileLogo] = useState(null);
+  const [imgLogoView, setImgLogoView] = useState('');
   const inputFile = useRef({});
-
+  const [showError, setShowError] = useState({
+    isShow: false,
+    content: '',
+  });
   useEffect(() => {
-    getListLayout();
+    getListLayout('menu');
+    getDataFooter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  useEffect(() => {
+    switch (type) {
+      case 'CREATE_FOOTER_SUCCESS':
+        setShowError({
+          isShow: true,
+          content: 'Cập nhật thành công!.',
+        });
+        getDataFooter();
+        break;
+      case 'CREATE_FOOTER_FAILED':
+        setShowError({
+          isShow: true,
+          content: 'Cập nhật thất bại!.',
+        });
+        break;
+      default:
+        break;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
   const onButtonClick = () => {
     // `current` points to the mounted file input element
     // eslint-disable-next-line no-unused-expressions
@@ -51,31 +79,55 @@ const DisplayHeader = ({
 
   const getFileName = async (e) => {
     if (e && e.files[0]) {
-      setDataSubmit({ ...dataSubmit, favicon: e.files[0] });
-      setFileName(e.files[0].name);
+      setFileLogo(e.files[0]);
+      setImgLogoView(
+        (window.URL || window.webkitURL).createObjectURL(e.files[0])
+      );
     }
   };
 
+  useEffect(() => {
+    setImgLogoView(dataFooter?.logo);
+  }, [dataFooter]);
+
+  const handleSubmit = () => {
+    const formData = new window.FormData();
+    if (fileLogo) {
+      formData.append('constants[1][name]', 'logo');
+      formData.append('constants[1][value]', fileLogo);
+      formData.append('constants[1][type]', true);
+    }
+    createFooter(formData);
+  };
+
+  const handleRemoveMenu = (item) => {};
   const renderComponent =
     layoutHeader &&
     layoutHeader.map((item) => {
       return (
-        <div
-          className={`list-companent__item-display ${
-            item.id === dataSubmit.component ? 'active' : ''
-          }`}
-          onClick={() => {
-            history.push({
-              pathname: ROUTERS.DISPLAY_HEADER_INTRODUCE,
-              state: { type: item },
-            });
-          }}
-          onKeyDown={() => {}}
-          tabIndex={0}
-          role="button"
-          key={item.id}
-        >
-          {item.name}
+        <div className="list-companent__item d-flex align-items-center">
+          <div
+            className="list-companent__item-display"
+            onClick={() => {
+              history.push({
+                pathname: ROUTERS.DISPLAY_HEADER_INTRODUCE,
+                state: { type: item },
+              });
+            }}
+            onKeyDown={() => {}}
+            tabIndex={0}
+            role="button"
+            key={item.id}
+          >
+            {item.name}
+          </div>
+          <div
+            className="btn-mis mb-4"
+            onClick={() => handleRemoveMenu(item)}
+            role="presentation"
+          >
+            -
+          </div>
         </div>
       );
     });
@@ -106,7 +158,10 @@ const DisplayHeader = ({
               >
                 Hủy bỏ
               </h2>
-              <Button customClass="button--primary" onClick={() => {}}>
+              <Button
+                customClass="button--primary"
+                onClick={() => handleSubmit()}
+              >
                 LƯU
               </Button>
             </Col>
@@ -119,6 +174,9 @@ const DisplayHeader = ({
                 onKeyDown={() => {}}
                 tabIndex={0}
                 role="button"
+                style={{
+                  backgroundImage: `url(${imgLogoView})`,
+                }}
               >
                 <input
                   className="box__file"
@@ -129,16 +187,44 @@ const DisplayHeader = ({
                   onChange={(e) => getFileName(e.target)}
                 />
                 <label>
-                  <strong>{fileName || 'Upload file'}</strong>
+                  <strong>{'Upload file'}</strong>
                 </label>
               </div>
               <p className="suggestions">Kích thước tối thiểu 512x512px</p>
-              <div className="companent">Site con</div>
+              <div className="companent">Site con</div>{' '}
+              <div className="favicon d-flex justify-content-between">
+                Slide
+                <div
+                  className="plus-slide"
+                  onClick={() =>
+                    history.push({
+                      pathname: ROUTERS.DISPLAY_HEADER_INTRODUCE,
+                      state: { type: '' },
+                    })
+                  }
+                  role="presentation"
+                >
+                  +
+                </div>
+              </div>
               <div className="list-companent">{renderComponent}</div>
             </Col>
           </Row>
         )}
       </Container>
+      <Modal
+        isOpen={showError.isShow}
+        isShowFooter
+        handleClose={() => {
+          setShowError({ ...showError, isShow: false });
+        }}
+        handleSubmit={() => {
+          setShowError({ ...showError, isShow: false });
+        }}
+        textBtnRight="ĐÓNG"
+      >
+        {showError.content}
+      </Modal>
     </MainLayout>
   );
 };

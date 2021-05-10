@@ -77,7 +77,7 @@ export const ROUTES = {
   API_DATA_MAP: `/api/v1/admin/constants/data-maps`,
   API_MAIN_SLIDER: `/api/v1/admin/constants/sliders`,
   API_DELETE_SLIDER: (id) => `/api/v1/admin/constants/uploads/${id}`,
-  API_GET_LIST_LAYOUT: `/api/v1/admin/constants/data-maps/layout?layout=header`,
+  API_GET_LIST_LAYOUT:(layout)=> `/api/v1/admin/constants/data-maps/layout?layout=${layout}`,
 
   API_CHANGE_PASSWORD: '/api/v1/auth/change-password',
   API_LOCK_USER: `/api/v1/admin/users/locks`,

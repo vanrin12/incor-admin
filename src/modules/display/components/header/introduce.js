@@ -16,11 +16,6 @@ type Props = {
   },
   createIntroduce: Function,
   getValueHeader: Function,
-  valueHeader: Array<{
-    type: string,
-    name: String,
-    link: string,
-  }>,
   isProcessing: boolean,
   type: string,
 };
@@ -29,21 +24,16 @@ const Introduce = ({
   history,
   createIntroduce,
   getValueHeader,
-  valueHeader,
   isProcessing,
   type,
 }: Props) => {
   const typePage = history?.location?.state?.type;
-
   const [dataSubmit, setDataSubmit] = useState({
-    nameWebsite: '',
-    tagline: '',
+    nameWebsite: typePage && typePage?.name,
+    tagline: typePage && typePage?.link,
+    type: typePage && typePage?.type,
+    layout: typePage && typePage?.layout,
   });
-
-  let dataHeader = [];
-  if (valueHeader) {
-    dataHeader = valueHeader.filter((item) => item.type === typePage?.name);
-  }
 
   useEffect(() => {
     if (type === 'CREATE_INTRODUCE_SUCCESS') {
@@ -54,11 +44,13 @@ const Introduce = ({
 
   useEffect(() => {
     setDataSubmit({
-      nameWebsite: dataHeader && dataHeader[0] && dataHeader[0].name,
-      tagline: dataHeader && dataHeader[0] && dataHeader[0].link,
+      nameWebsite: typePage && typePage?.name,
+      tagline: typePage && typePage?.link,
+      type: typePage && typePage?.type,
+      layout: typePage && typePage?.layout,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typePage, valueHeader]);
+  }, [typePage]);
 
   useEffect(() => {
     getValueHeader();
@@ -76,7 +68,8 @@ const Introduce = ({
     createIntroduce({
       name: dataSubmit.nameWebsite,
       link: dataSubmit.tagline,
-      type: typePage.name,
+      type: 'header',
+      layout: 'menu',
     });
   };
 
@@ -111,7 +104,7 @@ const Introduce = ({
             <Loading />
           ) : (
             <Col xs={12} md={12}>
-              <h1>{typePage?.name}</h1>
+              <h1>{typePage?.name || 'Thêm mới chuyên mục'}</h1>
               <Input
                 type="text"
                 onChange={(e) => {

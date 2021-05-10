@@ -52,8 +52,8 @@ const DisplayFooter = ({
     content: '',
   });
   useEffect(() => {
-    setFileName(dataFooter?.logo);
-    setUrlFileName1(dataFooter?.logo);
+    setFileName(dataFooter?.logoFooter);
+    setUrlFileName1(dataFooter?.logoFooter);
     setFileName2(dataFooter?.logoCongThuong);
     setUrlFileName2(dataFooter?.logoCongThuong);
     setDataSubmit({
@@ -166,7 +166,7 @@ const DisplayFooter = ({
     formData.append('constants[7][name]', 'youTube');
     formData.append('constants[7][value]', dataSubmit.youtube);
     if (dataSubmit && dataSubmit.logo) {
-      formData.append('constants[8][name]', 'logo');
+      formData.append('constants[8][name]', 'logoFooter');
       formData.append('constants[8][value]', dataSubmit && dataSubmit.logo);
       formData.append('constants[8][type]', true);
     }

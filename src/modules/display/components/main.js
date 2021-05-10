@@ -58,7 +58,7 @@ const Display = ({
 
   useEffect(() => {
     getListSlider();
-    getListLayout();
+    getListLayout('header');
     // eslint-disable-next-line
   }, []);
 
@@ -70,7 +70,7 @@ const Display = ({
     });
     // eslint-disable-next-line
   }, [dataListSlider, titleSlider]);
-  console.log(siteMapComponent, 'layoutHeader');
+  
   useEffect(() => {
     switch (typeRequest) {
       case 'UPDATE_LIST_SLIDER_SUCCESS':

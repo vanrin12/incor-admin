@@ -56,7 +56,7 @@ export const { Types, Creators } = createActions({
   updateListSliderSuccess: null,
   updateListSliderFailed: null,
 
-  getListLayout: null,
+  getListLayout: ['layout'],
   getListLayoutSuccess: null,
   getListLayoutFailed: null,
 });
@@ -401,7 +401,7 @@ const getListLayoutSuccess = (state, action) => {
   const listComponent = [
     {
       id: 1,
-      name: siteMapComponent && siteMapComponent[0].name,
+      name: siteMapComponent && siteMapComponent[0]?.name,
       url: '/display/sale-map',
       type: 'promotion',
     },
@@ -413,7 +413,7 @@ const getListLayoutSuccess = (state, action) => {
     },
     {
       id: 3,
-      name: siteMapComponent && siteMapComponent[1].name,
+      name: siteMapComponent && siteMapComponent[1]?.name,
       url: '/display/sale-map',
       type: 'advisory',
     },
