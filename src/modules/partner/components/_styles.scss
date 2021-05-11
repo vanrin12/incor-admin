@@ -313,11 +313,12 @@
       font-size: pxToVW(15);
       line-height: pxToVW(18);
       color: $white;
-      padding-top: pxToVW(28);
-      padding-bottom: pxToVW(27);
+      padding-top: pxToRem(10);
+      padding-bottom: pxToRem(10);
       background-color: $color_primary;
       text-align: center;
       position: absolute;
+      line-height: 1.4;
       bottom: 0;
       width: 100%;
       border-bottom-left-radius: pxToVW(10);

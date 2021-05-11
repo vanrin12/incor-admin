@@ -6,6 +6,7 @@ import { Col } from 'react-bootstrap';
 import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Modal from 'commons/components/Modal';
+import images from 'themes/images';
 // import ROUTERS from 'constants/router';
 
 type Props = {
@@ -43,7 +44,7 @@ const ItemPartnerProduct = ({
   });
 
   useEffect(() => {
-    if (type === 'GET_DETAIL_PARTNER_CONSTRUCTION_SUCCESS') {
+    if (type === 'GET_DETAIL_PARTNER_PRODUCT_SUCCESS') {
       setIsShowDetailProduct(true);
     }
   }, [type]);
@@ -53,6 +54,7 @@ const ItemPartnerProduct = ({
     description: dataDetailPartnerProduct?.description,
     hashtag: dataDetailPartnerProduct?.hashtag,
     image: null,
+    imgView: '',
   });
 
   useEffect(() => {
@@ -61,6 +63,7 @@ const ItemPartnerProduct = ({
       description: dataDetailPartnerProduct?.description,
       hashtag: dataDetailPartnerProduct?.hashtag,
       image: null,
+      imgView: dataDetailPartnerProduct?.image,
     });
   }, [dataDetailPartnerProduct]);
 
@@ -84,9 +87,14 @@ const ItemPartnerProduct = ({
   };
 
   const getFileName = async (e) => {
-    setDataAddProduct({ ...dataAddProduct, image: e.files[0] });
-    setDataUpdateProduct({ ...dataUpdateProduct, image: e.files[0] });
-    setFileName(e.files[0] && e.files[0].name);
+    if (e && e.files[0]) {
+      setDataAddProduct({ ...dataAddProduct, image: e.files[0] });
+      setDataUpdateProduct({ ...dataUpdateProduct, image: e.files[0] });
+      setFileName(e.files[0] && e.files[0].name);
+    } else {
+      setFileName('');
+      setDataAddProduct({ ...dataAddProduct, image: null });
+    }
   };
 
   const handleDeleteConstruction = (e, item) => {
@@ -140,6 +148,7 @@ const ItemPartnerProduct = ({
         isOpen={isShow}
         handleClose={() => {
           setIsShow(false);
+          getFileName('');
         }}
         customClassButton="w-100"
         classNameBtnLeft="btn-left"
@@ -147,12 +156,13 @@ const ItemPartnerProduct = ({
         isShowIconClose
         handleCloseIcon={() => {
           setIsShow(false);
+          getFileName('');
         }}
       >
         <div className="title-content">
           <div className="popup-add-product__left">
             <div
-              className="box__input"
+              className="box__input wrapper-add-image pt-0"
               onClick={onButtonClick}
               onKeyDown={() => {}}
               tabIndex={0}
@@ -166,13 +176,14 @@ const ItemPartnerProduct = ({
                 accept="image/jpg, image/png, image/gif, capture=camera"
                 onChange={(e) => getFileName(e.target)}
               />
+              <img src={images.imgUpload} alt="" />
               <label>
                 <strong>{fileName || 'Kéo thả tập tin vào đây or'}</strong>
                 <Button
-                  customClass="button--primary add-file mt-0"
+                  customClass="button--primary add-file mt-0 m-auto"
                   onClick={() => {}}
                 >
-                  <p>CHỌN TỆP</p>
+                  <p className="pb-0">THÊM ẢNH</p>
                 </Button>
               </label>
             </div>
@@ -229,7 +240,7 @@ const ItemPartnerProduct = ({
         <div className="title-content">
           <div className="popup-add-product__left">
             <div
-              className="box__input"
+              className="box__input wrapper-add-image pt-0"
               onClick={onButtonClick}
               onKeyDown={() => {}}
               tabIndex={0}
@@ -243,13 +254,14 @@ const ItemPartnerProduct = ({
                 accept="image/jpg, image/png, image/gif, capture=camera"
                 onChange={(e) => getFileName(e.target)}
               />
+              <img src={images.imgUpload} alt="" />
               <label>
                 <strong>{fileName || 'Kéo thả tập tin vào đây or'}</strong>
                 <Button
-                  customClass="button--primary add-file mt-0"
+                  customClass="button--primary add-file mt-0 m-auto"
                   onClick={() => {}}
                 >
-                  <p>CHỌN TỆP</p>
+                  <p className="pb-0">THÊM ẢNH</p>
                 </Button>
               </label>
             </div>
