@@ -79,7 +79,11 @@ const ItemPartnerConstruction = ({
   };
 
   const getFileName = async (e) => {
-    setFileName(e.files[0]);
+    if (e && e.files[0]) {
+      setFileName(e.files[0]);
+    } else {
+      setFileName('');
+    }
   };
 
   const handleUploadImage = () => {
@@ -124,7 +128,10 @@ const ItemPartnerConstruction = ({
         <div className="wrapper-product">
           <div
             className="product-item"
-            onClick={() => handleDetailConstruction(item.id)}
+            onClick={() => {
+              setIsAddImage(true);
+              setCurrentConstructoinClicking(item);
+            }}
             role="button"
             tabIndex={0}
             onKeyDown={() => {}}
@@ -153,6 +160,8 @@ const ItemPartnerConstruction = ({
         </div>
       );
     });
+
+  console.log(fileName, 'fileName');
   return (
     <>
       <Button onClick={() => setIsOpenAddConstruction(true)}>
@@ -197,6 +206,7 @@ const ItemPartnerConstruction = ({
         isOpen={isAddImage}
         handleClose={() => {
           setIsAddImage(false);
+          getFileName('');
         }}
         customClassButton="w-100"
         classNameBtnLeft="btn-left"
@@ -204,6 +214,7 @@ const ItemPartnerConstruction = ({
         isShowIconClose
         handleCloseIcon={() => {
           setIsAddImage(false);
+          getFileName('');
         }}
       >
         <div className="wrapper-add-image">
@@ -223,33 +234,30 @@ const ItemPartnerConstruction = ({
               accept="image/jpg, image/png, image/gif, capture=camera"
               onChange={(e) => getFileName(e.target)}
             />
-            {fileName === '' && <img src={images.imgUpload} alt="" />}
-            {fileName && (
-              <img
-                src={URL.createObjectURL(fileName)}
-                alt=""
-                width="284"
-                height="279"
-              />
-            )}
+            <img src={images.imgUpload} alt="" />
             <label htmlFor="file">
-              <Button
-                customClass="button--primary add-file mt-0"
-                onClick={() => {}}
-              >
-                <p>CHỌN TỆP</p>
-              </Button>
+              <strong style={{ color: '#b6b6b6' }}>
+                {fileName?.name || 'Kéo thả tập tin vào đây or'}
+              </strong>
             </label>
+            {!fileName && (
+              <label htmlFor="file">
+                <Button
+                  customClass="button--primary add-file mt-0"
+                  onClick={() => {}}
+                >
+                  <p className="pb-0">THÊM ẢNH</p>
+                </Button>
+              </label>
+            )}
           </div>
           {fileName && (
-            <div className="wrapper-submit-image">
-              <Button
-                customClass="button--primary submit-image mt-0"
-                onClick={() => handleUploadImage()}
-              >
-                <p>THÊM ẢNH</p>
-              </Button>
-            </div>
+            <Button
+              customClass="button--primary add-file mt-3"
+              onClick={() => handleUploadImage()}
+            >
+              <p className="pb-0">THÊM ẢNH</p>
+            </Button>
           )}
         </div>
       </Modal>
