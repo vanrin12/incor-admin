@@ -160,8 +160,6 @@ const ItemPartnerConstruction = ({
         </div>
       );
     });
-
-  console.log(fileName, 'fileName');
   return (
     <>
       <Button onClick={() => setIsOpenAddConstruction(true)}>
