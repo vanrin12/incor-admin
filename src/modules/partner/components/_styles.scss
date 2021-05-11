@@ -294,9 +294,9 @@
 }
 
 .list-product {
-  display: inline-block;
-  white-space: nowrap;
-  overflow: auto;
+  display: flex;
+  grid-gap: 10px;
+  flex-wrap: wrap;
 
   .product {
     width: pxToVW(200);
