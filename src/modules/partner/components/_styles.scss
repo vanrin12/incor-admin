@@ -353,10 +353,9 @@
     font-size: pxToVW(200);
     font-weight: $medium;
     color: $color-add;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     vertical-align: top;
+    display: inline-block;
+    padding-left: pxToRem(45);
   }
 
   &__back {
@@ -554,12 +553,17 @@
     color: $color-black;
   }
 }
-
+.wrapper-constructions{
+  width: 100%;
+}
 .wrapper-product {
-  display: flex;
+  white-space: nowrap;
+  word-wrap: normal;
   grid-gap: pxToVW(20);
   margin-top: pxToVW(60);
-  flex-wrap: wrap;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .product-item {
@@ -570,10 +574,9 @@
   margin-right: pxToVW(10);
   text-align: center;
   color: $white;
-  vertical-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
+  vertical-align: top;
+  padding-top: pxToRem(100);
   font-size: pxToVW(15);
   line-height: pxToVW(18);
   cursor: pointer;
@@ -667,6 +670,7 @@
   background-size: cover;
   cursor: pointer;
   position: relative;
+  margin-right: pxToRem(10);
 
   .btn-delete-image {
     display: none;
