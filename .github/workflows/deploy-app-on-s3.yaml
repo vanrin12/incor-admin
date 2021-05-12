@@ -7,7 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      AWS_S3_BUCKET_NAME: incor.vn
+      AWS_S3_BUCKET_NAME: admin.incor.vn
       AWS_CF_DISTRIBUTION_ID: E2ADVP5B9ABZD3
     strategy:
       matrix:
