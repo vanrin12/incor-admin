@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Immutable from 'seamless-immutable';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from 'custom-build-ckeditor-5';
 import SelectDropdown from 'commons/components/Select';
 // import HtmlEmbed from '@ckeditor/ckeditor5-html-embed/src/htmlembed';
 import MainLayout from 'commons/components/MainLayout';
