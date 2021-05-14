@@ -84,7 +84,7 @@
     "@storybook/addon-links": "^5.3.19",
     "@storybook/react": "^5.3.19",
     "babel-loader": "^8.1.0",
-    "custom-build-ckeditor-5": "^1.0.0",
+    "custom-build-ckeditor-5": "^1.0.1",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",

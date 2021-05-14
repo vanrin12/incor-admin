@@ -1202,6 +1202,13 @@
   dependencies:
     ckeditor5 "^27.1.0"
 
+"@ckeditor/ckeditor5-alignment@^27.1.0":
+  version "27.1.0"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-alignment/-/ckeditor5-alignment-27.1.0.tgz#a4f0b6d8ef409cf1d3c7f669c99e24d01f895a5b"
+  integrity sha512-CLYtOMh8AHf2V1VHwbJlVFNupVrf54Cz2e0PS6inSssTQkl9mznouxboi1VJtJbl6EA+JlrR0EjIljf4V8aoGQ==
+  dependencies:
+    ckeditor5 "^27.1.0"
+
 "@ckeditor/ckeditor5-autoformat@^27.1.0":
   version "27.1.0"
   resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-autoformat/-/ckeditor5-autoformat-27.1.0.tgz#61ce1c11209f8008ce5c06859fe6f4638b362198"
@@ -5970,12 +5977,13 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-custom-build-ckeditor-5@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/custom-build-ckeditor-5/-/custom-build-ckeditor-5-1.0.0.tgz#53656e388766d44c07328521396476b3a8f1334b"
-  integrity sha512-tlS7dSOTc5jmSDjLIc89I4TAm8sJv3ToQrAC6ji0gOQGsBjPTr/uizWH1qB0fb5912HR4qtENS46IdgegMkMqw==
+custom-build-ckeditor-5@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/custom-build-ckeditor-5/-/custom-build-ckeditor-5-1.0.1.tgz#c5bf8ede6b41169f2042be61cc391cacea0336fe"
+  integrity sha512-9FwwcqvxkNtc9DlOKTwTJnzw742rYA2kEzc4Mhixfv4WFMNq3trVaPcEXOSSU27t/iNMHjyyPMddg0Cj/aUfAA==
   dependencies:
     "@ckeditor/ckeditor5-adapter-ckfinder" "^27.1.0"
+    "@ckeditor/ckeditor5-alignment" "^27.1.0"
     "@ckeditor/ckeditor5-autoformat" "^27.1.0"
     "@ckeditor/ckeditor5-basic-styles" "^27.1.0"
     "@ckeditor/ckeditor5-block-quote" "^27.1.0"
