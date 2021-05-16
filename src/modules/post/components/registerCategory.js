@@ -214,33 +214,28 @@ const RegisterPost = ({
                   option={dataRegister.parent}
                   customClass="select-vote"
                 />
-                <div className="d-flex align-items-center">
-                  <div>
-                    <p>{nameImage}</p>
-                    <input
-                      className="box__file d-none"
-                      type="file"
-                      ref={inputFile}
-                      accept="image/jpg, image/jpeg, image/png, capture=camera"
-                      onChange={(e) => getFileName(e.target)}
-                    />
-                    <div className="action-register pt-2">
-                      <Button
-                        customClass="button--primary"
-                        onClick={onButtonClick}
-                      >
-                        <p>CHỌN FILE</p>
-                      </Button>
-                    </div>
-                  </div>
-                  {objFile?.imgView && (
-                    <div
-                      className="image-category"
-                      style={{
-                        backgroundImage: `url(${objFile?.imgView})`,
-                      }}
-                    />
-                  )}
+                <p>Cover</p>
+                <div
+                  className="box__input"
+                  onClick={onButtonClick}
+                  onKeyDown={() => {}}
+                  tabIndex={0}
+                  role="button"
+                  style={{
+                    backgroundImage: `url(${objFile?.imgView})`,
+                  }}
+                >
+                  <input
+                    className="box__file"
+                    type="file"
+                    multiple
+                    ref={inputFile}
+                    accept="image/jpg, image/png, image/gif, capture=camera"
+                    onChange={(e) => getFileName(e.target)}
+                  />
+                  <label>
+                    <strong>{nameImage || 'Upload file'}</strong>
+                  </label>
                 </div>
               </Col>
               <Col xs={12} md={12} className="action-register pl-0">
