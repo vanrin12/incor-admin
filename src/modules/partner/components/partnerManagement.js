@@ -9,10 +9,12 @@ import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import IMAGES from 'themes/images';
 import Loading from 'commons/components/Loading';
+import Modal from 'commons/components/Modal';
 import { headPartnerManagement } from 'constants/itemHead';
 import ItemPartnerManagement from './Item/itemPartnerManagement';
 import ItemPartnerProduct from './Item/itemPartnerProduct';
 import ItemPartnerConstruction from './Item/itemPartnerConstruction';
+import ROUTERS from 'constants/router';
 
 type Props = {
   isProcessing: boolean,
@@ -49,17 +51,17 @@ type Props = {
   updatePartnerConstruction: Function,
   dataDetailPartnerConstruction: Object,
   totalQuotes: number,
-  match: {
-    params: {
-      id: string,
-    },
-  },
   uploadImageConstruction: Function,
   dataAreas: Array<{}>,
   getListAreas: Function,
   deleteImage: Function,
   deleteConstruction: Function,
   deletePartnerProduct: Function,
+  sendMailPartner: Function,
+  resetType: Function,
+  history: {
+    push: Function,
+  },
 };
 
 const Customer = ({
@@ -94,9 +96,12 @@ const Customer = ({
   deleteImage,
   deleteConstruction,
   deletePartnerProduct,
+  sendMailPartner,
+  resetType,
+  history,
 }: Props) => {
   const partnerId = match.params.id;
-
+  const [isShow, setIsShow] = useState(false);
   const [isShowEdit, setIsShowEdit] = useState(false);
   const [isShowDetailConstruction, setIsShowDetailConstruction] = useState(
     false
@@ -253,6 +258,9 @@ const Customer = ({
           keywords: keySearch,
         });
 
+        break;
+      case 'SEND_MAIL_PARTNER_SUCCESS':
+        setIsShow(true);
         break;
       default:
         break;
@@ -422,6 +430,18 @@ const Customer = ({
   //     registerPartnerConstruction(formData);
   //   }
   // };
+
+  const handleClickBtnDetail = (rowItem) => {
+    if (rowItem?.statusSendMail === 0) {
+      sendMailPartner(rowItem?.id);
+    }
+  };
+
+  const handleClickBtnView = (rowItem) => {
+    history.push(
+      `${ROUTERS.PARTNER_INFORMATION_ROUTER}/${rowItem?.project_id}`
+    );
+  };
 
   const defaultOption =
     valueHashtag && valueHashtag.length > 0
@@ -666,6 +686,8 @@ const Customer = ({
                   dataQuotes={dataQuotes}
                   handleSearchCompany={handleSearchCompany}
                   totalQuotes={totalQuotes}
+                  handleClickBtnDetail={handleClickBtnDetail}
+                  handleClickBtnView={handleClickBtnView}
                 />
               </Tab>
               <Tab eventKey="tab2" title="Sản phẩm">
@@ -779,6 +801,21 @@ const Customer = ({
           </Row>
         </Container>
       )}
+      <Modal
+        isOpen={isShow}
+        isShowFooter
+        handleClose={() => {
+          setIsShow(false);
+          resetType();
+        }}
+        handleSubmit={() => {
+          setIsShow(false);
+          resetType();
+        }}
+        textBtnLeft="ĐÓNG"
+      >
+        Đã gửi mail về cho đối tác
+      </Modal>
     </MainLayout>
   );
 };

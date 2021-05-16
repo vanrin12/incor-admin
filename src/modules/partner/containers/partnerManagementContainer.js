@@ -44,6 +44,7 @@ const mapDispatchToProps = (dispatch) =>
       deleteImage: Creators.deleteImage,
       deleteConstruction: Creators.deleteConstruction,
       deletePartnerProduct: Creators.deletePartnerProduct,
+      sendMailPartner: Creators.sendMailPartner,
     },
     dispatch
   );
