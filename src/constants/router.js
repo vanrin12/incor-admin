@@ -34,6 +34,8 @@ const ROUTERS = {
   DISPLAY_DATA: `/display/data`,
   CHANGE_PASSWORD: `/change-password/`,
   FORM: `/form`,
+  PARTNER_INFORMATION: '/partner/information/:id',
+  PARTNER_INFORMATION_ROUTER: '/partner/information',
 };
 
 export default ROUTERS;

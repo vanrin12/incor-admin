@@ -22,6 +22,8 @@ type Props = {
     id: number,
   }>,
   totalQuotes: number,
+  handleClickBtnDetail: Function,
+  handleClickBtnView: Function,
 };
 
 const ItemPartner = ({
@@ -30,6 +32,8 @@ const ItemPartner = ({
   headPartnerManagement,
   dataQuotes,
   totalQuotes,
+  handleClickBtnDetail,
+  handleClickBtnView,
 }: Props) => {
   const [keySearch, setKeySearch] = useState('');
   return (
@@ -52,7 +56,11 @@ const ItemPartner = ({
           </Button>
         </div>
       </Col>
-      <Col xs={12} md={12} className="table-page table-partner">
+      <Col
+        xs={12}
+        md={12}
+        className="table-page table-partner table-custom-partner"
+      >
         <Table
           tableHeads={headPartnerManagement}
           tableBody={dataQuotes}
@@ -62,6 +70,8 @@ const ItemPartner = ({
           nameBtn1="Xem"
           isShowColumnBtn
           nameBtn2="Báo giá"
+          handleClickBtnDetail={handleClickBtnDetail}
+          handleClickBtnView={handleClickBtnView}
         />
       </Col>
       <Col sm={12} className="wrapper-pagination">

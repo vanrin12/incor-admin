@@ -66,6 +66,9 @@ export const { Types, Creators } = createActions({
   deletePartnerProduct: ['id'],
   deletePartnerProductSuccess: null,
   deletePartnerProductFailed: null,
+  sendMailPartner: ['id'],
+  sendMailPartnerSuccess: null,
+  sendMailPartnerFailed: null,
 });
 
 // Initial state
@@ -334,6 +337,8 @@ const getListPartnerQuoteSuccess = (state, action) => {
       nameCustomer: item?.customer?.full_name,
       tag: `#${item?.project?.space_division?.name}`,
       dvt: item.project?.address,
+      statusSendMail: item.status,
+      project_id: item.project_id,
     };
   });
   return state.merge({
@@ -578,6 +583,27 @@ const deletePartnerProductFailed = (state, action) => {
   });
 };
 
+const sendMailPartner = (state, action) => {
+  return state.merge({
+    isProcessing: true,
+    type: action.type,
+  });
+};
+
+const sendMailPartnerSuccess = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
+const sendMailPartnerFailed = (state, action) => {
+  return state.merge({
+    isProcessing: false,
+    type: action.type,
+  });
+};
+
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_LIST_PARTNER]: getListPartner,
@@ -659,6 +685,10 @@ const HANDLERS = {
   [Types.DELETE_PARTNER_PRODUCT]: deletePartnerProduct,
   [Types.DELETE_PARTNER_PRODUCT_SUCCESS]: deletePartnerProductSuccess,
   [Types.DELETE_PARTNER_PRODUCT]: deletePartnerProductFailed,
+
+  [Types.SEND_MAIL_PARTNER]: sendMailPartner,
+  [Types.SEND_MAIL_PARTNER_SUCCESS]: sendMailPartnerSuccess,
+  [Types.SEND_MAIL_PARTNER]: sendMailPartnerFailed,
 
   [Types.RESET_TYPE]: resetType,
 };

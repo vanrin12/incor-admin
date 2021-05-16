@@ -95,6 +95,9 @@ const changePasswordContainer = lazy(() =>
 const formContainer = lazy(() =>
   import('modules/form/containers/formContainer')
 );
+const informationPartnerContainer = lazy(() =>
+  import('modules/partner/containers/infomationPartnerContainer')
+);
 
 type Props = {
   token: string,
@@ -244,6 +247,16 @@ const Router = ({ token, roleUser }: Props) => {
               exact
               path={ROUTERS.PARTNER_MANAGEMENT}
               component={partnerManagement}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {(roleUser?.name === 'partner' ||
+            roleUser?.name === 'sale_admin' ||
+            roleUser?.name === 'administrator') && (
+            <PrivateRoute
+              exact
+              path={ROUTERS.PARTNER_INFORMATION}
+              component={informationPartnerContainer}
               isAuthenticated={isAuthenticated}
             />
           )}

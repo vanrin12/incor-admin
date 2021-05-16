@@ -94,6 +94,7 @@ export const ROUTES = {
     `/api/v1/admin/customers/construction-items/${id}`,
   API_DELETE_FORM_REQUEST: `/api/v1/admin/form-requests`,
   DELETE_IMAGE: (id) => `/api/v1/admin/constants/uploads/${id}`,
+  API_SEND_MAIL_PARTNER: (id) => `api/v1/admin/partners/${id}/send-mail`,
 };
 
 export const API = create({
