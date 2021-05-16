@@ -29,53 +29,53 @@
 
   .description-menu {
     h2 {
-      font-size: pxToRem(50);
+      font-size: pxToVW(50);
       color: $color_primary;
-      line-height: pxToRem(10);
+      line-height: pxToVW(10);
       font-style: oblique;
-      padding-bottom: pxToRem(10);
+      padding-bottom: pxToVW(10);
     }
 
     p {
       font-style: oblique;
-      font-size: pxToRem(18);
+      font-size: pxToVW(18);
     }
 
     &__admin {
       color: $color_primary;
-      font-size: pxToRem(20);
+      font-size: pxToVW(20);
       font-style: normal;
       text-align: right;
       font-weight: $bold;
-      padding-bottom: pxToRem(5);
+      padding-bottom: pxToVW(5);
     }
 
     &__ceo {
       color: gray;
-      font-size: pxToRem(18);
+      font-size: pxToVW(18);
       font-style: normal;
       text-align: right;
     }
 
     &__incor {
       color: $color_primary;
-      font-size: pxToRem(30);
+      font-size: pxToVW(30);
       font-weight: $bold;
-      padding: pxToRem(25) 0;
+      padding: pxToVW(25) 0;
     }
 
     &__hotline {
       color: $color-black;
-      font-size: pxToRem(16) !important;
+      font-size: pxToVW(16) !important;
       font-style: normal;
-      padding-bottom: pxToRem(5);
+      padding-bottom: pxToVW(5);
       padding-top: pxToVW(15);
       font-weight: $bold;
     }
 
     &__email {
       color: $color-black;
-      font-size: pxToRem(15) !important;
+      font-size: pxToVW(15) !important;
       font-style: normal;
       font-weight: $bold;
     }
@@ -119,6 +119,9 @@
         font-size: pxToRem(14) !important;
         font-style: normal;
         font-weight: $bold;
+      }
+      .customer-bottom{
+        width: pxToRem(170);
       }
     }
   }
@@ -174,6 +177,6 @@
 
 .customer-bottom {
   position: fixed;
-  width: 11.625rem;
+  width: pxToVW(200);
   bottom: 40px;
 }

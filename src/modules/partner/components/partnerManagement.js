@@ -116,6 +116,7 @@ const Customer = ({
       label: dataManagement.company_address,
     },
     email: dataManagement?.company_email || '',
+    promotion: dataManagement?.promotion || '',
   });
 
   const [keySearch, setKeySearch] = useState('');
@@ -278,6 +279,7 @@ const Customer = ({
           label: dataPartnerManagement?.company_address,
         } || null,
       email: dataPartnerManagement?.company_email || '',
+      promotion: dataPartnerManagement?.promotion || '',
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataPartnerManagement, dataPartnerManagement?.company_career, partnerId]);
@@ -358,6 +360,7 @@ const Customer = ({
     formData.append('tax_code', dataFilter.tax_code);
     formData.append('email', dataFilter?.email);
     formData.append('career', valueHashtag && valueHashtag.toString());
+    formData.append('promotion', dataFilter?.promotion);
     registerPartnerCompany(formData);
   };
   const handleAddPartnerProduct = (item) => {
@@ -512,122 +515,119 @@ const Customer = ({
                         </Col>
                       </Row>
                     </Col>
+                    <Col xs={12} md={12}>
+                      <h2>Khuyễn mãi</h2>
+                      <p>{dataPartnerManagement?.promotion}</p>
+                    </Col>
                   </Row>
                 </Col>
-                {/* <Col xs={12} md={4} className="box-info-partner">
-                  <Row>
-                    <Col xs={12} md={12}>
-                      <h2>Trụ sở</h2>
-                      <h4>{dataPartnerManagement.company_address}</h4>
-                    </Col>
-                    <Col xs={12} md={4}>
-                      <h2>Mã số thuế</h2>
-                      <p>{dataPartnerManagement.company_tax_code}</p>
-                    </Col>
-                    <Col xs={12} md={8}>
-                      <h2>Ngành nghề</h2>
-                      <div className="list-tag">
-                        {dataPartnerManagement &&
-                          dataPartnerManagement.company_career &&
-                          dataPartnerManagement.company_career
-                            .split(',')
-                            .map((item) => {
-                              return <span>#{item}</span>;
-                            })}
-                      </div>
-                    </Col>
-                  </Row>
-                </Col> */}
               </>
             ) : (
-              <>
-                <Col xs={12} md={4}>
-                  <Row>
-                    <Col xs={12} md={12}>
-                      <Input
-                        type="text"
-                        onChange={(e) => {
-                          handleChange(e.target.value, 'name');
-                        }}
-                        value={dataFilter.name}
-                        placeholder="Nhập tên doanh nghiệp"
-                        label="Tên doanh nghiệp"
-                        customClass="name-account"
-                      />
-                    </Col>
+              <Col xs={12} md={8}>
+                <Row>
+                  <Col xs={12} md={6}>
+                    <Row>
+                      <Col xs={12} md={12}>
+                        <Input
+                          type="text"
+                          onChange={(e) => {
+                            handleChange(e.target.value, 'name');
+                          }}
+                          value={dataFilter.name}
+                          placeholder="Nhập tên doanh nghiệp"
+                          label="Tên doanh nghiệp"
+                          customClass="name-account"
+                        />
+                      </Col>
 
-                    <Col xs={12} md={7}>
-                      <Input
-                        type="text"
-                        onChange={(e) => {
-                          handleChange(e.target.value, 'email');
-                        }}
-                        value={dataFilter.email}
-                        placeholder="Email"
-                        label="Email"
-                        customClass="name-account"
-                      />
-                    </Col>
-                    <Col xs={12} md={5}>
-                      <SelectDropdown
-                        placeholder="Chọn quy mô"
-                        listItem={dataScales && Immutable.asMutable(dataScales)}
-                        onChange={(e) => {
-                          handleChange(e, 'scales');
-                        }}
-                        option={dataFilter.scales}
-                        customClass="select-headquarters"
-                        label="Quy mô nhân sự"
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-                <Col xs={12} md={4}>
-                  <Row>
-                    <Col xs={12} md={12}>
-                      <SelectDropdown
-                        placeholder="Chọn địa chỉ công ty"
-                        listItem={
-                          dataAreas && Immutable.asMutable(dataAreas.slice(1))
-                        }
-                        onChange={(e) => {
-                          handleChange(e, 'address');
-                        }}
-                        option={dataFilter.address}
-                        customClass="select-headquarters"
-                        label="Trụ sở"
-                      />
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <Input
-                        type="text"
-                        onChange={(e) => {
-                          handleChange(e.target.value, 'tax_code');
-                        }}
-                        value={dataFilter.tax_code}
-                        placeholder="Nhập mã số thuế"
-                        label="Mã số thuế"
-                        customClass="name-account"
-                      />
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <SelectDropdown
-                        placeholder="Chọn hashtag"
-                        listItem={
-                          dataConstant && Immutable.asMutable(dataConstant)
-                        }
-                        onChange={(e) => {
-                          handleChange(e, 'job');
-                        }}
-                        option={defaultOption}
-                        customClass="select-vote"
-                        label="Ngành nghề"
-                        isMulti
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-              </>
+                      <Col xs={12} md={6}>
+                        <Input
+                          type="text"
+                          onChange={(e) => {
+                            handleChange(e.target.value, 'email');
+                          }}
+                          value={dataFilter.email}
+                          placeholder="Email"
+                          label="Email"
+                          customClass="name-account"
+                        />
+                      </Col>
+                      <Col xs={12} md={6}>
+                        <SelectDropdown
+                          placeholder="Chọn quy mô"
+                          listItem={
+                            dataScales && Immutable.asMutable(dataScales)
+                          }
+                          onChange={(e) => {
+                            handleChange(e, 'scales');
+                          }}
+                          option={dataFilter.scales}
+                          customClass="select-headquarters"
+                          label="Quy mô nhân sự"
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <Row>
+                      <Col xs={12} md={12}>
+                        <SelectDropdown
+                          placeholder="Chọn địa chỉ công ty"
+                          listItem={
+                            dataAreas && Immutable.asMutable(dataAreas.slice(1))
+                          }
+                          onChange={(e) => {
+                            handleChange(e, 'address');
+                          }}
+                          option={dataFilter.address}
+                          customClass="select-headquarters"
+                          label="Trụ sở"
+                        />
+                      </Col>
+                      <Col xs={12} md={6}>
+                        <Input
+                          type="text"
+                          onChange={(e) => {
+                            handleChange(e.target.value, 'tax_code');
+                          }}
+                          value={dataFilter.tax_code}
+                          placeholder="Nhập mã số thuế"
+                          label="Mã số thuế"
+                          customClass="name-account"
+                        />
+                      </Col>
+                      <Col xs={12} md={6}>
+                        <SelectDropdown
+                          placeholder="Chọn hashtag"
+                          listItem={
+                            dataConstant && Immutable.asMutable(dataConstant)
+                          }
+                          onChange={(e) => {
+                            handleChange(e, 'job');
+                          }}
+                          option={defaultOption}
+                          customClass="select-vote"
+                          label="Ngành nghề"
+                          isMulti
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col xs={12} md={12}>
+                    <Input
+                      type="text"
+                      onChange={(e) => {
+                        handleChange(e.target.value, 'promotion');
+                      }}
+                      value={dataFilter.promotion}
+                      placeholder="Nhập thông tin khuyến mãi"
+                      label="Khuyến mãi"
+                      customClass="name-account"
+                      maxLength="26"
+                    />
+                  </Col>
+                </Row>
+              </Col>
             )}
 
             <Col xs={12} md={2}>

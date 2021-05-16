@@ -231,6 +231,42 @@
   h4 {
     font-size: pxToRem(10);
   }
+  .box__input {
+    padding: pxToRem(42) pxToVW(13);
+    outline: pxToRem(2) dashed $color-border-box;
+    text-align: center;
+    background-position: center center;
+    background-size: cover;
+
+    &.input-slider {
+      position: relative;
+      overflow: hidden;
+
+      input.box__file {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        right: 0;
+        cursor: pointer;
+        z-index: 1;
+      }
+    }
+
+    .box__file {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+
+    label {
+      font-size: pxToRem(15);
+      line-height: pxToRem(30);
+      color: $color-placeholder;
+    }
+  }
 }
 
 .image-category {

@@ -10,15 +10,15 @@ const menuItems = [
     </svg>`,
     role: '',
   },
-  {
-    id: 1,
-    name: 'media',
-    url: ROUTERS.MAIN_MEDIA,
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-    <path id="ic_crop_original_24px" d="M19,3H5A2.006,2.006,0,0,0,3,5V19a2.006,2.006,0,0,0,2,2H19a2.006,2.006,0,0,0,2-2V5A2.006,2.006,0,0,0,19,3Zm0,16H5V5H19Zm-5.04-6.71-2.75,3.54L9.25,13.47,6.5,17h11Z" transform="translate(-3 -3)"/>
-  </svg>`,
-    role: 'content',
-  },
+  // {
+  //   id: 1,
+  //   name: 'media',
+  //   url: ROUTERS.MAIN_MEDIA,
+  //   icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+  //   <path id="ic_crop_original_24px" d="M19,3H5A2.006,2.006,0,0,0,3,5V19a2.006,2.006,0,0,0,2,2H19a2.006,2.006,0,0,0,2-2V5A2.006,2.006,0,0,0,19,3Zm0,16H5V5H19Zm-5.04-6.71-2.75,3.54L9.25,13.47,6.5,17h11Z" transform="translate(-3 -3)"/>
+  // </svg>`,
+  //   role: 'content',
+  // },
   {
     id: 2,
     name: 'bài viết',
