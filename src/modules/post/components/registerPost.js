@@ -159,15 +159,6 @@ const RegisterPost = ({
               value={dataRegister.title}
               placeholder="Nhập tiêu đề tại đây"
             />
-            {/* <Col
-              xs={12}
-              md={12}
-              className="action-delete text-left pl-0 pt-0 pb-3"
-            >
-              <Button customClass="button--primary" onClick={() => {}}>
-                <p>THÊM MEDIA</p>
-              </Button>
-            </Col> */}
             <CKEditor
               editor={ClassicEditor}
               data=""
