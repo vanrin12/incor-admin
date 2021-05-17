@@ -108,6 +108,7 @@ body .customer-select {
     .css-g1d714-ValueContainer,
     .css-1uccc91-singleValue {
       padding-left: pxToVW(10);
+      font-size: pxToVW(16);
     }
 
     svg {
@@ -197,6 +198,12 @@ body .customer-select {
     .css-g1d714-ValueContainer,
     .css-1uccc91-singleValue {
       padding-left: pxToVW(10);
+      font-size: pxToVW(16);
+      .css-xb97g8{
+        svg{
+          width: pxToVW(15);
+        }
+      }
     }
   }
 
