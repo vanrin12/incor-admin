@@ -408,6 +408,7 @@
     font-weight: $medium;
     color: $color_primary;
     padding-top: pxToVW(12);
+    word-break: break-all;
 
     a {
       color: $color_primary;
