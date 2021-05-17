@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 // @flow
 
 import React, { useEffect, useState } from 'react';
@@ -158,10 +159,12 @@ const InformationProject = ({
               <h2>Loại hình không gian</h2>
               <h1>{dataSubmit?.divisionType?.value}</h1>
             </Col>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={12}>
               <div className="group-image">
                 <h2>Bản vẽ</h2>
-                <p>{nameImage}</p>
+                <a href={nameImage} download target="_blank">
+                  {nameImage}
+                </a>
               </div>
             </Col>
             <Col xs={12} md={12} className="action-update">

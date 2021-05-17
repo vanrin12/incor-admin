@@ -725,5 +725,12 @@
       color: $color_primary;
       font-style: italic;
     }
+    a{
+      border-bottom: 0;
+      padding-bottom: pxToVW(10);
+      color: $color_primary;
+      font-style: italic;
+      padding-left: pxToVW(10);
+    }
   }
 }
