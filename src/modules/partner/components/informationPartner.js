@@ -126,7 +126,6 @@ const InformationProject = ({
     });
     // eslint-disable-next-line
   }, [dataDetailProject, projectId, listSpaceType, listDivision]);
-
   return (
     <MainLayout activeMenu={3}>
       {isProcessing ? (
@@ -153,11 +152,11 @@ const InformationProject = ({
             </Col>
             <Col xs={12} md={6}>
               <h2>Phân chia không gian</h2>
-              <h1>{dataSubmit.address}</h1>
+              <h1>{dataSubmit?.spaceType?.value}</h1>
             </Col>
             <Col xs={12} md={6}>
               <h2>Loại hình không gian</h2>
-              <h1>{dataSubmit.address}</h1>
+              <h1>{dataSubmit?.divisionType?.value}</h1>
             </Col>
             <Col xs={12} md={6}>
               <div className="group-image">
