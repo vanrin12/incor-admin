@@ -109,7 +109,6 @@ const RegisterPost = ({
     setFile(image);
   };
   const handleSubmit = () => {
-    // console.log(objFile);
     const formData = new window.FormData();
     formData.append('name', dataRegister.title);
     formData.append('content', content);

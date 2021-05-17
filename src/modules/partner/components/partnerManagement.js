@@ -10,11 +10,11 @@ import Input from 'commons/components/Input';
 import IMAGES from 'themes/images';
 import Loading from 'commons/components/Loading';
 import Modal from 'commons/components/Modal';
+import ROUTERS from 'constants/router';
 import { headPartnerManagement } from 'constants/itemHead';
 import ItemPartnerManagement from './Item/itemPartnerManagement';
 import ItemPartnerProduct from './Item/itemPartnerProduct';
 import ItemPartnerConstruction from './Item/itemPartnerConstruction';
-import ROUTERS from 'constants/router';
 
 type Props = {
   isProcessing: boolean,
@@ -125,7 +125,9 @@ const Customer = ({
   });
 
   const [keySearch, setKeySearch] = useState('');
-  const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState(
+    dataPartnerManagement.company_image || ''
+  );
   const [objAvatar, setObjAvatar] = useState(null);
   const inputFile = useRef({});
   const [activeTab, setActiveTab] = useState('tab1');
@@ -356,7 +358,7 @@ const Customer = ({
   };
 
   const styleAvatar = {
-    backgroundImage: `url(${dataPartnerManagement.company_image || avatar})`,
+    backgroundImage: `url(${avatar})`,
   };
   const handleSubmit = () => {
     const formData = new window.FormData();
@@ -560,7 +562,7 @@ const Customer = ({
                         />
                       </Col>
 
-                      <Col xs={12} md={6}>
+                      <Col xs={12} md={12}>
                         <Input
                           type="text"
                           onChange={(e) => {
@@ -570,20 +572,6 @@ const Customer = ({
                           placeholder="Email"
                           label="Email"
                           customClass="name-account"
-                        />
-                      </Col>
-                      <Col xs={12} md={6}>
-                        <SelectDropdown
-                          placeholder="Chọn quy mô"
-                          listItem={
-                            dataScales && Immutable.asMutable(dataScales)
-                          }
-                          onChange={(e) => {
-                            handleChange(e, 'scales');
-                          }}
-                          option={dataFilter.scales}
-                          customClass="select-headquarters"
-                          label="Quy mô nhân sự"
                         />
                       </Col>
                     </Row>
@@ -605,6 +593,20 @@ const Customer = ({
                         />
                       </Col>
                       <Col xs={12} md={6}>
+                        <SelectDropdown
+                          placeholder="Chọn quy mô"
+                          listItem={
+                            dataScales && Immutable.asMutable(dataScales)
+                          }
+                          onChange={(e) => {
+                            handleChange(e, 'scales');
+                          }}
+                          option={dataFilter.scales}
+                          customClass="select-headquarters"
+                          label="Quy mô nhân sự"
+                        />
+                      </Col>
+                      <Col xs={12} md={6}>
                         <Input
                           type="text"
                           onChange={(e) => {
@@ -616,22 +618,22 @@ const Customer = ({
                           customClass="name-account"
                         />
                       </Col>
-                      <Col xs={12} md={6}>
-                        <SelectDropdown
-                          placeholder="Chọn hashtag"
-                          listItem={
-                            dataConstant && Immutable.asMutable(dataConstant)
-                          }
-                          onChange={(e) => {
-                            handleChange(e, 'job');
-                          }}
-                          option={defaultOption}
-                          customClass="select-vote"
-                          label="Ngành nghề"
-                          isMulti
-                        />
-                      </Col>
                     </Row>
+                  </Col>
+                  <Col xs={12} md={12}>
+                    <SelectDropdown
+                      placeholder="Chọn hashtag"
+                      listItem={
+                        dataConstant && Immutable.asMutable(dataConstant)
+                      }
+                      onChange={(e) => {
+                        handleChange(e, 'job');
+                      }}
+                      option={defaultOption}
+                      customClass="select-vote"
+                      label="Ngành nghề"
+                      isMulti
+                    />
                   </Col>
                   <Col xs={12} md={12}>
                     <Input

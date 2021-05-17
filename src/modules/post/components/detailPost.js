@@ -210,7 +210,6 @@ const DetailPost = ({
                 data={content}
                 onChange={(event, editor) => {
                   const data = editor.getData();
-                  console.log('data', data);
                   setContent(data);
                 }}
                 onReady={(editor) => {
