@@ -645,7 +645,7 @@ const Customer = ({
                       placeholder="Nhập thông tin khuyến mãi"
                       label="Khuyến mãi"
                       customClass="name-account"
-                      maxLength="26"
+                      maxLength="90"
                     />
                   </Col>
                 </Row>
