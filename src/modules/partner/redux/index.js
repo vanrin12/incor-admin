@@ -334,7 +334,7 @@ const getListPartnerQuoteSuccess = (state, action) => {
       id: item.id,
       date:
         item.created_at && moment(item.created_at).format('HH:SS MM/DD/YYYY'),
-      nameCustomer: item?.customer?.name,
+      nameCustomer: item?.user?.full_name,
       tag: `#${item?.project?.space_division?.name}`,
       dvt: item.project?.address,
       statusSendMail: item.status,
