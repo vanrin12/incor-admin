@@ -7,7 +7,7 @@
   .form-search {
     width: 100%;
     padding-top: pxToVW(30);
-
+    padding-right: pxToVW(25);
     &__left {
       display: flex;
 
@@ -250,6 +250,7 @@
     margin-top: pxToVW(25);
     height: pxToVW(40);
     border-radius: pxToRem(5);
+    margin-left: pxToVW(20);
 
     @media (max-width: 1024px) {
       margin-right: 0 !important;
@@ -304,6 +305,7 @@
   display: flex;
   grid-gap: 10px;
   flex-wrap: wrap;
+  padding-right: 0;
 
   .product {
     width: pxToVW(200);
