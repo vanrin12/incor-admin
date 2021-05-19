@@ -23,7 +23,7 @@ const Introduce = ({ history, createIntroduce, isProcessing, type }: Props) => {
   const typePage = history?.location?.state?.type;
   const dataLength =
     history?.location?.state?.dataLength &&
-    parseInt(history?.location?.state?.dataLength);
+    parseInt(history?.location?.state?.dataLength, 10);
   const [dataSubmit, setDataSubmit] = useState({
     nameWebsite: typePage && typePage?.name,
     tagline: typePage && typePage?.link,
