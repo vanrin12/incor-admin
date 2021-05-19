@@ -51,6 +51,11 @@
           color: $color-link-table;
           text-decoration: underline;
         }
+        &.idCheckbox-144,  &.idCheckbox-130,  &.idCheckbox-129{
+          .checkbox{
+            display: none;
+          }
+        }
       }
     }
   }

@@ -267,6 +267,17 @@
       color: $color-placeholder;
     }
   }
+  tbody{
+    tr{
+      td{
+        &.idCheckbox-29, &.idCheckbox-21, &.idCheckbox-20{
+          .checkbox{
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }
 
 .image-category {
