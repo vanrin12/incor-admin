@@ -76,7 +76,7 @@ const TableRow = ({
       }  ${isShowLock && rowItem?.lock === 'Y' ? 'row-red' : ''}`}
     >
       {isShowColumnCheck && (
-        <td>
+        <td className={`${rowItem?.title ? `idCheckbox-${rowItem.id}` : ''}`}>
           <Checkbox
             label=""
             checked={!!listId.includes(rowItem.id)}
