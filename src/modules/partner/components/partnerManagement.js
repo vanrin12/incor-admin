@@ -291,6 +291,7 @@ const Customer = ({
       email: dataPartnerManagement?.company_email || '',
       promotion: dataPartnerManagement?.promotion || '',
     });
+    setAvatar(dataPartnerManagement.company_image || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataPartnerManagement, dataPartnerManagement?.company_career, partnerId]);
 
