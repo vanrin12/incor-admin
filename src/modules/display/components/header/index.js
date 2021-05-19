@@ -214,7 +214,7 @@ const DisplayHeader = ({
                   onClick={() =>
                     history.push({
                       pathname: ROUTERS.DISPLAY_HEADER_INTRODUCE,
-                      state: { type: '', dataLength: layoutHeader?.length },
+                      state: { type: '', dataLength: layoutHeader?.length+1 },
                     })
                   }
                   role="presentation"
