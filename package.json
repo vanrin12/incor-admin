@@ -62,7 +62,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://vanrin12.github.io/incor-admin/",
   "eslintConfig": {
     "extends": "react-app"
   },

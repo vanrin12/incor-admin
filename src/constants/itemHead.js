@@ -206,6 +206,37 @@ export const headProgress = [
     name: 'PHẢN HỒI',
   },
 ];
+
+export const headerProductTable = [
+  {
+    id: 0,
+    name: 'sản phẩm',
+  },
+  {
+    id: 1,
+    name: 'mã sản phẩm',
+  },
+  {
+    id: 2,
+    name: 'người tạo',
+  },
+  {
+    id: 3,
+    name: 'danh muc',
+  },
+  {
+    id: 4,
+    name: 'thời gian',
+  },
+  {
+    id: 5,
+    name: 'số lượng bán ra',
+  },
+  {
+    id: 6,
+    name: 'số lượng còn lại',
+  },
+];
 export default {
   headPartner,
   headCustomer,

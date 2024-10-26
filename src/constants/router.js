@@ -7,6 +7,7 @@ const ROUTERS = {
   CUSTOMER_INFORMATION_PROJECT: '/customer/information/project',
   CUSTOMER_INFORMATION: '/customer/information/project/:id',
   POST: '/post',
+  PRODUCTS: '/products',
   DETAIL_POST: '/post/:id',
   POST_REGISTER: '/post/add',
   REGISTER_CATEGORY_POST: '/post/category/add',
