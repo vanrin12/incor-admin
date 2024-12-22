@@ -96,10 +96,10 @@ const RegisterPost = ({
       const reader = new FileReader();
       reader.onload = (event) => {
         resolve(event && (event.target: window.HTMLInputElement).result);
-      };
+      }
       reader.readAsDataURL(fileNames);
-    });
-  };
+    })
+  }
 
   const getFileName = async (e) => {
     setObjFile(e.files[0]);
