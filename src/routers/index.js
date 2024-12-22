@@ -84,6 +84,7 @@ const displayHeaderIntroduceContainer = lazy(() =>
 const displayFooterContainer = lazy(() =>
   import('modules/display/containers/displayFooterContainer')
 );
+const products = lazy(() => import('modules/products/components/index'));
 
 type Props = {
   token: string,
@@ -244,6 +245,12 @@ const Router = ({ token }: Props) => {
             exact
             path={ROUTERS.DISPLAY_SALE}
             component={displaySaleContainer}
+            isAuthenticated={isAuthenticated}
+          />
+          <PrivateRoute
+            exact
+            path={ROUTERS.PRODUCTS}
+            component={products}
             isAuthenticated={isAuthenticated}
           />
         </Switch>

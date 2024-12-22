@@ -1,0 +1,26 @@
+.custom-datepicker-input {
+    height: pxToVW(40);
+    background-color: rgba(209, 209, 209, 0.87);
+    border: none;
+    opacity: 0.7;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
+    text-align: left;
+    color: #000;
+    margin-right: 10px;
+}
+
+.btn {
+    height: pxToVW(40);
+    font-size: pxToVW(20);
+    line-height: 0;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 0;
+    background-color: $color_primary;
+    color: $white;
+}
+.custom-search {
+    height: pxToVW(40);
+    border-radius: 0;
+}
