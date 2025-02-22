@@ -7,6 +7,7 @@ import { authReducer } from 'modules/authen/redux';
 import { customerReducer } from 'modules/customer/redux';
 import { mediaReducer } from 'modules/media/redux';
 import { displayReducer } from 'modules/display/redux';
+import productsReducer from 'modules/products/redux';
 
 const appReducer = combineReducers({
   account: accountReducer,
@@ -17,6 +18,7 @@ const appReducer = combineReducers({
   customerReducer,
   mediaReducer,
   displayReducer,
+  productsReducer
 });
 
 export default appReducer;

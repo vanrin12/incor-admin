@@ -241,7 +241,7 @@ const getListPostFailed = (state, action) => {
   });
 };
 
-const getListAllCategories = (state, action) => {
+export const getListAllCategories = (state, action) => {
   return state.merge({
     isProcessing: true,
     type: action.type,

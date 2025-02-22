@@ -11,4 +11,17 @@ const listActions = [
   },
 ];
 
+export const listSearchStatusOption = [
+  {
+    id: 0,
+    value: '0',
+    label: 'Đã Xuất Bản',
+  },
+  {
+    id: 1,
+    value: '1',
+    label: 'Nháp',
+  },
+];
+
 export default listActions;

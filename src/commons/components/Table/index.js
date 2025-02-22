@@ -23,6 +23,7 @@ type Props = {
   listId?: Array<{}>,
   handleCheckBox?: Function,
   isShowRating?: boolean,
+  isShowCheckAll?: boolean
 };
 
 const TableData = ({
@@ -44,6 +45,7 @@ const TableData = ({
   listId = [],
   handleCheckBox = () => {},
   isShowRating = false,
+  isShowCheckAll = false
 }: Props) => {
   const renderBodyTable = () => {
     return (
@@ -88,7 +90,7 @@ const TableData = ({
   return (
     <Table striped bordered hover responsive>
       <thead>
-        <TableHead listItems={tableHeads} />
+        <TableHead listItems={tableHeads} listId={listId} isShowCheckAll={isShowCheckAll} handleCheckBox={handleCheckBox} lengthItems={tableBody?.length}/>
       </thead>
       <tbody>{renderBody()}</tbody>
     </Table>

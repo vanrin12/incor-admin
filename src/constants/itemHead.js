@@ -209,31 +209,31 @@ export const headProgress = [
 
 export const headerProductTable = [
   {
-    id: 0,
+    id: 1,
     name: 'sản phẩm',
   },
   {
-    id: 1,
+    id: 2,
     name: 'mã sản phẩm',
   },
   {
-    id: 2,
+    id: 3,
     name: 'người tạo',
   },
   {
-    id: 3,
+    id: 4,
     name: 'danh muc',
   },
   {
-    id: 4,
+    id: 5,
     name: 'thời gian',
   },
   {
-    id: 5,
+    id: 6,
     name: 'số lượng bán ra',
   },
   {
-    id: 6,
+    id: 7,
     name: 'số lượng còn lại',
   },
 ];

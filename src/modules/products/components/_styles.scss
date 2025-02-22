@@ -1,26 +1,100 @@
 .custom-datepicker-input {
-    height: pxToVW(40);
-    background-color: rgba(209, 209, 209, 0.87);
-    border: none;
-    opacity: 0.7;
-    line-height: 1.2;
-    letter-spacing: 0.15px;
-    text-align: left;
-    color: #000;
-    margin-right: 10px;
+  height: pxToVW(40);
+  background-color: rgba(209, 209, 209, 0.87);
+  border: none;
+  opacity: 0.7;
+  line-height: 1.2;
+  letter-spacing: 0.15px;
+  text-align: left;
+  color: #000;
+  margin-right: 10px;
 }
 
 .btn {
-    height: pxToVW(40);
-    font-size: pxToVW(20);
-    line-height: 0;
-    font-size: 13px;
-    font-weight: 500;
-    border-radius: 0;
-    background-color: $color_primary;
-    color: $white;
+  height: pxToVW(40);
+  font-size: pxToVW(20);
+  line-height: 0;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 0;
+  background-color: $color_primary;
+  color: $white;
 }
 .custom-search {
-    height: pxToVW(40);
-    border-radius: 0;
+  height: pxToVW(40);
+  border-radius: 0;
+}
+
+.ck-content {
+  min-height: pxToVW(250);
+}
+
+.product-form {
+  margin-top: 90px;
+  label {
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #000;
+  }
+  input,
+  textarea,
+  select {
+    &::-webkit-input-placeholder {
+      font-size: 10px;
+    }
+  }
+  .css-1wa3eu0-placeholder {
+    font-size: 12px;
+  }
+}
+
+.box-status {
+  background-color: $white;
+  padding: pxToVW(20);
+  border-radius: pxToVW(10);
+  align-self: flex-end;
+  p {
+    font-size: pxToVW(15);
+    line-height: pxToVW(18);
+    font-weight: $medium;
+    color: $color-black;
+    span {
+      color: $color_primary;
+      text-decoration: underline;
+    }
+  }
+  .group-action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .view-post {
+      font-size: pxToVW(15);
+      line-height: pxToVW(18);
+      font-weight: $medium;
+      color: $color_primary;
+    }
+    .draft {
+      font-size: pxToVW(15);
+      line-height: pxToVW(18);
+      font-weight: $medium;
+      color: $color-black;
+      opacity: 0.58;
+      padding-right: pxToVW(27);
+    }
+    .button {
+      height: pxToVW(39);
+      width: pxToVW(153);
+      border-radius: pxToVW(5);
+      p {
+        color: $white;
+        margin-bottom: 0;
+      }
+    }
+  }
 }

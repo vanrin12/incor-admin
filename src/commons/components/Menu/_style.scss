@@ -22,8 +22,15 @@
     border-radius: pxToVW(2);
   }
 
+  .main_logo {
+    img {
+      width: 150px;
+      margin-top: 20px;
+    }
+  }
+
   .logo {
-    background-image: url('../../../assets/imgs/logo.png');
+    background-image: url('../../../assets/imgs/logo.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     width: pxToVW(204);

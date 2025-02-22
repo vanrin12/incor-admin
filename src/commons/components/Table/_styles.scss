@@ -40,3 +40,9 @@
 .table-responsive{
   border-radius: pxToVW(10);
 }
+
+.custom-check-all label {
+  &::before {
+    border: 1px solid white !important;
+  }
+}

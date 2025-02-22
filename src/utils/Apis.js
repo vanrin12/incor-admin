@@ -67,6 +67,7 @@ export const ROUTES = {
   API_GET_VALUE_HEADER: `/api/v1/admin/constants/data-maps`,
   API_CREATE_FOOTER: `/api/v1/admin/constants`,
   API_GET_DATA_FOOTER: `/api/v1/admin/constants`,
+  API_LIST_PRODUCT: `/api/v1/admin/products`,
 
   //  Giao diện
   API_ABOUT_US: `/api/v1/admin/constants/about-us`,

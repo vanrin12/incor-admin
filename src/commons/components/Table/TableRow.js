@@ -48,7 +48,7 @@ const TableRow = ({
       ...checkedItems,
       [event.target.name]: event.target.checked,
     });
-    handleCheckBox([rowItem.id]);
+    handleCheckBox(rowItem.id);
   };
   return (
     <tr
@@ -78,7 +78,7 @@ const TableRow = ({
                 : isShowId && item === fieldId
                 ? 'd-none'
                 : ''
-            }`}
+            } ${item === 'numRemaining' || item === 'numSellOut' ? 'text-center' : '' }`}
             onClick={() => onClickTableRow && onClickTableRow(rowItem)}
             role="presentation"
           >

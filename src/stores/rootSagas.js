@@ -66,7 +66,10 @@ import updateCustomerExpSaga from 'modules/display/sagas/updateCustomerSaga';
 import getDataMapSaga from 'modules/display/sagas/getDataMapSaga';
 import getDataFooterSaga from 'modules/display/sagas/getDataFooterSaga';
 import updateSaleMapSaga from 'modules/display/sagas/updateSaleMapSaga';
-
+import getDataProductsSaga from 'modules/products/sagas/getProducts';
+import deleteProductsSaga from 'modules/products/sagas/deleteProducts';
+import addProductSaga from 'modules/products/sagas/addProduct';
+import getProductDetailSaga from 'modules/products/sagas/getProductDetail';
 export default function* RootSagas() {
   yield all([
     getDataMainSaga(),
@@ -132,5 +135,9 @@ export default function* RootSagas() {
     getDataMapSaga(),
     getDataFooterSaga(),
     updateSaleMapSaga(),
+    getDataProductsSaga(),
+    deleteProductsSaga(),
+    addProductSaga(),
+    getProductDetailSaga()
   ]);
 }

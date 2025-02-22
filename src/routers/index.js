@@ -85,6 +85,10 @@ const displayFooterContainer = lazy(() =>
   import('modules/display/containers/displayFooterContainer')
 );
 const products = lazy(() => import('modules/products/components/index'));
+const productDetail = lazy(() =>
+  import('modules/products/components/productDetail')
+);
+const addProduct = lazy(() => import('modules/products/components/addProduct'));
 
 type Props = {
   token: string,
@@ -251,6 +255,18 @@ const Router = ({ token }: Props) => {
             exact
             path={ROUTERS.PRODUCTS}
             component={products}
+            isAuthenticated={isAuthenticated}
+          />
+          {/* <PrivateRoute
+            exact
+            path={ROUTERS.PRODUCT_DETAIL}
+            component={productDetail}
+            isAuthenticated={isAuthenticated}
+          /> */}
+          <PrivateRoute
+            exact
+            path={ROUTERS.ADD_PRODUCT}
+            component={addProduct}
             isAuthenticated={isAuthenticated}
           />
         </Switch>

@@ -4,12 +4,15 @@ import InlineSVG from 'svg-inline-react';
 import { Row } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 import menuItems from 'constants/menuItems';
+import images from 'themes/images'
+import ROUTERS from 'constants/router'
 
 type Props = {
   activeMenu: number,
 };
 const Menu = ({ activeMenu }: Props) => {
   const renderItemMenu = menuItems.map((item) => {
+    
     const isActive = activeMenu === item.id;
 
     return (
@@ -32,7 +35,15 @@ const Menu = ({ activeMenu }: Props) => {
 
   return (
     <Row className="wrapper-menu">
-      <div className="logo" />
+      <div className="main_logo">
+          <Link
+            to={ROUTERS.MAIN_PAGE}
+            title="Logo"
+            // onClick={() => handleGoToTop()}
+          >
+            <img src={images.logo} alt="Logo" />
+          </Link>
+        </div>
       <div>{renderItemMenu}</div>
     </Row>
   );

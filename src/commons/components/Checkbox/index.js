@@ -7,7 +7,8 @@ type Props = {
   checked: boolean,
   onChange: Function,
   label: string,
-  onKeyPress?: Function
+  onKeyPress?: Function,
+  customClass?: string
 };
 
 export const Checkbox = ({
@@ -15,10 +16,11 @@ export const Checkbox = ({
   name,
   checked,
   onChange,
-  onKeyPress = null
+  onKeyPress = null,
+  customClass = ''
 }: Props) => {
   return (
-    <div className={`checkbox ${checked ? 'checkbox--checked' : ''}`}>
+    <div className={`${customClass} checkbox ${checked ? 'checkbox--checked' : ''}`}>
       <label className="checkbox__label" htmlFor={name}>
         {label}
         <input
