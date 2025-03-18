@@ -48,6 +48,7 @@ const TableRow = ({
       ...checkedItems,
       [event.target.name]: event.target.checked,
     });
+    console.log('checkedItems', rowItem);
     handleCheckBox(rowItem.id);
   };
   return (

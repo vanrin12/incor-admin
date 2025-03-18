@@ -13,6 +13,7 @@ import Button from 'commons/components/Button';
 import Input from 'commons/components/Input';
 import Modal from 'commons/components/Modal';
 import ROUTERS from 'constants/router';
+import useFileUpload from "../../../customHooks/useFileUpload";
 
 type Props = {
   registerPost: Function,
@@ -42,6 +43,7 @@ const RegisterPost = ({
     isOpen: false,
     content: '',
   });
+  const { uploadAdapter } = useFileUpload();
   const [objFile, setObjFile] = useState(null);
   const [file, setFile] = useState('');
   const [status, setStatus] = useState('N');
@@ -54,7 +56,9 @@ const RegisterPost = ({
     status: '',
     show: '',
   });
+
   const handleChange = (value, name) => {
+    console.log(value, name);
     setRegister({
       ...dataRegister,
       [name]: value,
@@ -96,10 +100,10 @@ const RegisterPost = ({
       const reader = new FileReader();
       reader.onload = (event) => {
         resolve(event && (event.target: window.HTMLInputElement).result);
-      }
+      };
       reader.readAsDataURL(fileNames);
-    })
-  }
+    });
+  };
 
   const getFileName = async (e) => {
     setObjFile(e.files[0]);
@@ -141,6 +145,12 @@ const RegisterPost = ({
     formData.append('type', 'N');
     registerPost(formData);
   };
+
+  function uploadPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return uploadAdapter(loader);
+    };
+  }
   return (
     <MainLayout activeMenu={2}>
       <Container fluid>
@@ -152,7 +162,7 @@ const RegisterPost = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'title');
               }}
-              maxLength="20"
+              // maxLength="20"
               value={dataRegister.title}
               placeholder="Nhập tiêu đề tại đây"
             />
@@ -168,6 +178,9 @@ const RegisterPost = ({
             <CKEditor
               editor={ClassicEditor}
               data=""
+              config={{
+                extraPlugins: [uploadPlugin],
+              }}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setContent(data);
@@ -179,9 +192,9 @@ const RegisterPost = ({
               onChange={(e) => {
                 handleChange(e.target.value, 'titleSeo');
               }}
-              maxLength="20"
+              // maxLength="20"
               value={dataRegister.titleSeo}
-              placeholder="Nhập tiêu đề không quá 70 từ"
+              placeholder="Nhập tiêu đề không quá 20 từ"
             />
             <p>MÔ TẢ</p>
             <textarea

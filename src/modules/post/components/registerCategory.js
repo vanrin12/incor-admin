@@ -64,13 +64,11 @@ const RegisterPost = ({
   }, [type]);
 
   const handleCheckBox = (id) => {
-    let dataSubmit = [];
-    if (listId.includes({ ...id }[0])) {
-      dataSubmit = listId.filter((item) => item !== { ...id }[0]);
-    } else {
-      dataSubmit = [...listId, ...id];
-    }
-    setListId(dataSubmit);
+    setListId((prevListId) =>
+      prevListId.includes(id)
+        ? prevListId.filter((item) => item !== id) // Remove if already selected
+        : [...prevListId, id] // Add if not selected
+    );
   };
   const handleChange = (value, name) => {
     setRegister({

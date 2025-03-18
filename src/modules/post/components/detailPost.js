@@ -14,6 +14,7 @@ import Loading from 'commons/components/Loading';
 import Input from 'commons/components/Input';
 import Modal from 'commons/components/Modal';
 import ROUTERS from 'constants/router';
+import useFileUpload from "../../../customHooks/useFileUpload";
 
 type Props = {
   updatePost: Function,
@@ -70,6 +71,8 @@ const DetailPost = ({
     status: dataPostDetail.status,
     show: dataPostDetail.show,
   });
+  const { uploadAdapter } = useFileUpload();
+
   useEffect(() => {
     setRegister({
       title: dataPostDetail.name,
@@ -175,6 +178,12 @@ const DetailPost = ({
     formData.append('_method', 'put');
     updatePost(postId, formData);
   };
+
+  function uploadPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return uploadAdapter(loader);
+    };
+  }
   return (
     <MainLayout activeMenu={2}>
       {isProcessing ? (
@@ -208,6 +217,9 @@ const DetailPost = ({
                 onChange={(event, editor) => {
                   const data = editor.getData();
                   setContent(data);
+                }}
+                config={{
+                  extraPlugins: [uploadPlugin],
                 }}
               />
               <Input

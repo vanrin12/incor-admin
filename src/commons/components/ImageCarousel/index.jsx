@@ -1,37 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteProductImg } from 'modules/products/redux';
 
-const ProductImageCarousel = ({ handleLoadImages }) => {
+const ProductImageCarousel = ({ initialImageUrls = [], handleLoadImages, isDeleteRemote }) => {
+  const dispatch = useDispatch();
   const [images, setImages] = useState([]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    if (initialImageUrls.length > 0) {
+      setImages(initialImageUrls);
+    }
+  }, [initialImageUrls]);
 
   const handleThumbnailClick = (index) => {
     setActiveImageIndex(index);
   };
 
   const handleAddNewImage = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const newImages = [...images, e.target.result];
-        setImages(newImages);
-        handleLoadImages(newImages);
-      };
-      reader.readAsDataURL(file);
+    const files = Array.from(event.target.files).filter(file => file.type.startsWith('image/')); // Only accept images
+    if (files.length > 0) {
+      const newImages = [...images, ...files.map(file => ({ image: file }))]; // Store file objects directly
+      setImages(newImages);
+      handleLoadImages(newImages);
+  
+      // Clear the input so selecting the same file again will trigger onChange
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   };
+  
 
-  const handleDeleteImage = (index) => {
+  const handleDeleteImage = async (index) => {
+    const imageToDelete = images[index];
+    if (isDeleteRemote && imageToDelete?.id) {
+      dispatch({ type: 'products/deleteProductImg', payload: imageToDelete.id });
+    }
+
     const newImages = images.filter((_, i) => i !== index);
     setImages(newImages);
     handleLoadImages(newImages);
 
-    // Update activeImageIndex if necessary
     if (index === activeImageIndex) {
       setActiveImageIndex(0);
     } else if (index < activeImageIndex) {
       setActiveImageIndex(activeImageIndex - 1);
     }
+  };
+
+  const getImageSrc = (image) => {
+    if (image.image instanceof File) {
+      return URL.createObjectURL(image.image);
+    }
+    return image.image; // URL from API
   };
 
   return (
@@ -40,7 +63,7 @@ const ProductImageCarousel = ({ handleLoadImages }) => {
       <div className="main-image mb-3">
         {images.length > 0 && (
           <img
-            src={images[activeImageIndex]}
+            src={getImageSrc(images[activeImageIndex])}
             alt={`Product ${activeImageIndex}`}
             className="img-fluid"
           />
@@ -49,28 +72,25 @@ const ProductImageCarousel = ({ handleLoadImages }) => {
 
       {/* Thumbnail Navigation */}
       <div className="thumbnail-container d-flex justify-content-center">
-        {images.length > 0 &&
-          images.map((image, index) => (
-            <div
-              key={index}
-              className={`thumbnail-item mx-2 ${
-                index === activeImageIndex ? 'active' : ''
-              }`}
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`thumbnail-item mx-2 ${index === activeImageIndex ? 'active' : ''}`}
+          >
+            <img
+              src={getImageSrc(image)}
+              alt={`Thumbnail ${index}`}
+              className="img-thumbnail"
+              onClick={() => handleThumbnailClick(index)}
+            />
+            <button
+              className="btn btn-danger btn-sm delete-icon"
+              onClick={() => handleDeleteImage(index)}
             >
-              <img
-                src={image}
-                alt={`Thumbnail ${index}`}
-                className="img-thumbnail"
-                onClick={() => handleThumbnailClick(index)}
-              />
-              <button
-                className="btn btn-danger btn-sm delete-icon"
-                onClick={() => handleDeleteImage(index)}
-              >
-                ✖
-              </button>
-            </div>
-          ))}
+              ✖
+            </button>
+          </div>
+        ))}
 
         {/* Add Button */}
         <div className="thumbnail-item mx-2 add-thumbnail">
@@ -82,6 +102,8 @@ const ProductImageCarousel = ({ handleLoadImages }) => {
             id="add-image-input"
             className="d-none"
             accept="image/*"
+            multiple
+            ref={fileInputRef}
             onChange={handleAddNewImage}
           />
         </div>

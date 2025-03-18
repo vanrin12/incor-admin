@@ -47,6 +47,23 @@ const mainSlice = createSlice({
       state.type = action.type;
       state.isProcessing = false;
     },
+    deleteProductImg: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = true;
+    },
+
+    deleteProductImgSuccess: (state, action) => {
+      return {
+        ...state,
+        type: action.type,
+        isProcessing: false,
+      };
+    },
+
+    deleteProductImgFailed: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = false;
+    },
 
     addProduct: (state, action) => {
       state.type = action.type;
@@ -70,9 +87,25 @@ const mainSlice = createSlice({
     getProductDetailSuccess: (state, action) => {
       state.type = action.type;
       state.isProcessing = false;
+      state.productDetail = action?.data?.product;
     },
 
     getProductDetailFailed: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = false;
+    },
+    updateProduct: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = true;
+    },
+
+    updateProductSuccess: (state, action) => {
+      state.type = action.type;
+      state.isProcessing = false;
+      state.productDetail = action?.data?.product;
+    },
+
+    updateProductFailed: (state, action) => {
       state.type = action.type;
       state.isProcessing = false;
     },
@@ -93,7 +126,13 @@ export const {
   addProductFailed,
   getProductDetail,
   getProductDetailSuccess,
-  getProductDetailFailed
+  getProductDetailFailed,
+  updateProduct,
+  updateProductSuccess,
+  updateProductFailed,
+  deleteProductImg,
+  deleteProductImgSuccess,
+  deleteProductImgFailed
 } = actions;
 
 export default reducer;

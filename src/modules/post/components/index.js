@@ -91,16 +91,19 @@ const Post = ({
     setCreateDate(date);
   };
   const handleCheckBox = (id) => {
-    let dataSubmit = [];
-    if (listId.includes({ ...id }[0])) {
-      dataSubmit = listId.filter((item) => item !== { ...id }[0]);
-    } else {
-      dataSubmit = [...listId, ...id];
-    }
-    setListId(dataSubmit);
+    console.log("Selected ID:", id);
+  
+    setListId((prevList) => {
+      if (prevList.includes(id)) {
+        return prevList.filter((item) => item !== id); // Remove if already selected
+      } else {
+        return [...prevList, id]; // Add if not selected
+      }
+    });
   };
-
+  
   const handleChange = (value, name) => {
+    console.log(value, name);
     setDataFilter({
       ...dataFilter,
       [name]: value,

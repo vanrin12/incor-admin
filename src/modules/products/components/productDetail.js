@@ -5,7 +5,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Button from 'react-bootstrap/Button';
 import MainLayout from 'commons/components/MainLayout';
 import ProductImageCarousel from 'commons/components/ImageCarousel';
-import { addProduct, getProductDetail } from '../redux';
+import { updateProduct, getProductDetail } from '../redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import ROUTERS from 'constants/router';
@@ -15,11 +15,13 @@ import { connect } from 'react-redux';
 import SelectDropdown from 'commons/components/Select';
 import Immutable from 'seamless-immutable';
 import { useParams } from 'react-router-dom';
+import useFileUpload from '../../../customHooks/useFileUpload';
+
 // Initial form data state
 const INITIAL_FORM_DATA = {
   name: '',
   price: '',
-  category: 'Khóa cửa nhôm',
+  category: '',
   endow: '',
   product_no: '',
   unit_of_measure: '',
@@ -29,6 +31,9 @@ const INITIAL_FORM_DATA = {
   description: '',
   technical_specifications: '',
   feature: '',
+  productKeyword: '',
+  images: [],
+  category: ''
 };
 
 // Product categories
@@ -44,12 +49,14 @@ const ProductDetail = ({ getListAllCategories }) => {
   const { type } = useSelector((state) => state?.productsReducer);
   const { id } = useParams();
   const { listAllCategories } = useSelector((state) => state?.postReducer);
-
+  const productDetail = useSelector((state) => state?.productsReducer?.productDetail);
   // Generic input change handler
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: name === 'price' ? formatCurrency(value) : value }));
   };
+  const { uploadAdapter } = useFileUpload();
+
 
   const handleChange = (value, name) => {
     setFormData({
@@ -63,49 +70,100 @@ const ProductDetail = ({ getListAllCategories }) => {
     setFormData((prev) => ({ ...prev, [key]: data }));
   };
 
-  // Submit form handler
-  const handleSubmit = () => {
-    const formDataSibmit = {
-      ...formData,
-      product_category_id: formData?.category?.id,
-    };
-    delete formDataSibmit.category;
-    dispatch(addProduct(formDataSibmit));
-  };
 
   const handleLoadImages = (images) => {
+    console.log('images', images);
     setFormData((prev) => ({ ...prev, images }));
   };
 
-  console.log('id1', id);
   useEffect(() => {
     console.log('id', id);
     dispatch(getProductDetail({ id }));
   }, [id]);
   
-//   useEffect(() => {
-//     setRegister({
-//       title: dataPostDetail.name,
-//       titleSeo: dataPostDetail.seo_title,
-//       description: dataPostDetail.description,
-//       category: listCategoryPost,
-//       status: dataPostDetail.status,
-//       show: dataPostDetail.show,
-//     });
-//     setFile(dataPostDetail.image);
-//     setContent(dataPostDetail.content);
-//   }, [dataPostDetail, listCategoryPost]);
+  useEffect(() => {
+    if (type === 'products/getProductDetailSuccess' && productDetail) {
+      const selectedCategory = listAllCategories.find(
+        (category) => category.id === productDetail.product_category_id
+      );
+      setFormData({
+        name: productDetail.name || '',
+        price: formatCurrency(String(Math.round(Number(productDetail?.price)))) || '',
+        category: productDetail.category || 'Khóa cửa nhôm',
+        endow: productDetail.endow || '',
+        product_no: productDetail.product_no || '',
+        unit_of_measure: productDetail.unit_of_measure || '',
+        product_input: productDetail.product_input || '',
+        sell_out: productDetail.sell_out || '',
+        remaining: productDetail.remaining || '',
+        description: productDetail.description || '',
+        technical_specifications: productDetail.technical_specifications || '',
+        feature: productDetail.feature || '',
+        productKeyword: productDetail.keyworks,
+        images: productDetail?.uploads || [],
+        category: selectedCategory
+      });
+    }
+  }, [type, productDetail]);
+  console.log(parseInt('99999999.00'), 'ssss')
+  useEffect(() => {
+    if (type === 'products/updateProductSuccess') {
+      history.push(ROUTERS.PRODUCTS);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
 
-  //   useEffect(() => {
-  //     if (type === 'products/addProductSuccess') {
-  //       history.push(ROUTERS.PRODUCTS);
-  //     }
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, [type]);
 
-//   useEffect(() => {
-//     getListAllCategories();
-//   }, [dispatch, getListAllCategories]);
+  const handleSubmit = () => {
+    const formSB = new FormData(); // Create a new FormData object
+
+    formSB.append('name', formData.name);
+    formSB.append('price', formData.price.replace(/\./g, ""));
+    formSB.append('endow', formData.endow);
+    formSB.append('feature', formData.feature);
+    formSB.append('description', formData.description);
+    formSB.append(
+      'technical_specifications',
+      formData.technical_specifications
+    );
+    formSB.append('product_category_id', formData?.category?.id);
+    formSB.append('status', status);
+    formSB.append('show', show);
+    formSB.append('remaining', formData.remaining);
+    formSB.append('keyworks', formData.productKeyword);
+    formSB.append('sell_out', formData.sell_out);
+    formSB.append('product_no', formData.product_no);
+    formSB.append('unit_of_measure' , formData.unit_of_measure);
+    formSB.append('product_input', formData.product_input);
+
+    // Append multiple files correctly
+    if (formData.images && formData.images.length > 0) {
+      formData.images.forEach((file) => {
+        formSB.append('uploads[]', file?.image);
+      });
+    }
+
+    // Dispatch FormData directly
+    
+    dispatch(updateProduct({ id: productDetail.id, formData: formSB }));
+  };
+
+  function uploadPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+      return uploadAdapter(loader);
+    };
+  }
+
+  const formatCurrency = (value) => {
+    if (!value) return ""; // Handle empty input
+  
+    // Convert to a string and remove all non-numeric characters except for a possible decimal point
+    const numericValue = value.toString().replace(/\D/g, "");
+  
+    // Format as Vietnamese currency
+    return new Intl.NumberFormat("vi-VN").format(Number(numericValue));
+  };
+
   return (
     <MainLayout activeMenu={9}>
       <div className="container product-form">
@@ -114,7 +172,7 @@ const ProductDetail = ({ getListAllCategories }) => {
         <div className="row">
           {/* Image Carousel */}
           <div className="col-md-4">
-            <ProductImageCarousel handleLoadImages={handleLoadImages} />
+            <ProductImageCarousel handleLoadImages={handleLoadImages} initialImageUrls={formData.images} isDeleteRemote />
           </div>
 
           {/* Product Form */}
@@ -267,6 +325,9 @@ const ProductDetail = ({ getListAllCategories }) => {
                   onChange={(_, editor) =>
                     handleEditorChange('description', editor.getData())
                   }
+                  config={{
+                    extraPlugins: [uploadPlugin],
+                  }}
                 />
               </Tab>
               <Tab eventKey="tab2" title="THÔNG SỐ KỶ THUẬT">
@@ -279,6 +340,9 @@ const ProductDetail = ({ getListAllCategories }) => {
                       editor.getData()
                     )
                   }
+                  config={{
+                    extraPlugins: [uploadPlugin],
+                  }}
                 />
               </Tab>
             </Tabs>

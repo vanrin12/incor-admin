@@ -81,7 +81,7 @@ function Products({ getListAllCategories }) {
     dispatch(
       getDataProducts({
         ...params,
-        category_id: category?.id,
+        product_category_id: category?.id,
         created_at: createDate && moment(createDate).format('YYYY-MM-DD HH:mm:ss'),
         name: keySearch,
         status: status?.value,

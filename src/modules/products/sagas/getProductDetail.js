@@ -3,9 +3,11 @@ import { ROUTES, API } from 'utils/Apis';
 
 // worker Saga: will be fired on GET_LIST_EVENT actions
 function* getProductDetail(action) {
-  
+ 
   try {
-    const response = yield call(() => API.get(ROUTES.API_LIST_PRODUCT, action.payload));
+    const response = yield call(() =>
+      API.get(ROUTES.GET_PRODUCT_DETAIL(action?.payload?.id))
+    );
     if (response.ok) {
       const { data } = response.data;
 
@@ -21,7 +23,7 @@ function* getProductDetail(action) {
     }
   } catch (error) {
     // in case: server error
-
+    console.log('error', error)
     yield put({ type: 'products/getProductDetailFailed' });
   }
 }

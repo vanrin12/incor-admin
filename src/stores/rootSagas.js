@@ -70,6 +70,9 @@ import getDataProductsSaga from 'modules/products/sagas/getProducts';
 import deleteProductsSaga from 'modules/products/sagas/deleteProducts';
 import addProductSaga from 'modules/products/sagas/addProduct';
 import getProductDetailSaga from 'modules/products/sagas/getProductDetail';
+import updateProductSaga from 'modules/products/sagas/updateProduct';
+import deleteProductImgSaga from 'modules/products/sagas/deleteProductImgSaga';
+
 export default function* RootSagas() {
   yield all([
     getDataMainSaga(),
@@ -138,6 +141,8 @@ export default function* RootSagas() {
     getDataProductsSaga(),
     deleteProductsSaga(),
     addProductSaga(),
-    getProductDetailSaga()
+    getProductDetailSaga(),
+    updateProductSaga(),
+    deleteProductImgSaga(),
   ]);
 }

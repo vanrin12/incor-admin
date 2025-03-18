@@ -33,34 +33,29 @@ const Account = () => {
   console.log(dataFilter);
   const [dataSubmit, setDataSubmit] = useState({});
   const handleCheckBox = (id) => {
-    let dataCheckBox = [];
-    if (listId.includes({ ...id }[0])) {
-      dataCheckBox = listId.filter((item) => item !== { ...id }[0]);
-    } else {
-      dataCheckBox = [...listId, ...id];
-    }
-    setListId(dataCheckBox);
+    setListId((prevList) => {
+      if (prevList.includes(id)) {
+        return prevList.filter((item) => item !== id); // Remove if already selected
+      } else {
+        return [...prevList, id]; // Add if not selected
+      }
+    });
   };
+  
 
   const [keySearch, setKeySearch] = useState('');
 
   const handleChange = (value, name) => {
-    switch (name) {
-      case 'roleFilter':
-        setDataFilter({
-          ...dataFilter,
-          [name]: value,
-        });
-        break;
+    console.log("Changed Value:", value, "Field Name:", name);
 
-      default:
-        break;
+    if (name === "roleFilter") {
+      setDataFilter((prev) => ({ ...prev, roleFilter: value }));
     }
 
-    setDataSubmit({
-      ...dataSubmit,
+    setDataSubmit((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
   const handleKeySearch = (value) => {
     setKeySearch(value);
@@ -159,10 +154,8 @@ const Account = () => {
             <SelectDropdown
               placeholder="Chọn vai trò"
               listItem={listRoles}
-              onChange={(e) => {
-                handleChange(e, 'role');
-              }}
-              option={dataFilter.roleFilter}
+              onChange={(role) => handleChange(role, "role")}
+              option={dataSubmit.role}
               customClass="select-role"
               label="Vai trò"
             />

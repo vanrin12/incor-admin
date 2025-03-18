@@ -50,18 +50,18 @@ const DisplayFooter = ({
     content: '',
   });
   useEffect(() => {
-    setFileName(dataFooter.logo);
-    setFileName2(dataFooter.logo1);
+    setFileName(dataFooter?.logo);
+    setFileName2(dataFooter?.logo1);
     setDataSubmit({
-      nameWebsite: dataFooter.companyName,
+      nameWebsite: dataFooter?.companyName,
       tagline: '',
       logo: null,
-      description: dataFooter.descCompany,
-      address: dataFooter.address,
-      phone: dataFooter.phone,
-      email: dataFooter.email,
-      youtube: dataFooter.linkYoutube,
-      facebook: dataFooter.linkFacebook,
+      description: dataFooter?.descCompany,
+      address: dataFooter?.address,
+      phone: dataFooter?.phone,
+      email: dataFooter?.email,
+      youtube: dataFooter?.linkYoutube,
+      facebook: dataFooter?.linkFacebook,
       logo2: null,
     });
   }, [dataFooter]);

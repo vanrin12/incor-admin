@@ -68,6 +68,9 @@ export const ROUTES = {
   API_CREATE_FOOTER: `/api/v1/admin/constants`,
   API_GET_DATA_FOOTER: `/api/v1/admin/constants`,
   API_LIST_PRODUCT: `/api/v1/admin/products`,
+  GET_PRODUCT_DETAIL: (id) => `api/v1/admin/products/${id}`,
+  UPDATE_PRODUCT: (id) => `api/v1/admin/products/${id}/update`,
+  DELETE_IMAGE_PRODUCT: (id) => `api/v1/admin/products/uploads/${id}`,
 
   //  Giao diện
   API_ABOUT_US: `/api/v1/admin/constants/about-us`,

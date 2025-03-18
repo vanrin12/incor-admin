@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Tabs, Tab } from 'react-bootstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -14,12 +15,13 @@ import { Creators } from '../../post/redux';
 import { connect } from 'react-redux';
 import SelectDropdown from 'commons/components/Select';
 import Immutable from 'seamless-immutable';
+import useFileUpload from '../../../customHooks/useFileUpload';
 
 // Initial form data state
 const INITIAL_FORM_DATA = {
   name: '',
   price: '',
-  category: 'Khóa cửa nhôm',
+  category: '',
   endow: '',
   product_no: '',
   unit_of_measure: '',
@@ -29,10 +31,10 @@ const INITIAL_FORM_DATA = {
   description: '',
   technical_specifications: '',
   feature: '',
+  keyworks: '',
+  sell_out: '',
+  productKeyword: '',
 };
-
-// Product categories
-const PRODUCT_CATEGORIES = ['Khóa cửa nhôm', 'Khóa cửa gỗ', 'Khóa cửa kính'];
 
 const AddProduct = ({ getListAllCategories }) => {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
@@ -42,7 +44,7 @@ const AddProduct = ({ getListAllCategories }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { type } = useSelector((state) => state?.productsReducer);
-
+  const { uploadAdapter } = useFileUpload();
   const { listAllCategories } = useSelector((state) => state?.postReducer);
 
   // Generic input change handler
@@ -50,14 +52,12 @@ const AddProduct = ({ getListAllCategories }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
   const handleChange = (value, name) => {
     setFormData({
       ...formData,
       [name]: value,
     });
   };
-
   // CKEditor change handler
   const handleEditorChange = (key, data) => {
     setFormData((prev) => ({ ...prev, [key]: data }));
@@ -65,15 +65,42 @@ const AddProduct = ({ getListAllCategories }) => {
 
   // Submit form handler
   const handleSubmit = () => {
-    const formDataSibmit = { ...formData, product_category_id: formData?.category?.id }
-    delete formDataSibmit.category;
-    dispatch(addProduct(formDataSibmit));
+    const formSB = new FormData(); // Create a new FormData object
+
+    formSB.append('name', formData.name);
+    formSB.append('price', formData.price);
+    formSB.append('endow', formData.endow);
+    formSB.append('feature', formData.feature);
+    formSB.append('description', formData.description);
+    formSB.append(
+      'technical_specifications',
+      formData.technical_specifications
+    );
+    formSB.append('product_category_id', formData?.category?.id);
+    formSB.append('status', status);
+    formSB.append('show', show);
+    formSB.append('remaining', formData.remaining);
+    formSB.append('keyworks', formData.productKeyword);
+    formSB.append('sell_out', formData.sell_out);
+    formSB.append('product_no', formData.product_no);
+    formSB.append('unit_of_measure' , formData.unit_of_measure);
+    formSB.append('product_input', formData.product_input);
+
+    // Append multiple files correctly
+    if (formData.images && formData.images.length > 0) {
+      formData.images.forEach((file) => {
+        formSB.append('uploads[]', file?.image);
+      });
+    }
+
+    // Dispatch FormData directly
+    dispatch(addProduct(formSB));
   };
 
   const handleLoadImages = (images) => {
     setFormData((prev) => ({ ...prev, images }));
   };
-  console.log('type', type)
+
   useEffect(() => {
     if (type === 'products/addProductSuccess') {
       history.push(ROUTERS.PRODUCTS);
@@ -84,6 +111,12 @@ const AddProduct = ({ getListAllCategories }) => {
   useEffect(() => {
     getListAllCategories();
   }, [dispatch, getListAllCategories]);
+
+  function uploadPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+      return uploadAdapter(loader);
+    };
+  }
 
   return (
     <MainLayout activeMenu={9}>
@@ -243,6 +276,9 @@ const AddProduct = ({ getListAllCategories }) => {
                 <CKEditor
                   editor={ClassicEditor}
                   data={formData.description}
+                  config={{
+                    extraPlugins: [uploadPlugin],
+                  }}
                   onChange={(_, editor) =>
                     handleEditorChange('description', editor.getData())
                   }
@@ -258,6 +294,9 @@ const AddProduct = ({ getListAllCategories }) => {
                       editor.getData()
                     )
                   }
+                  config={{
+                    extraPlugins: [uploadPlugin],
+                  }}
                 />
               </Tab>
             </Tabs>
